@@ -1,0 +1,6 @@
+[submodule "01-basics/java"]
+	path = 01-basics/java
+	url = git@github.com:redhat-developer-demos/knative-tutorial-greeter.git
+[submodule "04-build/java"]
+	path = 04-build/java
+	url = git@github.com:redhat-developer-demos/knative-tutorial-event-greeter.git
