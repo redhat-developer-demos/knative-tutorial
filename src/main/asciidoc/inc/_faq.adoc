@@ -1,0 +1,93 @@
+== FAQs
+
+[#faq-q1]
+=== How to access the Knative services ?
+
+When looking up the IP address to use for accessing your app, you need to look up the NodePort for the **istio-ingressgateway** well as the IP address used for minishift. You can use the following command to look up the value to use for the {IP_ADDRESS} placeholder used in the sample
+[source,bash]
+----
+#!/bin/bash
+# In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
+INGRESSGATEWAY=knative-ingressgateway
+
+# The use of `knative-ingressgateway` is deprecated in Knative v0.3.x.
+# Use `istio-ingressgateway` instead, since `knative-ingressgateway`
+# will be removed in Knative v0.4.
+if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
+    INGRESSGATEWAY=istio-ingressgateway
+fi
+
+INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
+
+# calling a knative service named greeter
+curl -H "Host: greeter.myproject.example.com" $IP_ADDRESS 
+----
+
+[#faq-q2]
+=== Why `dev.local` suffixes for container images?
+
+.Tag Digest
+***
+> Docker images wit v2 or later format has content addressable identifier called digest. The digest remains unchanged as long the underlying image content remains unchanged.
+[.text-right]
+__**Source**: https://docs.docker.com/engine/reference/commandline/images/#list-image-digests__
+
+***
+
+Let say you have a deployment like the following (note that resource definition have been trimmed for brevity):
+
+[source,yaml,linenums]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: helloworld 
+spec:
+  template:
+    spec:
+       containers:
+         - name: my-container
+           image: gcr.io/knative-samples/helloworld-go
+
+. . .
+----
+
+When you deploy this application in Kubernetes, the deployment will look like:
+
+[source,yaml,linenums]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: helloworld 
+spec:
+  template:
+    spec:
+       containers:
+          - name: my-container
+            image: >-
+                   gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0
+. . .
+----
+
+In the above example the container image name of the deployment  i.e. gcr.io/knative-samples/helloworld-go was resolved to its digest gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0. Kubernetes extracts the digest from the image manifest.  This process of resolving  image tag to its digest is informally called as “Tag to Digest”.
+
+Knative Serving deployments by default resolve the container images to digest during the deployment process. Knative Serving has been configured to skip the resolution of   image name/tag to image digest for registries ko.local and dev.local, which can be used for local development builds, as the underlying image content are subject to changes during the  development process.
+
+[TIP]
+====
+You can also add any of the other image repo suffixes from skipping to digest by editing the configmap **config-controller** of **knative-serving** namespace and appending your repo to `registriesSkippingTagResolving` attribute of the configmap.
+
+The following command shows an example how to add a registry **my.docker.registry** to the be skipped:
+
+```
+val=$(oc -n knative-serving get cm config-controller -oyaml | yq r - data.registriesSkippingTagResolving | awk '{print $1",my.docker.registry"}')
+
+oc -n knative-serving get cm config-controller -oyaml | yq w - data.registriesSkippingTagResolving $val | oc apply -f - 
+```
+====
+
+[#faq-q3]
+=== What is revision simpler terms?
+In Knative serving, things are driven via a https://github.com/knative/serving/blob/master/docs/spec/spec.md#configuration[Configuration] to make a separation between code (container images) and config. One of the good practices in configuration management is that we should always be able to rollback the application state to any “last known good configuration”, to be able to allow this type of rollback Knative creates an unique revision for each and every configuration change.

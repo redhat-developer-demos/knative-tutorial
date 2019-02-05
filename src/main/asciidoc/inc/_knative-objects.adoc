@@ -1,0 +1,64 @@
+# tag::knative-services[]
+[source,bash]
+----
+# get a Knative Service (short name ksvc) called greeter
+oc -n knativetutorial  get services.serving.knative.dev greeter 
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial  get services.serving.knative.dev greeter 
+----
+
+# end::knative-services[]
+
+# tag::knative-configs[]
+[source,bash]
+----
+# get a Knative configuration called greeter
+oc -n knativetutorial get configurations.serving.knative.dev greeter
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get configurations.serving.knative.dev greeter
+----
+# end::knative-configs[]
+
+# tag::knative-routes[]
+[source,bash]
+----
+# get a Knative routes called greeter
+oc -n knativetutorial get routes.serving.knative.dev greeter
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get routes.serving.knative.dev greeter
+----
+# end::knative-routes[]
+
+# tag::knative-revisions[]
+[source,bash]
+----
+# get a Knative revisions called greeter you will see only one like greeter-00001
+oc -n knativetutorial get revisions.serving.knative.dev
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get revisions.serving.knative.dev
+----
+# end::knative-revisions[]

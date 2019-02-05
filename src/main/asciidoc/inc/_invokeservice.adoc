@@ -1,0 +1,22 @@
+# tag::env[]
+[source,bash]
+----
+INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
+----
+# end::env[]
+
+# tag::call[]
+[source,bash]
+----
+curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'
+----
+# end::call[]

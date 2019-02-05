@@ -1,0 +1,13 @@
+
+Ensure all CLI tools are in path and accessible 
+
+[source,bash]
+----
+# to make sure we are connected to minishift docker daemon and using right openshift client
+eval $(minishift docker-env) && eval $(minishift oc-env)
+# right kubernetes and openshift versions
+# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version 
+# right maven version Apache Maven 3.5.4
+./mvnw --version
+----

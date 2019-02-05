@@ -1,0 +1,180 @@
+== Build
+
+At the end of this chapter you will be able to:
+
+* Define build
+* Define build templates
+* How to make service use builds for building container images
+
+[#build-prerequisite]
+=== Prerequisite 
+include::./_prereq-cli.adoc[leveloffset=+1]
+
+[#building-build]
+=== Build Containers
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/04-build
+----
+
+==== Build 
+
+===== Create Service Account and Persistence Volume Claim for maven cache
+
+Since build has some customizations e.g. your docker hub credetials, the following commands will create the kubernetes and knative resources in `$TUTORIAL_HOME/04-build/knative` folder.
+
+[source,bash]
+----
+jsonnet --ext-str user='<your-docker-repo-userid>' \
+  --ext-str password='<your-docker-repo-user-password>' \
+   docker-secret.jsonnet \
+    | yq r - | tee ../docker-secret.yaml
+
+jsonnet --ext-str contextDir='/workspace' \
+  --ext-str image='<your-docker-image-name>' \
+   maven-build.jsonnet \
+    | yq r - | tee ../maven-build.yaml
+
+jsonnet --ext-str image='<your-docker-image-name>' \
+   service.jsonnet\
+    | yq r - | tee ../service.yaml
+----
+
+The following are the examples for the same commands as above with dummy values:
+
+[source,bash]
+----
+jsonnet --ext-str user='demo' \
+  --ext-str password='password' \
+   docker-secret.jsonnet \
+    | yq r - | tee ../docker-secret.yaml
+
+jsonnet --ext-str contextDir='/workspace' \
+  --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+   maven-build.jsonnet \
+    | yq r - | tee ../maven-build.yaml
+
+jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+   service.jsonnet \
+    | yq r - | tee ../service.yaml
+----
+
+Before we create the Knative build objects we need to create a kubernetes service account called `build-bot` that will be used as the service account to run the build and a persistence volume claim called `m2-cache` for caching build artifacts for subsequent builds.
+
+Run the following commands to create the service account and persistence volume claim.
+
+[source,bash]
+----
+oc apply -f -n knativetutorial docker-secret.yaml
+oc apply -f -n knativetutorial build-sa.yaml
+oc apply -f -n knativetutorial m2-pvc.yaml
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl apply -f -n knativetutorial docker-secret.yaml
+kubectl apply -f -n knativetutorial build-sa.yaml
+kubectl apply -f -n knativetutorial m2-pvc.yaml
+----
+
+===== Create build 
+
+[source,bash]
+----
+oc apply -n knativetutorial -f maven-build.yaml
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl apply -n knativetutorial -f maven-build.yaml
+----
+
+[#build-watching-logs]
+===== Watching logs
+
+The Knative build creates one init container for each step, the init container will be named like `build-step-<step-name>`, for the our build it will have 4 containers namely
+* build-step-git-source
+* build-step-build-maven
+* build-step-docker-push
+
+To watch the log of any container:
+
+[source,bash]
+----
+oc logs -n knativetutorial <pod-name> -c <build-init-container-name>
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl logs -n knativetutorial <pod-name> -c <build-init-container-name>
+----
+
+e.g. to watch the logs of build-maven step,
+[source,bash]
+----
+oc logs -n knativetutorial maven-build-pod-894852 -c build-step-build-maven
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl logs -n knativetutorial maven-build-pod-894852 -c build-step-build-maven
+----
+
+[TIP]
+====
+Using `stern` you can watch logs of all the container of the build pod using  the command `stern maven-build-pod`
+====
+
+===== Deploy service using Build 
+[source,bash]
+----
+----
+
+==== Build Template
+
+
+[#build-deploy-service]
+=== Deploy Service
+
+
+[#build-invoke-service]
+=== Invoke Service
+
+include::./_invokeservice.adoc[leveloffset=+1,tags=*]
+
+The last curl command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
+
+Check <<basics-see-what-you-have-deployed,deployed Knative resources>> tfor more details of what Knative objects and resources have been created with the above service deployment.
+
+[#build-cleanup]
+=== Cleanup
+[source,bash]
+----
+oc -n knativetutorial delete services.serving.knative.dev greeter
+oc -n knativetutorial delete builds.build.knative.dev greeter-build
+oc -n knativetutorial delete buildtemplates.build.knative.dev greeter-jib-template
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial delete services.serving.knative.dev greeter
+kubectl -n knativetutorial delete builds.build.knative.dev greeter-build
+kubectl -n knativetutorial delete buildtemplates.build.knative.dev greeter-jib-template
+----
+
