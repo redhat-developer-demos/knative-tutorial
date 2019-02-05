@@ -62,3 +62,35 @@ oc -n knativetutorial get revisions.serving.knative.dev
 kubectl -n knativetutorial get revisions.serving.knative.dev
 ----
 # end::knative-revisions[]
+
+# tag::knative-build[]
+[source,bash]
+----
+# get a knative builds called event-greeter
+oc -n knativetutorial get builds.build.knative.dev event-greeter
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get builds.build.knative.dev event-greeter
+----
+# end::knative-build[]
+
+# tag::knative-build-templates[]
+[source,bash]
+----
+# get a knative build template called  build-java-maven
+oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
+----
+# end::knative-templates[]

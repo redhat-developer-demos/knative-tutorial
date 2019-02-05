@@ -1,6 +1,9 @@
+# tag::greeter[]
 [source,bash]
 ----
-cd $TUTORIAL_HOME/01-basics/java
+cd $TUTORIAL_HOME/work
+git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
+cd knative-tutorial-greeter/java/springboot
 ./mvnw clean package 
 docker build -t dev.local/rhdevelopers/greeter:0.0.1 .
 
@@ -8,5 +11,15 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1 .
 # dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB
 docker images | grep dev.local
 ----
+TIP: You can also use the script `buildImage.sh` that will build source and create the container image
+# end::greeter[]
+
+# tag::event-greeter[]
+[source,bash]
+----
+cd $TUTORIAL_HOME/work
+git clone https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git
+----
 
 TIP: You can also use the script `buildImage.sh` that will build source and create the container image
+# end::event-greeter[]

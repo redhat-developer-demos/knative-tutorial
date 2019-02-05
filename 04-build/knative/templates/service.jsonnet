@@ -8,21 +8,18 @@ local lib = import 'library-ext.libjsonnet';
   },
   spec: {
     runLatest: {
-      revisionTemplate: {
-        metadata: {
-          labels: {
-            app: 'event-greeter',
+      configuration: {
+        revisionTemplate: {
+          metadata: {
+            labels: {
+              app: 'event-greeter',
+            },
           },
-        },
-      },
-      spec: {
-        buildRef: {
-           apiVersion: 'build.knative.dev/v1alpha1',
-           kind: 'Build',
-           name: 'maven-build'
-        },
-        container: {
-          image: std.extVar('image'),
+          spec: {
+            container: {
+              image: std.extVar('image'),
+            },
+          },
         },
       },
     },

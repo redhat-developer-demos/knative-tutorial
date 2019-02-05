@@ -11,7 +11,7 @@ include::./_prereq-cli.adoc[leveloffset=+1]
 
 [build-containers]
 === Build 
-include::./_buildcontainers.adoc[leveloffset=+1]
+include::./_buildcontainers.adoc[leveloffset=+1,tag=greeter]
 
 [#crtd-deploy-configuration]
 === Deploy Configuration

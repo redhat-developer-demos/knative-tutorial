@@ -15,7 +15,7 @@ include::./_prereq-cli.adoc[leveloffset=+1]
 
 [#scaling-containers]
 === Build Containers
-include::./_buildcontainers.adoc[leveloffset=+1]
+include::./_buildcontainers.adoc[leveloffset=+1,tag=greeter]
 
 [#scaling-deploy-service]
 === Deploy Service

@@ -5,7 +5,7 @@ local lib = import 'library-ext.libjsonnet';
   metadata: {
     name: 'basic-user-pass',
     annotations: {
-      'build.knative.dev/docker-0': 'index.docker.io/v1/',
+      'build.knative.dev/docker-0': 'https://index.docker.io/v1/',
     },
   },
   type: 'kubernetes.io/basic-auth',

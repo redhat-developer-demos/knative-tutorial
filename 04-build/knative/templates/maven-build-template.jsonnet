@@ -1,9 +1,9 @@
 local lib = import 'library-ext.libjsonnet';
 {
-  apiVersion: ' build.knative.dev/v1alpha1',
+  apiVersion: 'build.knative.dev/v1alpha1',
   kind: 'BuildTemplate',
   metadata: {
-    name: 'maven-build',
+    name: 'build-java-maven',
   },
   spec: {
     parameters: [
@@ -12,21 +12,12 @@ local lib = import 'library-ext.libjsonnet';
         description: |||
           The name of the image to push.
         |||,
-        default: std.extVar('image'),
       },
       {
-        name: 'DOCKERFILE',
+        name: 'CONTEXT_DIR',
         description: |||
-          Path to the Dockerfile to build.
+          The context directory from where to run the build.
         |||,
-        default: '/workspace/04-build/java/Dockerfile',
-      },
-      {
-        name: 'CACHE',
-        description: |||
-          The name of the volume for caching Maven artifacts.
-        |||,
-        default: std.extVar('mavenCachePvc'),
       },
     ],
     steps: [
@@ -36,26 +27,60 @@ local lib = import 'library-ext.libjsonnet';
         args: [
           'clean',
           'package',
-          "-Duser.home='/builder/home'",
+          '-Duser.home=/builder/home',
+          '-Dimage=${IMAGE}',
         ],
-        workingDir: '/workspace/04-build/java',
+        workingDir: '/workspace/${CONTEXT_DIR}',
+        volumeMounts: [
+          {
+            name: 'm2-cache',
+            mountPath: '/builder/home/.m2',
+          },
+          {
+            name: 'kaniko-cache',
+            mountPath: '/cache',
+          },
+        ],
       },
       {
         name: 'docker-push',
         image: 'gcr.io/kaniko-project/executor',
         args: [
-          '--dockerfile=${DOCKERFILE}',
+          // tell kaniko the folder to find artifacts
+          '--context=/workspace/${CONTEXT_DIR}',
+          // directory of dockerfile
+          '--dockerfile=/workspace/${CONTEXT_DIR}/Dockerfile',
+          // the container image
           '--destination=${IMAGE}',
+        ],
+        env: [
+          {
+            name: 'DOCKER_CONFIG',
+            value: '/builder/home/.docker',
+          },
+        ],
+        workingDir: '/workspace/${CONTEXT_DIR}',
+        volumeMounts: [
+          {
+            name: 'kaniko-cache',
+            mountPath: '/cache',
+          },
         ],
       },
     ],
-  },
-  volumes: [
-    {
-      name: 'm2-cache',
-      persistentVolumeClaim: {
-        claimName: '${CACHE}',
+    volumes: [
+      {
+        name: 'm2-cache',
+        persistentVolumeClaim: {
+          claimName: 'm2-cache',
+        },
       },
-    },
-  ],
+      {
+        name: 'kaniko-cache',
+        persistentVolumeClaim: {
+          claimName: 'kaniko-cache',
+        },
+      },
+    ],
+  },
 }

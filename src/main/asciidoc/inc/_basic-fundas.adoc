@@ -13,7 +13,7 @@ include::./_prereq-cli.adoc[leveloffset=+1]
 
 [#basics-build-containers]
 === Build Containers
-include::./_buildcontainers.adoc[leveloffset=+1]
+include::./_buildcontainers.adoc[leveloffset=+1,tag=greeter]
 
 [#basics-deploy-service]
 === Deploy Service

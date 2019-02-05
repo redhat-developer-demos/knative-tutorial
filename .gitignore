@@ -21,11 +21,12 @@ buildNumber.properties
 docs/output/*
 /hello.txt
 .idea/
-
+work/**/*
+!work/README.md
 #
-04-build/knative/maven-build.yaml
-04-build/knative/maven-build-template.yaml
-04-build/knative/service-build.yaml
-04-build/knative/service-build-template.yaml
+04-build/knative/*-build.yaml
+04-build/knative/*-build-template.yaml
+04-build/knaitve/maven-build-template.yaml
+04-build/knative/service*.yaml
 04-build/knative/docker-secret.yaml
 
