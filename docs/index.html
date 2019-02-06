@@ -543,6 +543,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#admission-controller-webhook">Enable Admission Controller Webhook</a></li>
 <li><a href="#setup-knative">Knative Setup</a></li>
 <li><a href="#configure-openshift-project">Configuring OpenShift project for Knative applications</a></li>
+<li><a href="#setup-work-folder">Work folder</a></li>
 </ul>
 </li>
 <li><a href="#basics-and-fundamentals">Basics and Fundamentals</a>
@@ -557,10 +558,10 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#basics-cleanup">Cleanup</a></li>
 </ul>
 </li>
-<li><a href="#configurations-routes-and-traffic-distribution">Configurations, Routes and Traffic distribution</a>
+<li><a href="#configurations-and-routes">Configurations and Routes</a>
 <ul class="sectlevel2">
 <li><a href="#crtd-prerequisite">Prerequisite</a></li>
-<li><a href="#build">Build</a></li>
+<li><a href="#ctrd-build-containers">Build Containers</a></li>
 <li><a href="#crtd-deploy-configuration">Deploy Configuration</a></li>
 <li><a href="#crtd-invoke-service">Invoke Service</a></li>
 <li><a href="#crtd-deploy-route">Deploy Route</a></li>
@@ -581,6 +582,32 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#scaling-cleanup">Cleanup</a></li>
 </ul>
 </li>
+<li><a href="#build">Build</a>
+<ul class="sectlevel2">
+<li><a href="#build-prerequisite">Prerequisite</a></li>
+<li><a href="#build-create-docker-secret">Generate Docker Secret</a></li>
+<li><a href="#build-generate-build-spec">Generate Knative build spec</a></li>
+<li><a href="#build-generate-knative-service">Generate Knative service</a></li>
+<li><a href="#build-create-build">Create build</a></li>
+<li><a href="#build-watching-logs">Watching logs</a></li>
+<li><a href="#build-build-status">Checking build status</a></li>
+<li><a href="#build-deploy-service-build">Deploy service using Build</a></li>
+<li><a href="#build-invoke-service">Invoke service</a></li>
+<li><a href="#build-build-cleanup">Cleanup</a></li>
+</ul>
+</li>
+<li><a href="#build-build-template">Build Template</a>
+<ul class="sectlevel2">
+<li><a href="#build-prerequisite">Prerequisite</a></li>
+<li><a href="#build-tempalte-generate-template">Generate build template</a></li>
+<li><a href="#build-template-generate-service">Generate Knative service</a></li>
+<li><a href="#build-template-apply-resources">Apply resources</a></li>
+<li><a href="#build-template-create-template">Create build template</a></li>
+<li><a href="#build-see-what-you-have-deployed">See what you have deployed</a></li>
+<li><a href="#build-invoke-service">Invoke Service</a></li>
+<li><a href="#build-template-cleanup">Cleanup</a></li>
+</ul>
+</li>
 <li><a href="#faqs">FAQs</a>
 <ul class="sectlevel2">
 <li><a href="#faq-q1">How to access the Knative services ?</a></li>
@@ -596,7 +623,7 @@ table.CodeRay td.code>pre{padding:0}
 <h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Serverless epitomize the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of server frameworks out there, Knative is the first serverless platform specifically designed for Kubernetes and OpenShift.</p>
+<p>Serverless epitomize the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of server frameworks out there, Knative is the first serverless platform specifically designed for kubernetes and OpenShift.</p>
 </div>
 <div class="quoteblock">
 <blockquote>
@@ -696,6 +723,11 @@ table.CodeRay td.code>pre{padding:0}
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>go get -u github.com/rakyll/hey</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>go get -u github.com/rakyll/hey</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://jsonnet.org/" class="bare">https://jsonnet.org/</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install jsonnet</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/google/jsonnet" class="bare">https://github.com/google/jsonnet</a></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -708,6 +740,9 @@ table.CodeRay td.code>pre{padding:0}
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">git clone https://github.com/kameshsampath/knative-tutorial</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The <code>work</code> folder in <code>$TUTORIAL_HOME</code> can be used to download the demo application resources and refer them during the exercises. The <code>work</code> folder has a README, which has instructions on source code repo and git commands to clone the sources.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -727,13 +762,27 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect2">
 <h3 id="minishift"><a class="anchor" href="#minishift"></a>Minishift</h3>
 <div class="paragraph">
-<p>All the demos in this tutorial will be run using <a href="https://github.com/minishift/minishift">minishift</a>, the single node <a href="https://www.okd.io/">OKD</a>(the Origin Community Distribution of Kubernetes that powers Red Hat OpenShift) cluster that can be used for development purposes.</p>
+<p>All the demos in this tutorial will be run using <a href="https://github.com/minishift/minishift">minishift</a>, the single node <a href="https://www.okd.io/">OKD</a>(the Origin Community Distribution of kubernetes that powers Red Hat OpenShift) cluster that can be used for development purposes.</p>
 </div>
 <div class="sect3">
 <h4 id="setup-minishift"><a class="anchor" href="#setup-minishift"></a>Setup minishift</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">export TIMEZONE=$(sudo systemsetup -gettimezone | awk '{print $3}') <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+  <td class="code"><pre>export TIMEZONE=$(sudo systemsetup -gettimezone | awk '{print $3}') <i class="conum" data-value="1"></i><b>(1)</b>
 minishift profile set knative-tutorial
 minishift config set openshift-version v3.11.0
 minishift config set memory 8GB # if you more then preferred is 10GB
@@ -744,7 +793,8 @@ minishift addons enable admin-user
 
 minishift start --timezone $TIMEZONE
 
-eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -761,7 +811,34 @@ eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 <h3 id="admission-controller-webhook"><a class="anchor" href="#admission-controller-webhook"></a>Enable Admission Controller Webhook</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">#!/bin/bash
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td>
+  <td class="code"><pre>#!/bin/bash
 
 minishift openshift config set --target=kube --patch '{
   &quot;admissionConfig&quot;: {
@@ -785,7 +862,8 @@ minishift openshift config set --target=kube --patch '{
 }'
 
 # Allowing few minutes for the OpenShift to be restarted
-until oc login -u admin -p admin 2&gt;/dev/null; do sleep 5; done;</code></pre>
+until oc login -u admin -p admin 2&gt;/dev/null; do sleep 5; done;</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -811,7 +889,22 @@ until oc login -u admin -p admin 2&gt;/dev/null; do sleep 5; done;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td>
+  <td class="code"><pre>oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
 oc adm policy add-scc-to-user anyuid -z default -n istio-system
 oc adm policy add-scc-to-user anyuid -z prometheus -n istio-system
 oc adm policy add-scc-to-user anyuid -z istio-egressgateway-service-account -n istio-system
@@ -823,7 +916,9 @@ oc adm policy add-scc-to-user anyuid -z istio-mixer-service-account -n istio-sys
 oc adm policy add-scc-to-user anyuid -z istio-pilot-service-account -n istio-system
 oc adm policy add-scc-to-user anyuid -z istio-sidecar-injector-service-account -n istio-system
 oc adm policy add-scc-to-user anyuid -z cluster-local-gateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-system</code></pre>
+oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-system
+</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -831,9 +926,15 @@ oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-sy
 <h5 id="deploy-istio"><a class="anchor" href="#deploy-istio"></a>Deploy Istio Components</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">curl -L https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml \
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>curl -L https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml \
   | sed 's/LoadBalancer/NodePort/' \
-  | kubectl apply --filename -</code></pre>
+  | kubectl apply --filename -</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -853,7 +954,7 @@ The above command throws some warnings and error as to some objects not found, i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl get pods -n istio-system -w</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">oc get pods -n istio-system -w</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -868,6 +969,46 @@ It will take a few minutes for all the Istio components to be up and running. Pl
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>A successful deployment should show similar output as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td>
+  <td class="code"><pre>$ oc get pods -n istio-system
+NAME                                        READY     STATUS      RESTARTS   AGE
+cluster-local-gateway-76db55c785-9f7zc      1/1       Running     0          2m
+istio-citadel-746c765786-fqx8m              1/1       Running     0          2m
+istio-cleanup-secrets-znzc6                 0/1       Completed   0          2m
+istio-egressgateway-7b46794587-m6tqm        1/1       Running     0          2m
+istio-galley-75c6976d79-bcnbp               1/1       Running     0          2m
+istio-ingressgateway-57f76dc4db-85cps       1/1       Running     0          2m
+istio-pilot-6495978c49-6jrmf                2/2       Running     0          2m
+istio-pilot-6495978c49-7l6w7                2/2       Running     0          2m
+istio-pilot-6495978c49-fh9n8                2/2       Running     0          2m
+istio-policy-6677c87b9f-7wxxj               2/2       Running     0          2m
+istio-sidecar-injector-879fd9dfc-82wjl      1/1       Running     0          2m
+istio-statsd-prom-bridge-549d687fd9-mlnb2   1/1       Running     0          2m
+istio-telemetry-7d46d668db-4qwz5            2/2       Running     0          2m</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
 </div>
 <div class="sect4">
 <h5 id="update-istio-sidecar-injector-configmap"><a class="anchor" href="#update-istio-sidecar-injector-configmap"></a>Update Istio sidecar injector ConfigMap</h5>
@@ -879,7 +1020,7 @@ It will take a few minutes for all the Istio components to be up and running. Pl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n istio-system -f $TUTORIAL_HOME/patches/istio-sidecar-injector.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n istio-system -f $TUTORIAL_HOME/patches/istio-sidecar-injector.yaml</code></pre>
 </div>
 </div>
 <div class="admonitionblock important">
@@ -900,14 +1041,29 @@ Run the above command only once per minishift instance
 <h4 id="install-knative-build"><a class="anchor" href="#install-knative-build"></a>Install Knative Build</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># Setup Knative Build Policies
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+  <td class="code"><pre># Setup Knative Build Policies
+oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
 oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
 
 # Install Knative Build components
 kubectl apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml
 
 # give cluster admin privileges to Service Account Build Controller on project knative-build
-oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build</code></pre>
+oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build
+oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -927,12 +1083,43 @@ It will take a few minutes for all the Knative Build components to be up and run
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>A successful deployment should show similar output as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>$ oc get pods -n knative-build
+NAME                                READY     STATUS    RESTARTS   AGE
+build-controller-79cb969d89-bnzbr   1/1       Running   0          28s
+build-webhook-58d685fc58-f5s4l      1/1       Running   0          27s</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="install-knative-serving"><a class="anchor" href="#install-knative-serving"></a>Install Knative Serving</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># Setup Knative Serving Policies
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+  <td class="code"><pre># Setup Knative Serving Policies
 oc adm policy add-scc-to-user anyuid -z controller -n knative-serving
 oc adm policy add-scc-to-user anyuid -z autoscaler -n knative-serving
 
@@ -942,7 +1129,9 @@ curl -L https://github.com/knative/serving/releases/download/v0.3.0/serving.yaml
   | kubectl apply --filename -
 
 # give cluster admin privileges to Service Account Controller on project knative-serving
-oc adm policy add-cluster-role-to-user cluster-admin -z controller -n knative-serving</code></pre>
+oc adm policy add-cluster-role-to-user cluster-admin -z controller -n knative-serving
+</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -965,12 +1154,50 @@ It will take a few minutes for all the Knative Serving components to be up and r
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>A successful deployment should show similar output as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td>
+  <td class="code"><pre>$ oc get pods -n knative-serving
+NAME                          READY     STATUS    RESTARTS   AGE
+activator-598b4b7787-sb9gv    2/2       Running   0          35s
+autoscaler-5cf5cfb4dc-9zd7p   2/2       Running   0          34s
+controller-7fc84c6584-ggp7b   1/1       Running   0          38s
+webhook-7797ffb6bf-swr4c      1/1       Running   0          38s</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="install-knative-eventing"><a class="anchor" href="#install-knative-eventing"></a>Install Knative Eventing</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># Setup Knative Eventing Policies
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+  <td class="code"><pre># Setup Knative Eventing Policies
 oc adm policy add-scc-to-user anyuid -z eventing-controller -n knative-eventing
 oc adm policy add-scc-to-user anyuid -z in-memory-channel-dispatcher -n knative-eventing
 oc adm policy add-scc-to-user anyuid -z in-memory-channel-controller -n knative-eventing
@@ -983,7 +1210,9 @@ kubectl apply --filename https://github.com/knative/eventing-sources/releases/do
 oc adm policy add-cluster-role-to-user cluster-admin -z eventing-controller -n knative-eventing
 oc adm policy add-cluster-role-to-user cluster-admin -z default -n knative-sources
 oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-dispatcher -n knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-controller -n knative-eventing</code></pre>
+oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-controller -n knative-eventing
+</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -991,7 +1220,13 @@ oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-contro
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc get pods -n knative-eventing -w</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>oc get pods -n knative-eventing -w
+oc get pods -n knative-sources -w</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1006,24 +1241,69 @@ It will take a few minutes for all the Knative Eventing components to be up and 
 </tr>
 </table>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+  <td class="code"><pre>$ oc get pods -n knative-eventing
+NAME                                            READY     STATUS    RESTARTS   AGE
+eventing-controller-847d8cf969-zv77v            1/1       Running   0          1m
+in-memory-channel-controller-59dd7cfb5b-s82x6   1/1       Running   0          1m
+webhook-7cfff8d86d-4kljw                        1/1       Running   0          1m
+
+$ oc get pods -n knative-sources
+NAME                   READY     STATUS    RESTARTS   AGE
+controller-manager-0   1/1       Running   0          1m</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="configure-openshift-project"><a class="anchor" href="#configure-openshift-project"></a>Configuring OpenShift project for Knative applications</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc new-project knativetutorial
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>oc new-project knativetutorial
 oc adm policy add-scc-to-user privileged -z default <i class="conum" data-value="1"></i><b>(1)</b>
-oc adm policy add-scc-to-user anyuid -z default</code></pre>
+oc adm policy add-scc-to-user anyuid -z default</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>oc adm policy</code> adds the <strong>privileged</strong> <a href="https://docs.okd.io/3.10/admin_guide/manage_scc.html">Security Context Constraints(SCCs)</a>to the <strong>default</strong> Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in Kubernetes.</td>
+<td>The <code>oc adm policy</code> adds the <strong>privileged</strong> <a href="https://docs.okd.io/3.10/admin_guide/manage_scc.html">Security Context Constraints(SCCs)</a>to the <strong>default</strong> Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in kubernetes.</td>
 </tr>
 </table>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl create namespace knativetutorial</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setup-work-folder"><a class="anchor" href="#setup-work-folder"></a>Work folder</h3>
+<div class="paragraph">
+<p>The work folder i.e <code>$TUTORIAL_HOME/work</code> can be used as a work directory during the build. The README in the work folder as the GitHub repository links of the applications <code>greeter</code> and <code>event-greeter</code> that will be used in various exercises.</p>
 </div>
 </div>
 </div>
@@ -1053,31 +1333,136 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 <div class="sect2">
 <h3 id="basics-prerequisite"><a class="anchor" href="#basics-prerequisite"></a>Prerequisite</h3>
 <div class="paragraph">
-<p>Ensure all CLI tools are in path and accessible</p>
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># to make sure we are connected to minishift docker daemon and using right openshift client
-eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)
-# right kubernetes and openshift versions
-# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version
-# right maven version Apache Maven 3.5.4
+<pre class="CodeRay highlight"><code data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right OpenShift and kubernetes client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># kubernetes v1.11+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># right maven version Apache Maven 3.5.x or above
 ./mvnw --version</code></pre>
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="basics-build-containers"><a class="anchor" href="#basics-build-containers"></a>Build Containers</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to work folder</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">cd $TUTORIAL_HOME/01-basics/java
+<pre>cd $TUTORIAL_HOME/work</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone the application source code</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Build the application and container image</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>cd knative-tutorial-greeter/java/springboot
 ./mvnw clean package
-docker build -t dev.local/rhdevelopers/greeter:0.0.1 .
-
-# check if images are built and available
-# dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB
-docker images | grep dev.local</code></pre>
+docker build -t dev.local/rhdevelopers/greeter:0.0.1 .</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if images are built and available:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker images | grep dev.local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return something like as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1150,7 +1535,11 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f service.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1162,7 +1551,7 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-00001-deployment</code> available in the OpenShift dashboard:</p>
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
 </div>
 <div class="imageblock thumb">
 <div class="content">
@@ -1174,13 +1563,22 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <h3 id="basics-invoke-service"><a class="anchor" href="#basics-invoke-service"></a>Invoke Service</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">curl -H &quot;Host: greeter.knativetutorial.example.com&quot; $IP_ADDRESS</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>curl -H &quot;Host: greeter.knativetutorial.example.com&quot; $IP_ADDRESS</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1188,7 +1586,11 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1216,8 +1618,13 @@ Sometimes the response might not be returned immediately especially when the pod
 <h4 id="basics-show-knative-services"><a class="anchor" href="#basics-show-knative-services"></a>service</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative Service (short name ksvc) called greeter
+oc -n knativetutorial  get services.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1225,7 +1632,11 @@ oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial  get services.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -1233,8 +1644,13 @@ oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 <h4 id="basics-show-knative-configs"><a class="anchor" href="#basics-show-knative-configs"></a>configuration</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative configuration called greeter
-oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative configuration called greeter
+oc -n knativetutorial get configurations.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1242,7 +1658,11 @@ oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get configurations.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -1250,8 +1670,13 @@ oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre
 <h4 id="basics-show-knative-routes"><a class="anchor" href="#basics-show-knative-routes"></a>routes</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative routes called greeter
-oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative routes called greeter
+oc -n knativetutorial get routes.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1259,7 +1684,11 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get routes.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1288,8 +1717,13 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 <h4 id="basics-show-knative-revisions"><a class="anchor" href="#basics-show-knative-revisions"></a>revisions</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative revisions called greeter you will see only one like greeter-00001
-oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative revisions called greeter you will see only one like greeter-00001
+oc -n knativetutorial get revisions.serving.knative.dev</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1297,7 +1731,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get revisions.serving.knative.dev</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1393,7 +1831,7 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1519,7 +1957,7 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configurations-routes-and-traffic-distribution"><a class="anchor" href="#configurations-routes-and-traffic-distribution"></a>Configurations, Routes and Traffic distribution</h2>
+<h2 id="configurations-and-routes"><a class="anchor" href="#configurations-and-routes"></a>Configurations and Routes</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>At the end of this chapter you will be able to understand and know how to :</p>
@@ -1537,31 +1975,136 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <div class="sect2">
 <h3 id="crtd-prerequisite"><a class="anchor" href="#crtd-prerequisite"></a>Prerequisite</h3>
 <div class="paragraph">
-<p>Ensure all CLI tools are in path and accessible</p>
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># to make sure we are connected to minishift docker daemon and using right openshift client
-eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)
-# right kubernetes and openshift versions
-# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version
-# right maven version Apache Maven 3.5.4
+<pre class="CodeRay highlight"><code data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right OpenShift and kubernetes client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># kubernetes v1.11+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># right maven version Apache Maven 3.5.x or above
 ./mvnw --version</code></pre>
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="build"><a class="anchor" href="#build"></a>Build</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">cd $TUTORIAL_HOME/01-basics/java
+<pre class="CodeRay highlight"><code data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ctrd-build-containers"><a class="anchor" href="#ctrd-build-containers"></a>Build Containers</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to work folder</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cd $TUTORIAL_HOME/work</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone the application source code</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Build the application and container image</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>cd knative-tutorial-greeter/java/springboot
 ./mvnw clean package
-docker build -t dev.local/rhdevelopers/greeter:0.0.1 .
-
-# check if images are built and available
-# dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB
-docker images | grep dev.local</code></pre>
+docker build -t dev.local/rhdevelopers/greeter:0.0.1 .</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if images are built and available:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker images | grep dev.local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return something like as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1637,7 +2180,11 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f config/configuration-rev1.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f config/configuration-rev1.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1645,11 +2192,15 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f config/configuration-rev1.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f config/configuration-rev1.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-00001-deployment</code> available in the OpenShift dashboard:</p>
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1662,13 +2213,22 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <h3 id="crtd-invoke-service"><a class="anchor" href="#crtd-invoke-service"></a>Invoke Service</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">curl -H &quot;Host: greeter.knativetutorial.example.com&quot; $IP_ADDRESS</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>curl -H &quot;Host: greeter.knativetutorial.example.com&quot; $IP_ADDRESS</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1676,7 +2236,11 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1716,7 +2280,11 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f route/route_default.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f route/route_default.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1724,7 +2292,11 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f route/route_default.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f route/route_default.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1752,8 +2324,13 @@ Sometimes the response might not be returned immediately especially when the pod
 <h4 id="crtd-show-knative-services"><a class="anchor" href="#crtd-show-knative-services"></a>service</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative Service (short name ksvc) called greeter
+oc -n knativetutorial  get services.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1761,7 +2338,11 @@ oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial  get services.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1772,8 +2353,13 @@ oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 <h4 id="crtd-show-knative-configs"><a class="anchor" href="#crtd-show-knative-configs"></a>configuration</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative configuration called greeter
-oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative configuration called greeter
+oc -n knativetutorial get configurations.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1781,7 +2367,11 @@ oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get configurations.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -1789,8 +2379,13 @@ oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre
 <h4 id="crtd-show-knative-routes"><a class="anchor" href="#crtd-show-knative-routes"></a>routes</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative routes called greeter
-oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative routes called greeter
+oc -n knativetutorial get routes.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1798,7 +2393,11 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get routes.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1827,8 +2426,13 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 <h4 id="crtd-show-knative-revisions"><a class="anchor" href="#crtd-show-knative-revisions"></a>revisions</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># get a Knative revisions called greeter you will see only one like greeter-00001
-oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a Knative revisions called greeter you will see only one like greeter-00001
+oc -n knativetutorial get revisions.serving.knative.dev</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1836,7 +2440,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get revisions.serving.knative.dev</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1919,7 +2527,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f config/configuration-rev2.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f config/configuration-rev2.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1927,11 +2539,15 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f config/configuration-rev2.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f config/configuration-rev2.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1972,7 +2588,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <h4 id="crtd-all-rev1"><a class="anchor" href="#crtd-all-rev1"></a>All traffic to revision 1</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f route/route_all_rev1.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f route/route_all_rev1.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1980,7 +2600,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f route/route_all_rev1.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f route/route_all_rev1.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1991,7 +2615,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <h4 id="crtd-all-rev2"><a class="anchor" href="#crtd-all-rev2"></a>All traffic to revision 2</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f route/route_all_rev2.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f route/route_all_rev2.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1999,7 +2627,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f route/route_all_rev2.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f route/route_all_rev2.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2010,7 +2642,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <h4 id="crtd-all-rev1-rev2-50"><a class="anchor" href="#crtd-all-rev1-rev2-50"></a>50-50 between revision 1 and revision 2</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2018,7 +2654,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2029,7 +2669,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <h4 id="crtd-all-rev1-rev2-75-25"><a class="anchor" href="#crtd-all-rev1-rev2-75-25"></a>75-25 between revision 1 and revision 2</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2037,7 +2681,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2048,7 +2696,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <h4 id="crtd-all-rev1-rev2-10-90"><a class="anchor" href="#crtd-all-rev1-rev2-10-90"></a>10-90 between revision 1 and revision 2</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2056,7 +2708,11 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2082,8 +2738,13 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <h3 id="ctrd-cleanup"><a class="anchor" href="#ctrd-cleanup"></a>Cleanup</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">oc -n knativetutorial delete configurations.serving.knative.dev greeter
-oc -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>oc -n knativetutorial delete configurations.serving.knative.dev greeter
+oc -n knativetutorial delete routes.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2091,8 +2752,13 @@ oc -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial delete configurations.serving.knative.dev greeter
-kubectl -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial delete configurations.serving.knative.dev greeter
+kubectl -n knativetutorial delete routes.serving.knative.dev greeter</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -2107,50 +2773,155 @@ kubectl -n knativetutorial delete routes.serving.knative.dev greeter</code></pre
 <div class="ulist">
 <ul>
 <li>
-<p>Configure the scale to zero time period</p>
+<p>Configuring the scale to zero time period</p>
 </li>
 <li>
-<p>Configure auto scaling</p>
+<p>Configuring auto scaling</p>
 </li>
 <li>
 <p>Understanding types of autoscaling strategies</p>
 </li>
 <li>
-<p>How to enable concurrency based auto scaling based concurrency</p>
+<p>Enabling concurrency based auto scaling based concurrency</p>
 </li>
 <li>
-<p>How to prevent minimum number of pods for a service i.e. no scale down to zero beyond this number of pods</p>
+<p>Configuring minimum number of replicas for a service i.e. no scale to zero below the replica count</p>
 </li>
 </ul>
 </div>
 <div class="sect2">
 <h3 id="scaling-prerequisite"><a class="anchor" href="#scaling-prerequisite"></a>Prerequisite</h3>
 <div class="paragraph">
-<p>Ensure all CLI tools are in path and accessible</p>
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># to make sure we are connected to minishift docker daemon and using right openshift client
-eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)
-# right kubernetes and openshift versions
-# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version
-# right maven version Apache Maven 3.5.4
+<pre class="CodeRay highlight"><code data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right OpenShift and kubernetes client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># kubernetes v1.11+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># right maven version Apache Maven 3.5.x or above
 ./mvnw --version</code></pre>
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="scaling-containers"><a class="anchor" href="#scaling-containers"></a>Build Containers</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to work folder</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">cd $TUTORIAL_HOME/01-basics/java
+<pre>cd $TUTORIAL_HOME/work</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone the application source code</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Build the application and container image</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>cd knative-tutorial-greeter/java/springboot
 ./mvnw clean package
-docker build -t dev.local/rhdevelopers/greeter:0.0.1 .
-
-# check if images are built and available
-# dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB
-docker images | grep dev.local</code></pre>
+docker build -t dev.local/rhdevelopers/greeter:0.0.1 .</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if images are built and available:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">docker images | grep dev.local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return something like as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -2215,13 +2986,13 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The service could be deployed using the command:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">cd $TUTORIAL_HOME/01-basics/knative</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The service could be deployed using the command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2237,7 +3008,7 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-00001-deployment</code> available in the OpenShift dashboard:</p>
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2249,13 +3020,22 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <h3 id="scaling-invoke-service"><a class="anchor" href="#scaling-invoke-service"></a>Invoke Service</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">curl -H &quot;Host: greeter.knativetutorial.example.com&quot; $IP_ADDRESS</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>curl -H &quot;Host: greeter.knativetutorial.example.com&quot; $IP_ADDRESS</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2263,7 +3043,11 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2284,10 +3068,17 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">stableWindow=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>stableWindow=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.stable-window`
 scaleToZeroGracePeriod=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
- yq r - data.scale-to-zero-grace-period`</code></pre>
+ yq r - data.scale-to-zero-grace-period`</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2330,21 +3121,45 @@ scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autosca
 <div class="sect3">
 <h4 id="observing-default-scale-down"><a class="anchor" href="#observing-default-scale-down"></a>Observing default scale down</h4>
 <div class="paragraph">
-<p>You can open a new terminal and run the command <code>watch 'oc get pods -n knativetutorial'</code> to view the scale up and scale down to zero.</p>
+<p>For easier observation let us open a new terminal and run the following command,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">watch 'oc get pods -n knativetutorial'</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The scaling up and down can also be watched on OpenShift dashboard by navigating to knativetutorial project
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Checking default values</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># should return 60s
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre># should return 60s
 echo $stableWindow
 # should return 30s
-echo $scaleToZeroGracePeriod</code></pre>
+echo $scaleToZeroGracePeriod</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>, firing the request to the greeter service will bring up the pod (if its already terminated) to serve the request. Leaving it without any further requests, it will automatically scale to zero <code>1 min 30 secs</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>)..</p>
+<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>, firing the request to the greeter service will bring up the pod (if its already terminated) to serve the request. Leaving it without any further requests, it will automatically scale to zero <code>1 min 30 secs</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -2415,9 +3230,15 @@ echo $scaleToZeroGracePeriod</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># should return 2m
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre># should return 2m
 oc -n knative-serving get configmap config-autoscaler -o yaml \
-  | yq r - data.scale-to-zero-grace-period</code></pre>
+  | yq r - data.scale-to-zero-grace-period</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2425,8 +3246,15 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knative-serving get configmap config-autoscaler -o yaml \
- | yq r - data.scale-to-zero-grace-period</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>
+kubectl -n knative-serving get configmap config-autoscaler -o yaml \
+ | yq r - data.scale-to-zero-grace-period</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2456,9 +3284,15 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># should return 2m
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre># should return 2m
 oc -n knative-serving get configmap config-autoscaler -o yaml \
-  | yq r - data.scale-to-zero-grace-period</code></pre>
+  | yq r - data.scale-to-zero-grace-period</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -2466,12 +3300,19 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knative-serving get configmap config-autoscaler -o yaml \
- | yq r - data.scale-to-zero-grace-period</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>
+kubectl -n knative-serving get configmap config-autoscaler -o yaml \
+ | yq r - data.scale-to-zero-grace-period</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For the sake of clarity and better understanding <a href="#scaling-cleanup">clean up</a> the deployed knative service before going to next section.</p>
+<p>For better clarity and  understanding  let us <a href="#scaling-cleanup">clean up</a> the deployed knative resources before going to next section.</p>
 </div>
 </div>
 </div>
@@ -2564,8 +3405,13 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 <h4 id="scaling-invoke-service"><a class="anchor" href="#scaling-invoke-service"></a>Invoke Service</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2592,13 +3438,19 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">hey -z 10s -c 50 -t 0 \
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>hey -z 10s -c 50 -t 0 \
   -host &quot;greeter.knativetutorial.example.com&quot; \
-  &quot;http://${IP_ADDRESS}&quot;</code></pre>
+  &quot;http://${IP_ADDRESS}&quot;</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After successful run the load test, you will notice the number of greeter service pods would have automatically scaled to 5, you can also view the same via OpenShift dashboard as shown below:</p>
+<p>After successful run of the load test, you will notice the number of greeter service pods would have automatically scaled to 5. You can also view the same via OpenShift dashboard as shown below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2624,7 +3476,10 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 <div class="sect2">
 <h3 id="scaling-min-scale"><a class="anchor" href="#scaling-min-scale"></a>Minimum Scale</h3>
 <div class="paragraph">
-<p>At times you might need that you always need to have <code>n</code> number of pods running e.g. cases where you want to handle sudden spike in requests, with Knative auto scaling we can do that with via <code>minScale</code> annotation.</p>
+<p>In real world scenarios your service might need to handle sudden spikes in requests. Knative by default set the replica count of the deployed service(s) to be one, but this default setting can be configured via an service annotsation <strong>autoscaling.knative.dev/minScale</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows how to make knative services by default create services with replica count of two.</p>
 </div>
 <div class="sect3">
 <h4 id="scaling-deploy-service-minscale"><a class="anchor" href="#scaling-deploy-service-minscale"></a>Deploy service</h4>
@@ -2706,7 +3561,7 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-00001-deployment</code> with <strong>two</strong> pods readily available.</p>
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> with <strong>two</strong> pods readily available.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2736,7 +3591,7 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 <p>Let us <a href="#scaling-load-service">send some load to the service</a> to trigger autoscaling.</p>
 </div>
 <div class="paragraph">
-<p>When all requests are done and if you are beyond the <code>scale-to-zero-grace-period</code>, you will notice that Knative has terminated only 3 out 5 pods, this is because we have configured Knative to always run two pods via the annotation <code>autoscaling.knative.dev/minScale: "2"</code></p>
+<p>When all requests are done and if we are beyond the <code>scale-to-zero-grace-period</code>, we will notice that Knative has terminated only 3 out 5 pods, this is because we have configured Knative to always run two pods via the annotation <code>autoscaling.knative.dev/minScale: "2"</code></p>
 </div>
 </div>
 </div>
@@ -2759,6 +3614,1284 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 </div>
 <div class="sect1">
+<h2 id="build"><a class="anchor" href="#build"></a>Build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the end of this chapter you will be able to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define build</p>
+</li>
+<li>
+<p>Define build templates</p>
+</li>
+<li>
+<p>How to make service use builds for building container images a.k.a source-to -url</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="build-prerequisite"><a class="anchor" href="#build-prerequisite"></a>Prerequisite</h3>
+<div class="paragraph">
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right OpenShift and kubernetes client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># kubernetes v1.11+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># right maven version Apache Maven 3.5.x or above
+./mvnw --version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
+</div>
+<div id="build-registry-account" class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Its required that you have container registry account which is needed during the exercises to push the built container images.</p>
+</div>
+<div class="paragraph">
+<p>You can get one for free at <a href="https://hub.docker.com">Docker Hub</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>As the Knative build and build template spec needs some customizations,such as creating a secret with your container registry credentials; we need to run following commands to create the needed kubernetes and knative resources with all your customizations. All the generated files will be placed in <code>$TUTORIAL_HOME/04-build/knative</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-create-docker-secret"><a class="anchor" href="#build-create-docker-secret"></a>Generate Docker Secret</h3>
+<div class="paragraph">
+<p>A docker kubernetes secret is required for the build to authenticate with the Docker registry so that it can push the built container image to the registry.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str user='&lt;your-docker-repo-userid&gt;' \
+  --ext-str password='&lt;your-docker-repo-user-password&gt;' \
+   docker-secret.jsonnet \
+   | yq r - | tee ../docker-secret.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(e.g.)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str user='demo' \
+   --ext-str password='demopassword' \
+   docker-secret.jsonnet \
+   | yq r - | tee ../docker-secret.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will generate a kubernetes secret as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+  <td class="code"><pre><span class="key">apiVersion</span>: <span class="string"><span class="content">v1</span></span>
+<span class="key">kind</span>: <span class="string"><span class="content">Secret</span></span>
+<span class="key">metadata</span>:
+  <span class="key">annotations</span>:
+    <span class="key">build.knative.dev/docker-0</span>: <span class="string"><span class="content">https://index.docker.io/v1/ </span></span><i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="key">name</span>: <span class="string"><span class="content">basic-user-pass</span></span>
+<span class="key">stringData</span>:
+  <span class="key">password</span>: <span class="string"><span class="content">demopassword </span></span><i class="conum" data-value="2"></i><b>(2)</b>
+  <span class="key">username</span>: <span class="string"><span class="content">demo </span></span><i class="conum" data-value="3"></i><b>(3)</b>
+<span class="key">type</span>: <span class="string"><span class="content">kubernetes.io/basic-auth</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>docker-secret.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The username and password that are specified as part of this secret will be used for docker container registry available at <a href="https://index.docker.io/v1/" class="bare">https://index.docker.io/v1/</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The username to use when authenticating with <a href="https://index.docker.io/v1/" class="bare">https://index.docker.io/v1/</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The password to use when authenticating with <a href="https://index.docker.io/v1/" class="bare">https://index.docker.io/v1/</a></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more details on why we need to do this please check <a href="https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker">here</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-generate-build-spec"><a class="anchor" href="#build-generate-build-spec"></a>Generate Knative build spec</h3>
+<div class="paragraph">
+<p>The knative build spec is used to create and run the knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/build">here</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str contextDir='&lt;the build context directory&gt;' \
+  --ext-str image='&lt;your-docker-image-name&gt;' \
+   docker-build.jsonnet \
+    | yq r - | tee ../docker-build.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(e.g.)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str contextDir='java/springboot' \
+  --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+   docker-build.jsonnet\
+    | yq r - | tee ../docker-build.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will generate a knative build specification as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span class="key">apiVersion</span>: <span class="string"><span class="content">build.knative.dev/v1alpha1</span></span>
+<span class="key">kind</span>: <span class="string"><span class="content">Build</span></span>
+<span class="key">metadata</span>:
+  <span class="key">name</span>: <span class="string"><span class="content">docker-build</span></span>
+<span class="key">spec</span>:
+  <span class="key">serviceAccountName</span>: <span class="string"><span class="content">build-bot</span></span>
+  <span class="key">source</span>:
+    <span class="key">git</span>:
+      <span class="key">revision</span>: <span class="string"><span class="content">master</span></span>
+      <span class="key">url</span>: <span class="string"><span class="content">https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git </span></span><i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="key">steps</span>: <i class="conum" data-value="2"></i><b>(2)</b>
+  - <span class="string"><span class="content">args:</span></span>
+    - <span class="string"><span class="content">--context=/workspace/java/springboot </span></span><i class="conum" data-value="3"></i><b>(3)</b>
+    - <span class="string"><span class="content">--dockerfile=/workspace/java/springboot/Dockerfile </span></span><i class="conum" data-value="4"></i><b>(4)</b>
+    - <span class="string"><span class="content">--destination=docker.io/demo/event-greeter:0.0.1 </span></span><i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="key">env</span>:
+    - <span class="string"><span class="content">name: DOCKER_CONFIG</span></span>
+      <span class="key">value</span>: <span class="string"><span class="content">/builder/home/.docker</span></span>
+    <span class="key">image</span>: <span class="string"><span class="content">gcr.io/kaniko-project/executor</span></span>
+    <span class="key">name</span>: <span class="string"><span class="content">docker-push</span></span>
+    <span class="key">volumeMounts</span>:
+    - <span class="string"><span class="content">mountPath: /builder/home/.m2</span></span>
+      <span class="key">name</span>: <span class="string"><span class="content">m2-cache</span></span>
+    - <span class="string"><span class="content">mountPath: /cache</span></span>
+      <span class="key">name</span>: <span class="string"><span class="content">kaniko-cache</span></span>
+    <span class="key">workingDir</span>: <span class="string"><span class="content">/workspace/java/springboot</span></span>
+  <span class="key">timeout</span>: <span class="string"><span class="content">20m</span></span>
+  <span class="key">volumes</span>:
+  - <span class="string"><span class="content">name: m2-cache</span></span>
+    <span class="key">persistentVolumeClaim</span>:
+      <span class="key">claimName</span>: <span class="string"><span class="content">m2-cache</span></span>
+  - <span class="string"><span class="content">name: kaniko-cache</span></span>
+    <span class="key">persistentVolumeClaim</span>:
+      <span class="key">claimName</span>: <span class="string"><span class="content">kaniko-cache</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>docker-build.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Git project repository which will be built as part of this build</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Each build can have one or more steps, in this case its just one step</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set from <code>containerDir</code> parameter&#8201;&#8212;&#8201;the sub directory relative to the root of the project from where the build will be run.  In this example it is the <a href="https://github.com/redhat-developer-demos/knative-tutorial-event-greeter/tree/master/java/springboot">java/springboot</a>&#8201;&#8212;&#8201;</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The <em>Dockerfile</em> is assumed to be in the root of the context directory</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry&#8201;&#8212;&#8201;</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-generate-knative-service"><a class="anchor" href="#build-generate-knative-service"></a>Generate Knative service</h3>
+<div class="paragraph">
+<p>Run the following command to create the knative service that will use the image created by the <code>docker-build</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
+   service.jsonnet\
+   | yq r - | tee ../service-build.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+   service.jsonnet \
+    | yq r - | tee ../service-build.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+  <td class="code"><pre><span class="key">apiVersion</span>: <span class="string"><span class="content">serving.knative.dev/v1alpha1</span></span>
+<span class="key">kind</span>: <span class="string"><span class="content">Service</span></span>
+<span class="key">metadata</span>:
+  <span class="key">name</span>: <span class="string"><span class="content">event-greeter</span></span>
+<span class="key">spec</span>:
+  <span class="key">runLatest</span>:
+    <span class="key">configuration</span>:
+      <span class="key">revisionTemplate</span>:
+        <span class="key">metadata</span>:
+          <span class="key">labels</span>:
+            <span class="key">app</span>: <span class="string"><span class="content">event-greeter</span></span>
+        <span class="key">spec</span>:
+          <span class="key">container</span>:
+            <span class="key">image</span>: <span class="string"><span class="content">docker.io/demo/event-greeter:0.0.1 </span></span><i class="conum" data-value="1"></i><b>(1)</b></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>service-build.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="build-apply-preeq-resouces"><a class="anchor" href="#build-apply-preeq-resouces"></a>Apply pre-requisite resources</h4>
+<div class="paragraph">
+<p>Before we create the build and service, we need to create a few kubernetes resources that will be used by the build.</p>
+</div>
+<div class="paragraph">
+<p>Run the following commands to create the pre-requisite resources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>oc apply -n knativetutorial -f docker-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
+oc apply -n knativetutorial -f build-sa.yaml <i class="conum" data-value="2"></i><b>(2)</b>
+oc apply -n knativetutorial -f m2-pvc.yaml <i class="conum" data-value="3"></i><b>(3)</b>
+oc apply -n knativetutorial -f kaniko-pvc.yaml <i class="conum" data-value="4"></i><b>(4)</b></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>kubectl apply -n knativetutorial -f docker-secret.yaml
+kubectl apply -n knativetutorial -f build-sa.yaml
+kubectl apply -n knativetutorial -f m2-pvc.yaml
+kubectl apply -n knativetutorial -f kaniko-pvc.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The kubernetes secret called <code>basic-auth-pass</code>, check <a href="https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker">here</a> for more details</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The kubernetes service account called <code>build-bot</code> that wll run the build.  Only <code>build-bot</code> as access to the secret <code>basic-auth-pass</code>. Check <a href="https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker">here</a> for more details</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>the kubernetes persistence volume claim used to cache maven artifacts, to make subsequent builds faster</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>the kubernetes persistence volume claim  that will be used to cache docker base images to make subsequent <a href="https://github.com/GoogleContainerTools/kaniko">Kaniko</a> docker builds faster</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-create-build"><a class="anchor" href="#build-create-build"></a>Create build</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f docker-build.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f docker-build.yaml</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="build-see-what-you-have-deployed"><a class="anchor" href="#build-see-what-you-have-deployed"></a>See what you have deployed</h4>
+<div class="sect4">
+<h5 id="build-show-knative-builds"><a class="anchor" href="#build-show-knative-builds"></a>build</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a knative builds called event-greeter
+oc -n knativetutorial get builds.build.knative.dev event-greeter</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get builds.build.knative.dev event-greeter</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-watching-logs"><a class="anchor" href="#build-watching-logs"></a>Watching logs</h3>
+<div class="paragraph">
+<p>The Knative build creates an init container for each build step. The init containers will be named like <code>build-step-&lt;step-name&gt;</code> e.g. if the build step is named "foo" then there will be an init container named "build-step-foo" added to the build pod.</p>
+</div>
+<div class="paragraph">
+<p>The following command can be used to watch the log of a specific container within a pod,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(e.g.)</p>
+</div>
+<div class="paragraph">
+<p>To watch the container logs of container <code>docker-push</code> within the build pod called <code>docker-build-pod-2a271e</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can use the following command to list names of all the init containers within a pod .</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(e.g.) the following command lists all the init container names of the pod <code>docker-build-pod-2986f2</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using <code>stern</code> you can watch logs of all the container of the build pod using  the command <code>stern docker-build-pod</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-build-status"><a class="anchor" href="#build-build-status"></a>Checking build status</h3>
+<div class="paragraph">
+<p>A successful build will have the container image pushed to the container registry, going by the examples above you should the image `event-greeter:0.0.1 ` in your container registry.</p>
+</div>
+<div class="paragraph">
+<p>You can check the status of build as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ oc -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>$ kubectl -n knativetutorial get pods</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return an output as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">NAME                      READY     STATUS      RESTARTS   AGE
+docker-build-pod-ecc235   0/1       Completed   0          10m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this you should also be able to do <code>docker pull docker.io/demo/event-greeter:0.0.1</code> successfully.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-deploy-service-build"><a class="anchor" href="#build-deploy-service-build"></a>Deploy service using Build</h3>
+<div class="paragraph">
+<p>With a successful build you are ready to deploy the service, run the following commands to deploy the service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f service-build.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f service-build.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>event-greeter-00001-deployment</code> available in the OpenShift dashboard:</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/event-greeter-00001.png" alt="Event Greeter Service">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-invoke-service"><a class="anchor" href="#build-invoke-service"></a>Invoke service</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>curl -H &quot;Host: event-greeter.knativetutorial.example.com&quot; $IP_ADDRESS \
+   -H &quot;Content-Type: application/json&quot; \
+   -d '{&quot;message&quot;: &quot;test message&quot;}'</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>http POST $IP_ADDRESS \
+  'Host: event-greeter.knativetutorial.example.com'  \
+   message=&quot;test message&quot;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return an response like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">host</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Event greeter =&gt; 'unknown' : 1 </span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">test message</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-build-cleanup"><a class="anchor" href="#build-build-cleanup"></a>Cleanup</h3>
+<div class="paragraph">
+<p>Before proceeding next chapter let us delete the build and service objects that were created.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete builds.build.knative.dev docker-build</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
+kubectl -n knativetutorial delete builds.build.knative.dev docker-build</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-build-template"><a class="anchor" href="#build-build-template"></a>Build Template</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The raw builds like what we did in <a href="#build">previous section</a> has some disadvantages</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>No reusability</p>
+</li>
+<li>
+<p>Hard coding of build parameters</p>
+</li>
+<li>
+<p>Inability to make builds and services in synchronous i.e. services are deployed only after the related build is complete</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>One of the solution to these problems is by using <strong>Build Templates</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Like the build spec the knative build template spec and knative service spec also needs some customizations before apply them.</p>
+</div>
+<div class="sect2">
+<h3 id="build-prerequisite"><a class="anchor" href="#build-prerequisite"></a>Prerequisite</h3>
+<div class="paragraph">
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right OpenShift and kubernetes client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># kubernetes v1.11+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># right maven version Apache Maven 3.5.x or above
+./mvnw --version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Please ensure that you have <a href="#build-registry-account">registry account</a> created.</p>
+</li>
+<li>
+<p>Pre-requisite <a href="#build-apply-preeq-resouces">kubernetes resources</a> have been created and applied.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-tempalte-generate-template"><a class="anchor" href="#build-tempalte-generate-template"></a>Generate build template</h3>
+<div class="literalblock">
+<div class="content">
+<pre>[source,bash,linenums]
+----
+jsonnet maven-build-template.jsonnet \
+   | yq r - | tee ../maven-build-template.yaml
+----</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will generate a knative build specification as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre></td>
+  <td class="code"><pre><span class="key">apiVersion</span>: <span class="string"><span class="content">build.knative.dev/v1alpha1</span></span>
+<span class="key">kind</span>: <span class="string"><span class="content">BuildTemplate</span></span>
+<span class="key">metadata</span>:
+  <span class="key">name</span>: <span class="string"><span class="content">build-java-maven</span></span>
+<span class="key">spec</span>:
+  <span class="key">parameters</span>: <i class="conum" data-value="1"></i><b>(1)</b>
+  - <span class="string"><span class="content">description: |</span><span class="content">
+      The name of the image to push.</span></span>
+    <span class="key">name</span>: <span class="string"><span class="content">IMAGE</span></span>
+  - <span class="string"><span class="content">description: |</span><span class="content">
+      The context directory from where to run the build.</span></span>
+    <span class="key">name</span>: <span class="string"><span class="content">CONTEXT_DIR</span></span>
+  <span class="key">steps</span>:
+  - <span class="string"><span class="content">args:</span></span>
+    - <span class="string"><span class="content">clean</span></span>
+    - <span class="string"><span class="content">package</span></span>
+    - <span class="string"><span class="content">-Duser.home=/builder/home</span></span>
+    - <span class="string"><span class="content">-Dimage=${IMAGE}</span></span>
+    <span class="key">image</span>: <span class="string"><span class="content">gcr.io/cloud-builders/mvn</span></span>
+    <span class="key">name</span>: <span class="string"><span class="content">build-maven</span></span>
+    <span class="key">volumeMounts</span>:
+    - <span class="string"><span class="content">mountPath: /builder/home/.m2</span></span>
+      <span class="key">name</span>: <span class="string"><span class="content">m2-cache</span></span>
+    - <span class="string"><span class="content">mountPath: /cache</span></span>
+      <span class="key">name</span>: <span class="string"><span class="content">kaniko-cache</span></span>
+    <span class="key">workingDir</span>: <span class="string"><span class="content">/workspace/${CONTEXT_DIR}</span></span>
+  - <span class="string"><span class="content">args:</span></span>
+    - <span class="string"><span class="content">--context=/workspace/${CONTEXT_DIR}</span></span>
+    - <span class="string"><span class="content">--dockerfile=/workspace/${CONTEXT_DIR}/Dockerfile</span></span>
+    - <span class="string"><span class="content">--destination=${IMAGE}</span></span>
+    <span class="key">env</span>:
+    - <span class="string"><span class="content">name: DOCKER_CONFIG</span></span>
+      <span class="key">value</span>: <span class="string"><span class="content">/builder/home/.docker</span></span>
+    <span class="key">image</span>: <span class="string"><span class="content">gcr.io/kaniko-project/executor</span></span>
+    <span class="key">name</span>: <span class="string"><span class="content">docker-push</span></span>
+    <span class="key">volumeMounts</span>:
+    - <span class="string"><span class="content">mountPath: /cache</span></span>
+      <span class="key">name</span>: <span class="string"><span class="content">kaniko-cache</span></span>
+    <span class="key">workingDir</span>: <span class="string"><span class="content">/workspace/${CONTEXT_DIR}</span></span>
+  <span class="key">volumes</span>:
+  - <span class="string"><span class="content">name: m2-cache</span></span>
+    <span class="key">persistentVolumeClaim</span>:
+      <span class="key">claimName</span>: <span class="string"><span class="content">m2-cache</span></span>
+  - <span class="string"><span class="content">name: kaniko-cache</span></span>
+    <span class="key">persistentVolumeClaim</span>:
+      <span class="key">claimName</span>: <span class="string"><span class="content">kaniko-cache</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>maven-build-template.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The build template does not have any hard-coded values, *the dynamic values could be passed using <strong>parameters</strong> of the template.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The build done by the build steps of the template is exactly same like what was done by <a href="#build-create-build">raw build</a>, but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-template-generate-service"><a class="anchor" href="#build-template-generate-service"></a>Generate Knative service</h3>
+<div class="paragraph">
+<p>Run the following command to create the knative service that will use the image created by the <code>docker-build</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str contextDir='&lt;the context dir within the application source&gt;' \
+   --ext-str image='&lt;the container image to use' \
+   service-with-build-template.jsonnet \
+    | yq r - | tee ../service-with-build-template.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(e.g.)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>jsonnet --ext-str contextDir='java/springboot' \
+   --ext-str image='docker.io/demo/event-greeter:0.0.2' \
+   service-with-build-template.jsonnet \
+    | yq r - | tee ../service-with-build-template.yaml</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running the above command will result in the following knative service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td>
+  <td class="code"><pre><span class="key">apiVersion</span>: <span class="string"><span class="content">serving.knative.dev/v1alpha1</span></span>
+<span class="key">kind</span>: <span class="string"><span class="content">Service</span></span>
+<span class="key">metadata</span>:
+  <span class="key">name</span>: <span class="string"><span class="content">event-greeter</span></span>
+<span class="key">spec</span>:
+  <span class="key">runLatest</span>:
+    <span class="key">configuration</span>:
+      <span class="key">build</span>:
+        <span class="key">apiVersion</span>: <span class="string"><span class="content">build.knative.dev/v1alpha1</span></span>
+        <span class="key">kind</span>: <span class="string"><span class="content">Build</span></span>
+        <span class="key">spec</span>:
+          <span class="key">serviceAccountName</span>: <span class="string"><span class="content">build-bot</span></span>
+          <span class="key">source</span>:
+            <span class="key">git</span>:
+              <span class="key">revision</span>: <span class="string"><span class="content">v0.0.2 </span></span><i class="conum" data-value="1"></i><b>(1)</b>
+              <span class="key">url</span>: <span class="string"><span class="content">https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git</span></span>
+          <span class="key">template</span>:
+            <span class="key">arguments</span>: <i class="conum" data-value="2"></i><b>(2)</b>
+              - <span class="string"><span class="content">name: IMAGE</span></span>
+                <span class="key">value</span>: <span class="string"><span class="content">docker.io/demo/event-greeter:0.0.2</span></span>
+              - <span class="string"><span class="content">name: CONTEXT_DIR</span></span>
+                <span class="key">value</span>: <span class="string"><span class="content">java/springboot</span></span>
+            <span class="key">name</span>: <span class="string"><span class="content">build-java-maven </span></span><i class="conum" data-value="3"></i><b>(3)</b>
+          <span class="key">timeout</span>: <span class="string"><span class="content">20m</span></span>
+      <span class="key">revisionTemplate</span>:
+        <span class="key">metadata</span>:
+          <span class="key">labels</span>:
+            <span class="key">app</span>: <span class="string"><span class="content">event-greeter</span></span>
+        <span class="key">spec</span>:
+          <span class="key">container</span>:
+            <span class="key">image</span>: <span class="string"><span class="content">docker.io/kameshsampath/event-greeter:0.0.2</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>service-with-build-template.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Using another branch from the sources, just to differentiate the image produced by this build</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Passing the parameters required by the build template, not passing the required parameters will result in build validation failure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The name of the build template to use</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-template-apply-resources"><a class="anchor" href="#build-template-apply-resources"></a>Apply resources</h3>
+<div class="paragraph">
+<p>As we have already <a href="#build-apply-preeq-resouces">applied the pre-req</a> resources, lets jump straight to applying the template and service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-template-create-template"><a class="anchor" href="#build-template-create-template"></a>Create build template</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f maven-build-template.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f maven-build-template.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-see-what-you-have-deployed"><a class="anchor" href="#build-see-what-you-have-deployed"></a>See what you have deployed</h3>
+<div class="sect3">
+<h4 id="build-show-knative-build-templates"><a class="anchor" href="#build-show-knative-build-templates"></a>build templates</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre># get a knative build template called  build-java-maven
+oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="build-deploy-service-build-template"><a class="anchor" href="#build-deploy-service-build-template"></a>Deploy service using Build Template</h4>
+<div class="paragraph">
+<p>With build templates the automatic build may not be triggered unless and until some service or build referring to the template gets created.</p>
+</div>
+<div class="paragraph">
+<p>Run the following commands to deploy the service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">oc apply -n knativetutorial -f service-with-build-template.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">kubectl apply -n knativetutorial -f service-with-build-template.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also <a href="#build-watching-logs">watch the logs</a> of the build triggered with the service deployment.</p>
+</div>
+<div class="paragraph">
+<p>After successful deployment of the service we should see a kubernetes deployment called <code>event-greeter-00001-deployment</code> available.</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<img src="images/event-greeter-00001.png" alt="Event Greeter Service">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-invoke-service"><a class="anchor" href="#build-invoke-service"></a>Invoke Service</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>curl -H &quot;Host: event-greeter.knativetutorial.example.com&quot; $IP_ADDRESS \
+   -H &quot;Content-Type: application/json&quot; \
+   -d '{&quot;message&quot;: &quot;test message&quot;}'</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>http POST $IP_ADDRESS \
+  'Host: event-greeter.knativetutorial.example.com'  \
+   message=&quot;test message&quot;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return an response like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">host</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Event greeter v0.0.2 =&gt; 'event-greeter-00001-deployment-67f96d589b-fgcj2' : 2 </span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">test message</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build-template-cleanup"><a class="anchor" href="#build-template-cleanup"></a>Cleanup</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
+kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can also delete <a href="#build-apply-preeq-resouces">pre-req resources</a> that were created if you dont need them any more.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="faqs"><a class="anchor" href="#faqs"></a>FAQs</h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -2768,7 +4901,25 @@ IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">#!/bin/bash
+<pre class="CodeRay highlight"><code data-lang="bash"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+  <td class="code"><pre>#!/bin/bash
 # In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
 INGRESSGATEWAY=knative-ingressgateway
 
@@ -2783,7 +4934,8 @@ INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS=&quot;$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')&quot;
 
 # calling a knative service named greeter
-curl -H &quot;Host: greeter.myproject.example.com&quot; $IP_ADDRESS</code></pre>
+curl -H &quot;Host: greeter.myproject.example.com&quot; $IP_ADDRESS</pre></td>
+</tr></table></code></pre>
 </div>
 </div>
 </div>
@@ -2836,7 +4988,7 @@ curl -H &quot;Host: greeter.myproject.example.com&quot; $IP_ADDRESS</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>When you deploy this application in Kubernetes, the deployment will look like:</p>
+<p>When you deploy this application in kubernetes, the deployment will look like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2912,7 +5064,7 @@ oc -n knative-serving get cm config-controller -oyaml | yq w - data.registriesSk
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2019-02-03 13:53:16 IST
+Last updated 2019-02-05 23:15:43 IST
 </div>
 </div>
 <script type="text/x-mathjax-config">
