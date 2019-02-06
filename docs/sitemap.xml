@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/01basic-fundas.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/02configs-and-routes.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/03scaling.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/04build.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/05build-templates.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/faq.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/index.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/setup.html</loc>
+<lastmod>2019-02-06T08:44:53.686Z</lastmod>
+</url>
+</urlset>
