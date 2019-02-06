@@ -3,11 +3,12 @@ include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
 
-* Configuring the scale to zero time period
-* Configuring auto scaling
-* Understanding types of autoscaling strategies
-* Enabling concurrency based auto scaling based concurrency
-* Configuring minimum number of replicas for a service i.e. no scale to zero below the replica count
+* Understand what scale-to-zero is and why it's important.
+* Configure the scale-to-zero time period.
+* Configure the autoscaler.
+* Understand types of autoscaling strategies.
+* Enable concurrency based autoscaling.
+* Configure a minimum number of replicas for a service.
 
 [#scaling-prerequisite]
 == Prerequisites
