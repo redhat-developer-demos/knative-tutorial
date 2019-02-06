@@ -45,7 +45,7 @@ spec:
 
 The service could be deployed using the command:
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f service.yaml
 ----
@@ -58,7 +58,7 @@ oc apply -n knativetutorial -f service.yaml
 oc apply -n knativetutorial -f service.yaml
 ----
 
-After successful deployment of the service we should see a Kubernetes deployment called `greeter-00001-deployment` available in the OpenShift dashboard:
+After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` available.
 
 [.thumb]
 image::greeter-00001.png[Greeter Service]
@@ -150,7 +150,7 @@ oc apply -n knativetutorial -f service-env.yaml
 kubectl apply -n knativetutorial -f service-env.yaml
 ----
 
-After successful deployment of the service we should see a Kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
+After successful deployment of the service we should see a kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
 
 image::greeter-00002.png[Greeter Service rev2]
 

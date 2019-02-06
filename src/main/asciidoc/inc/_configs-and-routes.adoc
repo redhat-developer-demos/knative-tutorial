@@ -1,4 +1,4 @@
-== Configurations, Routes and Traffic distribution
+== Configurations and Routes
 
 At the end of this chapter you will be able to understand and know how to :
 
@@ -9,8 +9,9 @@ At the end of this chapter you will be able to understand and know how to :
 === Prerequisite 
 include::./_prereq-cli.adoc[leveloffset=+1]
 
-[build-containers]
-=== Build 
+[#ctrd-build-containers]
+=== Build Containers
+
 include::./_buildcontainers.adoc[leveloffset=+1,tag=greeter]
 
 [#crtd-deploy-configuration]
@@ -47,7 +48,7 @@ spec:
 
 The service could be deployed using the command:
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f config/configuration-rev1.yaml
 ----
@@ -55,12 +56,12 @@ oc apply -n knativetutorial -f config/configuration-rev1.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f config/configuration-rev1.yaml
 ----
 
-After successful deployment of the service we should see a Kubernetes deployment called `greeter-00001-deployment` available in the OpenShift dashboard:
+After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` available.
 
 image::greeter-00001.png[Greeter Service]
 
@@ -90,7 +91,7 @@ spec:
 [.text-center]
 **route_default.yaml**
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f route/route_default.yaml
 ----
@@ -98,7 +99,7 @@ oc apply -n knativetutorial -f route/route_default.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f route/route_default.yaml
 ----
@@ -174,7 +175,7 @@ spec:
 
 Let us deploy the new revision using the command:
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f config/configuration-rev2.yaml
 ----
@@ -182,12 +183,12 @@ oc apply -n knativetutorial -f config/configuration-rev2.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f config/configuration-rev2.yaml
 ----
 
-After successful deployment of the service we should see a Kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
+After successful deployment of the service we should see a kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
 
 image::greeter-00002.png[Greeter Service rev2]
 
@@ -209,7 +210,7 @@ Before we start to apply routes, let us open a new terminal and run the followin
 
 [#crtd-all-rev1]
 ==== All traffic to revision 1
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f route/route_all_rev1.yaml
 ----
@@ -217,7 +218,7 @@ oc apply -n knativetutorial -f route/route_all_rev1.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f route/route_all_rev1.yaml
 ----
@@ -226,7 +227,7 @@ You will notice the output on your other terminal to be something like **Hi gree
 
 [#crtd-all-rev2]
 ==== All traffic to revision 2
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f route/route_all_rev2.yaml
 ----
@@ -234,7 +235,7 @@ oc apply -n knativetutorial -f route/route_all_rev2.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f route/route_all_rev2.yaml
 ----
@@ -243,7 +244,7 @@ You will notice the output on your other terminal to be something like **Hello g
 
 [#crtd-all-rev1-rev2-50]
 ==== 50-50 between revision 1 and revision 2
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml
 ----
@@ -251,7 +252,7 @@ oc apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml
 ----
@@ -260,7 +261,7 @@ You will notice the output will be mix of responses like **Hi greeter => greeter
 
 [#crtd-all-rev1-rev2-75-25]
 ==== 75-25 between revision 1 and revision 2
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml
 ----
@@ -268,7 +269,7 @@ oc apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml
 ----
@@ -277,7 +278,7 @@ You will notice the output will be mix of responses like **Hi greeter => greeter
 
 [#crtd-all-rev1-rev2-10-90]
 ==== 10-90 between revision 1 and revision 2
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml
 ----
@@ -285,7 +286,7 @@ oc apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml
 ----
@@ -299,7 +300,7 @@ In response texts e.g **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5:
 
 [#ctrd-cleanup]
 === Cleanup
-[source,bash]
+[source,bash,linenums]
 ----
 oc -n knativetutorial delete configurations.serving.knative.dev greeter
 oc -n knativetutorial delete routes.serving.knative.dev greeter
@@ -308,7 +309,7 @@ oc -n knativetutorial delete routes.serving.knative.dev greeter
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial delete configurations.serving.knative.dev greeter
 kubectl -n knativetutorial delete routes.serving.knative.dev greeter

@@ -1,10 +1,11 @@
+[#build]
 == Build
 
 At the end of this chapter you will be able to:
 
 * Define build
 * Define build templates
-* How to make service use builds for building container images
+* How to make service use builds for building container images a.k.a source-to -url
 
 [#build-prerequisite]
 === Prerequisite 
@@ -24,7 +25,7 @@ As the Knative build and build template spec needs some customizations,such as c
 === Generate Docker Secret
 A docker kubernetes secret is required for the build to authenticate with the Docker registry so that it can push the built container image to the registry.
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str user='<your-docker-repo-userid>' \
   --ext-str password='<your-docker-repo-user-password>' \
@@ -34,7 +35,7 @@ jsonnet --ext-str user='<your-docker-repo-userid>' \
 
 (e.g.)
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str user='demo' \
    --ext-str password='demopassword' \
@@ -70,7 +71,7 @@ For more details on why we need to do this please check https://github.com/knati
 === Generate Knative build spec
 The knative build spec is used to create and run the knative builds. You can find more details on Knative build https://github.com/knative/docs/tree/master/build[here].
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str contextDir='<the build context directory>' \
   --ext-str image='<your-docker-image-name>' \
@@ -80,7 +81,7 @@ jsonnet --ext-str contextDir='<the build context directory>' \
 
 (e.g.)
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str contextDir='java/springboot' \
   --ext-str image='docker.io/demo/event-greeter:0.0.1' \
@@ -137,18 +138,19 @@ spec:
 <4> The __Dockerfile__ is assumed to be in the root of the context directory
 <4> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry --
 
+[#build-generate-knative-service]
 === Generate Knative service
 
 Run the following command to create the knative service that will use the image created by the `docker-build`.
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str image='<your-docker-image-name>' \
    service.jsonnet\
    | yq r - | tee ../service-build.yaml
 ----
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
    service.jsonnet \
@@ -185,7 +187,7 @@ Before we create the build and service, we need to create a few kubernetes resou
 
 Run the following commands to create the pre-requisite resources:
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc apply -n knativetutorial -f docker-secret.yaml <1>
 oc apply -n knativetutorial -f build-sa.yaml <2>
@@ -196,7 +198,7 @@ oc apply -n knativetutorial -f kaniko-pvc.yaml <4>
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl apply -n knativetutorial -f docker-secret.yaml
 kubectl apply -n knativetutorial -f build-sa.yaml
@@ -234,66 +236,7 @@ include::_knative-objects.adoc[leveloffset=+1,tag=knative-build]
 
 [#build-watching-logs]
 === Watching logs
-
-The Knative build creates one init container for each build step, the init container will be named like `build-step-<step-name>`.
-
-For the build we created will have 2 containers namely:
-
-* build-step-git-source
-* build-step-docker-push
-
-The following command can be used to watch the log of a container within a pod,
-
-[source,bash]
-----
-oc logs -n knativetutorial <pod-name> -c <build-init-container-name>
-----
-
-[.text-center]
-**(OR)**
-
-[source,bash]
-----
-kubectl logs -n knativetutorial <pod-name> -c <build-init-container-name>
-----
-
-(e.g.)
-
-To watch the logs of build pod called `docker-build-pod-2a271e` and the build step `docker-push`,
-
-[source,bash]
-----
-oc logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push
-----
-
-[.text-center]
-**(OR)**
-
-[source,bash]
-----
-kubectl logs -n knativetutorial docker-build-pod-2a271e -c build-step-build-maven
-----
-
-[TIP]
-====
-* You can use the following command to list names of all the init containers of a pod .
-
-(e.g.) the following command lists all the init container names of the pod `docker-build-pod-2986f2`
-
-[source,bash]
-----
-oc -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
-----
-[.text-center]
-**(OR)**
-
-[source,bash]
-----
-kubectl -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
-----
-
-* Using `stern` you can watch logs of all the container of the build pod using  the command `stern docker-build-pod`
-====
+include::_watching-build-logs.adoc[leveloffset=+1,]
 
 [#build-build-status]
 === Checking build status
@@ -305,16 +248,20 @@ You can check the status of build as shown below:
 [source,bash]
 ----
 $ oc -n knativetutorial get pods
-NAME                      READY     STATUS      RESTARTS   AGE
-docker-build-pod-ecc235   0/1       Completed   0          10m
 ----
 
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 $ kubectl -n knativetutorial get pods
+----
+
+The above command should return an output as shown below:
+
+[source,bash]
+----
 NAME                      READY     STATUS      RESTARTS   AGE
 docker-build-pod-ecc235   0/1       Completed   0          10m
 ----
@@ -339,7 +286,7 @@ oc apply -n knativetutorial -f service-build.yaml
 kubectl apply -n knativetutorial -f service-build.yaml
 ----
 
-After successful deployment of the service we should see a Kubernetes deployment called `event-greeter-00001-deployment` available in the OpenShift dashboard:
+After successful deployment of the service we should see a kubernetes deployment called `event-greeter-00001-deployment` available in the OpenShift dashboard:
 
 [.thumb]
 image::event-greeter-00001.png[Event Greeter Service]
@@ -347,9 +294,9 @@ image::event-greeter-00001.png[Event Greeter Service]
 [#build-invoke-service]
 === Invoke service 
 
-include::_invokeservice[tag=env]
+include::_invokeservice.adoc[tag=env]
 
-[source,bash]
+[source,bash,linenums]
 ----
 curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
    -H "Content-Type: application/json" \
@@ -359,9 +306,10 @@ curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
-http POST $IP_ADDRESS 'Host: event-greeter.knativetutorial.example.com'  \
+http POST $IP_ADDRESS \
+  'Host: event-greeter.knativetutorial.example.com'  \
    message="test message"
 ----
 
@@ -379,7 +327,7 @@ The above command should return an response like:
 === Cleanup
 Before proceeding next chapter let us delete the build and service objects that were created.
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete builds.build.knative.dev docker-build
@@ -388,7 +336,7 @@ oc -n knativetutorial delete builds.build.knative.dev docker-build
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete builds.build.knative.dev docker-build

@@ -55,15 +55,22 @@ You will need in this tutorial:
 | https://github.com/rakyll/hey[hey]
 | `go get -u github.com/rakyll/hey`
 | `go get -u github.com/rakyll/hey`
+
+| https://jsonnet.org/
+|`brew install jsonnet`
+| https://github.com/google/jsonnet
 |===
 
 [#download-tutorial-sources]
 === Download Tutorial Sources
 Before we start to setting up the environment, lets clone the tutorial sources and call the cloned folder as `$TUTORIAL_HOME`
+
 [source,bash]
 ----
 git clone https://github.com/kameshsampath/knative-tutorial
 ----
+
+The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer them during the exercises. The `work` folder has a README, which has instructions on source code repo and git commands to clone the sources.
 
 [IMPORTANT]
 ====
@@ -73,11 +80,11 @@ All examples in this tutorial are tested with **OpenShift 3.11** and **Knative 0
 [#minishift]
 === Minishift
 
-All the demos in this tutorial will be run using https://github.com/minishift/minishift[minishift], the single node https://www.okd.io/[OKD](the Origin Community Distribution of Kubernetes that powers Red Hat OpenShift) cluster that can be used for development purposes. 
+All the demos in this tutorial will be run using https://github.com/minishift/minishift[minishift], the single node https://www.okd.io/[OKD](the Origin Community Distribution of kubernetes that powers Red Hat OpenShift) cluster that can be used for development purposes. 
 
 ==== Setup minishift
 
-[source,bash]
+[source,bash,linenums]
 -----
 export TIMEZONE=$(sudo systemsetup -gettimezone | awk '{print $3}') #<1>
 minishift profile set knative-tutorial
@@ -97,7 +104,7 @@ eval $(minishift docker-env) && eval $(minishift oc-env)
 
 [#admission-controller-webhook]
 === Enable Admission Controller Webhook 
-[source,bash]
+[source,bash,linenums]
 ----
 #!/bin/bash
 
@@ -146,7 +153,7 @@ oc login -u admin -p admin
 ===== Configure Istio Policies
 Knative depends on Istio, to deploy Istio you need to run the following commands to configure necessary https://istio.io/docs/setup/kubernetes/platform-setup/openshift/[privileges] to the service accounts used by Istio.
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
 oc adm policy add-scc-to-user anyuid -z default -n istio-system
@@ -167,7 +174,7 @@ oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-sy
 [#deploy-istio]
 ===== Deploy Istio Components
 
-[source,bash]
+[source,bash,linenums]
 ----
 curl -L https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml \
   | sed 's/LoadBalancer/NodePort/' \
@@ -186,7 +193,7 @@ NOTE: It will take a few minutes for all the Istio components to be up and runni
 
 A successful deployment should show similar output as shown below.
 
-[source,bash]
+[source,bash,linenums]
 ----
 $ oc get pods -n istio-system
 NAME                                        READY     STATUS      RESTARTS   AGE
@@ -222,7 +229,7 @@ IMPORTANT: Run the above command only once per minishift instance
 
 [#install-knative-build]
 ==== Install Knative Build
-[source,bash]
+[source,bash,linenums]
 ----
 # Setup Knative Build Policies
 oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
@@ -245,7 +252,7 @@ NOTE: It will take a few minutes for all the Knative Build components to be up a
 
 A successful deployment should show similar output as shown below.
 
-[source,bash]
+[source,bash,linenums]
 ----
 $ oc get pods -n knative-build
 NAME                                READY     STATUS    RESTARTS   AGE
@@ -256,7 +263,7 @@ build-webhook-58d685fc58-f5s4l      1/1       Running   0          27s
 [#install-knative-serving]
 ==== Install Knative Serving
 
-[source,bash]
+[source,bash,linenums]
 ----
 # Setup Knative Serving Policies
 oc adm policy add-scc-to-user anyuid -z controller -n knative-serving
@@ -282,7 +289,7 @@ NOTE: It will take a few minutes for all the Knative Serving components to be up
 
 A successful deployment should show similar output as shown below.
 
-[source,bash]
+[source,bash,linenums]
 ----
 $ oc get pods -n knative-serving
 NAME                          READY     STATUS    RESTARTS   AGE
@@ -295,7 +302,7 @@ webhook-7797ffb6bf-swr4c      1/1       Running   0          38s
 [#install-knative-eventing]
 ==== Install Knative Eventing
 
-[source,bash]
+[source,bash,linenums]
 ----
 # Setup Knative Eventing Policies
 oc adm policy add-scc-to-user anyuid -z eventing-controller -n knative-eventing
@@ -315,7 +322,7 @@ oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-contro
 ----
 
 You can monitor the Knative Eventing components via  components via the command:
-[source,bash]
+[source,bash,linenums]
 ----
 oc get pods -n knative-eventing -w
 oc get pods -n knative-sources -w 
@@ -323,7 +330,7 @@ oc get pods -n knative-sources -w
 
 NOTE: It will take a few minutes for all the Knative Eventing components to be up and running. Use kbd:[CTRL+C] to exit watch mode.
 
-[source,bash]
+[source,bash,linenums]
 ----
 $ oc get pods -n knative-eventing
 NAME                                            READY     STATUS    RESTARTS   AGE
@@ -339,14 +346,14 @@ controller-manager-0   1/1       Running   0          1m
 [#configure-openshift-project]
 === Configuring OpenShift project for Knative applications
 
-[source,bash]
+[source,bash,linenums]
 ----
 oc new-project knativetutorial
 oc adm policy add-scc-to-user privileged -z default #<1>
 oc adm policy add-scc-to-user anyuid -z default
 ----
 
-<1> The `oc adm policy` adds the **privileged** https://docs.okd.io/3.10/admin_guide/manage_scc.html[Security Context Constraints(SCCs)]to the **default** Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in Kubernetes.
+<1> The `oc adm policy` adds the **privileged** https://docs.okd.io/3.10/admin_guide/manage_scc.html[Security Context Constraints(SCCs)]to the **default** Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in kubernetes.
 
 
 [.text-center]

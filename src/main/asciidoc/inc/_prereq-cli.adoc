@@ -1,13 +1,43 @@
 
-Ensure all CLI tools are in path and accessible 
+The following checks ensures that each chapter exercises are done with right environment settings.
+
+* Make sure to be connected to minishift docker daemon and using right openshift client.
 
 [source,bash]
 ----
-# to make sure we are connected to minishift docker daemon and using right openshift client
 eval $(minishift docker-env) && eval $(minishift oc-env)
-# right kubernetes and openshift versions
+----
+
+* Make sure right OpenShift and kubernetes client are used.
+
+[source,bash]
+----
 # oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
 oc version 
-# right maven version Apache Maven 3.5.4
+----
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+# kubernetes v1.11+
+kubectl version
+----
+
+* Make sure right maven version is used (only for Java exercises)
+
+[source,bash]
+----
+# right maven version Apache Maven 3.5.x or above
 ./mvnw --version
 ----
+
+* Make sure to be on `knativetutorial` OpenShift project/kubernetes namespace
+
+[source,bash]
+----
+# verify to return knativetutorial
+oc project -q 
+----
+
+If you are not on `knativetutorial` project, use the command `oc project knativetutorial` to change to `knativetutorial` project

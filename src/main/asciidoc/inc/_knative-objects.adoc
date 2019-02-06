@@ -1,5 +1,5 @@
 # tag::knative-services[]
-[source,bash]
+[source,bash,linenums]
 ----
 # get a Knative Service (short name ksvc) called greeter
 oc -n knativetutorial  get services.serving.knative.dev greeter 
@@ -8,7 +8,7 @@ oc -n knativetutorial  get services.serving.knative.dev greeter
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial  get services.serving.knative.dev greeter 
 ----
@@ -16,7 +16,7 @@ kubectl -n knativetutorial  get services.serving.knative.dev greeter
 # end::knative-services[]
 
 # tag::knative-configs[]
-[source,bash]
+[source,bash,linenums]
 ----
 # get a Knative configuration called greeter
 oc -n knativetutorial get configurations.serving.knative.dev greeter
@@ -25,14 +25,14 @@ oc -n knativetutorial get configurations.serving.knative.dev greeter
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial get configurations.serving.knative.dev greeter
 ----
 # end::knative-configs[]
 
 # tag::knative-routes[]
-[source,bash]
+[source,bash,linenums]
 ----
 # get a Knative routes called greeter
 oc -n knativetutorial get routes.serving.knative.dev greeter
@@ -41,14 +41,14 @@ oc -n knativetutorial get routes.serving.knative.dev greeter
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial get routes.serving.knative.dev greeter
 ----
 # end::knative-routes[]
 
 # tag::knative-revisions[]
-[source,bash]
+[source,bash,linenums]
 ----
 # get a Knative revisions called greeter you will see only one like greeter-00001
 oc -n knativetutorial get revisions.serving.knative.dev
@@ -57,14 +57,14 @@ oc -n knativetutorial get revisions.serving.knative.dev
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial get revisions.serving.knative.dev
 ----
 # end::knative-revisions[]
 
 # tag::knative-build[]
-[source,bash]
+[source,bash,linenums]
 ----
 # get a knative builds called event-greeter
 oc -n knativetutorial get builds.build.knative.dev event-greeter
@@ -73,14 +73,14 @@ oc -n knativetutorial get builds.build.knative.dev event-greeter
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial get builds.build.knative.dev event-greeter
 ----
 # end::knative-build[]
 
 # tag::knative-build-templates[]
-[source,bash]
+[source,bash,linenums]
 ----
 # get a knative build template called  build-java-maven
 oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
@@ -89,7 +89,7 @@ oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
 ----

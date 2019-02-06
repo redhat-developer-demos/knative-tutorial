@@ -1,19 +1,31 @@
-[#build-build-tempalte]
+[#build-build-template]
 == Build Template
 
-The raw builds like what we did in previous sections has some disadvantages
+The raw builds like what we did in <<build,previous section>> has some disadvantages
 
- - no reusability 
- - hardcoding of build parameters 
- - inablity to make builds and services in synchronous i.e. services are deployed only after the related build is complete
+ - No reusability 
+ - Hard coding of build parameters 
+ - Inability to make builds and services in synchronous i.e. services are deployed only after the related build is complete
 
 One of the solution to these problems is by using **Build Templates**.
 
 Like the build spec the knative build template spec and knative service spec also needs some customizations before apply them.
 
+[#build-prerequisite]
+=== Prerequisite 
+include::./_prereq-cli.adoc[leveloffset=+1]
+
+[IMPORTANT]
+====
+* Please ensure that you have <<build-registry-account, registry account>> created.
+
+* Pre-requisite <<build-apply-preeq-resouces,kubernetes resources>> have been created and applied.
+====
+
+[#build-tempalte-generate-template]
 === Generate build template 
 
- [source,bash]
+ [source,bash,linenums]
  ----
  jsonnet maven-build-template.jsonnet \
     | yq r - | tee ../maven-build-template.yaml
@@ -28,7 +40,7 @@ kind: BuildTemplate
 metadata:
   name: build-java-maven
 spec:
-  parameters:
+  parameters: #<1>
   - description: |
       The name of the image to push.
     name: IMAGE
@@ -74,13 +86,16 @@ spec:
 [.text-center]
 **maven-build-template.yaml**
 
-The build template does not have any hard-coded values, the dynamic values could be passed using **parameters** of the template. The build done by this build step is exactly same like what was done by previous build but this way gives flexibility i.e. the template could be modified and the builds using the template will automatically inherit the steps.
+<1> The build template does not have any hard-coded values, *the dynamic values could be passed using **parameters** of the template.
 
+The build done by the build steps of the template is exactly same like what was done by <<build-create-build,raw build>>, but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.
+
+[#build-template-generate-service]
 === Generate Knative service
 
 Run the following command to create the knative service that will use the image created by the `docker-build`.
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str contextDir='<the context dir within the application source>' \
    --ext-str image='<the container image to use' \
@@ -90,7 +105,7 @@ jsonnet --ext-str contextDir='<the context dir within the application source>' \
 
 (e.g.) 
 
-[source,bash]
+[source,bash,linenums]
 ----
 jsonnet --ext-str contextDir='java/springboot' \
    --ext-str image='docker.io/demo/event-greeter:0.0.2' \
@@ -145,8 +160,9 @@ spec:
 [#build-template-apply-resources]
 === Apply resources
 
-Since we have already <<build-apply-preeq-resouces,applied the pre-req>> resouces, lets jump straight to applying the template and service.
+As we have already <<build-apply-preeq-resouces,applied the pre-req>> resources, lets jump straight to applying the template and service.
 
+[#build-template-create-template]
 === Create build template
 
 [source,bash]
@@ -172,7 +188,9 @@ include::_knative-objects.adoc[leveloffset=+1,tag=knative-build-templates]
 [#build-deploy-service-build-template]
 ==== Deploy service using Build Template
 
-With build templates the build not be triggered unless some service or build referring to it gets created, run the following commands to deploy the service:
+With build templates the automatic build may not be triggered unless and until some service or build referring to the template gets created.
+
+Run the following commands to deploy the service:
 
 [source,bash]
 ----
@@ -187,7 +205,9 @@ oc apply -n knativetutorial -f service-with-build-template.yaml
 kubectl apply -n knativetutorial -f service-with-build-template.yaml
 ----
 
-After successful deployment of the service we should see a Kubernetes deployment called `event-greeter-00001-deployment` available in the OpenShift dashboard:
+You can also <<build-watching-logs,watch the logs>> of the build triggered with the service deployment.
+
+After successful deployment of the service we should see a kubernetes deployment called `event-greeter-00001-deployment` available.
 
 [.thumb]
 image::event-greeter-00001.png[Event Greeter Service]
@@ -195,19 +215,38 @@ image::event-greeter-00001.png[Event Greeter Service]
 [#build-invoke-service]
 === Invoke Service
 
-You can <<build-invoke-service,Invoke Service>> the same way you did for builds. But the responses will be slightly different from build as we used a different image.
+include::_invokeservice.adoc[tag=env]
+
+[source,bash,linenums]
+----
+curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
+   -H "Content-Type: application/json" \
+   -d '{"message": "test message"}'
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash,linenums]
+----
+http POST $IP_ADDRESS \
+  'Host: event-greeter.knativetutorial.example.com'  \
+   message="test message"
+----
+
+The above command should return an response like:
 
 [source,json]
 ----
 {
-    "host": "Event greeter v0.0.2 => 'event-greeter-00001-deployment-7687c8dc8d-jpcm9' : 1 ",
+    "host": "Event greeter v0.0.2 => 'event-greeter-00001-deployment-67f96d589b-fgcj2' : 2 ",
     "message": "test message"
 }
 ----
 
 [#build-template-cleanup]
 === Cleanup
-[source,bash]
+[source,bash,linenums]
 ----
 oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
@@ -216,10 +255,10 @@ oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,linenums]
 ----
 kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
 ----
 
-NOTE: You can also delete <<build-apply-preeq-resouces,pre-req resources>> that were created if you dont need them.
+NOTE: You can also delete <<build-apply-preeq-resouces,pre-req resources>> that were created if you dont need them any more.

@@ -1,0 +1,54 @@
+The Knative build creates an init container for each build step. The init containers will be named like `build-step-<step-name>` e.g. if the build step is named "foo" then there will be an init container named "build-step-foo" added to the build pod.
+
+The following command can be used to watch the log of a specific container within a pod,
+
+[source,bash]
+----
+oc logs -n knativetutorial <pod-name> -c <build-init-container-name>
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl logs -n knativetutorial <pod-name> -c <build-init-container-name>
+----
+
+(e.g.)
+
+To watch the container logs of container `docker-push` within the build pod called `docker-build-pod-2a271e`:
+
+[source,bash]
+----
+oc logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push
+----
+
+[TIP]
+====
+* You can use the following command to list names of all the init containers within a pod .
+
+(e.g.) the following command lists all the init container names of the pod `docker-build-pod-2986f2`
+
+[source,bash]
+----
+oc -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
+----
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
+----
+
+* Using `stern` you can watch logs of all the container of the build pod using  the command `stern docker-build-pod`
+====
