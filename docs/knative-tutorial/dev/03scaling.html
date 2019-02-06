@@ -351,26 +351,29 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Configuring the scale to zero time period</p>
+<p>Understand what scale-to-zero is and why it&#8217;s important.</p>
 </li>
 <li>
-<p>Configuring auto scaling</p>
+<p>Configure the scale-to-zero time period.</p>
 </li>
 <li>
-<p>Understanding types of autoscaling strategies</p>
+<p>Configure the autoscaler.</p>
 </li>
 <li>
-<p>Enabling concurrency based auto scaling based concurrency</p>
+<p>Understand types of autoscaling strategies.</p>
 </li>
 <li>
-<p>Configuring minimum number of replicas for a service i.e. no scale to zero below the replica count</p>
+<p>Enable concurrency based autoscaling.</p>
+</li>
+<li>
+<p>Configure a minimum number of replicas for a service.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="scaling-prerequisite"><a class="anchor" href="#scaling-prerequisite"></a>Prerequisite</h2>
+<h2 id="scaling-prerequisite"><a class="anchor" href="#scaling-prerequisite"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
@@ -543,11 +546,11 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Makes Knative to always run the latest revision of the deployment</td>
+<td>Configures the Knative service to always run the latest revision of the deployment.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>It is very important that the image is a fully qualified name docker image name with tag. For more details on this <a href="#faq-q2">Question 2 of FAQ</a></td>
+<td>It is very important that the image is a fully qualified docker image name, including a tag. For more details on this <a href="#faq-q2">Question 2 of FAQ</a>.</td>
 </tr>
 </table>
 </div>
@@ -557,7 +560,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>The service could be deployed using the command:</p>
+<p>The service can be deployed using the command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -573,7 +576,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
+<p>After the deployment was successful of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -605,10 +608,10 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 </div>
 <div class="paragraph">
-<p>The last curl command should return a response like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 1</strong></p>
+<p>The last <code>curl</code> command should return a response like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 1</strong></p>
 </div>
 <div class="paragraph">
-<p>Check <a href="#basics-see-what-you-have-deployed">deployed Knative resources</a> tfor more details of what Knative objects and resources have been created with the above service deployment.</p>
+<p>Check <a href="#basics-see-what-you-have-deployed">deployed Knative resources</a> for more details on which Knative objects and resources have been created with the service deployment above.</p>
 </div>
 </div>
 </div>
@@ -616,12 +619,18 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <h2 id="scaling-scale-to-zero"><a class="anchor" href="#scaling-scale-to-zero"></a>Configure scale to zero</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Assuming that <a href="#scaling-deploy-service">Greeter service</a> has been deployed, if the service has been terminated, the let us <a href="#scaling-invoke-service">invoke the service</a> to make service available for request.</p>
+<p>Assuming that <a href="#scaling-deploy-service">Greeter service</a> has been deployed, once no more traffic is seen going into that service, we&#8217;d like to scale this service down to zero replicas. That&#8217;s called <strong>scale-to-zero</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Scale-to-zero is one of the main properties making Knative a serverless platform. After a defined time of idleness (the so called <code>stable-window</code>) a revision is considered <strong>inactive</strong>. Now, all routes pointing to the now inactive revision will be pointed to the so-called <strong>activator</strong>. This reprogramming of the network is asynchronous in nature so the <code>scale-to-zero-grace-period</code> should give enough slack for this to happen. Once the <code>scale-to-zero-grace-period</code> is over, the revision will finally be scaled to zero replicas.</p>
+</div>
+<div class="paragraph">
+<p>If another request tries to get to this revision, the activator will get it, instruct the autoscaler to create new pods for the revision as quickly as possible and buffer the request until those new pods are created.</p>
 </div>
 <div class="sect2">
 <h3 id="scale-to-zero-formulae"><a class="anchor" href="#scale-to-zero-formulae"></a>Calculating scale to zero time period</h3>
 <div class="paragraph">
-<p>Knative autoscaler uses the config map <strong>config-autoscaler</strong> of <strong>knative-serving</strong> namespace for autoscaling related properties.  The value of the attribute <code>stable-window</code> and <code>scale-to-zero-grace-period</code> decides how long Knative autoscaler will wait before terminating the inactive revision pod.</p>
+<p>The Knative autoscaler uses the config map <strong>config-autoscaler</strong> in the <strong>knative-serving</strong> namespace for autoscaling related properties. The values of the attribute <code>stable-window</code> and <code>scale-to-zero-grace-period</code>, which we&#8217;ve seen above, are part of this config map.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -643,7 +652,7 @@ scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autosca
 </div>
 </div>
 <div class="paragraph text-center">
-<p><code>termination period time in seconds = stableWindow + scaleToZeroGracePeriod</code></p>
+<p>As described above, the time it takes to finally scale to zero will be <code>stable-window + scale-to-zero-grace-period</code>.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -655,7 +664,7 @@ scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autosca
 <div class="ulist">
 <ul>
 <li>
-<p>scale-to-zero-grace-period is dynamic parameter i.e. the value is immediately effected after updating the config map</p>
+<p>scale-to-zero-grace-period is a dynamic parameter so the new value will immediately be in effect after updating the config map</p>
 </li>
 <li>
 <p>the minimum value that can be set for <code>scale-to-zero-grace-period</code> is 30 seconds</p>
@@ -684,7 +693,7 @@ scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autosca
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The scaling up and down can also be watched on OpenShift dashboard by navigating to knativetutorial project
+Up- and downscaling can also be watched on the OpenShift dashboard by navigating to the <code>knativetutorial</code> project
 </td>
 </tr>
 </table>
@@ -701,13 +710,13 @@ echo $scaleToZeroGracePeriod</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>, firing the request to the greeter service will bring up the pod (if its already terminated) to serve the request. Leaving it without any further requests, it will automatically scale to zero <code>1 min 30 secs</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>).</p>
+<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in <code>1 min 30 secs</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>).</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="scaling-observer-scale-to-zero-1m"><a class="anchor" href="#scaling-observer-scale-to-zero-1m"></a>Scale to zero in 1 minute</h3>
 <div class="paragraph">
-<p>Let us now update <strong>scale-to-zero-grace-period</strong> to <code>1m</code> and leave the <strong>stable-window</strong> to default <code>60s</code>.</p>
+<p>Let us now update <strong>scale-to-zero-grace-period</strong> to <code>1m</code> and leave the <strong>stable-window</strong> at the default <code>60s</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -746,7 +755,7 @@ echo $scaleToZeroGracePeriod</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Now <a href="#scaling-invoke-service">firing the request</a> to the greeter service will bring up the pod to serve the request.Leaving it without any further requests, it will automatically scale to zero <code>2 mins</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>)</p>
+<p>Now <a href="#scaling-invoke-service">firing the request</a> to the greeter service will bring up the pod to serve the request again. Leaving it without any further requests, it will automatically scale to zero in <code>2 mins</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>)</p>
 </div>
 </div>
 <div class="sect2">
@@ -793,7 +802,7 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 <div class="sect2">
 <h3 id="scaling-reset-to-defaults"><a class="anchor" href="#scaling-reset-to-defaults"></a>Reset scale to zero to defaults</h3>
 <div class="paragraph">
-<p>Let us revert the <code>scale-to-zero-grace-period</code> to defaults:</p>
+<p>Let us revert the <code>scale-to-zero-grace-period</code> to its default:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -828,7 +837,7 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 </div>
 </div>
 <div class="paragraph">
-<p>For better clarity and  understanding  let us <a href="#scaling-cleanup">clean up</a> the deployed knative resources before going to next section.</p>
+<p>For better clarity and understanding let us <a href="#scaling-cleanup">clean up</a> the deployed knative resources before going to next section.</p>
 </div>
 </div>
 </div>
@@ -837,10 +846,10 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 <h2 id="scaling-auto-scaling"><a class="anchor" href="#scaling-auto-scaling"></a>Auto Scaling</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By default Knative Serving allows 100 concurrency pods, you can view the setting <code>container-concurrency-target-default</code> in the configmap <strong>config-autoscaler </strong> of <strong>knative-serving</strong> namespace.</p>
+<p>By default Knative Serving allows 100 concurrent requests into a pod. This is defined by the <code>container-concurrency-target-default</code> setting in the configmap <strong>config-autoscaler </strong> in the <strong>knative-serving</strong> namespace.</p>
 </div>
 <div class="paragraph">
-<p>For this exercise let us make our service handle only <strong>10</strong> concurrent requests,this will make the Knative-Serving to scale the pods to handle the requests more than 10 requests</p>
+<p>For this exercise let us make our service handle only <strong>10</strong> concurrent requests. This will cause Knative autoscaler to scale to more pods as soon as we run more than 10 requests in parallel against the revision.</p>
 </div>
 <div class="sect2">
 <h3 id="scaling-concurrency-10"><a class="anchor" href="#scaling-concurrency-10"></a>Service with concurrency of 10 requests</h3>
@@ -854,10 +863,8 @@ spec:
   runLatest:
     configuration:
       revisionTemplate:
-        metadata:
-          annotations:
-            autoscaling.knative.dev/target: "10" <i class="conum" data-value="1"></i><b>(1)</b>
         spec:
+          containerConcurrency: 10 <i class="conum" data-value="1"></i><b>(1)</b>
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
@@ -924,7 +931,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <div class="sect2">
 <h3 id="scaling-load-service"><a class="anchor" href="#scaling-load-service"></a>Load the service</h3>
 <div class="paragraph">
-<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for next 10s (<code>-z 10s</code>) with no connection timeout(<code>-t 0</code>)</p>
+<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 10s</code>) with no connection timeout(<code>-t 0</code>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -934,7 +941,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 </div>
 <div class="paragraph">
-<p>After successful run of the load test, you will notice the number of greeter service pods would have automatically scaled to 5. You can also view the same via OpenShift dashboard as shown below:</p>
+<p>After youÄ&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -946,14 +953,14 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 <div class="listingblock text-center">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">totalPodsToScale = total number of inflight requests / average concurrency target</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">totalPodsToScale = inflightRequests / concurrencyTarget</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>With this current setting of <strong>average concurrency target=10</strong>(<code>autoscaling.knative.dev/target: "10"</code>) and <strong>total number of inflight requests=50</strong> , you will see Knative automatically scales the greeter services to  <code><strong>50/10 = 5 pods</strong></code>.</p>
+<p>With this current setting of <strong>concurrencyTarget=10</strong>(<code>containerConcurrency: "10"</code>) and <strong>inflightRequests=50</strong> , you will see Knative automatically scales the greeter services to  <code><strong>50/10 = 5 pods</strong></code>.</p>
 </div>
 <div class="paragraph">
-<p>For more clarity and understanding let us <a href="#scaling-cleanup">clean up</a> existing deployments  before proceeding to next section.</p>
+<p>For more clarity and understanding let us <a href="#scaling-cleanup">clean up</a> existing deployments before proceeding to next section.</p>
 </div>
 </div>
 </div>
@@ -962,10 +969,10 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <h2 id="scaling-min-scale"><a class="anchor" href="#scaling-min-scale"></a>Minimum Scale</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In real world scenarios your service might need to handle sudden spikes in requests. Knative by default set the replica count of the deployed service(s) to be one, but this default setting can be configured via an service annotsation <strong>autoscaling.knative.dev/minScale</strong>.</p>
+<p>In real world scenarios your service might need to handle sudden spikes in requests. Knative starts each service with a default of <strong>1</strong> replica. As described above, this will eventually be scaled to zero as described above. If your app needs to stay particularly responsive under any circumstances and/or has a slow startup time, it might be beneficial to always keep a minimum amount of pods around. This can be done via an the annotation <strong>autoscaling.knative.dev/minScale</strong>.</p>
 </div>
 <div class="paragraph">
-<p>The following example shows how to make knative services by default create services with replica count of two.</p>
+<p>The following example shows how to make Knative create services that start with a replica count of <strong>2</strong> and never scale below it.</p>
 </div>
 <div class="sect2">
 <h3 id="scaling-deploy-service-minscale"><a class="anchor" href="#scaling-deploy-service-minscale"></a>Deploy service</h3>
@@ -981,9 +988,9 @@ spec:
       revisionTemplate:
         metadata:
           annotations:
-            autoscaling.knative.dev/target: "10"  <i class="conum" data-value="1"></i><b>(1)</b>
             autoscaling.knative.dev/minScale: "2" <i class="conum" data-value="2"></i><b>(2)</b>
         spec:
+          containerConcurrency: 10 <i class="conum" data-value="1"></i><b>(1)</b>
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
@@ -1001,11 +1008,11 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pod(s)</td>
+<td>Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Every new deployment of this service will minimum have two pods</td>
+<td>The deployment of this service will always have a minimum of 2 pods.</td>
 </tr>
 </table>
 </div>
@@ -1023,7 +1030,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> with <strong>two</strong> pods readily available.</p>
+<p>After the deployment was successful we should see a kubernetes deployment called <code>greeter-00001-deployment</code> with <strong>two</strong> pods readily available.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1053,7 +1060,7 @@ spec:
 <p>Let us <a href="#scaling-load-service">send some load to the service</a> to trigger autoscaling.</p>
 </div>
 <div class="paragraph">
-<p>When all requests are done and if we are beyond the <code>scale-to-zero-grace-period</code>, we will notice that Knative has terminated only 3 out 5 pods, this is because we have configured Knative to always run two pods via the annotation <code>autoscaling.knative.dev/minScale: "2"</code></p>
+<p>When all requests are done and if we are beyond the <code>scale-to-zero-grace-period</code>, we will notice that Knative has terminated only 3 out 5 pods. This is because we have configured Knative to always run two pods via the annotation <code>autoscaling.knative.dev/minScale: "2"</code>.</p>
 </div>
 </div>
 </div>

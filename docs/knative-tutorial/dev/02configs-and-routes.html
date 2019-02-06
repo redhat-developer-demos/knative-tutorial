@@ -351,10 +351,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Deploying Knative configurations and routes separately</p>
+<p>Deploy Knative configurations and routes separately.</p>
 </li>
 <li>
-<p>Distributing traffic between revisions of the service</p>
+<p>Distribute traffic between revisions of a service.</p>
 </li>
 </ul>
 </div>
@@ -510,15 +510,15 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <h2 id="crtd-deploy-configuration"><a class="anchor" href="#crtd-deploy-configuration"></a>Deploy Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In previous chapter we saw how we can deploy service using holistic service resource file, in this chapter we will see how to deploy the service using configurations and resource files.</p>
+<p>In the previous chapter we saw how we can deploy services using a holistic service resource file, in this chapter we will see how to deploy the service using configurations and route files.</p>
 </div>
 <div class="paragraph">
-<p>Navigate to folder <code>$TUTORIAL_HOME/02-configs-and-routes</code>:</p>
+<p>Navigate to the folder <code>$TUTORIAL_HOME/02-configs-and-routes</code>:</p>
 </div>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_1"><a class="anchor" href="#_deploy_configuration_revision_1"></a>Deploy Configuration revision 1</h3>
 <div class="paragraph">
-<p>The following snippet how a Knative configuration resource YAML will look like:</p>
+<p>The following snippet shows how a Knative configuration resource YAML looks like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -543,12 +543,12 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It is very important that the image is a fully qualified name docker image name with tag. For more details on this <a href="#faq-q2">Question 2 of FAQ</a></td>
+<td>It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this <a href="#faq-q2">Question 2 of FAQ</a>.</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The service could be deployed using the command:</p>
+<p>The service is then deployed using:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -564,7 +564,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
+<p>After the deployment was successful, we should see a kubernetes deployment called <code>greeter-00001-deployment</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -597,7 +597,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 </div>
 <div class="paragraph">
-<p>The command will return HTTP 404 as there are no routes deployed yet. Let us now deploy a route</p>
+<p>The command will return <code>HTTP 404</code> as there are no routes deployed yet. Let us now deploy a route.</p>
 </div>
 </div>
 </div>
@@ -605,7 +605,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <h2 id="crtd-deploy-route"><a class="anchor" href="#crtd-deploy-route"></a>Deploy Route</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let us now deploy a default route that will route all the traffic to  service deployed via configuration <code>greeter</code></p>
+<p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -645,7 +645,7 @@ spec:
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state, at those times try giving request again
+Sometimes the response might not be returned immediately especially when the pod is coming up from a dormant state. You might need to be a little patient.
 </td>
 </tr>
 </table>
@@ -656,7 +656,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <h2 id="crtd-see-what-you-have-deployed"><a class="anchor" href="#crtd-see-what-you-have-deployed"></a>See what you have deployed</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The holistic service base deployment strategy that we did now will create the following resource objects:</p>
+<p>As we did not deploy a service this time</p>
 </div>
 <div class="sect2">
 <h3 id="crtd-show-knative-services"><a class="anchor" href="#crtd-show-knative-services"></a>service</h3>
@@ -675,7 +675,7 @@ oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The command will throw an error as there are no knative services deployed as part of configuration+routes based deployment strategy.</p>
+<p>will throw an error as there are no knative services deployed as part of the configuration + routes based deployment strategy.</p>
 </div>
 </div>
 <div class="sect2">
@@ -712,7 +712,7 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>When the service was invoked with <code>curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code>,  you noticed that we added a <strong>Host</strong> header to the curl with value <code>greeter.knativetutorial.example.com</code>, this FQDN is automatically assigned to your Knative service by the Knative Routes.   It follows a format <code>&lt;service-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</code>.</p>
+<p>When the service is invoked with <code>curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code>, you noticed that we added a <strong>Host</strong> header to the <code>curl</code> command with the value <code>greeter.knativetutorial.example.com</code>. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format <code>&lt;route-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -724,7 +724,7 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>The domain suffix in this case <em>example.com</em> is configurable via the config map <strong>config-domain</strong> of <strong>knative-serving</strong> namespace.</p>
+<p>The <code>domain-suffix</code> (in this case <em>example.com</em>) is configurable via the config map <strong>config-domain</strong> in the <strong>knative-serving</strong> namespace.</p>
 </li>
 </ul>
 </div>
@@ -771,10 +771,10 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="crtd-deploying-new-revision"><a class="anchor" href="#crtd-deploying-new-revision"></a>Deploy new Revision Service</h2>
+<h2 id="crtd-deploying-new-revision"><a class="anchor" href="#crtd-deploying-new-revision"></a>Deploy a new revision</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For the new revision of the service we will add an environment variable to the service deployment. As Knative follows 12-Factor application principles, any new configuration change will trigger new deployment, in this case it is the new environment variable.</p>
+<p>Knative follows a revision model for its configurations. Each time you change something in the <code>revisionTemplate</code> Knative will effectively generate a new revision and thus a new deployment. In this example we add a new environment variable to demonstrate that mechanism.</p>
 </div>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_2"><a class="anchor" href="#_deploy_configuration_revision_2"></a>Deploy configuration revision 2</h3>
@@ -804,7 +804,7 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Adding an environment variable that will be used a message prefix</td>
+<td>Adding an environment variable that will be used a message prefix.</td>
 </tr>
 </table>
 </div>
@@ -825,7 +825,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
+<p>After the deployment was successful we should see a kubernetes deployment called <code>greeter-00002-deployment</code> in the OpenShift dashboard:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -833,7 +833,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Now running the <a href="#show-knative-revisions">command</a> will show two revisions namely <code>greeter-00001</code> and <code>greeter-0002</code>.</p>
+<p>Now running the <a href="#show-knative-revisions">command</a> will show two revisions: <code>greeter-00001</code> and <code>greeter-0002</code>.</p>
 </div>
 <div class="paragraph">
 <p><a href="#invoke-service">Invoking Service</a> will now show an output like <strong>Hello greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 2</strong>, where <em>Hello</em> is the value that we configured via environment variable in the Knative service resource file.</p>
@@ -845,7 +845,7 @@ spec:
 <h2 id="crtd-distributing-traffic"><a class="anchor" href="#crtd-distributing-traffic"></a>Distributing traffic</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When deploying services with service object based approach, the service deployment will take care of traffic distribution either 100% to latest or pinned revision.  In this section we will explore how we can deploy routes to distribute traffic between deployed revisions.</p>
+<p>When deploying services with service object based approach, the service resource will take care of traffic distribution either 100% to latest or pinned revision. In this section we will explore how we can deploy routes to distribute traffic between deployed revisions.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -862,10 +862,10 @@ spec:
 </table>
 </div>
 <div class="paragraph">
-<p>Before we start to apply routes, let us open a new terminal and run the following command <code>$TUTORIAL_HOME/02-configs-and-routes/bin/call.sh</code>, this command will keep sending requests to greeter service in every two seconds which allows us to monitor the changes to responses as we keep applying the route that will distribute the traffic between available two revisions.</p>
+<p>Before we start to apply routes, let us open a new terminal and run the following command <code>$TUTORIAL_HOME/02-configs-and-routes/bin/call.sh</code>, this command will keep sending requests to greeter route every two seconds which allows us to monitor the changes to the responses as we keep applying the route that will distribute the traffic between the available two revisions.</p>
 </div>
 <div class="sect2">
-<h3 id="crtd-all-rev1"><a class="anchor" href="#crtd-all-rev1"></a>All traffic to revision 1</h3>
+<h3 id="crtd-all-rev1"><a class="anchor" href="#crtd-all-rev1"></a>Send all traffic to revision 1</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_all_rev1.yaml</code></pre>
@@ -880,11 +880,11 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>You will notice the output on your other terminal to be something like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 34</strong>.</p>
+<p>You will notice the output on your monitoring terminal to be something like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 34</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="crtd-all-rev2"><a class="anchor" href="#crtd-all-rev2"></a>All traffic to revision 2</h3>
+<h3 id="crtd-all-rev2"><a class="anchor" href="#crtd-all-rev2"></a>Send all traffic to revision 2</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_all_rev2.yaml</code></pre>
@@ -899,11 +899,11 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>You will notice the output on your other terminal to be something like <strong>Hello greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 13</strong>.</p>
+<p>You will notice the output on your monitoring terminal to be something like <strong>Hello greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 13</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="crtd-all-rev1-rev2-50"><a class="anchor" href="#crtd-all-rev1-rev2-50"></a>50-50 between revision 1 and revision 2</h3>
+<h3 id="crtd-all-rev1-rev2-50"><a class="anchor" href="#crtd-all-rev1-rev2-50"></a>50-50 split between revision 1 and revision 2</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</code></pre>
@@ -918,11 +918,11 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>You will notice the output will be mix of responses like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 11</strong> and <strong>Hello greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 10</strong> approximately distributed 50% between each.</p>
+<p>You will notice the output will be mix of responses like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 11</strong> and <strong>Hello greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 10</strong> approximately distributed 50% between the two.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="crtd-all-rev1-rev2-75-25"><a class="anchor" href="#crtd-all-rev1-rev2-75-25"></a>75-25 between revision 1 and revision 2</h3>
+<h3 id="crtd-all-rev1-rev2-75-25"><a class="anchor" href="#crtd-all-rev1-rev2-75-25"></a>75-25 split between revision 1 and revision 2</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</code></pre>
@@ -941,7 +941,7 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="crtd-all-rev1-rev2-10-90"><a class="anchor" href="#crtd-all-rev1-rev2-10-90"></a>10-90 between revision 1 and revision 2</h3>
+<h3 id="crtd-all-rev1-rev2-10-90"><a class="anchor" href="#crtd-all-rev1-rev2-10-90"></a>10-90 split between revision 1 and revision 2</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</code></pre>
@@ -966,7 +966,7 @@ spec:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In response texts e.g <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 4</strong> the numbers at the end of the responses shows a count of now may requests has been handled by the service in this example  it is <em>4</em>.  Also note that the output count number may vary according to number of requests that you might have issued.</p>
+<p>In the response texts e.g <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 4</strong> the numbers at the end of the responses shows a count of how may requests have been handled by the service. In this example it is <em>4</em>. Also note that the output count number may vary according to number of requests that you might have issued.</p>
 </div>
 </td>
 </tr>
