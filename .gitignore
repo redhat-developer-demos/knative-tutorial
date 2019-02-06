@@ -12,6 +12,8 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+.cache
+
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 .settings
@@ -30,3 +32,8 @@ work/**/*
 04-build/knative/service*.yaml
 04-build/knative/docker-secret.yaml
 
+src/**
+pom.xml
+mvnw
+mvnw.cmd
+.mvn
