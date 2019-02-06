@@ -1,5 +1,3 @@
-:author: {project-author}
-:revnumber: {project-version}
 :icons: font
 :stem: latexmath
 :source-highlighter: coderay
