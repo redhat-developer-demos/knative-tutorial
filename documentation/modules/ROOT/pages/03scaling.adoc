@@ -3,14 +3,15 @@ include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
 
-* Configuring the scale to zero time period
-* Configuring auto scaling
-* Understanding types of autoscaling strategies
-* Enabling concurrency based auto scaling based concurrency
-* Configuring minimum number of replicas for a service i.e. no scale to zero below the replica count
+* Understand what scale-to-zero is and why it's important.
+* Configure the scale-to-zero time period.
+* Configure the autoscaler.
+* Understand types of autoscaling strategies.
+* Enable concurrency based autoscaling.
+* Configure a minimum number of replicas for a service.
 
 [#scaling-prerequisite]
-== Prerequisite 
+== Prerequisites
 include::partial$prereq-cli.adoc[]
 
 [#scaling-build-containers]
@@ -40,15 +41,15 @@ spec:
 [.text-center]
 **service.yaml**
 
-<1> Makes Knative to always run the latest revision of the deployment
-<2> It is very important that the image is a fully qualified name docker image name with tag. For more details on this <<faq-q2,Question 2 of FAQ>>
+<1> Configures the Knative service to always run the latest revision of the deployment.
+<2> It is very important that the image is a fully qualified docker image name, including a tag. For more details on this <<faq-q2,Question 2 of FAQ>>.
 
 [source,bash]
 ----
 cd $TUTORIAL_HOME/01-basics/knative
 ----
 
-The service could be deployed using the command:
+The service can be deployed using the command:
 
 [source,bash]
 ----
@@ -63,7 +64,7 @@ oc apply -n knativetutorial -f service.yaml
 kubectl apply -n knativetutorial -f service.yaml
 ----
 
-After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` available.
+After the deployment was successful of the service we should see a kubernetes deployment called `greeter-00001-deployment`.
 
 image::greeter-00001.png[Greeter Service]
 
@@ -72,19 +73,23 @@ image::greeter-00001.png[Greeter Service]
 
 include::partial$invoke-service.adoc[tags=*]
 
-The last curl command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
+The last `curl` command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
 
-Check <<basics-see-what-you-have-deployed,deployed Knative resources>> tfor more details of what Knative objects and resources have been created with the above service deployment.
+Check <<basics-see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
 
 [#scaling-scale-to-zero]
 == Configure scale to zero 
 
-Assuming that <<scaling-deploy-service, Greeter service>> has been deployed, if the service has been terminated, the let us <<scaling-invoke-service, invoke the service>> to make service available for request.
+Assuming that <<scaling-deploy-service, Greeter service>> has been deployed, once no more traffic is seen going into that service, we'd like to scale this service down to zero replicas. That's called **scale-to-zero**.
+
+Scale-to-zero is one of the main properties making Knative a serverless platform. After a defined time of idleness (the so called `stable-window`) a revision is considered **inactive**. Now, all routes pointing to the now inactive revision will be pointed to the so-called **activator**. This reprogramming of the network is asynchronous in nature so the `scale-to-zero-grace-period` should give enough slack for this to happen. Once the `scale-to-zero-grace-period` is over, the revision will finally be scaled to zero replicas.
+
+If another request tries to get to this revision, the activator will get it, instruct the autoscaler to create new pods for the revision as quickly as possible and buffer the request until those new pods are created.
 
 [#scale-to-zero-formulae]
 === Calculating scale to zero time period
 
-Knative autoscaler uses the config map **config-autoscaler** of **knative-serving** namespace for autoscaling related properties.  The value of the attribute `stable-window` and `scale-to-zero-grace-period` decides how long Knative autoscaler will wait before terminating the inactive revision pod.  
+The Knative autoscaler uses the config map **config-autoscaler** in the **knative-serving** namespace for autoscaling related properties. The values of the attribute `stable-window` and `scale-to-zero-grace-period`, which we've seen above, are part of this config map.
 
 [source,bash,linenums]
 ----
@@ -106,11 +111,11 @@ scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autosca
 ----
 
 [.text-center]
-`termination period time in seconds = stableWindow + scaleToZeroGracePeriod`
+As described above, the time it takes to finally scale to zero will be `stable-window + scale-to-zero-grace-period`.
 
 [IMPORTANT]
 ====
-* scale-to-zero-grace-period is dynamic parameter i.e. the value is immediately effected after updating the config map
+* scale-to-zero-grace-period is a dynamic parameter so the new value will immediately be in effect after updating the config map
 * the minimum value that can be set for `scale-to-zero-grace-period` is 30 seconds
 ====
 
@@ -124,7 +129,7 @@ For easier observation let us open a new terminal and run the following command,
 watch 'oc get pods -n knativetutorial'
 ----
 
-TIP: The scaling up and down can also be watched on OpenShift dashboard by navigating to knativetutorial project
+TIP: Up- and downscaling can also be watched on the OpenShift dashboard by navigating to the `knativetutorial` project
 
 Checking default values
 [source,bash,linenums]
@@ -135,12 +140,12 @@ echo $stableWindow
 echo $scaleToZeroGracePeriod 
 ----
 
-By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`, firing the request to the greeter service will bring up the pod (if its already terminated) to serve the request. Leaving it without any further requests, it will automatically scale to zero `1 min 30 secs`(<<scale-to-zero-formulae,Compute scale to zero grace period>>).
+By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in `1 min 30 secs`(<<scale-to-zero-formulae,Compute scale to zero grace period>>).
 
 [#scaling-observer-scale-to-zero-1m]
 === Scale to zero in 1 minute
 
-Let us now update **scale-to-zero-grace-period** to `1m` and leave the **stable-window** to default `60s`.
+Let us now update **scale-to-zero-grace-period** to `1m` and leave the **stable-window** at the default `60s`.
 
 [source,bash]
 ----
@@ -177,7 +182,7 @@ kubectl -n knative-serving get configmap config-autoscaler -o yaml \
  | yq r - data.scale-to-zero-grace-period
 ----
 
-Now <<scaling-invoke-service,firing the request>> to the greeter service will bring up the pod to serve the request.Leaving it without any further requests, it will automatically scale to zero `2 mins`(<<scale-to-zero-formulae,Compute scale to zero grace period>>)
+Now <<scaling-invoke-service,firing the request>> to the greeter service will bring up the pod to serve the request again. Leaving it without any further requests, it will automatically scale to zero in `2 mins`(<<scale-to-zero-formulae,Compute scale to zero grace period>>)
 
 [#scaling-observer-scale-to-zero-2m]
 === Scale to zero in 2 minute
@@ -221,7 +226,7 @@ Now <<scaling-invoke-service,firing the request>> to the greeter service will br
 [#scaling-reset-to-defaults]
 === Reset scale to zero to defaults
 
-Let us revert the `scale-to-zero-grace-period` to defaults:
+Let us revert the `scale-to-zero-grace-period` to its default:
 
 [source,bash]
 ----
@@ -255,14 +260,14 @@ kubectl -n knative-serving get configmap config-autoscaler -o yaml \
  | yq r - data.scale-to-zero-grace-period
 ----
 
-For better clarity and  understanding  let us <<scaling-cleanup,clean up>> the deployed knative resources before going to next section.
+For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed knative resources before going to next section.
 
 [#scaling-auto-scaling]
 == Auto Scaling
 
-By default Knative Serving allows 100 concurrency pods, you can view the setting `container-concurrency-target-default` in the configmap **config-autoscaler ** of **knative-serving** namespace.
+By default Knative Serving allows 100 concurrent requests into a pod. This is defined by the `container-concurrency-target-default` setting in the configmap **config-autoscaler ** in the **knative-serving** namespace.
 
-For this exercise let us make our service handle only **10** concurrent requests,this will make the Knative-Serving to scale the pods to handle the requests more than 10 requests
+For this exercise let us make our service handle only **10** concurrent requests. This will cause Knative autoscaler to scale to more pods as soon as we run more than 10 requests in parallel against the revision.
 
 [#scaling-concurrency-10]
 === Service with concurrency of 10 requests
@@ -277,10 +282,8 @@ spec:
   runLatest:
     configuration:
       revisionTemplate:
-        metadata:
-          annotations:
-            autoscaling.knative.dev/target: "10" #<1>
         spec:
+          containerConcurrency: 10 #<1>
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
@@ -334,7 +337,7 @@ watch kubectl get pods -n knativetutorial
 [#scaling-load-service]
 === Load the service
 
-We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for next 10s (`-z 10s`) with no connection timeout(`-t 0`)
+We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 10s`) with no connection timeout(`-t 0`)
 
 [source,bash,linenums]
 ----
@@ -343,7 +346,7 @@ hey -z 10s -c 50 -t 0 \
   "http://${IP_ADDRESS}"
 ----
 
-After successful run of the load test, you will notice the number of greeter service pods would have automatically scaled to 5. You can also view the same via OpenShift dashboard as shown below:
+After youÄ've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:
 
 image::greeter-00001-scaled.png[Greeter Service]
 
@@ -352,19 +355,19 @@ The autoscale pods is computed using the formula:
 [.text-center]
 [source,bash]
 ----
-totalPodsToScale = total number of inflight requests / average concurrency target
+totalPodsToScale = inflightRequests / concurrencyTarget
 ----
 
-With this current setting of **average concurrency target=10**(`autoscaling.knative.dev/target: "10"`) and **total number of inflight requests=50** , you will see Knative automatically scales the greeter services to  `**50/10 = 5 pods**`.
+With this current setting of **concurrencyTarget=10**(`containerConcurrency: "10"`) and **inflightRequests=50** , you will see Knative automatically scales the greeter services to  `**50/10 = 5 pods**`.
 
-For more clarity and understanding let us <<scaling-cleanup,clean up>> existing deployments  before proceeding to next section.
+For more clarity and understanding let us <<scaling-cleanup,clean up>> existing deployments before proceeding to next section.
 
 [#scaling-min-scale]
 == Minimum Scale
 
-In real world scenarios your service might need to handle sudden spikes in requests. Knative by default set the replica count of the deployed service(s) to be one, but this default setting can be configured via an service annotsation **autoscaling.knative.dev/minScale**.
+In real world scenarios your service might need to handle sudden spikes in requests. Knative starts each service with a default of **1** replica. As described above, this will eventually be scaled to zero as described above. If your app needs to stay particularly responsive under any circumstances and/or has a slow startup time, it might be beneficial to always keep a minimum amount of pods around. This can be done via an the annotation **autoscaling.knative.dev/minScale**.
 
-The following example shows how to make knative services by default create services with replica count of two.
+The following example shows how to make Knative create services that start with a replica count of **2** and never scale below it.
 
 [#scaling-deploy-service-minscale]
 === Deploy service 
@@ -381,9 +384,9 @@ spec:
       revisionTemplate:
         metadata:
           annotations:
-            autoscaling.knative.dev/target: "10"  #<1>
             autoscaling.knative.dev/minScale: "2" #<2>
         spec:
+          containerConcurrency: 10 #<1>
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
@@ -396,8 +399,8 @@ spec:
 [.text-center]
 **service-min-scale.yaml**
 
-<1> Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pod(s)
-<2> Every new deployment of this service will minimum have two pods
+<1> Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.
+<2> The deployment of this service will always have a minimum of 2 pods.
 
 [source,bash]
 ----
@@ -412,7 +415,7 @@ oc apply -n knativetutorial -f service-min-scale.yaml
 kubectl apply -n knativetutorial -f service-min-scale.yaml
 ----
 
-After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` with **two** pods readily available.
+After the deployment was successful we should see a kubernetes deployment called `greeter-00001-deployment` with **two** pods readily available.
 
 image::greeter-00001-minscale.png[Greeter Service]
 
@@ -436,7 +439,7 @@ watch kubectl get pods -n knativetutorial
 
 Let us <<scaling-load-service,send some load to the service>> to trigger autoscaling.
 
-When all requests are done and if we are beyond the `scale-to-zero-grace-period`, we will notice that Knative has terminated only 3 out 5 pods, this is because we have configured Knative to always run two pods via the annotation `autoscaling.knative.dev/minScale: "2"` 
+When all requests are done and if we are beyond the `scale-to-zero-grace-period`, we will notice that Knative has terminated only 3 out 5 pods. This is because we have configured Knative to always run two pods via the annotation `autoscaling.knative.dev/minScale: "2"`.
 
 [#scaling-cleanup]
 == Cleanup
