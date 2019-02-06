@@ -8,9 +8,9 @@ spec:
       revisionTemplate:
         metadata:
           annotations:
-            autoscaling.knative.dev/target: "10"
             autoscaling.knative.dev/minScale: "2"
         spec:
+          containerConcurrency: 10
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
