@@ -150,6 +150,7 @@ jsonnet --ext-str image='<your-docker-image-name>' \
    | yq r - | tee ../service-build.yaml
 ----
 
+(e.g)
 [source,bash,linenums]
 ----
 jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \

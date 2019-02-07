@@ -103,3 +103,54 @@ kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
 ----
 
 #end::knative-build-templates[]
+
+#tag::knative-event-channel[]
+[#knative-event-channel]
+[source,bash]
+----
+oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
+----
+
+#end::knative-event-channel[]
+
+#tag::knative-event-cronjob-sources[]
+[#knative-event-sources]
+[source,bash]
+----
+oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+----
+
+#end::knative-event-cronjob-sources[]
+
+#tag::knative-event-subscribers[]
+[#knative-event-subscribers]
+[source,bash]
+----
+oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+
+#end::knative-event-subscribers[]

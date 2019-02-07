@@ -1,0 +1,410 @@
+= Eventing
+include::_attributes.adoc[]
+
+At the end of this chapter you will know and understand:
+
+* What is an event source ?
+* What is a channel ?
+* What is a subscriber ?
+* How to make a service a subscriber of an event ?
+
+[#eventing-prerequisite]
+== Prerequisite 
+include::partial$prereq-cli.adoc[]
+
+=== Assumption
+
+You have completed the xref:ROOT:04build.adoc[Build] or xref:ROOT:05build-templates.adoc[Build Templates], as you will be using the container image `event-greeter:0.0.1` or `event-greeter:0.0.2`  in this chapter.
+
+[#eventing-channel]
+== Channel(Sink)
+
+The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channel or sink] is an interface between the <<eventing-source,event source>> and the <<eventing-subscriber,subscriber>>.The channels are built in to store the incoming events and distribute the event data to the subscribers. When forwarding event to subscribers the channel transforms the event data as per http://cloudevents.io[CloudEvent] specification.
+
+[#eventing-create-event-channel]
+=== Create Event Channel
+
+[source,yaml,linenums]
+----
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Channel
+metadata:
+  name: ch-event-greeter #<1>
+spec:
+  provisioner: #<2>
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: ClusterChannelProvisioner
+    name: in-memory-channel
+----
+
+[.text-center]
+**channel-subscriber.yaml**
+
+<1> The name of the channel, knative make it addressable i.e. resolveable to a target (a consumer service)
+<2> The channel provisioner which is responsible to provision this channel.Various messaging implementations provide their own channel(s) via __ClusterChannelProvisioner__.
+
+Navigate to `$TUTORIAL_HOME/05-eventing/knative`;run the following commands to create the channel:
+
+[source,bash]
+----
+oc apply -n knativetutorial -f channel.yaml
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl apply -n knativetutorial -f channel.yaml
+----
+
+[#eventing-verify-event-channel]
+==== Verification
+
+[source,bash]
+----
+oc -n knativetutorial get channels.eventing.knative.dev 
+----
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get channels.eventing.knative.dev 
+----
+
+Running  the above command should return the following result:
+
+[source,bash]
+----
+NAME                       AGE
+ch-event-greeter   39s
+----
+
+[#eventing-source]
+== Event Source
+
+The event source listens to external events e.g. a kafka topic or for a file on a FTP server. It is responsible to drain the received event(s) along with its data to a configured https://en.wikipedia.org/wiki/Sink_(computing)[sink].
+
+[#eventing-create-event-source]
+=== Create Event Source
+
+[source,yaml,linenums]
+----
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CronJobSource #<1>
+metadata:
+  name: test-cronjob-source
+spec:
+  schedule: "* * * * *"
+  data: '{"message": "Thanks for doing the Knative Tutorial"}'
+  sink: 
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: ch-event-greeter #<2>
+----
+
+<1> The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources
+<2> The channel(sink) where the event data will be drained
+
+[NOTE]
+====
+Event Source can define the attributes that it wishes to receive via the 
+spec.  In the above example it defines **schedule**(the the cron expression) and **data** that will be sent as part of the event.
+
+When you <<eventing-watch-logs,watch the logs>>, you will notice this data being delivered to the service.
+====
+
+Run the following commands to create the event source resources:
+
+[source,bash]
+----
+oc apply -n knativetutorial -f event-source.yaml 
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl apply -n knativetutorial -f event-source.yaml
+----
+
+[#eventing-verify-event-source]
+==== Verification
+
+[source,bash]
+----
+oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
+----
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
+----
+
+Running  the above command should return the following result:
+
+[source,bash]
+----
+NAME                       AGE
+event-greeter-cronjob-source  39s
+----
+
+The conronjobsource also creates a service pod,
+
+[source,bash]
+----
+oc -n knativetutorial get pods 
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get pods 
+----
+
+The above command will return an output like,
+
+[source,bash]
+----
+NAME                                                          READY     STATUS    RESTARTS   AGE
+cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running   0          6m
+----
+
+
+[#eventing-subscriber]
+== Event Subscriber
+
+The event subscription is responsible of connecting the channel(sink) with the service. Once a service connected to a channel it starts receiving the events (cloud events).
+
+[#eventing-create-subscriber]
+=== Create Channel Subscriber
+
+[source,yaml,linenums]
+----
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Subscription
+metadata:
+  name: event-greeter-subscriber #<1>
+  namespace: default
+spec:
+  channel:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: ch-event-greeter #<2>
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service
+      name: event-greeter #<3>
+----
+
+[.text-center]
+**channel-subscriber.yaml**
+
+<1> The subscription name
+<2> The name of the channel to which the subscription will be connected to
+<3> The service reference to which the channel will forward the events
+
+Run the following commands to create the channel subscriber:
+
+[source,bash]
+----
+oc apply -n knativetutorial -f channel-subscriber.yaml
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl apply -n knativetutorial -f channel-subscriber.yaml 
+----
+
+[#eventing-verify-subscriber]
+==== Verification
+
+[source,bash]
+----
+oc -n knativetutorial get subscriptions.eventing.knative.dev 
+----
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl -n knativetutorial get subscriptions.eventing.knative.dev 
+----
+
+Running  the above command should return the following result:
+
+[source,bash]
+----
+NAME                       AGE
+event-greeter-subscriber  39s
+----
+
+[#eventing-see-what-you-have-deployed]
+=== See what you have deployed
+
+==== channel
+include::partial$knative-objects.adoc[tag=knative-event-channel]
+
+==== sources
+include::partial$knative-objects.adoc[tag=knative-event-cronjob-sources]
+
+==== subscription
+include::partial$knative-objects.adoc[tag=knative-event-subscribers]
+
+TIP: Add `-oyaml` to the above commands to get more details about each object that were queried for. 
+
+[#eventing-subscriber-service]
+== Create subscriber Service 
+
+[#eventing-gen-subscriber-service]
+=== Generate Subscriber Service
+
+Run the following command to create the knative service that will be used as the subscriber for the cron events:
+
+[source,bash,linenums]
+----
+
+cd $TUTORIAL_HOME/05-eventing/knative/templates
+
+jsonnet --ext-str image='<your-docker-image-name>' \
+   service.jsonnet\
+   | yq r - | tee ../service.yaml
+----
+
+(e.g)
+[source,bash,linenums]
+----
+jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+   service.jsonnet \
+    | yq r - | tee ../service.yaml
+----
+
+[source,yaml,linenums]
+----
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: event-greeter
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        metadata:
+          labels:
+            app: event-greeter
+        spec:
+          container:
+            image: docker.io/demo/event-greeter:0.0.1 <1>
+----
+
+[.text-center]
+**service.yaml**
+
+<1> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry as part of the build --
+
+[#eventing-deploy-subscriber-service]
+=== Deploy Subscriber Service
+Navigate back to `$TUTORIAL_HOME/05-eventing/knative`; run the following commands to create the service:
+
+[source,bash]
+----
+oc apply -n knativetutorial -f service.yaml 
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl apply -n knativetutorial -f service.yaml 
+----
+
+[#eventing-watch-logs]
+== Watching Logs
+
+Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.
+
+The logs could be watched using the command:
+
+[source,bash]
+----
+oc logs -n knativetutorial -f <pod-name> -c user-container
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash]
+----
+kubectl logs -n knativetutorial -f <pod-name> -c user-container
+----
+
+[TIP]
+====
+* Using stern with the command `stern  -n knativetutorial event-greeter`, to filter the logs further add `-c user-container` to the stern command.
+
+[source,bash]
+----
+stern -n knativetutorial -c user-container event-greeter
+----
+====
+
+The logs will have the output like below printing every minute.
+
+[source]
+----
+2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
+  "ID" : "1549548420001445196-715",
+  "EventTime" : "2019-02-07T14:07:00.001470981Z",
+  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
+  "host" : "Event greeter => 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
+  "time" : "14:07:00"
+}
+----
+[.text-center]
+(OR)
+[source]
+----
+2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
+  "ID" : "1549548420001445196-715",
+  "EventTime" : "2019-02-07T14:07:00.001470981Z",
+  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
+  "host" : "Event greeter v0.0.2 => 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
+  "time" : "14:07:00"
+}
+----
+
+[#eventing-cleanup]
+== Cleanup
+[source,bash,linenums]
+----
+oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete \
+ cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
+oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+
+[.text-center]
+**(OR)**
+
+[source,bash,linenums]
+----
+kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
+kubectl -n knativetutorial delete \
+ cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+kubectl -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
+kubectl -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+
+NOTE: You can also delete xref:ROOT:04build.adoc#build-apply-preeq-resouces[pre-req resources] that were created if you dont need them any more.
