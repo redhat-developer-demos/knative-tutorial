@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basics and Fundamentals :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/01basic-fundas.html">
+    <title>Eventing :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/06eventing.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">  </head>
@@ -95,33 +95,33 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="01basic-fundas.html">2. Basics and Fundamentals</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-build-containers">Build Containers</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-deploy-service">Deploy Service</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-deploy-service">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-see-what-you-have-deployed">See what you have deployed</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-see-what-you-have-deployed">See what you have deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#deploying-new-revision">Deploy new Revision Service</a>
+    <a class="nav-link" href="01basic-fundas.html#deploying-new-revision">Deploy new Revision Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-pinning-revision">Pinning service to a revision</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-pinning-revision">Pinning service to a revision</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-cleanup">Cleanup</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -302,69 +302,69 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="06eventing.html">7. Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06eventing.html#eventing-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="#eventing-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="06eventing.html#eventing-channel">Channel</a>
+    <a class="nav-link" href="#eventing-channel">Channel</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-create-event-channel">Create Event Channel</a>
+    <a class="nav-link" href="#eventing-create-event-channel">Create Event Channel</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-verify-event-channel">Verify</a>
+    <a class="nav-link" href="#eventing-verify-event-channel">Verify</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="06eventing.html#eventing-source">Event Source</a>
+    <a class="nav-link" href="#eventing-source">Event Source</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-create-event-source">Create Event Source</a>
+    <a class="nav-link" href="#eventing-create-event-source">Create Event Source</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-verify-event-source">Verify</a>
+    <a class="nav-link" href="#eventing-verify-event-source">Verify</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="06eventing.html#eventing-subscriber">Event Subscriber</a>
+    <a class="nav-link" href="#eventing-subscriber">Event Subscriber</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-create-subscriber">Create Event Subscriber</a>
+    <a class="nav-link" href="#eventing-create-subscriber">Create Event Subscriber</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-verify-subscriber">Verify</a>
+    <a class="nav-link" href="#eventing-verify-subscriber">Verify</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06eventing.html#eventing-see-what-you-have-deployed">See what you have deployed</a>
+    <a class="nav-link" href="#eventing-see-what-you-have-deployed">See what you have deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="06eventing.html#eventing-subscriber-service">Subscriber Service</a>
+    <a class="nav-link" href="#eventing-subscriber-service">Subscriber Service</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-gen-subscriber-service">Generate Service</a>
+    <a class="nav-link" href="#eventing-gen-subscriber-service">Generate Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06eventing.html#eventing-deploy-subscriber-service">Deploy Service</a>
+    <a class="nav-link" href="#eventing-deploy-subscriber-service">Deploy Service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06eventing.html#eventing-watch-logs">Watching Logs</a>
+    <a class="nav-link" href="#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06eventing.html#eventing-cleanup">Cleanup</a>
+    <a class="nav-link" href="#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -402,38 +402,38 @@
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
-    <li class="crumb"><a href="01basic-fundas.html">2. Basics and Fundamentals</a></li>
+    <li class="crumb"><a href="06eventing.html">7. Eventing</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="file:///Users/kameshs/git/kameshsampath/knative-tutorial/documentation/modules/ROOT/pages/01basic-fundas.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///Users/kameshs/git/kameshsampath/knative-tutorial/documentation/modules/ROOT/pages/06eventing.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Basics and Fundamentals</h1>
+<h1>Eventing</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>At the end of this chapter you will be able to understand and know how to :</p>
+<p>At the end of this chapter you will know and understand:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Deploy first Knative service ?</p>
+<p>What is an event source ?</p>
 </li>
 <li>
-<p>Deploying multiple revisions of the service</p>
+<p>What is a channel ?</p>
 </li>
 <li>
-<p>What different service deployment strategies possible (service vs configurations/routes) ?</p>
+<p>What is a subscriber ?</p>
 </li>
 <li>
-<p>Always running latest vs pinning revision to services</p>
+<p>How to make a service a subscriber of an event ?</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-prerequisite"><a class="anchor" href="#basics-prerequisite"></a>Prerequisite</h2>
+<h2 id="eventing-prerequisite"><a class="anchor" href="#eventing-prerequisite"></a>Prerequisite</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
@@ -501,67 +501,351 @@ oc project -q</code></pre>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
+<div class="sect2">
+<h3 id="_assumption"><a class="anchor" href="#_assumption"></a>Assumption</h3>
+<div class="paragraph">
+<p>You have completed the <a href="04build.html" class="page">Build</a> or <a href="05build-templates.html" class="page">Build Templates</a>, as you will be using the container image <code>event-greeter:0.0.1</code> or <code>event-greeter:0.0.2</code>  in this chapter.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-build-containers"><a class="anchor" href="#basics-build-containers"></a>Build Containers</h2>
+<h2 id="eventing-channel"><a class="anchor" href="#eventing-channel"></a>Channel(Sink)</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Navigate to work folder</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The <a href="https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel">channel or sink</a> is an interface between the <a href="#eventing-source">event source</a> and the <a href="#eventing-subscriber">subscriber</a>.The channels are built in to store the incoming events and distribute the event data to the subscribers. When forwarding event to subscribers the channel transforms the event data as per <a href="http://cloudevents.io">CloudEvent</a> specification.</p>
+</div>
+<div class="sect2">
+<h3 id="eventing-create-event-channel"><a class="anchor" href="#eventing-create-event-channel"></a>Create Event Channel</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: eventing.knative.dev/v1alpha1
+kind: Channel
+metadata:
+  name: ch-event-greeter <i class="conum" data-value="1"></i><b>(1)</b>
+spec:
+  provisioner: <i class="conum" data-value="2"></i><b>(2)</b>
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: ClusterChannelProvisioner
+    name: in-memory-channel</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>channel-subscriber.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the channel, knative make it addressable i.e. resolveable to a target (a consumer service)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The channel provisioner which is responsible to provision this channel.Various messaging implementations provide their own channel(s) via <em>ClusterChannelProvisioner</em>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Navigate to <code>$TUTORIAL_HOME/05-eventing/knative</code>;run the following commands to create the channel:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>cd $TUTORIAL_HOME/work</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f channel.yaml</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Clone the application source code</p>
-</li>
-</ul>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f channel.yaml</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Build the application and container image</p>
-</li>
-</ul>
+<div class="sect3">
+<h4 id="eventing-verify-event-channel"><a class="anchor" href="#eventing-verify-event-channel"></a>Verification</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd knative-tutorial-greeter/java/springboot
-./mvnw clean package
-docker build -t dev.local/rhdevelopers/greeter:0.0.1 .</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Check if images are built and available:</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker images | grep dev.local</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The above command should return something like as shown below:</p>
+<p>Running  the above command should return the following result:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                       AGE
+ch-event-greeter   39s</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eventing-source"><a class="anchor" href="#eventing-source"></a>Event Source</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The event source listens to external events e.g. a kafka topic or for a file on a FTP server. It is responsible to drain the received event(s) along with its data to a configured <a href="https://en.wikipedia.org/wiki/Sink_(computing)">sink</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="eventing-create-event-source"><a class="anchor" href="#eventing-create-event-source"></a>Create Event Source</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CronJobSource <i class="conum" data-value="1"></i><b>(1)</b>
+metadata:
+  name: test-cronjob-source
+spec:
+  schedule: "* * * * *"
+  data: '{"message": "Thanks for doing the Knative Tutorial"}'
+  sink:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: ch-event-greeter <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The channel(sink) where the event data will be drained</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Event Source can define the attributes that it wishes to receive via the
+spec.  In the above example it defines <strong>schedule</strong>(the the cron expression) and <strong>data</strong> that will be sent as part of the event.</p>
+</div>
+<div class="paragraph">
+<p>When you <a href="#eventing-watch-logs">watch the logs</a>, you will notice this data being delivered to the service.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following commands to create the event source resources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f event-source.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f event-source.yaml</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="eventing-verify-event-source"><a class="anchor" href="#eventing-verify-event-source"></a>Verification</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running  the above command should return the following result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                       AGE
+event-greeter-cronjob-source  39s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The conronjobsource also creates a service pod,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will return an output like,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                          READY     STATUS    RESTARTS   AGE
+cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running   0          6m</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eventing-subscriber"><a class="anchor" href="#eventing-subscriber"></a>Event Subscriber</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The event subscription is responsible of connecting the channel(sink) with the service. Once a service connected to a channel it starts receiving the events (cloud events).</p>
+</div>
+<div class="sect2">
+<h3 id="eventing-create-subscriber"><a class="anchor" href="#eventing-create-subscriber"></a>Create Channel Subscriber</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: eventing.knative.dev/v1alpha1
+kind: Subscription
+metadata:
+  name: event-greeter-subscriber <i class="conum" data-value="1"></i><b>(1)</b>
+  namespace: default
+spec:
+  channel:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: ch-event-greeter <i class="conum" data-value="2"></i><b>(2)</b>
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service
+      name: event-greeter <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>channel-subscriber.yaml</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The subscription name</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The name of the channel to which the subscription will be connected to</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The service reference to which the channel will forward the events</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following commands to create the channel subscriber:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f channel-subscriber.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f channel-subscriber.yaml</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="eventing-verify-subscriber"><a class="anchor" href="#eventing-verify-subscriber"></a>Verification</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running  the above command should return the following result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                       AGE
+event-greeter-subscriber  39s</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="eventing-see-what-you-have-deployed"><a class="anchor" href="#eventing-see-what-you-have-deployed"></a>See what you have deployed</h3>
+<div class="sect3">
+<h4 id="_channel"><a class="anchor" href="#_channel"></a>channel</h4>
+<div id="knative-event-channel" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sources"><a class="anchor" href="#_sources"></a>sources</h4>
+<div id="knative-event-sources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_subscription"><a class="anchor" href="#_subscription"></a>subscription</h4>
+<div id="knative-event-subscribers" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -571,35 +855,58 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1 .</code></pre>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can also use the script <code>buildImage.sh</code> that will build source and create the container image
+Add <code>-oyaml</code> to the above commands to get more details about each object that were queried for.
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="basics-deploy-service"><a class="anchor" href="#basics-deploy-service"></a>Deploy Service</h2>
+<h2 id="eventing-subscriber-service"><a class="anchor" href="#eventing-subscriber-service"></a>Create subscriber Service</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="eventing-gen-subscriber-service"><a class="anchor" href="#eventing-gen-subscriber-service"></a>Generate Subscriber Service</h3>
 <div class="paragraph">
-<p>Navigate to folder <code>$TUTORIAL_HOME/01-basics/knative</code>.</p>
+<p>Run the following command to create the knative service that will be used as the subscriber for the cron events:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative/templates
+
+jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
+   service.jsonnet\
+   | yq r - | tee ../service.yaml</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The following snippet shows how a Knative service YAML will look like:</p>
+<p>(e.g)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+   service.jsonnet \
+    | yq r - | tee ../service.yaml</code></pre>
+</div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: greeter
+  name: event-greeter
 spec:
-  runLatest: <i class="conum" data-value="1"></i><b>(1)</b>
+  runLatest:
     configuration:
       revisionTemplate:
+        metadata:
+          labels:
+            app: event-greeter
         spec:
           container:
-            image: dev.local/rhdevelopers/greeter:0.0.1 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+            image: docker.io/demo/event-greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -609,16 +916,15 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Makes Knative to always run the latest revision of the deployment</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>It is very important that the image is a fully qualified name docker image name with tag. For more details on this <a href="faq.html#faq-q2" class="page">Question 2 of FAQ</a></td>
+<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
 </tr>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="eventing-deploy-subscriber-service"><a class="anchor" href="#eventing-deploy-subscriber-service"></a>Deploy Subscriber Service</h3>
 <div class="paragraph">
-<p>The service could be deployed using the command:</p>
+<p>Navigate back to <code>$TUTORIAL_HOME/05-eventing/knative</code>; run the following commands to create the service:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -630,142 +936,24 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
-</div>
-<div class="imageblock thumb">
-<div class="content">
-<img src="_images/greeter-00001.png" alt="Greeter Service">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-invoke-service"><a class="anchor" href="#basics-invoke-service"></a>Invoke Service</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The last curl command should return a response like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 1</strong></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state, at those times try giving request again
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="basics-see-what-you-have-deployed"><a class="anchor" href="#basics-see-what-you-have-deployed"></a>See what you have deployed</h2>
+<h2 id="eventing-watch-logs"><a class="anchor" href="#eventing-watch-logs"></a>Watching Logs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The service based deployment strategy that we did now will create many knative resources, the following commands will help you to query and find what has been deployed.</p>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-services"><a class="anchor" href="#basics-show-knative-services"></a>service</h3>
-<div id="knative-services" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-configs"><a class="anchor" href="#basics-show-knative-configs"></a>configuration</h3>
-<div id="knative-configs" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative configuration called greeter
-oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-routes"><a class="anchor" href="#basics-show-knative-routes"></a>routes</h3>
-<div id="knative-routes" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative routes called greeter
-oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
-</div>
+<p>Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
 </div>
 <div class="paragraph">
-<p>When the service was invoked with <code>curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code>,you noticed that we added a <strong>Host</strong> header to the request with value <code>greeter.knativetutorial.example.com</code>,this FQDN is automatically assigned to your Knative service by the Knative Routes,it uses the format like <code><strong>&lt;service-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</strong></code>.</p>
+<p>The logs could be watched using the command:</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The domain suffix in this case <em>example.com</em> is configurable via the config map <strong>config-domain</strong> of <strong>knative-serving</strong> namespace.</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-revisions"><a class="anchor" href="#basics-show-knative-revisions"></a>revisions</h3>
-<div id="knative-revisions" class="listingblock">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative revisions called greeter you will see only one like greeter-00001
-oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -773,7 +961,7 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -786,63 +974,59 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>add <code>-oyaml</code> to the commands above to see more details</p>
+<p>Using stern with the command <code>stern  -n knativetutorial event-greeter</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
 </li>
 </ul>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container event-greeter</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The logs will have the output like below printing every minute.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
+  "ID" : "1549548420001445196-715",
+  "EventTime" : "2019-02-07T14:07:00.001470981Z",
+  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
+  "host" : "Event greeter =&gt; 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
+  "time" : "14:07:00"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p>(OR)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
+  "ID" : "1549548420001445196-715",
+  "EventTime" : "2019-02-07T14:07:00.001470981Z",
+  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
+  "host" : "Event greeter v0.0.2 =&gt; 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
+  "time" : "14:07:00"
+}</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploying-new-revision"><a class="anchor" href="#deploying-new-revision"></a>Deploy new Revision Service</h2>
+<h2 id="eventing-cleanup"><a class="anchor" href="#eventing-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>As Knative follows <a href="https://12factor.net">12-Factor</a> application principles, any new <a href="https://12factor.net/config">configuration</a> change will trigger new revision of the deployment.</p>
-</div>
-<div class="paragraph">
-<p>To deploy a new revision of the greeter service, we will add an environment variable to the existing service as shown below:</p>
-</div>
-<div class="sect2">
-<h3 id="basics-service-rev2"><a class="anchor" href="#basics-service-rev2"></a>Service revision 2</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
-kind: Service
-metadata:
-  name: greeter
-spec:
-  runLatest:
-    configuration:
-      revisionTemplate:
-        spec:
-          container:
-            image: dev.local/rhdevelopers/greeter:0.0.1
-            env:
-             - name: MESSAGE_PREFIX <i class="conum" data-value="1"></i><b>(1)</b>
-               value: Hello</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service-env.yaml</strong></p>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Adding an environment variable that will be used a message prefix</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Let us deploy the new revision using the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-env.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete \
+ cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
+oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -850,120 +1034,24 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-env.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
+kubectl -n knativetutorial delete \
+ cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+kubectl -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
+kubectl -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/greeter-00002.png" alt="Greeter Service rev2">
-</div>
-</div>
-<div class="paragraph">
-<p>Now running the <a href="#basics-show-knative-revisions">command</a> will show two revisions namely <code>greeter-00001</code> and <code>greeter-0002</code>.</p>
-</div>
-<div class="paragraph">
-<p><a href="#basics-invoke-service">Invoking Service</a> will now show an output like <strong>Hello greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 2</strong>, where <em>Hello</em> is the value that we configured via environment variable in the Knative service resource file.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="basics-pinning-revision"><a class="anchor" href="#basics-pinning-revision"></a>Pinning service to a revision</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As you noticed that the Knative services always routes the traffic to the <strong>latest</strong> revision of the service deployment, thats because of the <strong>runLatest</strong> attribute in <a href="#basics-service-rev2">service resource file</a>.</p>
-</div>
-<div class="paragraph">
-<p>Let us now make the greeter service use earlier revision <code>greeter-00001</code>.</p>
-</div>
-<div class="admonitionblock tip">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>You can use the get <a href="#">ROOT:knative-objects.adoc#knative-revisions</a> command to find the available revisions for the greeter service.</p>
-</div>
+You can also delete <a href="04build.html#build-apply-preeq-resouces" class="page">pre-req resources</a> that were created if you dont need them any more.
 </td>
 </tr>
 </table>
-</div>
-<div class="sect2">
-<h3 id="_service_pinned_to_revision_1"><a class="anchor" href="#_service_pinned_to_revision_1"></a>Service pinned to revision 1</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
-kind: Service
-metadata:
-  name: greeter
-spec:
-  pinned: <i class="conum" data-value="1"></i><b>(1)</b>
-    revisionName: greeter-00001
-  configuration:
-    revisionTemplate:
-      spec:
-        container:
-          image: dev.local/rhdevelopers/greeter:0.0.1</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service-pinned-rev1.yaml</strong></p>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <strong>pinned</strong> attribute in service resource file will make Knative use the revision specified in the <strong>revisionName</strong> attribute.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Let redeploy the greeter service to be pinned to revision <em>greeter-00001</em>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/knative</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-pinned-rev1.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-pinned-rev1.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a href="#basics-invoke-service">Invoking Service</a> will now show an output like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 3</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="basics-cleanup"><a class="anchor" href="#basics-cleanup"></a>Cleanup</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
-</div>
 </div>
 </div>
 </div>

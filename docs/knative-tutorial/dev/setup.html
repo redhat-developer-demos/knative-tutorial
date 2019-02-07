@@ -67,7 +67,7 @@
     <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#minishift">Setup MiniShift</a>
+    <a class="nav-link" href="#minishift">Setup Minishift</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#admission-controller-webhook">Enable Admission Controller Webhook </a>
@@ -299,6 +299,72 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="05build-templates.html#build-template-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="06eventing.html">7. Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="06eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="06eventing.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="06eventing.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="06eventing.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="06eventing.html#eventing-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="06eventing.html#eventing-subscriber-service">Subscriber Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-gen-subscriber-service">Generate Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="06eventing.html#eventing-deploy-subscriber-service">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="06eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="06eventing.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -665,13 +731,11 @@ Run the above command only once per minishift instance
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Setup Knative Build Policies
 oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
-oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
 
 # Install Knative Build components
-kubectl apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml
+oc apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml
 
 # give cluster admin privileges to Service Account Build Controller on project knative-build
-oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build
 oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build</code></pre>
 </div>
 </div>
@@ -765,8 +829,8 @@ oc adm policy add-scc-to-user anyuid -z in-memory-channel-dispatcher -n knative-
 oc adm policy add-scc-to-user anyuid -z in-memory-channel-controller -n knative-eventing
 
 # Install Knative Eventing components
-kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
-kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml
+oc apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
+oc apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml
 
 # give cluster admin privileges to Service Accounts on project knative-eventing
 oc adm policy add-cluster-role-to-user cluster-admin -z eventing-controller -n knative-eventing
