@@ -56,7 +56,7 @@ oc apply -n knativetutorial -f service.yaml
 
 [source,bash]
 ----
-oc apply -n knativetutorial -f service.yaml
+kubectl apply -n knativetutorial -f service.yaml
 ----
 
 After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` available.
