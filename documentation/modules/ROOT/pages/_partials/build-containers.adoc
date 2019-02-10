@@ -1,5 +1,10 @@
 # tag::greeter[]
 
+[NOTE]
+====
+If you have already cloned the repo and built the `greeter` service you can skip this step.
+====
+
 * Navigate to work folder
 [source,bash]
 ----

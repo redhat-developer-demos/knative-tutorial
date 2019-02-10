@@ -2,13 +2,14 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  annotations:
+    # Target 10 in-flight-requests per pod.
+    autoscaling.knative.dev/target: "10"
 spec:
   runLatest:
     configuration:
       revisionTemplate:
         spec:
-          # Target 10 in-flight-requests per pod.
-          containerConcurrency: 10
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:

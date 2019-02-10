@@ -506,6 +506,20 @@ oc project -q</code></pre>
 <div class="sect1">
 <h2 id="basics-build-containers"><a class="anchor" href="#basics-build-containers"></a>Build Containers</h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have already cloned the repo and built the <code>greeter</code> service you can skip this step.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -582,7 +596,12 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <h2 id="basics-deploy-service"><a class="anchor" href="#basics-deploy-service"></a>Deploy Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Navigate to folder <code>$TUTORIAL_HOME/01-basics/knative</code>.</p>
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/01-basics/knative</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>The following snippet shows how a Knative service YAML will look like:</p>
@@ -833,7 +852,7 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Adding an environment variable that will be used a message prefix</td>
+<td>Adding an environment variable that will be used as the message prefix</td>
 </tr>
 </table>
 </div>
@@ -887,7 +906,7 @@ spec:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can use the get <a href="#">ROOT:knative-objects.adoc#knative-revisions</a> command to find the available revisions for the greeter service.</p>
+<p>You can use the get <a href="#basics-show-knative-revisions">show knative revisions</a> command to find the available revisions for the greeter service.</p>
 </div>
 </td>
 </tr>
@@ -924,11 +943,6 @@ spec:
 </div>
 <div class="paragraph">
 <p>Let redeploy the greeter service to be pinned to revision <em>greeter-00001</em>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/knative</code></pre>
-</div>
 </div>
 <div class="listingblock">
 <div class="content">

@@ -43,7 +43,14 @@ spec:
 <1> The name of the channel, knative make it addressable i.e. resolveable to a target (a consumer service)
 <2> The channel provisioner which is responsible to provision this channel.Various messaging implementations provide their own channel(s) via __ClusterChannelProvisioner__.
 
-Navigate to `$TUTORIAL_HOME/05-eventing/knative`;run the following commands to create the channel:
+Navigate to tutorial chapter's `knative` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/05-eventing/knative
+----
+
+Run the following commands to create the channel:
 
 [source,bash]
 ----
@@ -269,12 +276,17 @@ TIP: Add `-oyaml` to the above commands to get more details about each object th
 [#eventing-gen-subscriber-service]
 === Generate Subscriber Service
 
+Navigate to tutorial chapter's `templates` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/05-eventing/knative/templates
+----
+
 Run the following command to create the knative service that will be used as the subscriber for the cron events:
 
 [source,bash,linenums]
 ----
-
-cd $TUTORIAL_HOME/05-eventing/knative/templates
 
 jsonnet --ext-str image='<your-docker-image-name>' \
    service.jsonnet\
@@ -314,7 +326,15 @@ spec:
 
 [#eventing-deploy-subscriber-service]
 === Deploy Subscriber Service
-Navigate back to `$TUTORIAL_HOME/05-eventing/knative`; run the following commands to create the service:
+
+Navigate to tutorial chapter's `knative` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/05-eventing/knative
+----
+
+Run the following commands to create the service:
 
 [source,bash]
 ----

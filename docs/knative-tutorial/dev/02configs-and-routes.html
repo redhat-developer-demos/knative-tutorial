@@ -500,6 +500,20 @@ oc project -q</code></pre>
 <div class="sect1">
 <h2 id="ctrd-build-containers"><a class="anchor" href="#ctrd-build-containers"></a>Build Containers</h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have already cloned the repo and built the <code>greeter</code> service you can skip this step.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -579,7 +593,12 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <p>In the previous chapter we saw how we can deploy services using a holistic service resource file, in this chapter we will see how to deploy the service using configurations and route files.</p>
 </div>
 <div class="paragraph">
-<p>Navigate to the folder <code>$TUTORIAL_HOME/02-configs-and-routes</code>:</p>
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/02-configs-and-routes</code></pre>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_1"><a class="anchor" href="#_deploy_configuration_revision_1"></a>Deploy Configuration revision 1</h3>

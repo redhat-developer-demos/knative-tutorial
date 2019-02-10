@@ -20,7 +20,12 @@ include::partial$build-containers.adoc[tag=greeter]
 
 In the previous chapter we saw how we can deploy services using a holistic service resource file, in this chapter we will see how to deploy the service using configurations and route files.
 
-Navigate to the folder `$TUTORIAL_HOME/02-configs-and-routes`:
+Navigate to the tutorial chapter's `knative` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/02-configs-and-routes
+----
 
 === Deploy Configuration revision 1
 

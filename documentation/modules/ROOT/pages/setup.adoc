@@ -4,62 +4,80 @@ include::_attributes.adoc[]
 [#prerequisite]
 == Prerequisite CLI tools
 
-You will need in this tutorial:
+The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
 
-[cols="3*^,3*."]
+[cols="4*^,4*."]
 |===
-|**Tool** |**macOS** |**Fedora**
+|**Tool** |**macOS** |**Fedora** | **Remarks**
 | `minishift` 
 | https://github.com/minishift/minishift/releases
 | https://github.com/minishift/minishift/releases
+|
 
 | docker
 | https://www.docker.com/docker-mac[Docker for Mac]
 | `dnf install docker`
+|
 
 | https://kubernetes.io/docs/tasks/tools/install-kubectl[kubectl]
 | https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl[Mac OS]
 | `dnf install kubernetes-client` 
+|
 
 | https://maven.apacge.org[Apache Maven]
 | `brew install maven`
 | `dnf install maven`
+|
 
 | https://github.com/wercker/stern[stern]
 | `brew install stern`
 | `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
+|
 
 | `curl`, `gunzip`, `tar` 
 | built-in or part of your bash shell
 | should also be installed already, but just in case... `dnf install curl gzip tar`
+|
 
 | git
 | `brew install git`
 | `dnf install git`
+|
 
 | http://xmlstar.sourceforge.net/[xmlstarlet]
 | `brew install xmlstarlet`
 | http://xmlstar.sourceforge.net/
+|
 
 | https://github.com/mikefarah/yq[yq]
 | `brew install yq`
 |  https://github.com/mikefarah/yq/releases/latest
+|
 
 | https://httpie.org/[httpie]
 | `brew install httpie`
 | `dnf install httpie`
+|
 
 | https://golang.org[go]
 | `brew install golang`
 | https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
+|
 
 | https://github.com/rakyll/hey[hey]
 | `go get -u github.com/rakyll/hey`
 | `go get -u github.com/rakyll/hey`
+| Add `hey` to the path using the command `export PATH=$HOME/go/bin:$PATH`
 
 | https://jsonnet.org/
 |`brew install jsonnet`
 | https://github.com/google/jsonnet
+|
+
+| watch
+|`brew install watch`
+| it will be pre-installed
+|
 |===
 
 [#download-tutorial-sources]
@@ -182,7 +200,7 @@ curl -L https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml \
   | kubectl apply --filename -
 ----
 
-NOTE: The above command throws some warnings and error as to some objects not found, it can safely ignore or run the command again
+NOTE: The above command throws some warnings and error as to some objects not found, it can safely ignore or run the command again to do away those errors.
 
 You can moinitor the Istio components via the command:
 [source,bash]

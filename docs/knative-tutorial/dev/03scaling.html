@@ -512,6 +512,20 @@ oc project -q</code></pre>
 <div class="sect1">
 <h2 id="scaling-build-containers"><a class="anchor" href="#scaling-build-containers"></a>Build Containers</h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have already cloned the repo and built the <code>greeter</code> service you can skip this step.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -620,6 +634,9 @@ spec:
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/01-basics/knative</code></pre>
@@ -700,9 +717,9 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stableWindow=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">STABLE_WINDOW=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.stable-window`
-scaleToZeroGracePeriod=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.scale-to-zero-grace-period`</code></pre>
 </div>
 </div>
@@ -711,14 +728,14 @@ scaleToZeroGracePeriod=`oc -n knative-serving get configmaps config-autoscaler -
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stableWindow=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">STABLE_WINDOW=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.stable-window`
-scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
+SCALE_TO_ZERO_GRACE_PERIOD=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.scale-to-zero-grace-period`</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
-<p>As described above, the time it takes to finally scale to zero will be <code>stable-window + scale-to-zero-grace-period</code>.</p>
+<p>As described above, the time it takes to finally scale to zero will be <code>STABLE_WINDOW + SCALE_TO_ZERO_GRACE_PERIOD</code>.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -770,9 +787,9 @@ Up- and downscaling can also be watched on the OpenShift dashboard by navigating
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># should return 60s
-echo $stableWindow
+echo $STABLE_WINDOW
 # should return 30s
-echo $scaleToZeroGracePeriod</code></pre>
+echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -783,6 +800,9 @@ echo $scaleToZeroGracePeriod</code></pre>
 <h3 id="scaling-observer-scale-to-zero-1m"><a class="anchor" href="#scaling-observer-scale-to-zero-1m"></a>Scale to zero in 1 minute</h3>
 <div class="paragraph">
 <p>Let us now update <strong>scale-to-zero-grace-period</strong> to <code>1m</code> and leave the <strong>stable-window</strong> at the default <code>60s</code>.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -847,8 +867,7 @@ echo $scaleToZeroGracePeriod</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># should return 2m
-oc -n knative-serving get configmap config-autoscaler -o yaml \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period</code></pre>
 </div>
 </div>
@@ -888,8 +907,7 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># should return 2m
-oc -n knative-serving get configmap config-autoscaler -o yaml \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period</code></pre>
 </div>
 </div>
@@ -925,12 +943,13 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
 kind: Service
 metadata:
   name: greeter
+  annotations:
+    autoscaling.knative.dev/target: "10" <i class="conum" data-value="1"></i><b>(1)</b>
 spec:
   runLatest:
     configuration:
       revisionTemplate:
         spec:
-          containerConcurrency: 10 <i class="conum" data-value="1"></i><b>(1)</b>
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
@@ -1054,9 +1073,11 @@ spec:
       revisionTemplate:
         metadata:
           annotations:
-            autoscaling.knative.dev/minScale: "2" <i class="conum" data-value="2"></i><b>(2)</b>
+            autoscaling.knative.dev/minScale: "2" <i class="conum" data-value="1"></i><b>(1)</b>
+            # Target 10 in-flight-requests per pod.
+            autoscaling.knative.dev/target: "10" <i class="conum" data-value="2"></i><b>(2)</b>
         spec:
-          containerConcurrency: 10 <i class="conum" data-value="1"></i><b>(1)</b>
+          containerConcurrency: 10
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
