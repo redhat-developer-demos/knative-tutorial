@@ -25,6 +25,13 @@ As the Knative build and build template spec needs some customizations,such as c
 == Generate Docker Secret
 A docker kubernetes secret is required for the build to authenticate with the Docker registry so that it can push the built container image to the registry.
 
+Navigate to the tutorial chapter's `templates` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/04-build/templates
+----
+
 [source,bash,linenums]
 ----
 jsonnet --ext-str user='<your-docker-repo-userid>' \
@@ -184,6 +191,13 @@ spec:
 [#build-apply-preeq-resouces]
 === Apply pre-requisite resources
 
+Navigate to the tutorial chapter's `knative` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/04-build/knative
+----
+
 Before we create the build and service, we need to create a few kubernetes resources that will be used by the build.
 
 Run the following commands to create the pre-requisite resources:
@@ -319,10 +333,13 @@ The above command should return an response like:
 [source,json]
 ----
 {
-    "host": "Event greeter => 'unknown' : 1 ",
-    "message": "test message"
+  "message":"test message",
+  "host":"Event greeter => 'event-greeter-00001-deployment-7446845c4c-f5r79' : 2 ",
+  "time":"22:10:44"
 }
 ----
+
+NOTE: the actual response's host and time properties will be based on your environment
 
 [#build-build-cleanup]
 == Cleanup

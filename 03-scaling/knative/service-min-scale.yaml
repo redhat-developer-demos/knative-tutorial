@@ -9,8 +9,9 @@ spec:
         metadata:
           annotations:
             autoscaling.knative.dev/minScale: "2"
+            # Target 10 in-flight-requests per pod.
+            autoscaling.knative.dev/target: "10"
         spec:
-          containerConcurrency: 10
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:

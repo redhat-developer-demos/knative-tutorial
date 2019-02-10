@@ -25,11 +25,18 @@ include::partial$prereq-cli.adoc[]
 [#build-template-generate-template]
 === Generate build template 
 
- [source,bash,linenums]
- ----
- jsonnet maven-build-template.jsonnet \
-    | yq r - | tee ../maven-build-template.yaml
- ----
+Navigate to the tutorial chapter's `templates` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/04-build/templates
+----
+
+[source,bash,linenums]
+----
+jsonnet maven-build-template.jsonnet \
+  | yq r - | tee ../maven-build-template.yaml
+----
 
 The above command will generate a knative build specification as shown below:
 
@@ -161,6 +168,13 @@ spec:
 === Apply resources
 
 As we have already xref:ROOT:04build.adoc#build-apply-preeq-resouces[applied the pre-req] resources, lets jump straight to applying the template and service.
+
+Navigate to the tutorial chapter's `knative` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/04-build/knative
+----
 
 [#build-template-create-template]
 == Create build template

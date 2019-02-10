@@ -19,7 +19,12 @@ include::partial$build-containers.adoc[tag=greeter]
 [#basics-deploy-service]
 == Deploy Service
 
-Navigate to folder `$TUTORIAL_HOME/01-basics/knative`.
+Navigate to the tutorial chapter's `knative` folder:
+
+[source,bash]
+----
+cd $TUTORIAL_HOME/01-basics/knative
+----
 
 The following snippet shows how a Knative service YAML will look like:
 
@@ -134,7 +139,7 @@ spec:
 [.text-center]
 **service-env.yaml**
 
-<1> Adding an environment variable that will be used a message prefix
+<1> Adding an environment variable that will be used as the message prefix
 
 Let us deploy the new revision using the command:
 
@@ -168,7 +173,7 @@ Let us now make the greeter service use earlier revision `greeter-00001`.
 
 [TIP]
 ====
-You can use the get xref:ROOT:knative-objects.adoc#knative-revisions[show knative revisions] command to find the available revisions for the greeter service.
+You can use the get <<basics-show-knative-revisions, show knative revisions>> command to find the available revisions for the greeter service.
 ====
 
 === Service pinned to revision 1
@@ -194,11 +199,6 @@ spec:
 <1> The **pinned** attribute in service resource file will make Knative use the revision specified in the **revisionName** attribute.
 
 Let redeploy the greeter service to be pinned to revision __greeter-00001__:
-
-[source,bash]
-----
-cd $TUTORIAL_HOME/knative
-----
 
 [source,bash]
 ----

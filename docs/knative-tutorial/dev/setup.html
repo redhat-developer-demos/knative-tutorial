@@ -413,84 +413,105 @@
 <h2 id="prerequisite"><a class="anchor" href="#prerequisite"></a>Prerequisite CLI tools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You will need in this tutorial:</p>
+<p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
 </colgroup>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Tool</strong></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><strong>macOS</strong></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Fedora</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Remarks</strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>minishift</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">docker</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.docker.com/docker-mac">Docker for Mac</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl">kubectl</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl">Mac OS</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install kubernetes-client</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://maven.apacge.org">Apache Maven</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install maven</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install maven</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>sudo curl --output /usr/local/bin/stern -L <a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64" class="bare">https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64</a> &amp;&amp; sudo chmod +x /usr/local/bin/stern</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>curl</code>, <code>gunzip</code>, <code>tar</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">built-in or part of your bash shell</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">should also be installed already, but just in case&#8230;&#8203; <code>dnf install curl gzip tar</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">git</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install git</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install git</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://xmlstar.sourceforge.net/">xmlstarlet</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install xmlstarlet</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://xmlstar.sourceforge.net/" class="bare">http://xmlstar.sourceforge.net/</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install yq</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/latest" class="bare">https://github.com/mikefarah/yq/releases/latest</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://golang.org">go</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install golang</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz" class="bare">https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/rakyll/hey">hey</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>go get -u github.com/rakyll/hey</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>go get -u github.com/rakyll/hey</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Add <code>hey</code> to the path using the command <code>export PATH=$HOME/go/bin:$PATH</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://jsonnet.org/" class="bare">https://jsonnet.org/</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install jsonnet</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/google/jsonnet" class="bare">https://github.com/google/jsonnet</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">it will be pre-installed</p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
 </table>
@@ -650,7 +671,7 @@ oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-sy
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The above command throws some warnings and error as to some objects not found, it can safely ignore or run the command again
+The above command throws some warnings and error as to some objects not found, it can safely ignore or run the command again to do away those errors.
 </td>
 </tr>
 </table>

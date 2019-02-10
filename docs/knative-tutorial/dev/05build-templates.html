@@ -527,13 +527,18 @@ oc project -q</code></pre>
 </div>
 <div class="sect2">
 <h3 id="build-template-generate-template"><a class="anchor" href="#build-template-generate-template"></a>Generate build template</h3>
-<div class="literalblock">
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>templates</code> folder:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>[source,bash,linenums]
-----
-jsonnet maven-build-template.jsonnet \
-   | yq r - | tee ../maven-build-template.yaml
-----</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/templates</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet maven-build-template.jsonnet \
+  | yq r - | tee ../maven-build-template.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -690,6 +695,14 @@ spec:
 <h3 id="build-template-apply-resources"><a class="anchor" href="#build-template-apply-resources"></a>Apply resources</h3>
 <div class="paragraph">
 <p>As we have already <a href="04build.html#build-apply-preeq-resouces" class="page">applied the pre-req</a> resources, lets jump straight to applying the template and service.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative</code></pre>
+</div>
 </div>
 </div>
 </div>

@@ -44,6 +44,8 @@ spec:
 <1> Configures the Knative service to always run the latest revision of the deployment.
 <2> It is very important that the image is a fully qualified docker image name, including a tag. For more details on this <<faq-q2,Question 2 of FAQ>>.
 
+Navigate to the tutorial chapter's `knative` folder:
+
 [source,bash]
 ----
 cd $TUTORIAL_HOME/01-basics/knative
@@ -93,9 +95,9 @@ The Knative autoscaler uses the config map **config-autoscaler** in the **knativ
 
 [source,bash,linenums]
 ----
-stableWindow=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+STABLE_WINDOW=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.stable-window`
-scaleToZeroGracePeriod=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.scale-to-zero-grace-period`
 ----
 
@@ -104,14 +106,14 @@ scaleToZeroGracePeriod=`oc -n knative-serving get configmaps config-autoscaler -
 
 [source,bash]
 ----
-stableWindow=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
+STABLE_WINDOW=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.stable-window`
-scaleToZeroGracePeriod=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
+SCALE_TO_ZERO_GRACE_PERIOD=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.scale-to-zero-grace-period`
 ----
 
 [.text-center]
-As described above, the time it takes to finally scale to zero will be `stable-window + scale-to-zero-grace-period`.
+As described above, the time it takes to finally scale to zero will be `STABLE_WINDOW + SCALE_TO_ZERO_GRACE_PERIOD`.
 
 [IMPORTANT]
 ====
@@ -135,9 +137,9 @@ Checking default values
 [source,bash,linenums]
 ----
 # should return 60s
-echo $stableWindow 
+echo $STABLE_WINDOW 
 # should return 30s
-echo $scaleToZeroGracePeriod 
+echo $SCALE_TO_ZERO_GRACE_PERIOD 
 ----
 
 By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in `1 min 30 secs`(<<scale-to-zero-formulae,Compute scale to zero grace period>>).
@@ -146,6 +148,8 @@ By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window*
 === Scale to zero in 1 minute
 
 Let us now update **scale-to-zero-grace-period** to `1m` and leave the **stable-window** at the default `60s`.
+
+Navigate to the tutorial chapter's `knative` folder:
 
 [source,bash]
 ----
@@ -206,7 +210,6 @@ Verifying the `scale-to-zero-grace-period` value, which should return `2m`:
 
 [source,bash,linenums]
 ----
-# should return 2m
 oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
@@ -245,7 +248,6 @@ Verifying the `scale-to-zero-grace-period` value, which should return `30s`:
 
 [source,bash,linenums]
 ----
-# should return 2m
 oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
@@ -278,12 +280,13 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  annotations:    
+    autoscaling.knative.dev/target: "10" #<1>
 spec:
   runLatest:
     configuration:
       revisionTemplate:
         spec:
-          containerConcurrency: 10 #<1>
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:
@@ -384,9 +387,11 @@ spec:
       revisionTemplate:
         metadata:
           annotations:
-            autoscaling.knative.dev/minScale: "2" #<2>
+            autoscaling.knative.dev/minScale: "2" #<1>
+            # Target 10 in-flight-requests per pod.
+            autoscaling.knative.dev/target: "10" #<2>
         spec:
-          containerConcurrency: 10 #<1>
+          containerConcurrency: 10
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             livenessProbe:

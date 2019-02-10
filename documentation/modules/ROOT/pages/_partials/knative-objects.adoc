@@ -73,8 +73,8 @@ kubectl -n knativetutorial get revisions.serving.knative.dev
 [#knative-build]
 [source,bash,linenums]
 ----
-# get a knative builds called event-greeter
-oc -n knativetutorial get builds.build.knative.dev event-greeter
+# get a knative builds called docker-build
+oc -n knativetutorial get builds.build.knative.dev docker-build
 ----
 
 [.text-center]
@@ -82,7 +82,7 @@ oc -n knativetutorial get builds.build.knative.dev event-greeter
 
 [source,bash]
 ----
-kubectl -n knativetutorial get builds.build.knative.dev event-greeter
+kubectl -n knativetutorial get builds.build.knative.dev docker-build
 ----
 #end::knative-build[]
 

@@ -526,6 +526,14 @@ oc project -q</code></pre>
 <div class="paragraph">
 <p>A docker kubernetes secret is required for the build to authenticate with the Docker registry so that it can push the built container image to the registry.</p>
 </div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>templates</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/templates</code></pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str user='&lt;your-docker-repo-userid&gt;' \
@@ -736,6 +744,14 @@ spec:
 <div class="sect2">
 <h3 id="build-apply-preeq-resouces"><a class="anchor" href="#build-apply-preeq-resouces"></a>Apply pre-requisite resources</h3>
 <div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Before we create the build and service, we need to create a few kubernetes resources that will be used by the build.</p>
 </div>
 <div class="paragraph">
@@ -808,8 +824,8 @@ kubectl apply -n knativetutorial -f kaniko-pvc.yaml</code></pre>
 <h3 id="build-show-knative-builds"><a class="anchor" href="#build-show-knative-builds"></a>build</h3>
 <div id="knative-build" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called event-greeter
-oc -n knativetutorial get builds.build.knative.dev event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called docker-build
+oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -817,7 +833,7 @@ oc -n knativetutorial get builds.build.knative.dev event-greeter</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 </div>
 </div>
@@ -1004,10 +1020,23 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-    "host": "Event greeter =&gt; 'unknown' : 1 ",
-    "message": "test message"
+  "message":"test message",
+  "host":"Event greeter =&gt; 'event-greeter-00001-deployment-7446845c4c-f5r79' : 2 ",
+  "time":"22:10:44"
 }</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the actual response&#8217;s host and time properties will be based on your environment
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

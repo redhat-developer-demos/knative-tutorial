@@ -546,7 +546,15 @@ spec:
 </table>
 </div>
 <div class="paragraph">
-<p>Navigate to <code>$TUTORIAL_HOME/05-eventing/knative</code>;run the following commands to create the channel:</p>
+<p>Navigate to tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the following commands to create the channel:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -870,13 +878,19 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 <div class="sect2">
 <h3 id="eventing-gen-subscriber-service"><a class="anchor" href="#eventing-gen-subscriber-service"></a>Generate Subscriber Service</h3>
 <div class="paragraph">
+<p>Navigate to tutorial chapter&#8217;s <code>templates</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative/templates</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>Run the following command to create the knative service that will be used as the subscriber for the cron events:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative/templates
-
-jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
    service.jsonnet\
    | yq r - | tee ../service.yaml</code></pre>
 </div>
@@ -924,7 +938,15 @@ spec:
 <div class="sect2">
 <h3 id="eventing-deploy-subscriber-service"><a class="anchor" href="#eventing-deploy-subscriber-service"></a>Deploy Subscriber Service</h3>
 <div class="paragraph">
-<p>Navigate back to <code>$TUTORIAL_HOME/05-eventing/knative</code>; run the following commands to create the service:</p>
+<p>Navigate to tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the following commands to create the service:</p>
 </div>
 <div class="listingblock">
 <div class="content">
