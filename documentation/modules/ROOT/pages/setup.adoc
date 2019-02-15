@@ -9,19 +9,14 @@ The following CLI tools are required for running the exercises in this tutorial.
 [cols="4*^,4*."]
 |===
 |**Tool** |**macOS** |**Fedora** | **Remarks**
+| `minikube` 
+| https://kubernetes.io/docs/setup/minikube
+| https://kubernetes.io/docs/setup/minikube
+|
+
 | `minishift` 
 | https://github.com/minishift/minishift/releases
 | https://github.com/minishift/minishift/releases
-|
-
-| docker
-| https://www.docker.com/docker-mac[Docker for Mac]
-| `dnf install docker`
-|
-
-| https://kubernetes.io/docs/tasks/tools/install-kubectl[kubectl]
-| https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl[Mac OS]
-| `dnf install kubernetes-client` 
 |
 
 | https://maven.apacge.org[Apache Maven]
@@ -32,16 +27,6 @@ The following CLI tools are required for running the exercises in this tutorial.
 | https://github.com/wercker/stern[stern]
 | `brew install stern`
 | `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
-|
-
-| `curl`, `gunzip`, `tar` 
-| built-in or part of your bash shell
-| should also be installed already, but just in case... `dnf install curl gzip tar`
-|
-
-| git
-| `brew install git`
-| `dnf install git`
 |
 
 | http://xmlstar.sourceforge.net/[xmlstarlet]
@@ -93,272 +78,60 @@ The `work` folder in `$TUTORIAL_HOME` can be used to download the demo applicati
 
 [IMPORTANT]
 ====
-All examples in this tutorial are tested with **OpenShift 3.11** and **Knative 0.3.0** 
+
+This tutorial was developed and tested with:
+
+- OpenShift `v3.11`
+- Knative `v0.3.0`
+- minikube `v0.33.1`
+- minishift `v1.30.0+186b034`
 ====
 
-[#minishift]
-== Minishift
+[#install-knative]
+== Install Knative 
 
-All the demos in this tutorial will be run using https://github.com/minishift/minishift[minishift], the single node https://www.okd.io/[OKD](the Origin Community Distribution of kubernetes that powers Red Hat OpenShift) cluster that can be used for development purposes. 
+[#install-knative-minikube]
+=== Minikube
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md[Knative with Minikube]
 
-=== Setup minishift
+[#install-knative-openshift]
+=== OpenShift 
+
+For OpenShift Knative installations we will use the OpenShift Cloud Function's https://github.com/openshift-cloud-functions/knative-operators[Knative Operators].
+
+Clone the Knative Operator sources locally:
 
 [source,bash,linenums]
 -----
-export TIMEZONE=$(sudo systemsetup -gettimezone | awk '{print $3}') #<1>
-minishift profile set knative-tutorial
-minishift config set openshift-version v3.11.0
-minishift config set memory 8GB # if you more then preferred is 10GB
-minishift config set cpus 4
-minishift config set disk-size 50g
-minishift config set image-caching true
-minishift addons enable admin-user
-
-minishift start --timezone $TIMEZONE 
-
-eval $(minishift docker-env) && eval $(minishift oc-env)
+cd $TUTORIAL_HOME/work
+git clone https://github.com/openshift-cloud-functions/knative-operators
+cd knative-operators
 -----
 
-<1> Some examples we use in this tutorial are time sensitive, hence its recommended to set the appropriate timezone. If you are linux please use the appropriate command to get the timezone of the host.
 
-[#admission-controller-webhook]
-== Enable Admission Controller Webhook 
-[source,bash,linenums]
-----
-#!/bin/bash
+[#install-knative-ocp]
+==== OCP
 
-minishift openshift config set --target=kube --patch '{
-  "admissionConfig": {
-    "pluginConfig": {
-      "ValidatingAdmissionWebhook": {
-        "configuration": {
-          "apiVersion": "apiserver.config.k8s.io/v1alpha1",
-          "kind": "WebhookAdmission",
-          "kubeConfigFile": "/dev/null"
-        }
-      },
-      "MutatingAdmissionWebhook": {
-        "configuration": {
-          "apiVersion": "apiserver.config.k8s.io/v1alpha1",
-          "kind": "WebhookAdmission",
-          "kubeConfigFile": "/dev/null"
-        }
-      }
-    }
-  }
-}'
-
-# Allowing few minutes for the OpenShift to be restarted
-until oc login -u admin -p admin 2>/dev/null; do sleep 5; done;
-----
-
-[#setup-knative]
-== Knative Setup
-
-[#login-as-admin]
-=== Login as admin user
-
-Since there was an `admin` addon added during minishift configuration, its now possible to login with the `admin` user. For example:
-
-[source,bash]
-----
-oc login -u admin -p admin
-----
-
-[#install-istio]
-=== Install Istio
-
-[#istio-policies]
-==== Configure Istio Policies
-Knative depends on Istio, to deploy Istio you need to run the following commands to configure necessary https://istio.io/docs/setup/kubernetes/platform-setup/openshift/[privileges] to the service accounts used by Istio.
+If you have an existing OpenShift cluster then run the following commands:
 
 [source,bash,linenums]
-----
-oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z default -n istio-system
-oc adm policy add-scc-to-user anyuid -z prometheus -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-egressgateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-citadel-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-ingressgateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-cleanup-old-ca-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-mixer-post-install-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-mixer-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-pilot-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-sidecar-injector-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z cluster-local-gateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-system
+-----
+./etc/scripts/install.sh
+-----
 
-----
+If you need more details about the installation or customizations refer https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md[Knative with OpenShift].
 
-[#deploy-istio]
-==== Deploy Istio Components
+[#install-knative-minishift]
+==== minishift
+
+Run the following commands to configure Knative with minishift:
 
 [source,bash,linenums]
-----
-curl -L https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml \
-  | sed 's/LoadBalancer/NodePort/' \
-  | kubectl apply --filename -
-----
+-----
+./etc/scripts/install-on-minishift.sh #<1>
+-----
 
-NOTE: The above command throws some warnings and error as to some objects not found, it can safely ignore or run the command again to do away those errors.
-
-You can moinitor the Istio components via the command:
-[source,bash]
-----
-oc get pods -n istio-system -w
-----
-
-NOTE: It will take a few minutes for all the Istio components to be up and running. Please wait for all the Istio pods to be running before deploying <<install-knative-serving,Knative Serving>>.  Use kbd:[CTRL+C] to exit watch mode. 
-
-A successful deployment should show similar output as shown below.
-
-[source,bash,linenums]
-----
-$ oc get pods -n istio-system
-NAME                                        READY     STATUS      RESTARTS   AGE
-cluster-local-gateway-76db55c785-9f7zc      1/1       Running     0          2m
-istio-citadel-746c765786-fqx8m              1/1       Running     0          2m
-istio-cleanup-secrets-znzc6                 0/1       Completed   0          2m
-istio-egressgateway-7b46794587-m6tqm        1/1       Running     0          2m
-istio-galley-75c6976d79-bcnbp               1/1       Running     0          2m
-istio-ingressgateway-57f76dc4db-85cps       1/1       Running     0          2m
-istio-pilot-6495978c49-6jrmf                2/2       Running     0          2m
-istio-pilot-6495978c49-7l6w7                2/2       Running     0          2m
-istio-pilot-6495978c49-fh9n8                2/2       Running     0          2m
-istio-policy-6677c87b9f-7wxxj               2/2       Running     0          2m
-istio-sidecar-injector-879fd9dfc-82wjl      1/1       Running     0          2m
-istio-statsd-prom-bridge-549d687fd9-mlnb2   1/1       Running     0          2m
-istio-telemetry-7d46d668db-4qwz5            2/2       Running     0          2m
-----
-
-
-[#update-istio-sidecar-injector-configmap]
-==== Update Istio sidecar injector ConfigMap
-
-The Istio v1.0.1 release automatic sidecar injection has removed `privileged:true` from init contianers,this will cause the Pods with istio proxies automatic inject to crash. Run the following command to update the **istio-sidecar-injector** ConfigMap.
-
-The following command ensures that the `privileged:true` is added to the **istio-sidecar-injector** ConfigMap:
-
-[source,bash]
-----
-oc apply -n istio-system -f $TUTORIAL_HOME/patches/istio-sidecar-injector.yaml
-----
-
-IMPORTANT: Run the above command only once per minishift instance
-
-[#install-knative-build]
-=== Install Knative Build
-[source,bash,linenums]
-----
-# Setup Knative Build Policies
-oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
-
-# Install Knative Build components
-oc apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml
-
-# give cluster admin privileges to Service Account Build Controller on project knative-build
-oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build
-----
-
-[source,bash]
-----
-oc get pods -n knative-build -w
-----
-
-NOTE: It will take a few minutes for all the Knative Build components to be up and running. Use kbd:[CTRL+C] to exit watch mode. 
-
-A successful deployment should show similar output as shown below.
-
-[source,bash,linenums]
-----
-$ oc get pods -n knative-build
-NAME                                READY     STATUS    RESTARTS   AGE
-build-controller-79cb969d89-bnzbr   1/1       Running   0          28s
-build-webhook-58d685fc58-f5s4l      1/1       Running   0          27s
-----
-
-[#install-knative-serving]
-=== Install Knative Serving
-
-[source,bash,linenums]
-----
-# Setup Knative Serving Policies
-oc adm policy add-scc-to-user anyuid -z controller -n knative-serving
-oc adm policy add-scc-to-user anyuid -z autoscaler -n knative-serving
-
-# Install Knative Serving components
-curl -L https://github.com/knative/serving/releases/download/v0.3.0/serving.yaml \
-  | sed 's/LoadBalancer/NodePort/' \
-  | kubectl apply --filename -
-
-# give cluster admin privileges to Service Account Controller on project knative-serving
-oc adm policy add-cluster-role-to-user cluster-admin -z controller -n knative-serving
-
-----
-
-You can monitor the Knative Serving components via  components via the command:
-[source,bash]
-----
-oc get pods -n knative-serving -w
-----
-
-NOTE: It will take a few minutes for all the Knative Serving components to be up and running. Use kbd:[CTRL+C] to exit watch mode. 
-
-A successful deployment should show similar output as shown below.
-
-[source,bash,linenums]
-----
-$ oc get pods -n knative-serving
-NAME                          READY     STATUS    RESTARTS   AGE
-activator-598b4b7787-sb9gv    2/2       Running   0          35s
-autoscaler-5cf5cfb4dc-9zd7p   2/2       Running   0          34s
-controller-7fc84c6584-ggp7b   1/1       Running   0          38s
-webhook-7797ffb6bf-swr4c      1/1       Running   0          38s
-----
-
-[#install-knative-eventing]
-=== Install Knative Eventing
-
-[source,bash,linenums]
-----
-# Setup Knative Eventing Policies
-oc adm policy add-scc-to-user anyuid -z eventing-controller -n knative-eventing
-oc adm policy add-scc-to-user anyuid -z in-memory-channel-dispatcher -n knative-eventing
-oc adm policy add-scc-to-user anyuid -z in-memory-channel-controller -n knative-eventing
-
-# Install Knative Eventing components
-oc apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
-oc apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml
-
-# give cluster admin privileges to Service Accounts on project knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z eventing-controller -n knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z default -n knative-sources
-oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-dispatcher -n knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-controller -n knative-eventing
-
-----
-
-You can monitor the Knative Eventing components via  components via the command:
-[source,bash,linenums]
-----
-oc get pods -n knative-eventing -w
-oc get pods -n knative-sources -w 
-----
-
-NOTE: It will take a few minutes for all the Knative Eventing components to be up and running. Use kbd:[CTRL+C] to exit watch mode.
-
-[source,bash,linenums]
-----
-$ oc get pods -n knative-eventing
-NAME                                            READY     STATUS    RESTARTS   AGE
-eventing-controller-847d8cf969-zv77v            1/1       Running   0          1m
-in-memory-channel-controller-59dd7cfb5b-s82x6   1/1       Running   0          1m
-webhook-7cfff8d86d-4kljw                        1/1       Running   0          1m
-
-$ oc get pods -n knative-sources
-NAME                   READY     STATUS    RESTARTS   AGE
-controller-manager-0   1/1       Running   0          1m
-----
+<1> It will create a minishift profile and install knative.  It also assumes that you already have minishift and your computer has 10GB or more of memory
 
 [#configure-openshift-project]
 == Configuring OpenShift project for Knative applications

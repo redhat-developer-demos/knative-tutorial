@@ -67,25 +67,25 @@
     <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#minishift">Setup Minishift</a>
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#install-knative">Install Knative</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#install-knative-minikube">Install with Minikube </a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#admission-controller-webhook">Enable Admission Controller Webhook </a>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#install-knative-openshift">Install with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#install-knative-ocp">Install on OCP</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#setup-knative">Setup Knative</a>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#install-knative-minishift">Install on Minishift</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#install-istio">Install Istio</a>
+</ul>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#install-knative-build">Install Knative Build</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#install-knative-serving">Install Knative Serving</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#install-knative-eventing">Install Eventing</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#configure-openshift-project">Configure OpenShift project</a>
@@ -430,21 +430,15 @@
 <td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Remarks</strong></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>minikube</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/setup/minikube" class="bare">https://kubernetes.io/docs/setup/minikube</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/setup/minikube" class="bare">https://kubernetes.io/docs/setup/minikube</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>minishift</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">docker</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.docker.com/docker-mac">Docker for Mac</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl">kubectl</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl">Mac OS</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install kubernetes-client</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -457,18 +451,6 @@
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>sudo curl --output /usr/local/bin/stern -L <a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64" class="bare">https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64</a> &amp;&amp; sudo chmod +x /usr/local/bin/stern</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>curl</code>, <code>gunzip</code>, <code>tar</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">built-in or part of your bash shell</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">should also be installed already, but just in case&#8230;&#8203; <code>dnf install curl gzip tar</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">git</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install git</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install git</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -539,7 +521,23 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>All examples in this tutorial are tested with <strong>OpenShift 3.11</strong> and <strong>Knative 0.3.0</strong></p>
+<p>This tutorial was developed and tested with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift <code>v3.11</code></p>
+</li>
+<li>
+<p>Knative <code>v0.3.0</code></p>
+</li>
+<li>
+<p>minikube <code>v0.33.1</code></p>
+</li>
+<li>
+<p>minishift <code>v1.30.0+186b034</code></p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
@@ -548,350 +546,60 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="minishift"><a class="anchor" href="#minishift"></a>Minishift</h2>
+<h2 id="install-knative"><a class="anchor" href="#install-knative"></a>Install Knative</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="install-knative-minikube"><a class="anchor" href="#install-knative-minikube"></a>Minikube</h3>
 <div class="paragraph">
-<p>All the demos in this tutorial will be run using <a href="https://github.com/minishift/minishift">minishift</a>, the single node <a href="https://www.okd.io/">OKD</a>(the Origin Community Distribution of kubernetes that powers Red Hat OpenShift) cluster that can be used for development purposes.</p>
+<p><a href="https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md">Knative with Minikube</a></p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_setup_minishift"><a class="anchor" href="#_setup_minishift"></a>Setup minishift</h3>
+<h3 id="install-knative-openshift"><a class="anchor" href="#install-knative-openshift"></a>OpenShift</h3>
+<div class="paragraph">
+<p>For OpenShift Knative installations we will use the OpenShift Cloud Function&#8217;s <a href="https://github.com/openshift-cloud-functions/knative-operators">Knative Operators</a>.</p>
+</div>
+<div class="paragraph">
+<p>Clone the Knative Operator sources locally:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export TIMEZONE=$(sudo systemsetup -gettimezone | awk '{print $3}') <i class="conum" data-value="1"></i><b>(1)</b>
-minishift profile set knative-tutorial
-minishift config set openshift-version v3.11.0
-minishift config set memory 8GB # if you more then preferred is 10GB
-minishift config set cpus 4
-minishift config set disk-size 50g
-minishift config set image-caching true
-minishift addons enable admin-user
-
-minishift start --timezone $TIMEZONE
-
-eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work
+git clone https://github.com/openshift-cloud-functions/knative-operators
+cd knative-operators</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="install-knative-ocp"><a class="anchor" href="#install-knative-ocp"></a>OCP</h4>
+<div class="paragraph">
+<p>If you have an existing OpenShift cluster then run the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you need more details about the installation or customizations refer <a href="https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md">Knative with OpenShift</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="install-knative-minishift"><a class="anchor" href="#install-knative-minishift"></a>minishift</h4>
+<div class="paragraph">
+<p>Run the following commands to configure Knative with minishift:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install-on-minishift.sh <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Some examples we use in this tutorial are time sensitive, hence its recommended to set the appropriate timezone. If you are linux please use the appropriate command to get the timezone of the host.</td>
+<td>It will create a minishift profile and install knative.  It also assumes that you already have minishift and your computer has 10GB or more of memory</td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="admission-controller-webhook"><a class="anchor" href="#admission-controller-webhook"></a>Enable Admission Controller Webhook</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#!/bin/bash
-
-minishift openshift config set --target=kube --patch '{
-  "admissionConfig": {
-    "pluginConfig": {
-      "ValidatingAdmissionWebhook": {
-        "configuration": {
-          "apiVersion": "apiserver.config.k8s.io/v1alpha1",
-          "kind": "WebhookAdmission",
-          "kubeConfigFile": "/dev/null"
-        }
-      },
-      "MutatingAdmissionWebhook": {
-        "configuration": {
-          "apiVersion": "apiserver.config.k8s.io/v1alpha1",
-          "kind": "WebhookAdmission",
-          "kubeConfigFile": "/dev/null"
-        }
-      }
-    }
-  }
-}'
-
-# Allowing few minutes for the OpenShift to be restarted
-until oc login -u admin -p admin 2&gt;/dev/null; do sleep 5; done;</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="setup-knative"><a class="anchor" href="#setup-knative"></a>Knative Setup</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="login-as-admin"><a class="anchor" href="#login-as-admin"></a>Login as admin user</h3>
-<div class="paragraph">
-<p>Since there was an <code>admin</code> addon added during minishift configuration, its now possible to login with the <code>admin</code> user. For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc login -u admin -p admin</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="install-istio"><a class="anchor" href="#install-istio"></a>Install Istio</h3>
-<div class="sect3">
-<h4 id="istio-policies"><a class="anchor" href="#istio-policies"></a>Configure Istio Policies</h4>
-<div class="paragraph">
-<p>Knative depends on Istio, to deploy Istio you need to run the following commands to configure necessary <a href="https://istio.io/docs/setup/kubernetes/platform-setup/openshift/">privileges</a> to the service accounts used by Istio.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc adm policy add-scc-to-user anyuid -z istio-ingress-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z default -n istio-system
-oc adm policy add-scc-to-user anyuid -z prometheus -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-egressgateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-citadel-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-ingressgateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-cleanup-old-ca-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-mixer-post-install-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-mixer-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-pilot-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-sidecar-injector-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z cluster-local-gateway-service-account -n istio-system
-oc adm policy add-scc-to-user anyuid -z istio-galley-service-account -n istio-system</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="deploy-istio"><a class="anchor" href="#deploy-istio"></a>Deploy Istio Components</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml \
-  | sed 's/LoadBalancer/NodePort/' \
-  | kubectl apply --filename -</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The above command throws some warnings and error as to some objects not found, it can safely ignore or run the command again to do away those errors.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>You can moinitor the Istio components via the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n istio-system -w</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-It will take a few minutes for all the Istio components to be up and running. Please wait for all the Istio pods to be running before deploying <a href="#install-knative-serving">Knative Serving</a>.  Use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>C</kbd></span> to exit watch mode.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful deployment should show similar output as shown below.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -n istio-system
-NAME                                        READY     STATUS      RESTARTS   AGE
-cluster-local-gateway-76db55c785-9f7zc      1/1       Running     0          2m
-istio-citadel-746c765786-fqx8m              1/1       Running     0          2m
-istio-cleanup-secrets-znzc6                 0/1       Completed   0          2m
-istio-egressgateway-7b46794587-m6tqm        1/1       Running     0          2m
-istio-galley-75c6976d79-bcnbp               1/1       Running     0          2m
-istio-ingressgateway-57f76dc4db-85cps       1/1       Running     0          2m
-istio-pilot-6495978c49-6jrmf                2/2       Running     0          2m
-istio-pilot-6495978c49-7l6w7                2/2       Running     0          2m
-istio-pilot-6495978c49-fh9n8                2/2       Running     0          2m
-istio-policy-6677c87b9f-7wxxj               2/2       Running     0          2m
-istio-sidecar-injector-879fd9dfc-82wjl      1/1       Running     0          2m
-istio-statsd-prom-bridge-549d687fd9-mlnb2   1/1       Running     0          2m
-istio-telemetry-7d46d668db-4qwz5            2/2       Running     0          2m</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="update-istio-sidecar-injector-configmap"><a class="anchor" href="#update-istio-sidecar-injector-configmap"></a>Update Istio sidecar injector ConfigMap</h4>
-<div class="paragraph">
-<p>The Istio v1.0.1 release automatic sidecar injection has removed <code>privileged:true</code> from init contianers,this will cause the Pods with istio proxies automatic inject to crash. Run the following command to update the <strong>istio-sidecar-injector</strong> ConfigMap.</p>
-</div>
-<div class="paragraph">
-<p>The following command ensures that the <code>privileged:true</code> is added to the <strong>istio-sidecar-injector</strong> ConfigMap:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n istio-system -f $TUTORIAL_HOME/patches/istio-sidecar-injector.yaml</code></pre>
-</div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Run the above command only once per minishift instance
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="install-knative-build"><a class="anchor" href="#install-knative-build"></a>Install Knative Build</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Setup Knative Build Policies
-oc adm policy add-scc-to-user anyuid -z build-controller -n knative-build
-
-# Install Knative Build components
-oc apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml
-
-# give cluster admin privileges to Service Account Build Controller on project knative-build
-oc adm policy add-cluster-role-to-user cluster-admin -z build-controller -n knative-build</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n knative-build -w</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-It will take a few minutes for all the Knative Build components to be up and running. Use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>C</kbd></span> to exit watch mode.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful deployment should show similar output as shown below.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -n knative-build
-NAME                                READY     STATUS    RESTARTS   AGE
-build-controller-79cb969d89-bnzbr   1/1       Running   0          28s
-build-webhook-58d685fc58-f5s4l      1/1       Running   0          27s</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="install-knative-serving"><a class="anchor" href="#install-knative-serving"></a>Install Knative Serving</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Setup Knative Serving Policies
-oc adm policy add-scc-to-user anyuid -z controller -n knative-serving
-oc adm policy add-scc-to-user anyuid -z autoscaler -n knative-serving
-
-# Install Knative Serving components
-curl -L https://github.com/knative/serving/releases/download/v0.3.0/serving.yaml \
-  | sed 's/LoadBalancer/NodePort/' \
-  | kubectl apply --filename -
-
-# give cluster admin privileges to Service Account Controller on project knative-serving
-oc adm policy add-cluster-role-to-user cluster-admin -z controller -n knative-serving</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can monitor the Knative Serving components via  components via the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n knative-serving -w</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-It will take a few minutes for all the Knative Serving components to be up and running. Use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>C</kbd></span> to exit watch mode.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful deployment should show similar output as shown below.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -n knative-serving
-NAME                          READY     STATUS    RESTARTS   AGE
-activator-598b4b7787-sb9gv    2/2       Running   0          35s
-autoscaler-5cf5cfb4dc-9zd7p   2/2       Running   0          34s
-controller-7fc84c6584-ggp7b   1/1       Running   0          38s
-webhook-7797ffb6bf-swr4c      1/1       Running   0          38s</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="install-knative-eventing"><a class="anchor" href="#install-knative-eventing"></a>Install Knative Eventing</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Setup Knative Eventing Policies
-oc adm policy add-scc-to-user anyuid -z eventing-controller -n knative-eventing
-oc adm policy add-scc-to-user anyuid -z in-memory-channel-dispatcher -n knative-eventing
-oc adm policy add-scc-to-user anyuid -z in-memory-channel-controller -n knative-eventing
-
-# Install Knative Eventing components
-oc apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
-oc apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml
-
-# give cluster admin privileges to Service Accounts on project knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z eventing-controller -n knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z default -n knative-sources
-oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-dispatcher -n knative-eventing
-oc adm policy add-cluster-role-to-user cluster-admin -z in-memory-channel-controller -n knative-eventing</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can monitor the Knative Eventing components via  components via the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n knative-eventing -w
-oc get pods -n knative-sources -w</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-It will take a few minutes for all the Knative Eventing components to be up and running. Use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>C</kbd></span> to exit watch mode.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc get pods -n knative-eventing
-NAME                                            READY     STATUS    RESTARTS   AGE
-eventing-controller-847d8cf969-zv77v            1/1       Running   0          1m
-in-memory-channel-controller-59dd7cfb5b-s82x6   1/1       Running   0          1m
-webhook-7cfff8d86d-4kljw                        1/1       Running   0          1m
-
-$ oc get pods -n knative-sources
-NAME                   READY     STATUS    RESTARTS   AGE
-controller-manager-0   1/1       Running   0          1m</code></pre>
 </div>
 </div>
 </div>
