@@ -517,7 +517,8 @@ oc project -q</code></pre>
 </div>
 <div class="sect2">
 <h3 id="eventing-create-event-channel"><a class="anchor" href="#eventing-create-event-channel"></a>Create Event Channel</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a>[channel-subscriber.yaml]</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: eventing.knative.dev/v1alpha1
 kind: Channel
@@ -529,9 +530,6 @@ spec:
     kind: ClusterChannelProvisioner
     name: in-memory-channel</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>channel-subscriber.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -558,7 +556,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f channel.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -566,7 +564,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f channel.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -605,7 +603,8 @@ ch-event-greeter   39s</code></pre>
 </div>
 <div class="sect2">
 <h3 id="eventing-create-event-source"><a class="anchor" href="#eventing-create-event-source"></a>Create Event Source</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
 kind: CronJobSource <i class="conum" data-value="1"></i><b>(1)</b>
@@ -655,7 +654,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f event-source.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -663,7 +662,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f event-source.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -727,7 +726,8 @@ cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running 
 </div>
 <div class="sect2">
 <h3 id="eventing-create-subscriber"><a class="anchor" href="#eventing-create-subscriber"></a>Create Channel Subscriber</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: eventing.knative.dev/v1alpha1
 kind: Subscription
@@ -745,9 +745,6 @@ spec:
       kind: Service
       name: event-greeter <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>channel-subscriber.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -770,7 +767,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f channel-subscriber.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -778,7 +775,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f channel-subscriber.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -891,7 +888,7 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
-   service.jsonnet\
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/templates/service.jsonnet">service.jsonnet</a>\
    | yq r - | tee ../service.yaml</code></pre>
 </div>
 </div>
@@ -901,11 +898,12 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   service.jsonnet \
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/templates/service.jsonnet">service.jsonnet</a> \
     | yq r - | tee ../service.yaml</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title">service.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -922,9 +920,6 @@ spec:
           container:
             image: docker.io/demo/event-greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>

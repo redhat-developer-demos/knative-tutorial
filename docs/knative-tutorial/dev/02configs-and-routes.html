@@ -605,7 +605,8 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <div class="paragraph">
 <p>The following snippet shows how a Knative configuration resource YAML looks like:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev1.yaml">configuration-rev1.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
@@ -621,9 +622,6 @@ spec:
         image: dev.local/rhdevelopers/greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>configuration-rev1.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -637,7 +635,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f config/configuration-rev1.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev1.yaml">config/configuration-rev1.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -645,7 +643,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f config/configuration-rev1.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev1.yaml">config/configuration-rev1.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -692,7 +690,8 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <div class="paragraph">
 <p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_default.yaml">route_default.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Route
@@ -704,12 +703,9 @@ spec:
       percent: 100</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>route_default.yaml</strong></p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_default.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -717,7 +713,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f route/route_default.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -863,7 +859,8 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_2"><a class="anchor" href="#_deploy_configuration_revision_2"></a>Deploy configuration revision 2</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev2.yaml">configuration-rev2.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
@@ -882,9 +879,6 @@ spec:
             value: Hello</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>configuration-rev2.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -898,7 +892,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f config/configuration-rev2.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev2.yaml">config/configuration-rev2.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -906,7 +900,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f config/configuration-rev2.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev2.yaml">config/configuration-rev2.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -953,7 +947,7 @@ spec:
 <h3 id="crtd-all-rev1"><a class="anchor" href="#crtd-all-rev1"></a>Send all traffic to revision 1</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_all_rev1.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -961,7 +955,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f route/route_all_rev1.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -972,7 +966,7 @@ spec:
 <h3 id="crtd-all-rev2"><a class="anchor" href="#crtd-all-rev2"></a>Send all traffic to revision 2</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_all_rev2.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev2.yaml">route/route_all_rev2.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -980,7 +974,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f route/route_all_rev2.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev2.yaml">route/route_all_rev2.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -991,7 +985,7 @@ spec:
 <h3 id="crtd-all-rev1-rev2-50"><a class="anchor" href="#crtd-all-rev1-rev2-50"></a>50-50 split between revision 1 and revision 2</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -999,7 +993,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f route/route_rev1-50_rev2-50.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1010,7 +1004,7 @@ spec:
 <h3 id="crtd-all-rev1-rev2-75-25"><a class="anchor" href="#crtd-all-rev1-rev2-75-25"></a>75-25 split between revision 1 and revision 2</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1018,7 +1012,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f route/route_rev1-75_rev2-25.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1029,7 +1023,7 @@ spec:
 <h3 id="crtd-all-rev1-rev2-10-90"><a class="anchor" href="#crtd-all-rev1-rev2-10-90"></a>10-90 split between revision 1 and revision 2</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1037,7 +1031,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f route/route_rev1-10_rev2-90.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">

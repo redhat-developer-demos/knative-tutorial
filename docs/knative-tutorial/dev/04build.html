@@ -531,14 +531,14 @@ oc project -q</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/templates</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative/templates</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str user='&lt;your-docker-repo-userid&gt;' \
   --ext-str password='&lt;your-docker-repo-user-password&gt;' \
-   docker-secret.jsonnet \
+    <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/docker-secret.jsonnet">docker-secret.jsonnet</a> \
    | yq r - | tee ../docker-secret.yaml</code></pre>
 </div>
 </div>
@@ -549,14 +549,15 @@ oc project -q</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str user='demo' \
    --ext-str password='demopassword' \
-   docker-secret.jsonnet \
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/docker-secret.jsonnet">docker-secret.jsonnet</a> \
    | yq r - | tee ../docker-secret.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The above command will generate a kubernetes secret as shown below:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title">docker-secret.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
 kind: Secret
@@ -569,9 +570,6 @@ stringData:
   username: demo <i class="conum" data-value="3"></i><b>(3)</b>
 type: kubernetes.io/basic-auth</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>docker-secret.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -604,7 +602,7 @@ type: kubernetes.io/basic-auth</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='&lt;the build context directory&gt;' \
   --ext-str image='&lt;your-docker-image-name&gt;' \
-   docker-build.jsonnet \
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/docker-build.jsonnet">docker-build.jsonnet</a> \
     | yq r - | tee ../docker-build.yaml</code></pre>
 </div>
 </div>
@@ -615,14 +613,15 @@ type: kubernetes.io/basic-auth</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='java/springboot' \
   --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   docker-build.jsonnet\
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/docker-build.jsonnet">docker-build.jsonnet</a>\
     | yq r - | tee ../docker-build.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The above command will generate a knative build specification as shown below:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title">docker-build.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: build.knative.dev/v1alpha1
 kind: Build
@@ -660,9 +659,6 @@ spec:
       claimName: kaniko-cache</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>docker-build.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -698,7 +694,7 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
-   service.jsonnet\
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/service.jsonnet">service.jsonnet</a>\
    | yq r - | tee ../service-build.yaml</code></pre>
 </div>
 </div>
@@ -708,11 +704,12 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   service.jsonnet \
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/service.jsonnet">service.jsonnet</a> \
     | yq r - | tee ../service-build.yaml</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title">service-build.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -729,9 +726,6 @@ spec:
           container:
             image: docker.io/demo/event-greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service-build.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -760,9 +754,9 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
-oc apply -n knativetutorial -f build-sa.yaml <i class="conum" data-value="2"></i><b>(2)</b>
-oc apply -n knativetutorial -f m2-pvc.yaml <i class="conum" data-value="3"></i><b>(3)</b>
-oc apply -n knativetutorial -f kaniko-pvc.yaml <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/build-sa.yaml">build-sa.yaml</a> <i class="conum" data-value="2"></i><b>(2)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> <i class="conum" data-value="3"></i><b>(3)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -771,9 +765,9 @@ oc apply -n knativetutorial -f kaniko-pvc.yaml <i class="conum" data-value="4"><
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f docker-secret.yaml
-kubectl apply -n knativetutorial -f build-sa.yaml
-kubectl apply -n knativetutorial -f m2-pvc.yaml
-kubectl apply -n knativetutorial -f kaniko-pvc.yaml</code></pre>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/build-sa.yaml">build-sa.yaml</a>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/m2-pvc.yaml">m2-pvc.yaml</a>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a></code></pre>
 </div>
 </div>
 <div class="colist arabic">

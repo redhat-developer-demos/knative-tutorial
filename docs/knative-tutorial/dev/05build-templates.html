@@ -532,19 +532,20 @@ oc project -q</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/templates</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative/templates</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet maven-build-template.jsonnet \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/maven-build-template.jsonnet">maven-build-template.jsonnet</a> \
   | yq r - | tee ../maven-build-template.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The above command will generate a knative build specification as shown below:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title">maven-build-template.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: build.knative.dev/v1alpha1
 kind: BuildTemplate
@@ -594,9 +595,6 @@ spec:
       claimName: kaniko-cache</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>maven-build-template.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -618,7 +616,7 @@ spec:
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='&lt;the context dir within the application source&gt;' \
    --ext-str image='&lt;the container image to use' \
-   service-with-build-template.jsonnet \
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/service-with-build-template.jsonnet">service-with-build-template.jsonnet</a> \
     | yq r - | tee ../service-with-build-template.yaml</code></pre>
 </div>
 </div>
@@ -629,14 +627,15 @@ spec:
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='java/springboot' \
    --ext-str image='docker.io/demo/event-greeter:0.0.2' \
-   service-with-build-template.jsonnet \
+   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/service-with-build-template.jsonnet">service-with-build-template.jsonnet</a> \
     | yq r - | tee ../service-with-build-template.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Running the above command will result in the following knative service:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title">service-with-build-template.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -670,9 +669,6 @@ spec:
           container:
             image: docker.io/kameshsampath/event-greeter:0.0.2</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service-with-build-template.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
