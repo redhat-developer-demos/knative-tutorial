@@ -9,7 +9,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 # tag::call[]
 [source,bash,linenums]
 ----
-curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
+curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
 ----
 
 [.text-center]
