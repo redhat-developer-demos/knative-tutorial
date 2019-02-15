@@ -606,7 +606,8 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <div class="paragraph">
 <p>The following snippet shows how a Knative service YAML will look like:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -620,9 +621,6 @@ spec:
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -641,7 +639,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -649,7 +647,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -827,7 +825,8 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 </div>
 <div class="sect2">
 <h3 id="basics-service-rev2"><a class="anchor" href="#basics-service-rev2"></a>Service revision 2</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-env.yaml">service-env.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -845,9 +844,6 @@ spec:
                value: Hello</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>service-env.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -861,7 +857,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-env.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-env.yaml">service-env.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -869,7 +865,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-env.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-env.yaml">service-env.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -914,7 +910,8 @@ spec:
 </div>
 <div class="sect2">
 <h3 id="_service_pinned_to_revision_1"><a class="anchor" href="#_service_pinned_to_revision_1"></a>Service pinned to revision 1</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-pinned-rev1.yaml">service-pinned-rev1.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -930,9 +927,6 @@ spec:
           image: dev.local/rhdevelopers/greeter:0.0.1</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>service-pinned-rev1.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -946,7 +940,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-pinned-rev1.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-pinned-rev1.yaml">service-pinned-rev1.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -954,7 +948,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-pinned-rev1.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-pinned-rev1.yaml">service-pinned-rev1.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">

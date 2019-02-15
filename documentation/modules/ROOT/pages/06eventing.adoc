@@ -23,7 +23,8 @@ The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channe
 
 [#eventing-create-event-channel]
 === Create Event Channel
-
+[.text-center]
+.link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml][channel-subscriber.yaml]
 [source,yaml,linenums]
 ----
 apiVersion: eventing.knative.dev/v1alpha1
@@ -37,52 +38,49 @@ spec:
     name: in-memory-channel
 ----
 
-[.text-center]
-**channel-subscriber.yaml**
-
 <1> The name of the channel, knative make it addressable i.e. resolveable to a target (a consumer service)
 <2> The channel provisioner which is responsible to provision this channel.Various messaging implementations provide their own channel(s) via __ClusterChannelProvisioner__.
 
 Navigate to tutorial chapter's `knative` folder:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/05-eventing/knative
 ----
 
 Run the following commands to create the channel:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f channel.yaml
+oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 ----
 
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f channel.yaml
+kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 ----
 
 [#eventing-verify-event-channel]
 ==== Verification
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc -n knativetutorial get channels.eventing.knative.dev 
 ----
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knativetutorial get channels.eventing.knative.dev 
 ----
 
 Running  the above command should return the following result:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 NAME                       AGE
 ch-event-greeter   39s
@@ -95,7 +93,8 @@ The event source listens to external events e.g. a kafka topic or for a file on 
 
 [#eventing-create-event-source]
 === Create Event Source
-
+[.text-center]
+.link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
 [source,yaml,linenums]
 ----
 apiVersion: sources.eventing.knative.dev/v1alpha1
@@ -124,37 +123,37 @@ When you <<eventing-watch-logs,watch the logs>>, you will notice this data being
 
 Run the following commands to create the event source resources:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f event-source.yaml 
+oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml] 
 ----
 
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f event-source.yaml
+kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
 ----
 
 [#eventing-verify-event-source]
 ==== Verification
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
 ----
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
 ----
 
 Running  the above command should return the following result:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 NAME                       AGE
 event-greeter-cronjob-source  39s
@@ -162,7 +161,7 @@ event-greeter-cronjob-source  39s
 
 The conronjobsource also creates a service pod,
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc -n knativetutorial get pods 
 ----
@@ -170,14 +169,14 @@ oc -n knativetutorial get pods
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knativetutorial get pods 
 ----
 
 The above command will return an output like,
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 NAME                                                          READY     STATUS    RESTARTS   AGE
 cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running   0          6m
@@ -191,7 +190,8 @@ The event subscription is responsible of connecting the channel(sink) with the s
 
 [#eventing-create-subscriber]
 === Create Channel Subscriber
-
+[.text-center]
+.link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
 [source,yaml,linenums]
 ----
 apiVersion: eventing.knative.dev/v1alpha1
@@ -211,46 +211,43 @@ spec:
       name: event-greeter #<3>
 ----
 
-[.text-center]
-**channel-subscriber.yaml**
-
 <1> The subscription name
 <2> The name of the channel to which the subscription will be connected to
 <3> The service reference to which the channel will forward the events
 
 Run the following commands to create the channel subscriber:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f channel-subscriber.yaml
+oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
 ----
 
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f channel-subscriber.yaml 
+kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml] 
 ----
 
 [#eventing-verify-subscriber]
 ==== Verification
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc -n knativetutorial get subscriptions.eventing.knative.dev 
 ----
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knativetutorial get subscriptions.eventing.knative.dev 
 ----
 
 Running  the above command should return the following result:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 NAME                       AGE
 event-greeter-subscriber  39s
@@ -278,29 +275,31 @@ TIP: Add `-oyaml` to the above commands to get more details about each object th
 
 Navigate to tutorial chapter's `templates` folder:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/05-eventing/knative/templates
 ----
 
 Run the following command to create the knative service that will be used as the subscriber for the cron events:
 
-[source,bash,linenums]
+[source,bash,subs="+macros,+attributes",linenums]
 ----
 
 jsonnet --ext-str image='<your-docker-image-name>' \
-   service.jsonnet\
+   link:{github-repo}/{eventing-repo}/knative/templates/service.jsonnet[service.jsonnet]\
    | yq r - | tee ../service.yaml
 ----
 
 (e.g)
-[source,bash,linenums]
+[source,bash,subs="+macros,+attributes",linenums]
 ----
 jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   service.jsonnet \
+   link:{github-repo}/{eventing-repo}/knative/templates/service.jsonnet[service.jsonnet] \
     | yq r - | tee ../service.yaml
 ----
 
+[.text-center]
+.service.yaml
 [source,yaml,linenums]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -319,9 +318,6 @@ spec:
             image: docker.io/demo/event-greeter:0.0.1 <1>
 ----
 
-[.text-center]
-**service.yaml**
-
 <1> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry as part of the build --
 
 [#eventing-deploy-subscriber-service]
@@ -329,14 +325,14 @@ spec:
 
 Navigate to tutorial chapter's `knative` folder:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/05-eventing/knative
 ----
 
 Run the following commands to create the service:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc apply -n knativetutorial -f service.yaml 
 ----
@@ -344,7 +340,7 @@ oc apply -n knativetutorial -f service.yaml
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply -n knativetutorial -f service.yaml 
 ----
@@ -356,7 +352,7 @@ Since it is a Cron job source, it would have started to emit events every minute
 
 The logs could be watched using the command:
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc logs -n knativetutorial -f <pod-name> -c user-container
 ----
@@ -364,7 +360,7 @@ oc logs -n knativetutorial -f <pod-name> -c user-container
 [.text-center]
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl logs -n knativetutorial -f <pod-name> -c user-container
 ----
@@ -373,7 +369,7 @@ kubectl logs -n knativetutorial -f <pod-name> -c user-container
 ====
 * Using stern with the command `stern  -n knativetutorial event-greeter`, to filter the logs further add `-c user-container` to the stern command.
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 stern -n knativetutorial -c user-container event-greeter
 ----
@@ -406,7 +402,7 @@ The logs will have the output like below printing every minute.
 
 [#eventing-cleanup]
 == Cleanup
-[source,bash,linenums]
+[source,bash,subs="+macros,+attributes",linenums]
 ----
 oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete \
@@ -418,7 +414,7 @@ oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-su
 [.text-center]
 **(OR)**
 
-[source,bash,linenums]
+[source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete \

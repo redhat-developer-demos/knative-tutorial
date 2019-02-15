@@ -604,7 +604,8 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <div class="paragraph">
 <p>The following snippet shows how a Knative service YAML will look like:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -618,9 +619,6 @@ spec:
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>service.yaml</strong></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -647,7 +645,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -655,7 +653,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -811,7 +809,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s configure-scaling-to-1m.yaml | oc apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-1m.yaml">configure-scaling-to-1m.yaml</a> | oc apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -819,7 +817,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s configure-scaling-to-1m.yaml | kubectl apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-1m.yaml">configure-scaling-to-1m.yaml</a> | kubectl apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -851,7 +849,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s configure-scaling-to-2m.yaml | oc apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-2m.yaml">configure-scaling-to-2m.yaml</a> | oc apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -859,7 +857,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s configure-scaling-to-2m.yaml | kubectl apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-2m.yaml">configure-scaling-to-2m.yaml</a> | kubectl apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -891,7 +889,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s configure-scaling-to-30s.yaml | oc apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-30s.yaml">configure-scaling-to-30s.yaml</a> | oc apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -899,7 +897,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s configure-scaling-to-30s.yaml | kubectl apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-30s.yaml">configure-scaling-to-30s.yaml</a> | kubectl apply -f -</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -937,7 +935,8 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 <div class="sect2">
 <h3 id="scaling-concurrency-10"><a class="anchor" href="#scaling-concurrency-10"></a>Service with concurrency of 10 requests</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-10.yaml">service-10.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -960,9 +959,6 @@ spec:
                 path: /healthz</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>service-10.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -976,7 +972,7 @@ spec:
 <h3 id="scaling-autoscaling-deploy-service"><a class="anchor" href="#scaling-autoscaling-deploy-service"></a>Deploy service</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-10.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-10.yaml">service-10.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -984,7 +980,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-10.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-10.yaml">service-10.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -1061,7 +1057,8 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 <div class="sect2">
 <h3 id="scaling-deploy-service-minscale"><a class="anchor" href="#scaling-deploy-service-minscale"></a>Deploy service</h3>
-<div class="listingblock">
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-min-scale.yaml">service-min-scale.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -1088,9 +1085,6 @@ spec:
                 path: /healthz</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>service-min-scale.yaml</strong></p>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -1105,7 +1099,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-min-scale.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-min-scale.yaml">service-min-scale.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -1113,7 +1107,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-min-scale.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-min-scale.yaml">service-min-scale.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">

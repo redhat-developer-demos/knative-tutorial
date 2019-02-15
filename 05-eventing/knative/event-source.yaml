@@ -4,7 +4,7 @@ metadata:
   name: event-greeter-cronjob-source
 spec:
   schedule: "* * * * *"
-  data: '{"message": "Thaknks for doing Knative Tutorial"}'
+  data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:
     apiVersion: eventing.knative.dev/v1alpha1
     kind: Channel
