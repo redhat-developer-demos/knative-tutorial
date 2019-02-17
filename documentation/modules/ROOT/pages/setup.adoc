@@ -71,7 +71,7 @@ Before we start to setting up the environment, lets clone the tutorial sources a
 
 [source,bash]
 ----
-git clone https://github.com/kameshsampath/knative-tutorial
+git clone https://github.com/redhat-developer-demos/knative-tutorial
 ----
 
 The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer them during the exercises. The `work` folder has a README, which has instructions on source code repo and git commands to clone the sources.
