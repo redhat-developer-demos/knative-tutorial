@@ -32,7 +32,7 @@ jobs:
             git config user.name "kameshsampath"
       - add_ssh_keys:
           fingerprints:
-            - "78:fc:35:4e:c2:8b:b5:c3:b8:ec:c2:8f:ef:b5:3b:1e"
+            - "c2:dc:84:4b:b7:c2:87:39:80:00:4a:a8:9f:62:44:37"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dist gh-pages
