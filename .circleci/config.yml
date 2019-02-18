@@ -15,13 +15,15 @@ jobs:
           command: antora --pull --stacktrace site.yml
       - persist_to_workspace:
           root: gh-pages
+          paths:
+            - "*"
   site-deploy:
     docker:
       - image: node:lts-jessie
     steps:
       - checkout
       - attach_workspace:
-          at: gh-pages
+          at: /tmp/gh-pages
       - run:
           name: Install and configure dependencies
           command: |
@@ -30,7 +32,7 @@ jobs:
             git config user.name "kameshsampath"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist gh-pages
+          command: gh-pages --dist /tmp/gh-pages
 workflows:
   version: 2
   build:
