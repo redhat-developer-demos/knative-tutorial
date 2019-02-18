@@ -17,4 +17,4 @@ ui:
     snapshot: true
   supplemental_files: ./supplemental-ui
 output:
-  dir: ./docs
+  dir: ./gh-pages
