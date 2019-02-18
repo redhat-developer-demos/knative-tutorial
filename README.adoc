@@ -1,6 +1,6 @@
 = Knative Tutorial - Introduction to Knative
 
-image:https://travis-ci.org/redhat-developer-demos/knative-tutorial.svg?branch=master["Build Status", link="https://travis-ci.org/redhat-developer-demos/knative-tutorial"]
+image:https://circleci.com/gh/redhat-developer-demos/knative-tutorial.svg?style=svg["CircleCI", link="https://circleci.com/gh/redhat-developer-demos/knative-tutorial"]
 
 Serverless epitomize the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of server frameworks out there, Knative is the first serverless platform specifically designed for Kubernetes and OpenShift. 
 

@@ -35,7 +35,7 @@ jobs:
             - "c2:dc:84:4b:b7:c2:87:39:80:00:4a:a8:9f:62:44:37"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist gh-pages
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist gh-pages
 workflows:
   version: 2
   build:
