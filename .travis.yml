@@ -18,7 +18,7 @@ before_install:
     git config user.name "${GH_USER}";
     git config user.email "${GH_EMAIL}";
     git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*;
-    git fetch --unshallow origin gh-pages;
+    git fetch origin gh-pages;
     git worktree add -b gh-pages gh-pages origin/gh-pages;
     GH_REF=$(git remote get-url origin | awk "{sub(/https:\/\//,\"https://${GH_TOKEN}@\")}; 1" | awk "{sub(/\.git/, \"\")} 1");
     docker pull antora/antora:2.0.0;
