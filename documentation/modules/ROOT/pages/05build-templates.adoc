@@ -179,15 +179,14 @@ cd $TUTORIAL_HOME/04-build/knative
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f maven-build-template.yaml
+kubectl apply -n knativetutorial -f maven-build-template.yaml
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f maven-build-template.yaml
+oc apply -n knativetutorial -f maven-build-template.yaml
 ----
 
 [#build-see-what-you-have-deployed]
@@ -206,16 +205,16 @@ Run the following commands to deploy the service:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service-with-build-template.yaml
+kubectl apply -n knativetutorial -f service-with-build-template.yaml
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service-with-build-template.yaml
+oc apply -n knativetutorial -f service-with-build-template.yaml
 ----
+
 
 You can also xref:ROOT:04build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
 
@@ -236,8 +235,7 @@ curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
    -d '{"message": "test message"}'
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -258,19 +256,19 @@ The above command should return an response like:
 
 [#build-template-cleanup]
 === Cleanup
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
 ----
 
 NOTE: You can also delete xref:ROOT:04build.adoc#build-apply-preeq-resouces[pre-req resources] that were created if you dont need them any more.

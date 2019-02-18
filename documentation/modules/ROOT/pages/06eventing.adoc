@@ -52,15 +52,14 @@ Run the following commands to create the channel:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
+kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
+oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 ----
 
 [#eventing-verify-event-channel]
@@ -68,14 +67,14 @@ kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/c
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get channels.eventing.knative.dev 
+kubectl -n knativetutorial get channels.eventing.knative.dev 
 ----
-[.text-center]
-**(OR)**
+
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get channels.eventing.knative.dev 
+oc -n knativetutorial get channels.eventing.knative.dev 
 ----
 
 Running  the above command should return the following result:
@@ -125,15 +124,14 @@ Run the following commands to create the event source resources:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml] 
+kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
+oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml] 
 ----
 
 [#eventing-verify-event-source]
@@ -141,16 +139,15 @@ kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/e
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
-----
-[.text-center]
-**(OR)**
-
-[source,bash,subs="+macros,+attributes"]
-----
 kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
 ----
 
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
+----
 Running  the above command should return the following result:
 
 [source,bash,subs="+macros,+attributes"]
@@ -163,15 +160,14 @@ The conronjobsource also creates a service pod,
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get pods 
+kubectl -n knativetutorial get pods 
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get pods 
+oc -n knativetutorial get pods 
 ----
 
 The above command will return an output like,
@@ -219,15 +215,14 @@ Run the following commands to create the channel subscriber:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
+kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml] 
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml] 
+oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
 ----
 
 [#eventing-verify-subscriber]
@@ -235,14 +230,14 @@ kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/c
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get subscriptions.eventing.knative.dev 
+kubectl -n knativetutorial get subscriptions.eventing.knative.dev 
 ----
-[.text-center]
-**(OR)**
+
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get subscriptions.eventing.knative.dev 
+oc -n knativetutorial get subscriptions.eventing.knative.dev 
 ----
 
 Running  the above command should return the following result:
@@ -334,15 +329,14 @@ Run the following commands to create the service:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service.yaml 
+kubectl apply -n knativetutorial -f service.yaml 
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service.yaml 
+oc apply -n knativetutorial -f service.yaml 
 ----
 
 [#eventing-watch-logs]
@@ -354,15 +348,14 @@ The logs could be watched using the command:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc logs -n knativetutorial -f <pod-name> -c user-container
+kubectl logs -n knativetutorial -f <pod-name> -c user-container
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl logs -n knativetutorial -f <pod-name> -c user-container
+oc logs -n knativetutorial -f <pod-name> -c user-container
 ----
 
 [TIP]
@@ -402,17 +395,6 @@ The logs will have the output like below printing every minute.
 
 [#eventing-cleanup]
 == Cleanup
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete \
- cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
-oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
-oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -421,6 +403,17 @@ kubectl -n knativetutorial delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
 kubectl -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
 kubectl -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete \
+ cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
+oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
 
 NOTE: You can also delete xref:ROOT:04build.adoc#build-apply-preeq-resouces[pre-req resources] that were created if you dont need them any more.

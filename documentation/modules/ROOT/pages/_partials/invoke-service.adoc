@@ -12,8 +12,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,linenums]
 ----

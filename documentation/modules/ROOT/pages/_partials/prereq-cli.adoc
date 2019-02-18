@@ -1,7 +1,14 @@
 
 The following checks ensures that each chapter exercises are done with right environment settings.
 
-* Make sure to be connected to minishift docker daemon and using right openshift client.
+* Make sure to be connected to minikube or minishift docker daemon and using right openshift client.
+
+[source,bash]
+----
+eval $(minikube docker-env)
+----
+
+.(OR)
 
 [source,bash]
 ----
@@ -12,16 +19,16 @@ eval $(minishift docker-env) && eval $(minishift oc-env)
 
 [source,bash]
 ----
-# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version 
+# kubernetes v1.11+
+kubectl version
 ----
-[.text-center]
-**(OR)**
+
+.(OR)
 
 [source,bash]
 ----
-# kubernetes v1.11+
-kubectl version
+# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version 
 ----
 
 * Make sure right maven version is used (only for Java exercises)

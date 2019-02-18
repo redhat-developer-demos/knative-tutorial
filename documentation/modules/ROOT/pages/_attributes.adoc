@@ -7,3 +7,8 @@
 :build-repo: 04-build
 :eventing-repo: 05-eventing
 :experimental:
+:knative-version: v0.3.0
+:knative-serving-repo: https://github.com/knative/serving/releases/download
+:knative-build-repo: https://github.com/knative/build/releases/download
+:knative-eventing-repo: https://github.com/knative/eventing/releases/download
+:knative-sources-repo: https://github.com/knative/eventing-sources/releases/download

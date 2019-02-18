@@ -1,18 +1,17 @@
 #tag::knative-services[]
-
 [#knative-services]
-[source,bash,linenums]
-----
-# get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev greeter 
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,linenums]
 ----
 kubectl -n knativetutorial  get services.serving.knative.dev greeter 
+----
+
+.(OR)
+
+[source,bash,linenums]
+----
+# get a Knative Service (short name ksvc) called greeter
+oc -n knativetutorial  get services.serving.knative.dev greeter 
 ----
 
 #end::knative-services[]
@@ -22,135 +21,137 @@ kubectl -n knativetutorial  get services.serving.knative.dev greeter
 
 [source,bash,linenums]
 ----
+kubectl -n knativetutorial get configurations.serving.knative.dev greeter
+----
+
+.(OR)
+
+[source,bash,linenums]
+----
 # get a Knative configuration called greeter
 oc -n knativetutorial get configurations.serving.knative.dev greeter
 ----
 
-[.text-center]
-**(OR)**
-
-[source,bash,linenums]
-----
-kubectl -n knativetutorial get configurations.serving.knative.dev greeter
-----
 #end::knative-configs[]
 
 #tag::knative-routes[]
 [#knative-routes]
+
+[source,bash]
+----
+kubectl -n knativetutorial get routes.serving.knative.dev greeter
+----
+
+.(OR)
+
 [source,bash,linenums]
 ----
 # get a Knative routes called greeter
 oc -n knativetutorial get routes.serving.knative.dev greeter
 ----
 
-[.text-center]
-**(OR)**
-
-[source,bash]
-----
-kubectl -n knativetutorial get routes.serving.knative.dev greeter
-----
 #end::knative-routes[]
 
 #tag::knative-revisions[]
 [#knative-revisions]
+
+[source,bash]
+----
+kubectl -n knativetutorial get revisions.serving.knative.dev
+----
+
+.(OR)
+
 [source,bash,linenums]
 ----
 # get a Knative revisions called greeter you will see only one like greeter-00001
 oc -n knativetutorial get revisions.serving.knative.dev
 ----
 
-[.text-center]
-**(OR)**
-
-[source,bash]
-----
-kubectl -n knativetutorial get revisions.serving.knative.dev
-----
 #end::knative-revisions[]
 
 #tag::knative-build[]
 [#knative-build]
+
+[source,bash]
+----
+kubectl -n knativetutorial get builds.build.knative.dev docker-build
+----
+
+.(OR)
+
 [source,bash,linenums]
 ----
 # get a knative builds called docker-build
 oc -n knativetutorial get builds.build.knative.dev docker-build
 ----
 
-[.text-center]
-**(OR)**
-
-[source,bash]
-----
-kubectl -n knativetutorial get builds.build.knative.dev docker-build
-----
 #end::knative-build[]
 
 #tag::knative-build-templates[]
 [#knative-build-templates]
-[source,bash]
-----
-# get a knative build template called  build-java-maven
-oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash]
 ----
 kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
 ----
 
+.(OR)
+
+[source,bash]
+----
+# get a knative build template called  build-java-maven
+oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
+----
+
 #end::knative-build-templates[]
 
 #tag::knative-event-channel[]
 [#knative-event-channel]
-[source,bash]
-----
-oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash]
 ----
 kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
 ----
 
+.(OR)
+
+[source,bash]
+----
+oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
+----
+
 #end::knative-event-channel[]
 
 #tag::knative-event-cronjob-sources[]
 [#knative-event-sources]
-[source,bash]
-----
-oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash]
 ----
 kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
 ----
 
+.(OR)
+
+[source,bash]
+----
+oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
+----
+
 #end::knative-event-cronjob-sources[]
 
 #tag::knative-event-subscribers[]
 [#knative-event-subscribers]
-[source,bash]
-----
-oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash]
 ----
 kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
 
+.(OR)
+
+[source,bash]
+----
+oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
+----
 #end::knative-event-subscribers[]
