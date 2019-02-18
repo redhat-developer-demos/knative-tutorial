@@ -30,6 +30,9 @@ jobs:
             yarn  global add gh-pages@2.0.1
             git config user.email "kamesh.sampath@hotmail.com"
             git config user.name "kameshsampath"
+      - add_ssh_keys:
+          fingerprints:
+            - "78:fc:35:4e:c2:8b:b5:c3:b8:ec:c2:8f:ef:b5:3b:1e"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dist gh-pages
