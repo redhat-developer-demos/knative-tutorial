@@ -68,10 +68,34 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="setup.html#install-knative">Install Knative</a>
+    <a class="nav-link" href="setup.html#kubernetes-cluster">Kubernetes Cluster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
     <a class="nav-link" href="setup.html#install-knative-minikube">Install with Minikube </a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#start-minikube">Configure and Start minikube </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html">Install Knative </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-istio">Install Istio </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-serving">Install Knative Serving </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-build">Install Knative Build</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-eventing">Install Knative Eventing </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#set-knative-tutorial-ns">Configuring Kubernetes namespace </a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
@@ -83,12 +107,12 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="setup.html#install-knative-minishift">Install on Minishift</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="4">
     <a class="nav-link" href="setup.html#configure-openshift-project">Configure OpenShift project</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="setup.html#setup-work-folder">Work Folder</a>
@@ -438,11 +462,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+<p>Make sure to be connected to minikube or minishift docker daemon and using right openshift client.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
@@ -456,17 +486,15 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.11+
 kubectl version</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -753,21 +781,19 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/build-sa.yaml">build-sa.yaml</a> <i class="conum" data-value="2"></i><b>(2)</b>
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> <i class="conum" data-value="3"></i><b>(3)</b>
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f docker-secret.yaml
 kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/build-sa.yaml">build-sa.yaml</a>
 kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/m2-pvc.yaml">m2-pvc.yaml</a>
 kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/build-sa.yaml">build-sa.yaml</a> <i class="conum" data-value="2"></i><b>(2)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> <i class="conum" data-value="3"></i><b>(3)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -798,15 +824,13 @@ kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f docker-build.yaml</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-build.yaml</code></pre>
 </div>
 </div>
 </div>
@@ -818,16 +842,14 @@ kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer
 <h3 id="build-show-knative-builds"><a class="anchor" href="#build-show-knative-builds"></a>build</h3>
 <div id="knative-build" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called docker-build
-oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called docker-build
+oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 </div>
 </div>
@@ -844,15 +866,13 @@ oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -863,15 +883,13 @@ oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -893,15 +911,13 @@ oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -928,15 +944,13 @@ oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc -n knativetutorial get pods</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl -n knativetutorial get pods</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -961,15 +975,13 @@ docker-build-pod-ecc235   0/1       Completed   0          10m</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-build.yaml</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-build.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -998,10 +1010,8 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
    -d '{"message": "test message"}'</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
   'Host: event-greeter.knativetutorial.example.com'  \
@@ -1042,17 +1052,15 @@ the actual response&#8217;s host and time properties will be based on your envir
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete builds.build.knative.dev docker-build</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete builds.build.knative.dev docker-build</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete builds.build.knative.dev docker-build</code></pre>
 </div>
 </div>
 </div>

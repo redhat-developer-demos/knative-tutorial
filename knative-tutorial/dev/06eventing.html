@@ -68,10 +68,34 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="setup.html#install-knative">Install Knative</a>
+    <a class="nav-link" href="setup.html#kubernetes-cluster">Kubernetes Cluster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
     <a class="nav-link" href="setup.html#install-knative-minikube">Install with Minikube </a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#start-minikube">Configure and Start minikube </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html">Install Knative </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-istio">Install Istio </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-serving">Install Knative Serving </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-build">Install Knative Build</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#install-knative-eventing">Install Knative Eventing </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#set-knative-tutorial-ns">Configuring Kubernetes namespace </a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
@@ -83,12 +107,12 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="setup.html#install-knative-minishift">Install on Minishift</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="4">
     <a class="nav-link" href="setup.html#configure-openshift-project">Configure OpenShift project</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="setup.html#setup-work-folder">Work Folder</a>
@@ -441,11 +465,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure to be connected to minishift docker daemon and using right openshift client.</p>
+<p>Make sure to be connected to minikube or minishift docker daemon and using right openshift client.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
@@ -459,17 +489,15 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.11+
 kubectl version</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -556,30 +584,26 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
 </div>
 </div>
 <div class="sect3">
 <h4 id="eventing-verify-event-channel"><a class="anchor" href="#eventing-verify-event-channel"></a>Verification</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -654,30 +678,26 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
 </div>
 </div>
 <div class="sect3">
 <h4 id="eventing-verify-event-source"><a class="anchor" href="#eventing-verify-event-source"></a>Verification</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -694,15 +714,13 @@ event-greeter-cronjob-source  39s</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -767,30 +785,26 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
 </div>
 </div>
 <div class="sect3">
 <h4 id="eventing-verify-subscriber"><a class="anchor" href="#eventing-verify-subscriber"></a>Verification</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -810,15 +824,13 @@ event-greeter-subscriber  39s</code></pre>
 <h4 id="_channel"><a class="anchor" href="#_channel"></a>channel</h4>
 <div id="knative-event-channel" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
 </div>
 </div>
 </div>
@@ -826,15 +838,13 @@ event-greeter-subscriber  39s</code></pre>
 <h4 id="_sources"><a class="anchor" href="#_sources"></a>sources</h4>
 <div id="knative-event-sources" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source</code></pre>
 </div>
 </div>
 </div>
@@ -842,15 +852,13 @@ event-greeter-subscriber  39s</code></pre>
 <h4 id="_subscription"><a class="anchor" href="#_subscription"></a>subscription</h4>
 <div id="knative-event-subscribers" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -945,15 +953,13 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
 </div>
@@ -970,15 +976,13 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
+<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1039,23 +1043,21 @@ spec:
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete \
- cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
-oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
-oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
-</div>
-</div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
 kubectl -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
 kubectl -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete \
+ cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
+oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">

@@ -68,10 +68,34 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#install-knative">Install Knative</a>
+    <a class="nav-link" href="#kubernetes-cluster">Kubernetes Cluster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
     <a class="nav-link" href="#install-knative-minikube">Install with Minikube </a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#start-minikube">Configure and Start minikube </a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="4">
+    <a class="nav-link" href="setup.html">Install Knative </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#install-knative-istio">Install Istio </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#install-knative-serving">Install Knative Serving </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#install-knative-build">Install Knative Build</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#install-knative-eventing">Install Knative Eventing </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#set-knative-tutorial-ns">Configuring Kubernetes namespace </a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
@@ -83,12 +107,12 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="#install-knative-minishift">Install on Minishift</a>
   </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="4">
     <a class="nav-link" href="#configure-openshift-project">Configure OpenShift project</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#setup-work-folder">Work Folder</a>
@@ -495,6 +519,12 @@
 <td class="tableblock halign-center valign-top"><p class="tableblock">it will be pre-installed</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">kubectx and kubens</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install kubectx</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/ahmetb/kubectx" class="bare">https://github.com/ahmetb/kubectx</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -526,13 +556,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>OpenShift <code>v3.11</code></p>
-</li>
-<li>
 <p>Knative <code>v0.3.0</code></p>
 </li>
 <li>
-<p>minikube <code>v0.33.1</code></p>
+<p>minikube <code>v0.34.1</code></p>
+</li>
+<li>
+<p>OpenShift <code>v3.11</code></p>
 </li>
 <li>
 <p>minishift <code>v1.30.0+186b034</code></p>
@@ -546,12 +576,233 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="install-knative"><a class="anchor" href="#install-knative"></a>Install Knative</h2>
+<h2 id="kubernetes-cluster"><a class="anchor" href="#kubernetes-cluster"></a>Kubernetes Cluster</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="install-knative-minikube"><a class="anchor" href="#install-knative-minikube"></a>Minikube</h3>
+<div class="sect3">
+<h4 id="start-minikube"><a class="anchor" href="#start-minikube"></a>Configure and Start minikube</h4>
 <div class="paragraph">
-<p><a href="https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md">Knative with Minikube</a></p>
+<p>Before installing Knative and its components, we need to add few startup config to minikube.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="1"></i><b>(1)</b>
+  --vm-driver=hyperkit \<i class="conum" data-value="2"></i><b>(2)</b>
+  --disk-size=50g \
+  --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Starting a profile named <strong>knative</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>If you are on linux then use <code>--vm-driver=kvm2</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="install-knative-istio"><a class="anchor" href="#install-knative-istio"></a>Install Istio</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio-crds.yaml
+kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Installation of istio components will take some time and its highly recommended that you start Knative components installation only after you see all istio component pods are running. The istio pods can be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n istio-system get pods -w</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful istio install will have the pods running in <code>istio-system</code> namespace as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                       READY   STATUS      RESTARTS   AGE
+cluster-local-gateway-547467ccf6-857mx     1/1     Running     0          6h35m
+istio-citadel-7d64db8bcf-xgdh7             1/1     Running     0          6h35m
+istio-cleanup-secrets-7mjbl                0/1     Completed   0          6h35m
+istio-egressgateway-6ddf4c8bd6-sglg6       1/1     Running     0          6h35m
+istio-galley-7dd996474-4jhr4               1/1     Running     0          6h35m
+istio-ingressgateway-84b89d647f-f9n4h      1/1     Running     0          6h35m
+istio-pilot-86bb4fcbbd-ptz7n               2/2     Running     0          6h35m
+istio-pilot-86bb4fcbbd-s9qxl               2/2     Running     0          6h34m
+istio-pilot-86bb4fcbbd-xd887               2/2     Running     0          6h34m
+istio-policy-5c4d9ff96b-tzkbw              2/2     Running     0          6h35m
+istio-sidecar-injector-6977b5cf5b-9wsjw    1/1     Running     0          6h35m
+istio-statsd-prom-bridge-b44b96d7b-x85xr   1/1     Running     0          6h35m
+istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m
+knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="install-knative-serving"><a class="anchor" href="#install-knative-serving"></a><strong>Install Knative Serving</strong></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/serving.yaml</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Installation of knative serving components will take some time, the status of the knative serving pods can be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get pods -w</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful Knative serving install will have the pods running in <code>knative-serving</code> as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                          READY   STATUS    RESTARTS   AGE
+activator-69b8474d6b-fhnwq    2/2     Running   0          6h33m
+autoscaler-6579b57774-lcjd2   2/2     Running   0          6h33m
+controller-66cd7d99df-6lt2t   1/1     Running   0          6h33m
+webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="install-knative-build"><a class="anchor" href="#install-knative-build"></a><strong>Install Knative Build</strong></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Installation of knative build components will take some time, the status of the  knative serving pods can be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-build get pods -w</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful Knative build install will have the pods running in <code>knative-build</code> as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                READY   STATUS    RESTARTS   AGE
+build-controller-658d64d9bd-4m7l9   1/1     Running   0          6h32m
+build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="install-knative-eventing"><a class="anchor" href="#install-knative-eventing"></a><strong>Install Knative Eventing</strong></h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
+kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Installation of knative eventing components will take some time, the status of the  knative serving pods can be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-sources get pods -w
+kubectl -n knative-eventing get pods -w</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful Knative eventing install will have the pods running <code>knative-eventing</code> and <code>knative-sources</code> in as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="title">knative-eventing namespace</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                            READY   STATUS    RESTARTS   AGE
+eventing-controller-cfbb757bd-lg5zk             1/1     Running   0          6h35m
+in-memory-channel-controller-75d6cc4b77-f8bfl   1/1     Running   0          6h35m
+in-memory-channel-dispatcher-c89db8bb8-ktr26    2/2     Running   1          6h35m
+webhook-5fbb8dbcc7-gk6cx                        1/1     Running   0          6h35m</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">knative-sources namespace</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                   READY   STATUS    RESTARTS   AGE
+controller-manager-0   1/1     Running   0          6h35m</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-knative-tutorial-ns"><a class="anchor" href="#set-knative-tutorial-ns"></a>Configuring Kubernetes namespace</h4>
+<div class="paragraph">
+<p>We will use a non default kubernetes namespace called <code>knativetutorial</code> for all the tutorial exercises.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create namespace knativetutorial</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -602,12 +853,8 @@ cd knative-operators</code></pre>
 </table>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configure-openshift-project"><a class="anchor" href="#configure-openshift-project"></a>Configuring OpenShift project for Knative applications</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="configure-openshift-project"><a class="anchor" href="#configure-openshift-project"></a>Configuring OpenShift project for Knative applications</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-project knativetutorial
@@ -623,12 +870,6 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 </tr>
 </table>
 </div>
-<div class="paragraph text-center">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create namespace knativetutorial</code></pre>
 </div>
 </div>
 </div>
