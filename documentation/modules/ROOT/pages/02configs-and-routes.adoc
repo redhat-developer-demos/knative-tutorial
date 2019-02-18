@@ -51,18 +51,16 @@ spec:
 <1> It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this <<faq-q2,Question 2 of FAQ>>.
 
 The service is then deployed using:
+[source,bash,subs="+macros,+attributes",linenums]
+----
+kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
+----
+
+.(OR)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
-----
-
-[.text-center]
-**(OR)**
-
-[source,bash,subs="+macros,+attributes",linenums]
-----
-kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
 ----
 
 After the deployment was successful, we should see a kubernetes deployment called `greeter-00001-deployment`.
@@ -95,15 +93,14 @@ spec:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
+kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
+oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
 ----
 
 <<invoke-service,Invoking Service>> now should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
@@ -178,15 +175,14 @@ Let us deploy the new revision using the command:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
+kubectl apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
+oc apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
 ----
 
 After the deployment was successful we should see a kubernetes deployment called `greeter-00002-deployment` in the OpenShift dashboard:
@@ -211,85 +207,85 @@ Before we start to apply routes, let us open a new terminal and run the followin
 
 [#crtd-all-rev1]
 === Send all traffic to revision 1
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev1.yaml[route/route_all_rev1.yaml]
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev1.yaml[route/route_all_rev1.yaml]
 ----
 
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc apply -n knativetutorial -f  link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev1.yaml[route/route_all_rev1.yaml]
+----
+
 You will notice the output on your monitoring terminal to be something like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 34**.
 
 [#crtd-all-rev2]
 === Send all traffic to revision 2
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev2.yaml[route/route_all_rev2.yaml]
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev2.yaml[route/route_all_rev2.yaml]
 ----
 
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev2.yaml[route/route_all_rev2.yaml]
+----
+
 You will notice the output on your monitoring terminal to be something like **Hello greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 13**.
 
 [#crtd-all-rev1-rev2-50]
 === 50-50 split between revision 1 and revision 2
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-50_rev2-50.yaml[route/route_rev1-50_rev2-50.yaml]
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-50_rev2-50.yaml[route/route_rev1-50_rev2-50.yaml]
 ----
 
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-50_rev2-50.yaml[route/route_rev1-50_rev2-50.yaml]
+----
+
 You will notice the output will be mix of responses like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 11** and **Hello greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 10** approximately distributed 50% between the two.
 
 [#crtd-all-rev1-rev2-75-25]
 === 75-25 split between revision 1 and revision 2
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-75_rev2-25.yaml[route/route_rev1-75_rev2-25.yaml]
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-75_rev2-25.yaml[route/route_rev1-75_rev2-25.yaml]
 ----
 
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-75_rev2-25.yaml[route/route_rev1-75_rev2-25.yaml]
+----
+
 You will notice the output will be mix of responses like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 6** and **Hello greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 7**, with more requests responded by revision  1 approximately distributed 75% to 25 % between revision 1 and revision 2.
 
 [#crtd-all-rev1-rev2-10-90]
 === 10-90 split between revision 1 and revision 2
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yaml[route/route_rev1-10_rev2-90.yaml]
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yaml[route/route_rev1-10_rev2-90.yaml]
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yaml[route/route_rev1-10_rev2-90.yaml]
 ----
 
 You will notice the will be mix of responses like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 4** and **Hello greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 5**, with more requests responded by revision 2 approximately 10% to 90% between revision 1 and revision 2.
@@ -301,17 +297,17 @@ In the response texts e.g **Hi greeter => greeter-00001-deployment-5d696cc6c8-m6
 
 [#ctrd-cleanup]
 == Cleanup
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc -n knativetutorial delete configurations.serving.knative.dev greeter
-oc -n knativetutorial delete routes.serving.knative.dev greeter
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl -n knativetutorial delete configurations.serving.knative.dev greeter
 kubectl -n knativetutorial delete routes.serving.knative.dev greeter
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc -n knativetutorial delete configurations.serving.knative.dev greeter
+oc -n knativetutorial delete routes.serving.knative.dev greeter
 ----

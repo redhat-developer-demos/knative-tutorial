@@ -28,7 +28,7 @@ cd $TUTORIAL_HOME/01-basics/knative
 
 The following snippet shows how a Knative service YAML will look like:
 
-[.text-center]
+
 .link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 [source,yaml,linenums]
 ----
@@ -50,18 +50,18 @@ spec:
 
 The service could be deployed using the command:
 
-[source,bash,subs="+macros,+attributes",linenums,subs="+macros,+attributes"]
-----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
-----
-
-[.text-center]
-**(OR)**
-
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
+
+.(OR)
+
+[source,bash,linenums,subs="+macros,+attributes"]
+----
+oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+----
+
 
 After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` available.
 
@@ -118,7 +118,7 @@ To deploy a new revision of the greeter service, we will add an environment vari
 
 [#basics-service-rev2]
 === Service revision 2
-[.text-center]
+
 .link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 [source,yaml,linenums]
 ----
@@ -144,15 +144,14 @@ Let us deploy the new revision using the command:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 ----
 
 After successful deployment of the service we should see a kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
@@ -176,7 +175,7 @@ You can use the get <<basics-show-knative-revisions, show knative revisions>> co
 ====
 
 === Service pinned to revision 1
-[.text-center]
+
 .link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
 [source,yaml,linenums]
 ----
@@ -200,30 +199,29 @@ Let redeploy the greeter service to be pinned to revision __greeter-00001__:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
 ----
 
-[.text-center]
-**(OR)**
+.(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
 ----
 
 <<basics-invoke-service,Invoking Service>> will now show an output like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 3**.
 
 [#basics-cleanup]
 == Cleanup
-[source,bash,subs="+macros,+attributes"]
-----
-oc -n knativetutorial delete services.serving.knative.dev greeter
-----
-
-[.text-center]
-**(OR)**
 
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knativetutorial delete services.serving.knative.dev greeter
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc -n knativetutorial delete services.serving.knative.dev greeter
 ----
