@@ -13,9 +13,18 @@ git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter
 
 # Event Greeter source
 
-The event greeter used in the build and eventing chapter of the tutorial cab be cloned from [knative-tutorial-event-greeter](https://github.com/redhat-developer-demos/knative-tutorial-event-greeter)
+The event greeter used in the build and eventing chapter of the tutorial can be cloned from [knative-tutorial-event-greeter](https://github.com/redhat-developer-demos/knative-tutorial-event-greeter)
 
 ```
 cd $TUTORIAL_HOME/work
 git clone https://github.com/redhat-developer-demos/knative-tutorial-event-greeter
+```
+
+# Camel-k demos
+
+The demos used in the "Eventing with Camel" chapter of the tutorial can be cloned from [knative-tutorial-camelk](https://github.com/redhat-developer-demos/knative-tutorial-camelk)
+
+```
+cd $TUTORIAL_HOME/work
+git clone https://github.com/redhat-developer-demos/knative-tutorial-camelk
 ```

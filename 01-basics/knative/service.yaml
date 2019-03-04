@@ -8,7 +8,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: dev.local/rhdevelopers/greeter:0.0.1
+            image: quay.io/rhdevelopers/greeter:0.0.1
             livenessProbe:
               httpGet:
                 path: /healthz

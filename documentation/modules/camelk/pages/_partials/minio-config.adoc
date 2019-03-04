@@ -1,0 +1,34 @@
+#tag::minio-aws-config[]
+[source,bash,subs="+macros,+attributes"]
+----
+aws configure
+# AWS Access Key ID [None]: demoaccesskey #<1>
+# AWS Secret Access Key [None]: demosecretkey #<2>
+# Default region name [None]: 
+# Default output format [None]: 
+
+aws configure set default.s3.signature_version s3v4 #<3>
+
+aws configure list #<4>
+----
+
+<1> Using default user access key **demoaccesskey**
+<2> Using default user secret key **demosecretkey**
+<3> Enable **AWS Signature Version '4'** for minio server
+<4> List the configuration
+
+#end::minio-aws-config[]
+
+
+#tag::minio-make-data-bucket[]
+
+For this demos we will be using a s3 bucket called `data`, run the following command to create the bucket in s3:
+
+[source,bash,subs="+macros,+attributes"]
+----
+S3_URL=$(minikube service -n knativetutorial minio-server --url)
+aws --endpoint-url $S3_URL s3 mb s3://data
+----
+
+#end::minio-make-data-bucket[]
+

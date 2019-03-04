@@ -1,0 +1,13 @@
+Wait for the pods to be running:
+
+[source,bash,subs="+macros,+attributes"]
+----
+timeout 300 "kubectl get pods -n knativetutorial 2>&1 | grep -v -E '(Running|Completed|STATUS)'"
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+timeout 300 "oc get pods -n knativetutorial 2>&1 | grep -v -E '(Running|Completed|STATUS)'"
+----
