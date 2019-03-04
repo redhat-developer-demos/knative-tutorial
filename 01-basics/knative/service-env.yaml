@@ -10,8 +10,8 @@ spec:
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
             env:
-             - name: MESSAGE_PREFIX
-               value: Hello
+              - name: MESSAGE_PREFIX
+                value: Namaste
             livenessProbe:
               httpGet:
                 path: /healthz

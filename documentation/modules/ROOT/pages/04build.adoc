@@ -91,10 +91,12 @@ jsonnet --ext-str contextDir='<the build context directory>' \
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 jsonnet --ext-str contextDir='java/springboot' \
-  --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+  --ext-str image='docker.io/demo/event-greeter:0.0.1' \ #<1>
    link:{github-repo}/{build-repo}/knative/templates/docker-build.jsonnet[docker-build.jsonnet]\
     | yq r - | tee ../docker-build.yaml
 ----
+
+<1> In the example the destination container image will be pushed to the repository called `demo` in **hub.docker.com**. When you are creating the docker-build, be sure to update `demo` to the repository in your container registry where you want to push the built container image.
 
 The above command will generate a knative build specification as shown below:
 
