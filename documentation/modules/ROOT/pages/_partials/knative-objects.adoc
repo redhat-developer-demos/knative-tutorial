@@ -155,3 +155,21 @@ kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-
 oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
 #end::knative-event-subscribers[]
+
+#tag::knative-event-services[]
+[#knative-services]
+
+[source,bash,linenums]
+----
+kubectl -n knativetutorial  get services.serving.knative.dev event-greeter  
+----
+
+.(OR)
+
+[source,bash,linenums]
+----
+# get a Knative Service (short name ksvc) called greeter
+oc -n knativetutorial  get services.serving.knative.dev event-greeter 
+----
+
+#end::knative-event-services[]
