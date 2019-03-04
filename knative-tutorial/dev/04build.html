@@ -640,10 +640,18 @@ type: kubernetes.io/basic-auth</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='java/springboot' \
-  --ext-str image='docker.io/demo/event-greeter:0.0.1' \
+  --ext-str image='docker.io/demo/event-greeter:0.0.1' \ <i class="conum" data-value="1"></i><b>(1)</b>
    <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-build/knative/templates/docker-build.jsonnet">docker-build.jsonnet</a>\
     | yq r - | tee ../docker-build.yaml</code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>In the example the destination container image will be pushed to the repository called <code>demo</code> in <strong>hub.docker.com</strong>. When you are creating the docker-build, be sure to update <code>demo</code> to the repository in your container registry where you want to push the built container image.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The above command will generate a knative build specification as shown below:</p>
