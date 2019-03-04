@@ -189,7 +189,7 @@ spec:
 
 <1> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry as part of the build --
 
-[#build-apply-preeq-resouces]
+[#build-apply-prereq-resources]
 === Apply pre-requisite resources
 
 Navigate to the tutorial chapter's `knative` folder:

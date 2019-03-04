@@ -1,20 +1,5 @@
-= Eventing
+= Eventing - Source to Subscriber
 include::_attributes.adoc[]
-
-At the end of this chapter you will know and understand:
-
-* What is an event source ?
-* What is a channel ?
-* What is a subscriber ?
-* How to make a service a subscriber of an event ?
-
-[#eventing-prerequisite]
-== Prerequisite 
-include::partial$prereq-cli.adoc[]
-
-=== Assumption
-
-You have completed the xref:ROOT:04build.adoc[Build] or xref:ROOT:05build-templates.adoc[Build Templates], as you will be using the container image `event-greeter:0.0.1` or `event-greeter:0.0.2`  in this chapter.
 
 [#eventing-channel]
 == Channel(Sink)
@@ -23,7 +8,6 @@ The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channe
 
 [#eventing-create-event-channel]
 === Create Event Channel
-[.text-center]
 .link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml][channel-subscriber.yaml]
 [source,yaml,linenums]
 ----
@@ -99,7 +83,7 @@ The event source listens to external events e.g. a kafka topic or for a file on 
 apiVersion: sources.eventing.knative.dev/v1alpha1
 kind: CronJobSource #<1>
 metadata:
-  name: test-cronjob-source
+  name: event-greeter-cronjob-source
 spec:
   schedule: "* * * * *"
   data: '{"message": "Thanks for doing the Knative Tutorial"}'
@@ -117,7 +101,7 @@ spec:
 Event Source can define the attributes that it wishes to receive via the 
 spec.  In the above example it defines **schedule**(the the cron expression) and **data** that will be sent as part of the event.
 
-When you <<eventing-watch-logs,watch the logs>>, you will notice this data being delivered to the service.
+When you xref:05eventing/eventing.adoc#eventing-watch-logs[watch logs], you will notice this data being delivered to the service.
 ====
 
 Run the following commands to create the event source resources:
@@ -339,60 +323,6 @@ kubectl apply -n knativetutorial -f service.yaml
 oc apply -n knativetutorial -f service.yaml 
 ----
 
-[#eventing-watch-logs]
-== Watching Logs
-
-Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.
-
-The logs could be watched using the command:
-
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl logs -n knativetutorial -f <pod-name> -c user-container
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-oc logs -n knativetutorial -f <pod-name> -c user-container
-----
-
-[TIP]
-====
-* Using stern with the command `stern  -n knativetutorial event-greeter`, to filter the logs further add `-c user-container` to the stern command.
-
-[source,bash,subs="+macros,+attributes"]
-----
-stern -n knativetutorial -c user-container event-greeter
-----
-====
-
-The logs will have the output like below printing every minute.
-
-[source]
-----
-2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
-  "ID" : "1549548420001445196-715",
-  "EventTime" : "2019-02-07T14:07:00.001470981Z",
-  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event greeter => 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
-  "time" : "14:07:00"
-}
-----
-[.text-center]
-(OR)
-[source]
-----
-2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
-  "ID" : "1549548420001445196-715",
-  "EventTime" : "2019-02-07T14:07:00.001470981Z",
-  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event greeter v0.0.2 => 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
-  "time" : "14:07:00"
-}
-----
-
 [#eventing-cleanup]
 == Cleanup
 
@@ -416,4 +346,4 @@ oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
 oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
 
-NOTE: You can also delete xref:ROOT:04build.adoc#build-apply-preeq-resouces[pre-req resources] that were created if you dont need them any more.
+NOTE: You can also delete xref:ROOT:04build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you dont need them any more.
