@@ -135,7 +135,7 @@ spec:
             image: dev.local/rhdevelopers/greeter:0.0.1
             env:
              - name: MESSAGE_PREFIX #<1>
-               value: Hello
+               value: Namaste
 ----
 
 <1> Adding an environment variable that will be used as the message prefix
@@ -160,7 +160,7 @@ image::greeter-00002.png[Greeter Service rev2]
 
 Now running the <<basics-show-knative-revisions,command>> will show two revisions namely `greeter-00001` and `greeter-0002`.
 
-<<basics-invoke-service,Invoking Service>> will now show an output like **Hello greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 2**, where __Hello__ is the value that we configured via environment variable in the Knative service resource file.
+<<basics-invoke-service,Invoking Service>> will now show an output like **Namaste greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 2**, where __Namaste__ is the value that we configured via environment variable in the Knative service resource file.
 
 [#basics-pinning-revision]
 == Pinning service to a revision
