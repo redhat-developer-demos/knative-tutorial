@@ -323,6 +323,8 @@ kubectl apply -n knativetutorial -f service.yaml
 oc apply -n knativetutorial -f service.yaml 
 ----
 
+You can xref:05eventing/eventing.adoc#eventing-watch-logs[watch logs] to see the cron job source sending an event every 1 minute.
+
 [#eventing-cleanup]
 == Cleanup
 

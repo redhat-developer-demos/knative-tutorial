@@ -19,7 +19,7 @@ eval $(minishift docker-env) && eval $(minishift oc-env)
 
 [source,bash]
 ----
-# kubernetes v1.11+
+# kubernetes v1.12+
 kubectl version
 ----
 
