@@ -8,7 +8,7 @@ The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channe
 
 [#eventing-create-event-channel]
 === Create Event Channel
-.link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml][channel-subscriber.yaml]
+.link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 [source,yaml,linenums]
 ----
 apiVersion: eventing.knative.dev/v1alpha1
