@@ -299,6 +299,11 @@ spec:
 
 <1> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry as part of the build --
 
+[NOTE]
+====
+If you have skipped the xref:ROOT:04build/build.adoc[Build] or xref:ROOT:04build/build-templates.adoc[Build Templates] do not have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1`
+====
+
 [#eventing-deploy-subscriber-service]
 === Deploy Subscriber Service
 
