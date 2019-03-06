@@ -1,0 +1,31 @@
+
+# tag::minio[]
+
+For various exercises in this cookbook we will be using the s3 kind of object storage. We will use open source object storage called https://github.com/minio/minio[minio] that is compatible with Amazon S3
+
+The following section details how to setup minio server
+
+[source,bash]
+----
+cd $COOKBOOKS_SOURCES_HOME/minio-s3-server
+oc apply -f skaffold.yaml -n cookbook
+oc expose svc minio-server -n cookbook
+----
+
+[.text-center]
+**(OR)**
+[source,bash]
+----
+kubectl apply -f skaffold.yaml -n cookbook
+----
+
+[NOTE]
+====
+Details on how to use AWS s3 with minio is available https://docs.minio.io/docs/aws-cli-with-minio.html[here]
+====
+
+A successful minio deployment can be viewed via OpenShift dashboard as shown below:
+
+image::minio-server.png[minio server]
+
+#end::minio[]

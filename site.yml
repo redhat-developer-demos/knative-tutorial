@@ -8,9 +8,6 @@ site:
 
 content:
   sources:
-    - url: https://github.com/redhat-developer-demos/knative-tutorial
-      branches: v1.0
-      start_path: documentation
     - url: .
       branches: HEAD
       start_path: documentation

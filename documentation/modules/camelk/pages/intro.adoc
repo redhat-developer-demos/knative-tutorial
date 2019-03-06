@@ -1,0 +1,25 @@
+= Eventing with Apache Camel
+include::_attributes.adoc[]
+
+This chapter will show how to do **Eventing with Apache Camel and Knative ** using the Camel-k framework, one or more of the following Enterprise Integration Patterns(EIP) or concepts will be used in this chapter's exercises.
+
+* https://www.enterpriseintegrationpatterns.com/patterns/messaging/IntegrationStylesIntro.html[Integration Styles]
+** https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html[File Transfer]
+** https://www.enterpriseintegrationpatterns.com/patterns/messaging/Messaging.html[Messaging] 
+* https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc[Poll Enricher]
+* https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageRoutingIntro.html[Message Routing]
+** https://www.enterpriseintegrationpatterns.com/patterns/messaging/Filter.html[Message Filter]
+** https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html[Content Based Router]
+* https://www.enterpriseintegrationpatterns.com/patterns/messaging/Sequencer.html[Splitter]
+* https://www.enterpriseintegrationpatterns.com/patterns/messaging/Aggregator.html[Aggregator]
+
+== What is Camel-k ?
+
+https://github.com/apache/camel-k[Apache Camel K (a.k.a. Kamel)] is a lightweight integration framework built from https://camel.apache.org[Apache Camel] that runs natively on Kubernetes and is specifically designed for serverless and microservice architectures.
+
+== Camel-K and Knative Serving
+
+With camel-k we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.
+
+== Camel-K and Knative Eventing
+With camel-k we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into https://cloudevents.io[ Cloud Events] format and exchanged with other consumers.  

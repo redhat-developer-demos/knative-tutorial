@@ -1,0 +1,66 @@
+Some of the exercises in the tutorial might require a message broker, we will use the https://activemq.apache.org/artemis/[Apache Artemis] as the message broker for all the messaging needs.
+
+Run the following commands to setup Apache Artemis server:
+
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/apps/apache-artemis
+kubectl apply -n knativetutorial -f link:{github-repo}/apps/apache-artemis/skaffold.yaml[skaffold.yaml]
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/apps/apache-artemis
+oc apply -n knativetutorial -f link:{github-repo}/apps/apache-artemis/skaffold.yaml[skaffold.yaml]
+----
+
+A successful deployment of the apache artemis server will show the following pods:
+
+[source,bash,subs="+macros,+attributes"]
+----
+# kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+apache-artemis-7cc6fbbb79-sq2kj   1/1     Running   0          1m
+----
+
+The Apache Artemis deployment has https://hawt.io/[hawt.io] based web interface that can be used to access the message broker's management console.
+
+[source,bash,subs="+macros,+attributes"]
+----
+minikube service list -n knativetutorial
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+minishift openshift service list -n knativetutorial
+----
+
+
+Running the command below will show the output like:
+
+[source,bash,subs="+macros,+attributes"]
+----
+|-----------------|--------------------|----------------------------|
+|    NAMESPACE    |        NAME        |            URL             |
+|-----------------|--------------------|----------------------------|
+| knativetutorial | apache-artemis-web | http://192.168.64.44:30995 |
+| knativetutorial | minio-server       | http://192.168.64.44:31565 |
+|-----------------|--------------------|----------------------------|
+----
+
+Opening the url of `apache-artemis-web` on your browser will show Apache Artemis management console, the default user credentials for the console is `jboss/jboss`.
+
+image::artemis-management-console.png[]
+
+[TIP]
+====
+* You can use the command `minikube service <service-name> -n knativetutorial` to open the service automatically in the default browser of your system
+
+.(OR)
+
+* You can use the command `minishift openshfit service <service-name> -n knativetutorial` --in-browser to open the service automatically in the default browser of your system
+====

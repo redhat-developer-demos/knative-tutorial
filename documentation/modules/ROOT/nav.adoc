@@ -110,6 +110,6 @@
 *** xref:05eventing/eventing-src-sub.adoc#eventing-cleanup[Cleanup]
 
 
-* xref:faq.adoc[Frequently Asked Questions]
+* xref:faq.adoc[8.Frequently Asked Questions]
 
 

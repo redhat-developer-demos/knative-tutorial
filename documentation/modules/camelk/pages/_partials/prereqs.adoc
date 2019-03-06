@@ -1,0 +1,110 @@
+[IMPORTANT]
+====
+This tutorial assumes that you have prior knowledge of:
+
+- https://camel.apache.org[Apache Camel]
+- https://www.enterpriseintegrationpatterns.com[Enterprise Integration Patterns]
+- https://cloud.google.com/knative/[Knative] 
+====
+
+The following checks ensures that each chapter exercises are done with right environment settings.
+
+* Make sure the **minikube** clock is set to right timezone; this is required when using API's that are time sensitive e.g. AWS s3 cli API that we will use in this tutorial demos
+
+[source,bash]
+----
+minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s
+----
+
+.(OR)
+[source,bash]
+----
+minishift stop
+minishift start --timezone 'Asia/Kolkata' #<1>
+----
+
+<1> Set it to your local timezone
+
+[TIP]
+====
+If you are a mac user then the following setup might help:
+
+[source,bash]
+----
+brew install sleepwatcher
+brew services start sleepwatcher
+echo "PATH=$PATH:/usr/local/bin \n
+minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s" > ~/.wakeup
+chmod +x ~/.wakeup
+----
+====
+
+* Make sure to be connected to minikube or minishift docker daemon and using right openshift client.
+
+[source,bash]
+----
+eval $(minikube docker-env)
+----
+
+.(OR)
+[source,bash]
+----
+eval $(minishift docker-env) && eval $(minishift oc-env)
+----
+
+* Make sure right Kubernetes or OpenShift client are used.
+
+[source,bash]
+----
+# kubernetes v1.12+
+kubectl version
+----
+.(OR)
+[source,bash]
+----
+# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version 
+----
+
+* Make sure right `kamel` version, preferred is v0.3.0 or above
+
+[source,bash]
+----
+# Camel K Client 0.3.0
+kamel version
+----
+
+* Make sure AWS CLI is installed and has the right version
+
+[source,bash]
+----
+# aws-cli/1.16.50 Python/3.7.1 Darwin/18.2.0 botocore/1.12.40
+$ aws --version
+----
+
+* Make sure right maven version is used (only for Java exercises)
+
+[source,bash]
+----
+# right maven version Apache Maven 3.5.x or above
+./mvnw --version
+----
+
+* Make sure to be on `knativetutorial` OpenShift project/kubernetes namespace
+
+[source,bash]
+----
+# verify to return knativetutorial
+oc project -q 
+----
+
+If you are not on `knativetutorial` project, use the command `oc project knativetutorial` to change to `knativetutorial` project
+
+[TIP]
+====
+If you are on minikube then **kubens** utility can be used to switch to kubenretes namespace like:
+[source,bash]
+----
+kubens knativetutorial
+----
+====
