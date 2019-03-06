@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basics and Fundamentals :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.0/01basic-fundas.html">
+    <title>Scaling :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/1.0-SNAPSHOT/03scaling.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">  </head>
@@ -47,7 +47,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="v1.0">
+<div class="navigation-container" data-component="knative-tutorial" data-version="1.0-SNAPSHOT">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -119,33 +119,33 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="01basic-fundas.html">2. Basics and Fundamentals</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-build-containers">Build Containers</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-deploy-service">Deploy Service</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-deploy-service">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-see-what-you-have-deployed">See what you have deployed</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-see-what-you-have-deployed">See what you have deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#deploying-new-revision">Deploy new Revision Service</a>
+    <a class="nav-link" href="01basic-fundas.html#deploying-new-revision">Deploy new Revision Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-pinning-revision">Pinning service to a revision</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-pinning-revision">Pinning service to a revision</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#basics-cleanup">Cleanup</a>
+    <a class="nav-link" href="01basic-fundas.html#basics-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -182,63 +182,63 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="03scaling.html">4. Scaling</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03scaling.html#scaling-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="#scaling-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03scaling.html#scaling-build-containers">Build Containers</a>
+    <a class="nav-link" href="#scaling-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03scaling.html#scaling-deploy-service">Deploy Service</a>
+    <a class="nav-link" href="#scaling-deploy-service">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03scaling.html#scaling-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="#scaling-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="03scaling.html#scaling-scale-to-zero">Scale to Zero</a>
+    <a class="nav-link" href="#scaling-scale-to-zero">Scale to Zero</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-observer-scale-to-zero">Observing default scale down </a>
+    <a class="nav-link" href="#scaling-observer-scale-to-zero">Observing default scale down </a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-observer-scale-to-zero-1m">Change scale to zero time</a>
+    <a class="nav-link" href="#scaling-observer-scale-to-zero-1m">Change scale to zero time</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
+    <a class="nav-link" href="#scaling-reset-to-defaults">Reset to Defaults</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="03scaling.html#scaling-auto-scaling">Auto Scaling</a>
+    <a class="nav-link" href="#scaling-auto-scaling">Auto Scaling</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
+    <a class="nav-link" href="#scaling-autoscaling-deploy-service">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="#scaling-autoscaling-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-load-service">Load Service</a>
+    <a class="nav-link" href="#scaling-load-service">Load Service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="03scaling.html#scaling-min-scale">Minimum Scale</a>
+    <a class="nav-link" href="#scaling-min-scale">Minimum Scale</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03scaling.html#scaling-deploy-service-minscale">Deploy service </a>
+    <a class="nav-link" href="#scaling-deploy-service-minscale">Deploy service </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03scaling.html#scaling-cleanup">Cleanup</a>
+    <a class="nav-link" href="#scaling-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -435,7 +435,86 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
+    <a class="nav-link" href="faq.html">8.Frequently Asked Questions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camelk/intro.html">9.Eventing with Apache Camel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camelk/setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/setup.html#camelk-prerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/setup.html#camelk-download-sources">Download Demo Sources</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camelk/setup.html#camelk-install-minio-s3">Install minio s3 Server</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="camelk/setup.html#minio-aws-cli-configure">Configure AWS cli</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/setup.html#install-camel-k">Install Camel-K </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camelk/getting-started.html">Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/getting-started.html#gs-prereq">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/getting-started.html#gs-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camelk/getting-started.html#gs-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="camelk/getting-started.html#gs-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="camelk/getting-started.html#gs-make-s3-top-bucket">Create top s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="camelk/getting-started.html#gs-cartoon-messages-mover">Deploy Camel Route</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/getting-started.html#gs-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camelk/getting-started.html#gs-test-cartoon-messages-mover">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="camelk/getting-started.html#gs-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="camelk/getting-started.html#gs-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camelk/getting-started.html#gs-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -445,14 +524,14 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">v1.0</span>
+    <span class="version">1.0-SNAPSHOT</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">v1.0</a>
+          <a href="index.html">1.0-SNAPSHOT</a>
         </li>
       </ul>
     </li>
@@ -468,38 +547,44 @@
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
-    <li class="crumb"><a href="01basic-fundas.html">2. Basics and Fundamentals</a></li>
+    <li class="crumb"><a href="03scaling.html">4. Scaling</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/ROOT/pages/01basic-fundas.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/ROOT/pages/03scaling.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Basics and Fundamentals</h1>
+<h1>Scaling</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>At the end of this chapter you will be able to understand and know how to :</p>
+<p>At the end of this chapter you will be able to:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Deploy first Knative service ?</p>
+<p>Understand what scale-to-zero is and why it&#8217;s important.</p>
 </li>
 <li>
-<p>Deploying multiple revisions of the service</p>
+<p>Configure the scale-to-zero time period.</p>
 </li>
 <li>
-<p>What different service deployment strategies possible (service vs configurations/routes) ?</p>
+<p>Configure the autoscaler.</p>
 </li>
 <li>
-<p>Always running latest vs pinning revision to services</p>
+<p>Understand types of autoscaling strategies.</p>
+</li>
+<li>
+<p>Enable concurrency based autoscaling.</p>
+</li>
+<li>
+<p>Configure a minimum number of replicas for a service.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-prerequisite"><a class="anchor" href="#basics-prerequisite"></a>Prerequisite</h2>
+<h2 id="scaling-prerequisite"><a class="anchor" href="#scaling-prerequisite"></a>Prerequisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
@@ -574,7 +659,7 @@ oc project -q</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-build-containers"><a class="anchor" href="#basics-build-containers"></a>Build Containers</h2>
+<h2 id="scaling-build-containers"><a class="anchor" href="#scaling-build-containers"></a>Build Containers</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -663,20 +748,12 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-deploy-service"><a class="anchor" href="#basics-deploy-service"></a>Deploy Service</h2>
+<h2 id="scaling-deploy-service"><a class="anchor" href="#scaling-deploy-service"></a>Deploy Service</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/01-basics/knative</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>The following snippet shows how a Knative service YAML will look like:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock text-center">
 <div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service.yaml">service.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
@@ -696,16 +773,24 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Makes Knative to always run the latest revision of the deployment</td>
+<td>Configures the Knative service to always run the latest revision of the deployment.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>It is very important that the image is a fully qualified name docker image name with tag. For more details on this <a href="faq.html#faq-q2" class="page">Question 2 of FAQ</a></td>
+<td>It is very important that the image is a fully qualified docker image name, including a tag. For more details on this <a href="#faq-q2">Question 2 of FAQ</a>.</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The service could be deployed using the command:</p>
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/01-basics/knative</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The service can be deployed using the command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -719,9 +804,9 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code> available.</p>
+<p>After the deployment was successful of the service we should see a kubernetes deployment called <code>greeter-00001-deployment</code>.</p>
 </div>
-<div class="imageblock thumb">
+<div class="imageblock">
 <div class="content">
 <img src="_images/greeter-00001.png" alt="Greeter Service">
 </div>
@@ -729,7 +814,7 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-invoke-service"><a class="anchor" href="#basics-invoke-service"></a>Invoke Service</h2>
+<h2 id="scaling-invoke-service"><a class="anchor" href="#scaling-invoke-service"></a>Invoke Service</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -749,86 +834,64 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 </div>
 </div>
 <div class="paragraph">
-<p>The last curl command should return a response like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 1</strong></p>
+<p>The last <code>curl</code> command should return a response like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 1</strong></p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state, at those times try giving request again
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Check <a href="#basics-see-what-you-have-deployed">deployed Knative resources</a> for more details on which Knative objects and resources have been created with the service deployment above.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-see-what-you-have-deployed"><a class="anchor" href="#basics-see-what-you-have-deployed"></a>See what you have deployed</h2>
+<h2 id="scaling-scale-to-zero"><a class="anchor" href="#scaling-scale-to-zero"></a>Configure scale to zero</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The service based deployment strategy that we did now will create many knative resources, the following commands will help you to query and find what has been deployed.</p>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-services"><a class="anchor" href="#basics-show-knative-services"></a>service</h3>
-<div id="knative-services" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-configs"><a class="anchor" href="#basics-show-knative-configs"></a>configuration</h3>
-<div id="knative-configs" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative configuration called greeter
-oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="basics-show-knative-routes"><a class="anchor" href="#basics-show-knative-routes"></a>routes</h3>
-<div id="knative-routes" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative routes called greeter
-oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
-</div>
+<p>Assuming that <a href="#scaling-deploy-service">Greeter service</a> has been deployed, once no more traffic is seen going into that service, we&#8217;d like to scale this service down to zero replicas. That&#8217;s called <strong>scale-to-zero</strong>.</p>
 </div>
 <div class="paragraph">
-<p>When the service was invoked with <code>curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code>,you noticed that we added a <strong>Host</strong> header to the request with value <code>greeter.knativetutorial.example.com</code>,this FQDN is automatically assigned to your Knative service by the Knative Routes,it uses the format like <code><strong>&lt;service-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</strong></code>.</p>
+<p>Scale-to-zero is one of the main properties making Knative a serverless platform. After a defined time of idleness (the so called <code>stable-window</code>) a revision is considered <strong>inactive</strong>. Now, all routes pointing to the now inactive revision will be pointed to the so-called <strong>activator</strong>. This reprogramming of the network is asynchronous in nature so the <code>scale-to-zero-grace-period</code> should give enough slack for this to happen. Once the <code>scale-to-zero-grace-period</code> is over, the revision will finally be scaled to zero replicas.</p>
 </div>
-<div class="admonitionblock note">
+<div class="paragraph">
+<p>If another request tries to get to this revision, the activator will get it, instruct the autoscaler to create new pods for the revision as quickly as possible and buffer the request until those new pods are created.</p>
+</div>
+<div class="sect2">
+<h3 id="scale-to-zero-formulae"><a class="anchor" href="#scale-to-zero-formulae"></a>Calculating scale to zero time period</h3>
+<div class="paragraph">
+<p>The Knative autoscaler uses the config map <strong>config-autoscaler</strong> in the <strong>knative-serving</strong> namespace for autoscaling related properties. The values of the attribute <code>stable-window</code> and <code>scale-to-zero-grace-period</code>, which we&#8217;ve seen above, are part of this config map.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">STABLE_WINDOW=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
+ yq r - data.stable-window`
+SCALE_TO_ZERO_GRACE_PERIOD=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
+ yq r - data.scale-to-zero-grace-period`</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">STABLE_WINDOW=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+ yq r - data.stable-window`
+SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
+ yq r - data.scale-to-zero-grace-period`</code></pre>
+</div>
+</div>
+<div class="paragraph text-center">
+<p>As described above, the time it takes to finally scale to zero will be <code>STABLE_WINDOW + SCALE_TO_ZERO_GRACE_PERIOD</code>.</p>
+</div>
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The domain suffix in this case <em>example.com</em> is configurable via the config map <strong>config-domain</strong> of <strong>knative-serving</strong> namespace.</p>
+<p>scale-to-zero-grace-period is a dynamic parameter so the new value will immediately be in effect after updating the config map</p>
+</li>
+<li>
+<p>the minimum value that can be set for <code>scale-to-zero-grace-period</code> is 30 seconds</p>
 </li>
 </ul>
 </div>
@@ -838,17 +901,13 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="basics-show-knative-revisions"><a class="anchor" href="#basics-show-knative-revisions"></a>revisions</h3>
-<div id="knative-revisions" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get revisions.serving.knative.dev</code></pre>
-</div>
+<h3 id="scaling-observer-scale-to-zero"><a class="anchor" href="#scaling-observer-scale-to-zero"></a>Observing default scale down</h3>
+<div class="paragraph">
+<p>For easier observation let us open a new terminal and run the following command,</p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative revisions called greeter you will see only one like greeter-00001
-oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get pods -n knativetutorial'</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -858,33 +917,275 @@ oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>add <code>-oyaml</code> to the commands above to see more details</p>
-</li>
-</ul>
-</div>
+Up- and downscaling can also be watched on the OpenShift dashboard by navigating to the <code>knativetutorial</code> project
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Checking default values</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># should return 60s
+echo $STABLE_WINDOW
+# should return 30s
+echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in <code>1 min 30 secs</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaling-observer-scale-to-zero-1m"><a class="anchor" href="#scaling-observer-scale-to-zero-1m"></a>Scale to zero in 1 minute</h3>
+<div class="paragraph">
+<p>Let us now update <strong>scale-to-zero-grace-period</strong> to <code>1m</code> and leave the <strong>stable-window</strong> at the default <code>60s</code>.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/03-scaling/knative</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-1m.yaml">configure-scaling-to-1m.yaml</a> | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-1m.yaml">configure-scaling-to-1m.yaml</a> | oc apply -f -</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verifying the <code>scale-to-zero-grace-period</code> value, which should return <code>1m</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get configmap config-autoscaler -o yaml \
+ | yq r - data.scale-to-zero-grace-period</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get configmap config-autoscaler -o yaml \
+  | yq r - data.scale-to-zero-grace-period</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now <a href="#scaling-invoke-service">firing the request</a> to the greeter service will bring up the pod to serve the request again. Leaving it without any further requests, it will automatically scale to zero in <code>2 mins</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaling-observer-scale-to-zero-2m"><a class="anchor" href="#scaling-observer-scale-to-zero-2m"></a>Scale to zero in 2 minute</h3>
+<div class="paragraph">
+<p>Let us now update <strong>scale-to-zero-grace-period</strong> to <code>2m</code> and leave the <strong>stable-window</strong> to default <code>60s</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-2m.yaml">configure-scaling-to-2m.yaml</a> | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-2m.yaml">configure-scaling-to-2m.yaml</a> | oc apply -f -</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verifying the <code>scale-to-zero-grace-period</code> value, which should return <code>2m</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get configmap config-autoscaler -o yaml \
+ | yq r - data.scale-to-zero-grace-period</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get configmap config-autoscaler -o yaml \
+  | yq r - data.scale-to-zero-grace-period</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now <a href="#scaling-invoke-service">firing the request</a> to the greeter service will bring up the pod to serve the request and if we leave the service without any further requests, it will automatically scale to zero in <code>3 mins</code>(<a href="#scale-to-zero-formulae">Compute scale to zero grace period</a>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaling-reset-to-defaults"><a class="anchor" href="#scaling-reset-to-defaults"></a>Reset scale to zero to defaults</h3>
+<div class="paragraph">
+<p>Let us revert the <code>scale-to-zero-grace-period</code> to its default:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-30s.yaml">configure-scaling-to-30s.yaml</a> | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/configure-scaling-to-30s.yaml">configure-scaling-to-30s.yaml</a> | oc apply -f -</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verifying the <code>scale-to-zero-grace-period</code> value, which should return <code>30s</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get configmap config-autoscaler -o yaml \
+ | yq r - data.scale-to-zero-grace-period</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get configmap config-autoscaler -o yaml \
+  | yq r - data.scale-to-zero-grace-period</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For better clarity and understanding let us <a href="#scaling-cleanup">clean up</a> the deployed knative resources before going to next section.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploying-new-revision"><a class="anchor" href="#deploying-new-revision"></a>Deploy new Revision Service</h2>
+<h2 id="scaling-auto-scaling"><a class="anchor" href="#scaling-auto-scaling"></a>Auto Scaling</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As Knative follows <a href="https://12factor.net">12-Factor</a> application principles, any new <a href="https://12factor.net/config">configuration</a> change will trigger new revision of the deployment.</p>
+<p>By default Knative Serving allows 100 concurrent requests into a pod. This is defined by the <code>container-concurrency-target-default</code> setting in the configmap <strong>config-autoscaler </strong> in the <strong>knative-serving</strong> namespace.</p>
 </div>
 <div class="paragraph">
-<p>To deploy a new revision of the greeter service, we will add an environment variable to the existing service as shown below:</p>
+<p>For this exercise let us make our service handle only <strong>10</strong> concurrent requests. This will cause Knative autoscaler to scale to more pods as soon as we run more than 10 requests in parallel against the revision.</p>
 </div>
 <div class="sect2">
-<h3 id="basics-service-rev2"><a class="anchor" href="#basics-service-rev2"></a>Service revision 2</h3>
+<h3 id="scaling-concurrency-10"><a class="anchor" href="#scaling-concurrency-10"></a>Service with concurrency of 10 requests</h3>
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-10.yaml">service-10.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: greeter
+  annotations:
+    autoscaling.knative.dev/target: "10" <i class="conum" data-value="1"></i><b>(1)</b>
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: dev.local/rhdevelopers/greeter:0.0.1
+            livenessProbe:
+              httpGet:
+                path: /healthz
+            readinessProbe:
+              httpGet:
+                path: /healthz</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pod(s)</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaling-autoscaling-deploy-service"><a class="anchor" href="#scaling-autoscaling-deploy-service"></a>Deploy service</h3>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-env.yaml">service-env.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-10.yaml">service-10.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-10.yaml">service-10.yaml</a></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaling-autoscaling-invoke-service"><a class="anchor" href="#scaling-autoscaling-invoke-service"></a>Invoke Service</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open a new terminal and run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n knativetutorial</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc get pods -n knativetutorial</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaling-load-service"><a class="anchor" href="#scaling-load-service"></a>Load the service</h3>
+<div class="paragraph">
+<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 10s</code>) with no connection timeout(<code>-t 0</code>)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -z 10s -c 50 -t 0 \
+  -host "greeter.knativetutorial.example.com" \
+  "http://${IP_ADDRESS}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After youÄ&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/greeter-00001-scaled.png" alt="Greeter Service">
+</div>
+</div>
+<div class="paragraph">
+<p>The autoscale pods is computed using the formula:</p>
+</div>
+<div class="listingblock text-center">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">totalPodsToScale = inflightRequests / concurrencyTarget</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this current setting of <strong>concurrencyTarget=10</strong>(<code>containerConcurrency: "10"</code>) and <strong>inflightRequests=50</strong> , you will see Knative automatically scales the greeter services to  <code><strong>50/10 = 5 pods</strong></code>.</p>
+</div>
+<div class="paragraph">
+<p>For more clarity and understanding let us <a href="#scaling-cleanup">clean up</a> existing deployments before proceeding to next section.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scaling-min-scale"><a class="anchor" href="#scaling-min-scale"></a>Minimum Scale</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In real world scenarios your service might need to handle sudden spikes in requests. Knative starts each service with a default of <strong>1</strong> replica. As described above, this will eventually be scaled to zero as described above. If your app needs to stay particularly responsive under any circumstances and/or has a slow startup time, it might be beneficial to always keep a minimum amount of pods around. This can be done via an the annotation <strong>autoscaling.knative.dev/minScale</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows how to make Knative create services that start with a replica count of <strong>2</strong> and never scale below it.</p>
+</div>
+<div class="sect2">
+<h3 id="scaling-deploy-service-minscale"><a class="anchor" href="#scaling-deploy-service-minscale"></a>Deploy service</h3>
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-min-scale.yaml">service-min-scale.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -894,125 +1195,82 @@ spec:
   runLatest:
     configuration:
       revisionTemplate:
+        metadata:
+          annotations:
+            autoscaling.knative.dev/minScale: "2" <i class="conum" data-value="1"></i><b>(1)</b>
+            # Target 10 in-flight-requests per pod.
+            autoscaling.knative.dev/target: "10" <i class="conum" data-value="2"></i><b>(2)</b>
         spec:
+          containerConcurrency: 10
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
-            env:
-             - name: MESSAGE_PREFIX <i class="conum" data-value="1"></i><b>(1)</b>
-               value: Namaste</code></pre>
+            livenessProbe:
+              httpGet:
+                path: /healthz
+            readinessProbe:
+              httpGet:
+                path: /healthz</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Adding an environment variable that will be used as the message prefix</td>
+<td>Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The deployment of this service will always have a minimum of 2 pods.</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Let us deploy the new revision using the command:</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-env.yaml">service-env.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-min-scale.yaml">service-min-scale.yaml</a></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-env.yaml">service-env.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-scaling/knative/service-min-scale.yaml">service-min-scale.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>greeter-00002-deployment</code> available in the OpenShift dashboard:</p>
+<p>After the deployment was successful we should see a kubernetes deployment called <code>greeter-00001-deployment</code> with <strong>two</strong> pods readily available.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/greeter-00002.png" alt="Greeter Service rev2">
+<img src="_images/greeter-00001-minscale.png" alt="Greeter Service">
 </div>
 </div>
-<div class="paragraph">
-<p>Now running the <a href="#basics-show-knative-revisions">command</a> will show two revisions namely <code>greeter-00001</code> and <code>greeter-0002</code>.</p>
-</div>
-<div class="paragraph">
-<p><a href="#basics-invoke-service">Invoking Service</a> will now show an output like <strong>Namaste greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 2</strong>, where <em>Namaste</em> is the value that we configured via environment variable in the Knative service resource file.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="basics-pinning-revision"><a class="anchor" href="#basics-pinning-revision"></a>Pinning service to a revision</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As you noticed that the Knative services always routes the traffic to the <strong>latest</strong> revision of the service deployment, thats because of the <strong>runLatest</strong> attribute in <a href="#basics-service-rev2">service resource file</a>.</p>
+<div class="paragraph text-center">
+<p><strong>OpenShift Dashboard Knative Tutorial project</strong></p>
 </div>
 <div class="paragraph">
-<p>Let us now make the greeter service use earlier revision <code>greeter-00001</code>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can use the get <a href="#basics-show-knative-revisions">show knative revisions</a> command to find the available revisions for the greeter service.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_service_pinned_to_revision_1"><a class="anchor" href="#_service_pinned_to_revision_1"></a>Service pinned to revision 1</h3>
-<div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-pinned-rev1.yaml">service-pinned-rev1.yaml</a></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
-kind: Service
-metadata:
-  name: greeter
-spec:
-  pinned: <i class="conum" data-value="1"></i><b>(1)</b>
-    revisionName: greeter-00001
-  configuration:
-    revisionTemplate:
-      spec:
-        container:
-          image: dev.local/rhdevelopers/greeter:0.0.1</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <strong>pinned</strong> attribute in service resource file will make Knative use the revision specified in the <strong>revisionName</strong> attribute.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Let redeploy the greeter service to be pinned to revision <em>greeter-00001</em>:</p>
+<p>Open a new terminal and run the following command :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-pinned-rev1.yaml">service-pinned-rev1.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n knativetutorial</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-basics/knative/service-pinned-rev1.yaml">service-pinned-rev1.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc get pods -n knativetutorial</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><a href="#basics-invoke-service">Invoking Service</a> will now show an output like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 3</strong>.</p>
+<p>Let us <a href="#scaling-load-service">send some load to the service</a> to trigger autoscaling.</p>
+</div>
+<div class="paragraph">
+<p>When all requests are done and if we are beyond the <code>scale-to-zero-grace-period</code>, we will notice that Knative has terminated only 3 out 5 pods. This is because we have configured Knative to always run two pods via the annotation <code>autoscaling.knative.dev/minScale: "2"</code>.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-cleanup"><a class="anchor" href="#basics-cleanup"></a>Cleanup</h2>
+<h2 id="scaling-cleanup"><a class="anchor" href="#scaling-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/1.0-SNAPSHOT/camelk/getting-started.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="#">Knative Tutorial</a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Project</div>
+          <div class="navbar-dropdown">
+            <div class="navbar-item"><strong>GitHub</strong></div>
+            <a class="navbar-item" href="https://github.com/redhat-developer-demos/knative-tutorial">Knative Tutorial
+              Repository</a>
+            <a class="navbar-item" href="https://github.com/redhat-developer-demos/knative-tutorial/issues">Knative
+              Tutorial Issue Tracker</a>
+            <a class="navbar-item" href="https://github.com/openshift-cloud-functions/Documentation">OpenShift Cloud
+              Functions
+            </a>
+          </div>
+        </div>
+        <a class="navbar-item" href="https://twitter.com/rhdevelopers">
+          <span class="icon">
+            <svg aria-hidden="true" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path fill="#57aaee" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header><div class="main-wrapper">
+<div class="navigation-container" data-component="knative-tutorial" data-version="1.0-SNAPSHOT">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Knative Tutorial</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../setup.html">1. Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../setup.html#prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../setup.html#download-tutorial-sources">Download Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../setup.html#kubernetes-cluster">Kubernetes Cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../setup.html#install-knative-minikube">Install with Minikube </a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#start-minikube">Configure and Start minikube </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html">Install Knative </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#install-knative-istio">Install Istio </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#install-knative-serving">Install Knative Serving </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#install-knative-build">Install Knative Build</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#install-knative-eventing">Install Knative Eventing </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#set-knative-tutorial-ns">Configuring Kubernetes namespace </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../setup.html#install-knative-openshift">Install with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#install-knative-ocp">Install on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#install-knative-minishift">Install on Minishift</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../setup.html#configure-openshift-project">Configure OpenShift project</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../setup.html#setup-work-folder">Work Folder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../01basic-fundas.html">2. Basics and Fundamentals</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#deploying-new-revision">Deploy new Revision Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-pinning-revision">Pinning service to a revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01basic-fundas.html#basics-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../02configs-and-routes.html">3. Configurations and Routes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#ctrd-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-deploy-configuration">Deploy Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-deploy-route">Deploy Route</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-deploying-new-revision">Deploy new Revision Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#crtd-distributing-traffic">Distributing Traffic</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02configs-and-routes.html#ctrd-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03scaling.html">4. Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03scaling.html#scaling-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03scaling.html#scaling-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03scaling.html#scaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03scaling.html#scaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03scaling.html#scaling-scale-to-zero">Scale to Zero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-observer-scale-to-zero">Observing default scale down </a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-observer-scale-to-zero-1m">Change scale to zero time</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03scaling.html#scaling-auto-scaling">Auto Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-load-service">Load Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03scaling.html#scaling-min-scale">Minimum Scale</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03scaling.html#scaling-deploy-service-minscale">Deploy service </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03scaling.html#scaling-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../04build/build.html">5. Build</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../04build/build.html#build-prerequisite">Prerequisites</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build.html#build-create-docker-secret">Generate Docker Secret</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build.html#build-generate-build-spec">Generate Build Spec</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build.html#build-generate-knative-service">Generate Knative service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build.html#build-apply-prereq-resources">Apply Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-create-build">Create Build</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-watching-logs">Watching logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-build-status">Build Status</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-deploy-service-build">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build.html#build-build-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../04build/build-templates.html">6. Build Template</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../04build/build-templates.html#build-template-prerequisite">Prerequisites</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build-templates.html#build-template-generate-template">Generate build template</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build-templates.html#build-template-generate-service">Generate Knative service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build-templates.html#build-template-apply-resources">Apply Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../04build/build-templates.html#build-template-create-template">Create Build Template</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../04build/build-templates.html#build-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build-templates.html#build-deploy-service-build-template">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build-templates.html#build-template-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04build/build-templates.html#build-template-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing.html">7. Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05eventing/eventing.html#eventing-assumptions">Assumptions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html">Source to Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-verify-event-source">Verify</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-sink-service">Sink Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-gen-sink-service">Generate Service</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-deploy-sink-service">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-svc.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html">Source to Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-subscriber-service">Subscriber Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-gen-subscriber-service">Generate Service</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../faq.html">8.Frequently Asked Questions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="intro.html">9.Eventing with Apache Camel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="setup.html#camelk-prerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="setup.html#camelk-download-sources">Download Demo Sources</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="setup.html#camelk-install-minio-s3">Install minio s3 Server</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="setup.html#minio-aws-cli-configure">Configure AWS cli</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="getting-started.html">Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#gs-prereq">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#gs-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#gs-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#gs-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#gs-make-s3-top-bucket">Create top s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#gs-cartoon-messages-mover">Deploy Camel Route</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#gs-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#gs-test-cartoon-messages-mover">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#gs-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#gs-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#gs-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Knative Tutorial</span>
+    <span class="version">1.0-SNAPSHOT</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Knative Tutorial</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0-SNAPSHOT</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="../index.html">Knative Tutorial</a></li>
+    <li class="crumb"><a href="intro.html">9.Eventing with Apache Camel</a></li>
+    <li class="crumb"><a href="getting-started.html">Getting Started</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/camelk/pages/getting-started.adoc">Edit this Page</a></div>
+</div>
+<article class="doc">
+<h1>Getting Started</h1>
+<div class="sect1">
+<h2 id="gs-prereq"><a class="anchor" href="#gs-prereq"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This tutorial assumes that you have prior knowledge of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://camel.apache.org">Apache Camel</a></p>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com">Enterprise Integration Patterns</a></p>
+</li>
+<li>
+<p><a href="https://cloud.google.com/knative/">Knative</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure the <strong>minikube</strong> clock is set to right timezone; this is required when using API&#8217;s that are time sensitive e.g. AWS s3 cli API that we will use in this tutorial demos</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift stop
+minishift start --timezone 'Asia/Kolkata' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set it to your local timezone</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are a mac user then the following setup might help:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">brew install sleepwatcher
+brew services start sleepwatcher
+echo "PATH=$PATH:/usr/local/bin \n
+minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s" &gt; ~/.wakeup
+chmod +x ~/.wakeup</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minikube or minishift docker daemon and using right openshift client.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right Kubernetes or OpenShift client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.12+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right <code>kamel</code> version, preferred is v0.3.0 or above</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Camel K Client 0.3.0
+kamel version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure AWS CLI is installed and has the right version</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># aws-cli/1.16.50 Python/3.7.1 Darwin/18.2.0 botocore/1.12.40
+$ aws --version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># right maven version Apache Maven 3.5.x or above
+./mvnw --version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are on minikube then <strong>kubens</strong> utility can be used to switch to kubenretes namespace like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubens knativetutorial</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enterprise_integration_pattern"><a class="anchor" href="#_enterprise_integration_pattern"></a>Enterprise Integration Pattern</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Message Filter</div>
+<div class="paragraph">
+<p>The Message Filter has only a single output channel. If the message content matches the criteria specified by the Message Filter, the message is routed to the output channel. If the message content does not match the criteria, the message is discarded.</p>
+</div>
+<div class="paragraph text-right">
+<p>Source: <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Filter.html" class="bare">https://www.enterpriseintegrationpatterns.com/patterns/messaging/Filter.html</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gs-overview"><a class="anchor" href="#gs-overview"></a>Demo Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The demo has an Apache Camel route configured as <strong>knative serving</strong> endpoint, that gets activated once it receives an event i.e. s3 object (xml file) name. Upon activation it starts a Apache Camel route that applies <strong>Message Filter EIP</strong> to process only the <code>xml</code> files. The matching xml files will be moved to another bucket called <code>top(to process)</code>, while other files are discarded.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the pictorial overview of the demo:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/message-filter-demo.png" alt="Message Filter">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gs-deployment"><a class="anchor" href="#gs-deployment"></a>Deployment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="gs-make-s3-data-bucket"><a class="anchor" href="#gs-make-s3-data-bucket"></a>Make s3 <strong>data</strong> bucket</h3>
+<div class="paragraph">
+<p>For this demos we will be using a s3 bucket called <code>data</code>, run the following command to create the bucket in s3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)
+aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify the created bucket by listing the s3 storage, running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># should list `data` bucket as part of the list
+aws --endpoint-url $S3_URL s3 ls</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information on how to use aws cli with minio server is available <a href="https://docs.minio.io/docs/aws-cli-with-minio.html">here</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also create the bucket via the minio <a href="setup.html#minio-webconsole" class="page">web console</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gs-make-s3-top-bucket"><a class="anchor" href="#gs-make-s3-top-bucket"></a>Make s3 <strong>to-process</strong> bucket</h3>
+<div class="paragraph">
+<p>In this demo we will be moving the <code>*.xml</code> files from <code>data</code> to <code>top</code> bucket,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 mb s3://top
+# should list `top` bucket as part of the list
+aws --endpoint-url $S3_URL s3 ls</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gs-cartoon-messages-mover"><a class="anchor" href="#gs-cartoon-messages-mover"></a>Deploy Cartoon Messages Mover</h3>
+<div class="paragraph">
+<p>Navigate to camel-k demos in work folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camelk/quickstart</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
+  --trait gc.enabled=false \<i class="conum" data-value="2"></i><b>(2)</b>
+  --property 's3EndpointUrl=http://minio-server' \
+  --property 'minioAccessKey=demoaccesskey' \
+  --property 'minioSecretKey=demosecretkey' \
+  <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/CartoonMessagesMover.java">src/main/java/CartoonMessagesMover.java</a></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>Only for development purpose </strong> Since we want to have the pods terminated quickly during undeploy, we disable the Garbage Collection.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can check the deployed integration context:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel get
+# the command will return
+NAME                    PHASE                   CONTEXT
+cartoon-messages-mover  Building Context        ctx-bhvn6lcba0587gdq5jbg</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gs-watch-logs"><a class="anchor" href="#gs-watch-logs"></a>Watching Logs</h3>
+<div class="paragraph">
+<p>Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
+</div>
+<div class="paragraph">
+<p>The logs could be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Using stern with the command <code>stern  -n knativetutorialcartoon-messages-mover `, to filter the logs further add `-c user-container</code> to the stern command.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container cartoon-messages-mover</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gs-test-cartoon-messages-mover"><a class="anchor" href="#gs-test-cartoon-messages-mover"></a>Test the Route</h3>
+<div class="sect3">
+<h4 id="gs-test-data"><a class="anchor" href="#gs-test-data"></a>Upload test data</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart
+
+S3_URL=$(minikube service -n knativetutorial minio-server --url)
+
+aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message1.xml">data/message1.xml</a> s3://data
+
+aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/hello.txt">data/hello.txt</a> s3://data
+
+# run the command to verify upload
+aws --endpoint-url $S3_URL s3 ls s3://data <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The command wil return two files named <code>message1.xml</code> and <code>hello.txt</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="gs-invoke-service"><a class="anchor" href="#gs-invoke-service"></a>Invoke service</h4>
+<div class="paragraph">
+<p>Invoke the service by passing a header <code>fileName</code> with value <code>message1.xml</code>, this <code>fileName</code> header value will be used by Camel route to download the file form s3 and return it as the response.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS=$(minikube ip):32380</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We need to have knative service <code>cartoon-message-mover</code> domain name which needs to be passed as $SVC_URL when invoking the Knative service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-messages-mover -ojsonpath='{.status.domain}'`</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-messages-mover -ojsonpath='{.status.domain}'`</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host:${SVC_URL}" -H 'fileName: message1.xml' $IP_ADDRESS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message1.xml'</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The event simulation above will be removed once the CamelSource event source is available with Knative Eventing.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On success which is usually HTTP 200, you can list the out <code>top</code> bucket to see the moved <code>message1.xml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># run the command to verify upload
+aws --endpoint-url $S3_URL s3 ls s3://top <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You should see the <code>message1.xml</code> listed</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Lets now try sending the request for <code>hello.txt</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host:${SVC_URL}" -H 'fileName: hello.txt' $IP_ADDRESS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName:  hello.txt'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since we process only <code>*.xml</code> files the <code>top</code> bucket will not have the file <code>hello.txt</code> moved from <code>data</code> bucket.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When the <code>cartoon-messages-mover</code> has been scaled to zero; when giving a new request it will try to scale up, it will not be able to serve the request until the pod is up, during such time you might get HTTP 502 Bad Gateway errors, give some more time for the pod to come up before issuing the request again.</p>
+</div>
+<div class="paragraph">
+<p>Right now camel-k does not add Liveliness and Readiness Probes which can help avoid this issue. There is a open <a href="https://github.com/apache/camel-k/issues/525">issue</a> which is fixed and will be part of 0.3.1 release.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gs-cleanup"><a class="anchor" href="#gs-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete cartoon-messages-mover -n knativetutorial</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Sometimes the Knative pods takes 3-5 mins to terminate completely, its better to wait for the <code>0/3 Terminating</code> for the cartoon-messages-mover pods before moving to next sections of the tutorial or trying new updates.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</article>
+  </main>
+</div>
+<footer class="footer">
+  <p>This content is brought to you by <a href="http://developers.redhat.com">Red Hat Developer</a> - Register today!.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script src="../../../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>
