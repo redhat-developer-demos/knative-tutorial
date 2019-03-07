@@ -514,6 +514,51 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html">s3 File Downloader</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html#pe-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-top-bucket">Create top s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-cartoon-messages-downloader">Deploy Camel Route</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html#pe-test-cartoon-messages-downloader">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
 </ul>
@@ -625,18 +670,30 @@ kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer
 oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/minio-s3-server/skaffold.yaml">skaffold.yaml</a></code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Wait for the pods to be running:</p>
+<p>It may take few minutes for pods to come up, you can watch the status of the pods as shown below.
+You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">timeout 300 "kubectl get pods -n knativetutorial 2&gt;&amp;1 | grep -v -E '(Running|Completed|STATUS)'"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods -w</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">timeout 300 "oc get pods -n knativetutorial 2&gt;&amp;1 | grep -v -E '(Running|Completed|STATUS)'"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n  knativetutorial get pods -w</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -767,18 +824,30 @@ aws configure list <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Wait for the pods to be running:</p>
+<p>It may take few minutes for pods to come up, you can watch the status of the pods as shown below.
+You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">timeout 300 "kubectl get pods -n knativetutorial 2&gt;&amp;1 | grep -v -E '(Running|Completed|STATUS)'"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods -w</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">timeout 300 "oc get pods -n knativetutorial 2&gt;&amp;1 | grep -v -E '(Running|Completed|STATUS)'"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n  knativetutorial get pods -w</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
