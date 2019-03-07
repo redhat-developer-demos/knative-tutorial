@@ -337,7 +337,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 ----
 hey -z 10s -c 50 -t 0 \
   -host "greeter.knativetutorial.example.com" \
-  "http://${IP_ADDRESS}"
+  "http://pass:[${IP_ADDRESS}]"
 ----
 
 After youÄ've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:

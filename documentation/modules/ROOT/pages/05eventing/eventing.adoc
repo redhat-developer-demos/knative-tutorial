@@ -21,17 +21,9 @@ You have completed the xref:ROOT:04build/build.adoc[Build] or xref:ROOT:04build/
 [#eventing-watch-logs]
 == Watching Logs
 
+:kube-ns: knativetutorial
+:kube-svc: event-greeter
 include::partial$watching-logs.adoc[]
-
-[TIP]
-====
-* Using stern with the command `stern  -n knativetutorial event-greeter`, to filter the logs further add `-c user-container` to the stern command.
-
-[source,bash,subs="+macros,+attributes"]
-----
-stern -n knativetutorial -c user-container event-greeter
-----
-====
 
 The logs will have the output like below printing every minute.
 

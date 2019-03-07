@@ -3,7 +3,7 @@
 [#faq-q1]
 == How to access the Knative services ?
 
-When looking up the IP address to use for accessing your app, you need to look up the NodePort for the **istio-ingressgateway** well as the IP address used for minishift. You can use the following command to look up the value to use for the {IP_ADDRESS} placeholder used in the sample
+When looking up the IP address to use for accessing your app, you need to look up the NodePort for the **istio-ingressgateway** well as the IP address used for minishift. You can use the following command to look up the value to use for the pass:[{IP_ADDRESS}] placeholder used in the sample
 [source,bash,linenums]
 ----
 #!/bin/bash

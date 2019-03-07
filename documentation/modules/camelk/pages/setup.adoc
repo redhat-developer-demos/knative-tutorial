@@ -40,7 +40,8 @@ cd $TUTORIAL_HOME/apps/minio-s3-server
 oc apply -n knativetutorial -f link:{github-repo}/apps/minio-s3-server/skaffold.yaml[skaffold.yaml]
 ----
 
-include::camelk:partial$wait-for-pods.adoc[]
+:kube-ns: knativetutorial
+include::camelk:partial$wait-for-pods.adoc[tag=wait-with-kubectl]
 
 A successful deployment of the minio server will show the following pods:
 
@@ -108,7 +109,8 @@ kamel install -n knativetutorial --runtime-version='0.3.1-SNAPSHOT' # <1>
 ----
 <1> Due to a existing https://github.com/apache/camel-k/issues/506[bug] which will be fixed as part of 0.3.1 runtime release, we need to use the 0.3.1-SNAPSHOT of the runtime. This constraint will be removed once 0.3.1 runtime is released.
 
-include::camelk:partial$wait-for-pods.adoc[]
+:kube-ns: knativetutorial
+include::camelk:partial$wait-for-pods.adoc[tag=wait-with-kubectl]
 
 [NOTE]
 ====

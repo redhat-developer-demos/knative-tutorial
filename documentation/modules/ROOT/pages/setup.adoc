@@ -86,7 +86,7 @@ The `work` folder in `$TUTORIAL_HOME` can be used to download the demo applicati
 
 This tutorial was developed and tested with:
 
-- Knative `v0.3.0`
+- Knative `v0.4.0`
 - minikube `v0.34.1`
 - OpenShift `v3.11`
 - minishift `v1.30.0+186b034`
@@ -162,6 +162,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply --filename {knative-serving-repo}/{knative-version}/serving.yaml
+kubectl apply --filename https://raw.githubusercontent.com/knative/serving/{knative-version}/third_party/config/build/clusterrole.yaml
 ----
 
 [NOTE]
@@ -190,7 +191,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-build-repo}/{knative-version}/release.yaml
+kubectl apply --filename {knative-build-repo}/{knative-version}/build.yaml
 ----
 
 [NOTE]
@@ -218,6 +219,7 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply --filename {knative-eventing-repo}/{knative-version}/release.yaml
+kubectl apply --filename {knative-eventing-repo}/{knative-version}/in-memory-channel.yaml
 kubectl apply --filename {knative-sources-repo}/{knative-version}/release.yaml
 ----
 
