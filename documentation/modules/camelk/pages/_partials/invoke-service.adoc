@@ -1,0 +1,31 @@
+[svc-name='']
+[file-name='']
+
+#tag::set-svc-url[]
+[source,bash,subs="+macros,+attributes"]
+----
+SVC_URL=`kubectl -n knativetutorial get ksvc {svc-name} -ojsonpath='{.status.domain}'`
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+SVC_URL=`oc  -n knativetutorial get ksvc {svc-name} -ojsonpath='{.status.domain}'`
+----
+#end::set-svc-url[]
+
+#tag::invoke-svc[]
+
+[source,bash,subs="+macros,+attributes"]
+----
+curl -v -H pass:["Host:${SVC_URL}"] -H 'fileName: {file-name}' $IP_ADDRESS
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+http pass:[$IP_ADDRESS "Host:${SVC_URL}"] 'fileName: {file-name}'
+----
+#end::invoke-svc[]

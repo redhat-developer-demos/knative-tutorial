@@ -1,10 +1,13 @@
 = Getting Started
 include::_attributes.adoc[]
 
+In this chapter we will use Knative + Camel-k to deploy a simple route that will move __*.xml__  file from one s3 bucket to another.
+
 [#gs-prereq]
 == Prerequisite
 include::camelk:partial$prereqs.adoc[]
 
+[#gs-overview]
 == Enterprise Integration Pattern 
 
 [sidebar]
@@ -15,7 +18,6 @@ The Message Filter has only a single output channel. If the message content matc
 Source: https://www.enterpriseintegrationpatterns.com/patterns/messaging/Filter.html
 ****
 
-[#gs-overview]
 == Demo Overview
 
 The demo has an Apache Camel route configured as **knative serving** endpoint, that gets activated once it receives an event i.e. s3 object (xml file) name. Upon activation it starts a Apache Camel route that applies **Message Filter EIP** to process only the `xml` files. The matching xml files will be moved to another bucket called `top(to process)`, while other files are discarded.
@@ -71,7 +73,6 @@ cd $TUTORIAL_HOME/work/knative-tutorial-camelk/quickstart
 [source,bash,subs="+macros,+attributes"]
 ----
 kamel run --dependency='camel-aws'\#<1>
-  --trait gc.enabled=false \#<2>
   --property 's3EndpointUrl=http://minio-server' \
   --property 'minioAccessKey=demoaccesskey' \
   --property 'minioSecretKey=demosecretkey' \
@@ -79,7 +80,6 @@ kamel run --dependency='camel-aws'\#<1>
 ----
 
 <1> Because of an existing https://github.com/apache/camel-k/issues/527[bug], you  need to add the dependency `camel-aws`, this will be removed in future.
-<2> **Only for development purpose ** Since we want to have the pods terminated quickly during undeploy, we disable the Garbage Collection.
 
 You can check the deployed integration context:
 
@@ -94,17 +94,9 @@ cartoon-messages-mover  Building Context        ctx-bhvn6lcba0587gdq5jbg
 [#gs-watch-logs]
 === Watching Logs
 
+:kube-ns: knativetutorial
+:kube-svc: cartoon-messages-mover
 include::ROOT:partial$watching-logs.adoc[]
-
-[TIP]
-====
-* Using stern with the command `stern  -n knativetutorialcartoon-messages-mover `, to filter the logs further add `-c user-container` to the stern command.
-
-[source,bash,subs="+macros,+attributes"]
-----
-stern -n knativetutorial -c user-container cartoon-messages-mover 
-----
-====
 
 [#gs-test-cartoon-messages-mover]
 === Test the Route
@@ -131,38 +123,17 @@ aws --endpoint-url $S3_URL s3 ls s3://data #<1>
 [#gs-invoke-service]
 ==== Invoke service
 
-Invoke the service by passing a header `fileName` with value `message1.xml`, this `fileName` header value will be used by Camel route to download the file form s3 and return it as the response. 
+Invoke the service by passing a header `fileName` with value `message1.xml`, this `fileName` header value will be used by Camel route to move the file from s3 bucket `data` to `top`. 
 
-[source,bash,subs="+macros,+attributes"]
-----
-IP_ADDRESS=$(minikube ip):32380
-----
+include::ROOT:partial$invoke-service.adoc[tag=env]
 
 We need to have knative service `cartoon-message-mover` domain name which needs to be passed as $SVC_URL when invoking the Knative service:
 
-[source,bash,subs="+macros,+attributes"]
-----
-SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-messages-mover -ojsonpath='{.status.domain}'`
-----
+:svc-name:  cartoon-messages-mover
+include::camelk:partial$invoke-service.adoc[tag=set-svc-url]
 
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-SVC_URL=`oc  -n knativetutorial get ksvc cartoon-messages-mover -ojsonpath='{.status.domain}'`
-----
-
-[source,bash,subs="+macros,+attributes"]
-----
-curl -H "Host:${SVC_URL}" -H 'fileName: message1.xml' $IP_ADDRESS 
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message1.xml'
-----
+:file-name: message1.xml
+include::camelk:partial$invoke-service.adoc[tag=invoke-svc]
 
 [NOTE]
 ====
@@ -173,26 +144,22 @@ On success which is usually HTTP 200, you can list the out `top` bucket to see t
 
 [source,bash,subs="+macros,+attributes"]
 ----
-# run the command to verify upload 
+# run the command to verify the file(s) were moved 
 aws --endpoint-url $S3_URL s3 ls s3://top #<1>
 ----
 <1> You should see the `message1.xml` listed
 
 Lets now try sending the request for `hello.txt`:
 
-[source,bash,subs="+macros,+attributes"]
-----
-curl -H "Host:${SVC_URL}" -H 'fileName: hello.txt' $IP_ADDRESS 
-----
+:file-name: hello.txt
+include::camelk:partial$invoke-service.adoc[tag=invoke-svc]
 
-.(OR)
+Since we process only `*.xml` files the `top` bucket will not have the file `hello.txt` moved from `data` bucket, you can verify the same using the command:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-http $IP_ADDRESS "Host:${SVC_URL}" 'fileName:  hello.txt'
+aws --endpoint-url $S3_URL s3 ls s3://top
 ----
-
-Since we process only `*.xml` files the `top` bucket will not have the file `hello.txt` moved from `data` bucket.
 
 [NOTE]
 ====
@@ -208,8 +175,3 @@ Right now camel-k does not add Liveliness and Readiness Probes which can help av
 ----
 kamel delete cartoon-messages-mover -n knativetutorial
 ----
-
-[WARNING]
-====
-Sometimes the Knative pods takes 3-5 mins to terminate completely, its better to wait for the `0/3 Terminating` for the cartoon-messages-mover pods before moving to next sections of the tutorial or trying new updates.
-====

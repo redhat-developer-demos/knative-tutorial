@@ -1,0 +1,158 @@
+= Poll Enricher
+include::_attributes.adoc[]
+
+In this chapter we will use Knative + Camel-k to deploy a simple route that will download a file from s3 and send the file content as response to the Knative serving call.
+
+[#pe-prereq]
+== Prerequisite
+include::camelk:partial$prereqs.adoc[]
+
+[#pe-overview]
+== Enterprise Integration Pattern
+
+[sidebar]
+.Poll Enrich
+****
+Camel comes with flavor pollEnrich as a choice of content enricher in the DSL. The other one is enrich `pollEnrich` uses a Polling Consumer to obtain the additional data. It is usually used for Event Message messaging, for instance to read a file or download a FTP file.
+[.text-right]
+Source: https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc
+****
+
+== Demo Overview
+
+The demo has an Apache Camel route configured as **knative serving** endpoint, that gets activated once it receives an event i.e. s3 object (xml file) name. Upon activation it starts a Apache Camel route that applies **Poll Enricher EIP** to download the file from and send the content as the response to the Knative serving service call
+
+The following diagram shows the pictorial overview of the demo:
+
+image::poll-enrich-demo.png[Poll Enricher]
+
+[#pe-deployment]
+== Deployment 
+
+NOTE: You can skip this step and move to <<pe-cartoon-messages-downloader,deploy cartoon message downloader>> if you have already completed the xref:camelk:getting-started.adoc[previous section]
+
+[#pe-make-s3-data-bucket]
+=== Make s3 **data** bucket
+include::camelk:partial$minio-config.adoc[tag=minio-make-data-bucket]
+
+Verify the created bucket by listing the s3 storage, running the following command:
+
+[source,bash,subs="+macros,+attributes"]
+----
+# should list `data` bucket as part of the list
+aws --endpoint-url $S3_URL s3 ls
+----
+
+For more information on how to use aws cli with minio server is available https://docs.minio.io/docs/aws-cli-with-minio.html[here].
+
+[TIP]
+====
+You can also create the bucket via the minio xref:camelk:setup.adoc#minio-webconsole[web console].
+====
+
+[#pe-cartoon-messages-downloader]
+=== Deploy Cartoon Messages Downloader
+
+Navigate to camel-k demos in work folder:
+
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/work/knative-tutorial-camelk/quickstart
+----
+
+[source,bash,subs="+macros,+attributes"]
+----
+kamel run --dependency='camel-aws'\#<1>
+ --property 's3EndpointUrl=http://minio-server' \
+ --property 'minioAccessKey=demoaccesskey' \
+ --property 'minioSecretKey=demosecretkey' \
+ link:{camelk-demos-github-repo}/quickstart/src/main/java/CartoonMessagesDownloader.java[src/main/java/CartoonMessagesDownloader.java]
+----
+
+<1> Because of an existing https://github.com/apache/camel-k/issues/527[bug], you  need to add the dependency `camel-aws`, this will be removed in future.
+
+You can check the deployed integration context:
+
+[source,bash,subs="+macros,+attributes"]
+----
+kamel get 
+# the command will return
+NAME                    PHASE                   CONTEXT
+cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg
+----
+
+[#pe-watch-logs]
+=== Watching Logs
+
+:kube-ns: knativetutorial
+:kube-svc: cartoon-messages-downloader
+include::ROOT:partial$watching-logs.adoc[]
+
+[#pe-test-cartoon-messages-downloader]
+=== Test the Route
+
+[#pe-test-data]
+==== Upload test data 
+
+[source,bash,subs="+macros,+attributes"]
+----
+
+cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart
+
+S3_URL=$(minikube service -n knativetutorial minio-server --url)
+
+aws --endpoint-url $S3_URL s3 cp link:{camelk-demos-github-repo}/quickstart/data/message1.xml[data/message1.xml] s3://data
+
+aws --endpoint-url $S3_URL s3 cp link:{camelk-demos-github-repo}/quickstart/data/hello.txt[data/hello.txt] s3://data
+
+# run the command to verify upload 
+aws --endpoint-url $S3_URL s3 ls s3://data #<1>
+----
+<1> The command wil return two files named `message1.xml` and `hello.txt`
+
+[#pe-invoke-service]
+==== Invoke service
+
+Invoke the service by passing a header `fileName` with value `message1.xml`, this `fileName` header value will be used by Camel route to download the file from s3 and return it as the response. 
+
+include::ROOT:partial$invoke-service.adoc[tag=env]
+
+We need to have knative service `cartoon-messages-downloader` domain name which needs to be passed as $SVC_URL when invoking the Knative service:
+
+:svc-name: cartoon-messages-downloader 
+include::camelk:partial$invoke-service.adoc[tag=set-svc-url]
+
+:file-name: message1.xml
+include::camelk:partial$invoke-service.adoc[tag=invoke-svc]
+
+[NOTE]
+====
+The event simulation above will be removed once the CamelSource event source is available with Knative Eventing.
+====
+
+On success which is usually HTTP 200, with response having the content of the downloaded file in this case it will be:
+
+[source,xml,subs="+macros,+attributes"]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<cartoon name="TomAndJerry">
+  <productionHouse>MGM</productionHouse>
+  <country>US</country>
+  <genre>comedy</genre>
+</cartoon>
+----
+
+[NOTE]
+====
+When the `cartoon-messages-downloader` has been scaled to zero; when giving a new request it will try to scale up, it will not be able to serve the request until the pod is up, during such time you might get HTTP 502 Bad Gateway errors, give some more time for the pod to come up before issuing the request again.
+
+Right now camel-k does not add Liveliness and Readiness Probes which can help avoid this issue. There is a open https://github.com/apache/camel-k/issues/525[issue] which is fixed and will be part of 0.3.1 release. 
+====
+
+[#pe-cleanup]
+== Cleanup
+
+[source,bash,subs="+macros,+attributes"]
+----
+kamel delete cartoon-messages-downloader -n knativetutorial
+----

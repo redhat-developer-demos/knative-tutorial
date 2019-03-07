@@ -1,13 +1,39 @@
+[kube-ns='']
+
+#tag::wait-with-kubectl[]
+
+[NOTE]
+====
+It may take few minutes for pods to come up, you can watch the status of the pods as shown below.
+You can use kbd:[CTRL + c ] to terminate the watch
+====
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {kube-ns} get pods -w 
+----
+.(OR)
+[source,bash,subs="+macros,+attributes"]
+----
+oc -n  {kube-ns} get pods -w 
+----
+
+#end::wait-with-kubectl[]
+
+#tag::wait-with-timeout[]
+
 Wait for the pods to be running:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-timeout 300 "kubectl get pods -n knativetutorial 2>&1 | grep -v -E '(Running|Completed|STATUS)'"
+timeout 300 "kubectl get pods -n {kube-ns} 2>&1 | grep -v -E '(Running|Completed|STATUS)'"
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-timeout 300 "oc get pods -n knativetutorial 2>&1 | grep -v -E '(Running|Completed|STATUS)'"
+timeout 300 "oc get pods -n {kube-ns} 2>&1 | grep -v -E '(Running|Completed|STATUS)'"
 ----
+#end::wait-with-timeout[]
+
