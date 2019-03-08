@@ -94,7 +94,7 @@ The official minio documentation is available https://docs.minio.io/[here].
 
 [#minio-aws-cli-configure]
 === Configure s3 aws cli for minio
-include::camelk:partial$minio-config.adoc[tag=minio-aws-config]
+include::camelk:partial$minio-and-s3.adoc[tag=minio-aws-config]
 
 [#install-camel-k]
 == Install Camel-k
@@ -147,3 +147,16 @@ kamel install -n knativetutorial \
 
 Check https://github.com/apache/camel-k#configure-additional-maven-repositories[here] for more details on using maven repositories with camel-k.
 ====
+
+[#configure-local-registry]
+== Configure Local Container Registry 
+
+When camel-k builds the images, it pushes built container image to the local registry of the kubernetes cluster. Knative by default resolves all the tags of the container image to digests(SHA256), to be able to do this we need to have images pushed to real time container registry and repository, for these demos we will be using the local container registry that will be part of the minikube or minishift setup. Run the following commands to make Knative skip tag to digest resolution for local images from local registry.
+
+:k8s-cli: kubectl
+include::camelk:partial$extras.adoc[tag=config-k8s-local-registry]
+
+.(OR)
+
+:k8s-cli: oc
+include::camelk:partial$extras.adoc[tag=config-k8s-local-registry]

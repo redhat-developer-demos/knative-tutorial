@@ -1,31 +1,16 @@
+[k8s-cli='']
 
-# tag::minio[]
+#tag::config-k8s-local-registry[]
 
-For various exercises in this cookbook we will be using the s3 kind of object storage. We will use open source object storage called https://github.com/minio/minio[minio] that is compatible with Amazon S3
-
-The following section details how to setup minio server
-
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
-cd $COOKBOOKS_SOURCES_HOME/minio-s3-server
-oc apply -f skaffold.yaml -n cookbook
-oc expose svc minio-server -n cookbook
-----
+K8S_LOCAL_REGISTRY=`{k8s-cli} get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
 
-[.text-center]
-**(OR)**
-[source,bash]
-----
-kubectl apply -f skaffold.yaml -n cookbook
+val="ko.local,dev.local,pass:[${K8S_LOCAL_REGISTRY}]"
+  
+{k8s-cli} -n knative-serving get cm config-controller -oyaml \
+  | yq w - data.registriesSkippingTagResolving $val \
+  | kubectl apply -f -
 ----
 
-[NOTE]
-====
-Details on how to use AWS s3 with minio is available https://docs.minio.io/docs/aws-cli-with-minio.html[here]
-====
-
-A successful minio deployment can be viewed via OpenShift dashboard as shown below:
-
-image::minio-server.png[minio server]
-
-#end::minio[]
+#end::config-k8s-local-registry[]

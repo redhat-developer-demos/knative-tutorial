@@ -2,6 +2,9 @@
 [file-name='']
 
 #tag::set-svc-url[]
+
+We need to know the knative service `{svc-name}` domain name that needs to be passed as **Host** header, we will query and and set that value in an environment variable called `SVC_URL`:
+
 [source,bash,subs="+macros,+attributes"]
 ----
 SVC_URL=`kubectl -n knativetutorial get ksvc {svc-name} -ojsonpath='{.status.domain}'`

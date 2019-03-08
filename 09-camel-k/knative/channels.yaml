@@ -1,7 +1,7 @@
 apiVersion: eventing.knative.dev/v1alpha1
 kind: Channel
 metadata:
-  name: messages-us
+  name: genre-comedy
 spec:
   provisioner:
     apiVersion: eventing.knative.dev/v1alpha1
@@ -12,7 +12,7 @@ spec:
 apiVersion: eventing.knative.dev/v1alpha1
 kind: Channel
 metadata:
-  name: messages-others
+  name: genre-others
 spec:
   provisioner:
     apiVersion: eventing.knative.dev/v1alpha1

@@ -33,15 +33,27 @@ NOTE: You can skip this step and move to <<pe-cartoon-messages-downloader,deploy
 
 [#pe-make-s3-data-bucket]
 === Make s3 **data** bucket
-include::camelk:partial$minio-config.adoc[tag=minio-make-data-bucket]
+
+:s3-bucket: data
+:k8s-env: minikube
+:k8s-cli: kubectl
+include::camelk:partial$minio-and-s3.adoc[tags=s3-url]
+
+.(OR)
+
+:s3-bucket: data
+:k8s-env: minishift
+:k8s-cli: oc
+include::camelk:partial$minio-and-s3.adoc[tag=s3-url]
+
+For this demos we will be using a s3 bucket called `data`, run the following command to create the bucket in s3:
+
+include::camelk:partial$minio-and-s3.adoc[tags=s3-make-bucket]
 
 Verify the created bucket by listing the s3 storage, running the following command:
 
-[source,bash,subs="+macros,+attributes"]
-----
-# should list `data` bucket as part of the list
-aws --endpoint-url $S3_URL s3 ls
-----
+:s3-bucket: data
+include::camelk:partial$minio-and-s3.adoc[tags=s3-ls-bucket]
 
 For more information on how to use aws cli with minio server is available https://docs.minio.io/docs/aws-cli-with-minio.html[here].
 
@@ -94,36 +106,62 @@ include::ROOT:partial$watching-logs.adoc[]
 [#pe-test-data]
 ==== Upload test data 
 
+Navigate to the `quickstart` folder:
+
 [source,bash,subs="+macros,+attributes"]
 ----
-
 cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart
-
-S3_URL=$(minikube service -n knativetutorial minio-server --url)
-
-aws --endpoint-url $S3_URL s3 cp link:{camelk-demos-github-repo}/quickstart/data/message1.xml[data/message1.xml] s3://data
-
-aws --endpoint-url $S3_URL s3 cp link:{camelk-demos-github-repo}/quickstart/data/hello.txt[data/hello.txt] s3://data
-
-# run the command to verify upload 
-aws --endpoint-url $S3_URL s3 ls s3://data #<1>
 ----
-<1> The command wil return two files named `message1.xml` and `hello.txt`
+
+:s3-bucket: data
+:k8s-env: minikube
+:k8s-cli: kubectl
+include::camelk:partial$minio-and-s3.adoc[tags=s3-url]
+
+.(OR)
+
+:s3-bucket: data
+:k8s-env: minishift
+:k8s-cli: oc
+include::camelk:partial$minio-and-s3.adoc[tag=s3-url]
+
+Upload XML file called `message1.xml` to s3 bucket called `data`,
+
+:s3-bucket: data
+:s3-upload-file-link: {camelk-demos-github-repo}/quickstart/data/message1.xml
+:s3-upload-file: data/message1.xml
+include::camelk:partial$minio-and-s3.adoc[tag=s3-upload-file]
+
+Upload a text file called `hello.txt` to s3 bucket called `data`,
+
+:s3-bucket: data
+:s3-upload-file-link: {camelk-demos-github-repo}/quickstart/data/hello.txt
+:s3-upload-file: data/hello.txt
+include::camelk:partial$minio-and-s3.adoc[tag=s3-upload-file]
+
+Verify if the XML and text files were uploaded to the  s3 bucket:
+
+:s3-bucket: data
+include::camelk:partial$minio-and-s3.adoc[tag=s3-ls-bucket]
 
 [#pe-invoke-service]
 ==== Invoke service
 
 Invoke the service by passing a header `fileName` with value `message1.xml`, this `fileName` header value will be used by Camel route to download the file from s3 and return it as the response. 
 
+:k8s-env: minikube
+:k8s-cli: kubectl
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
-We need to have knative service `cartoon-messages-downloader` domain name which needs to be passed as $SVC_URL when invoking the Knative service:
+.(OR)
+
+:k8s-env: minishift
+:k8s-cli: oc
+include::ROOT:partial$invoke-service.adoc[tag=env]
 
 :svc-name: cartoon-messages-downloader 
-include::camelk:partial$invoke-service.adoc[tag=set-svc-url]
-
 :file-name: message1.xml
-include::camelk:partial$invoke-service.adoc[tag=invoke-svc]
+include::camelk:partial$invoke-service.adoc[tags=set-svc-url;invoke-svc]
 
 [NOTE]
 ====
@@ -135,7 +173,7 @@ On success which is usually HTTP 200, with response having the content of the do
 [source,xml,subs="+macros,+attributes"]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
-<cartoon name="TomAndJerry">
+<cartoon title="TomAndJerry">
   <productionHouse>MGM</productionHouse>
   <country>US</country>
   <genre>comedy</genre>
