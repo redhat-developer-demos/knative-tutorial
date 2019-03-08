@@ -337,9 +337,6 @@
     <a class="nav-link" href="../05eventing/eventing.html#eventing-assumptions">Assumptions</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../05eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="../05eventing/eventing-src-svc.html">Source to Service</a>
 <ul class="nav-list">
@@ -432,6 +429,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -467,11 +467,14 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#install-camel-k">Install Camel-K </a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#configure-local-registry">Configure Local Container Registry</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="getting-started.html">Getting Started</a>
+    <a class="nav-link" href="getting-started.html">Message Filter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="getting-started.html#gs-prereq">Prerequisite</a>
@@ -516,7 +519,7 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="poll-enrich.html">s3 File Downloader</a>
+    <a class="nav-link" href="poll-enrich.html">Poll Enrich</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
@@ -556,6 +559,66 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="poll-enrich.html#pe-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html">Content Based Router</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-prereq">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-create-channels">Create Knative  Channels</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-deploy-routes">Deploy Routes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="content-based-router.html#cbr-comedy-genre-handler">Comedy Genre Handler</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="content-based-router.html#cbr-others-genre-handler">Others Genre Handler</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="content-based-router.html#cbr-cartoon-genre-router">Cartoon Genre Router</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-see-what-you-have-deployed">See what you have deployed </a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-test-cartoon-genre-router">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -906,6 +969,37 @@ camel-k-spring-boot                                        0/1     Completed   0
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure-local-registry"><a class="anchor" href="#configure-local-registry"></a>Configure Local Container Registry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When camel-k builds the images, it pushes built container image to the local registry of the kubernetes cluster. Knative by default resolves all the tags of the container image to digests(SHA256), to be able to do this we need to have images pushed to real time container registry and repository, for these demos we will be using the local container registry that will be part of the minikube or minishift setup. Run the following commands to make Knative skip tag to digest resolution for local images from local registry.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`kubectl get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
+
+val="ko.local,dev.local,${K8S_LOCAL_REGISTRY}"
+
+kubectl -n knative-serving get cm config-controller -oyaml \
+  | yq w - data.registriesSkippingTagResolving $val \
+  | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`oc get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
+
+val="ko.local,dev.local,${K8S_LOCAL_REGISTRY}"
+
+oc -n knative-serving get cm config-controller -oyaml \
+  | yq w - data.registriesSkippingTagResolving $val \
+  | kubectl apply -f -</code></pre>
+</div>
 </div>
 </div>
 </div>

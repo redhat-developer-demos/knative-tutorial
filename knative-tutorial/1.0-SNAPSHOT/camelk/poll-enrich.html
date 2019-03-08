@@ -337,9 +337,6 @@
     <a class="nav-link" href="../05eventing/eventing.html#eventing-assumptions">Assumptions</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../05eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="../05eventing/eventing-src-svc.html">Source to Service</a>
 <ul class="nav-list">
@@ -432,6 +429,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -467,11 +467,14 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="setup.html#configure-local-registry">Configure Local Container Registry</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="getting-started.html">Getting Started</a>
+    <a class="nav-link" href="getting-started.html">Message Filter</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="getting-started.html#gs-prereq">Prerequisite</a>
@@ -516,7 +519,7 @@
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="poll-enrich.html">s3 File Downloader</a>
+    <a class="nav-link" href="poll-enrich.html">Poll Enrich</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#pe-prereq">Prerequisite</a>
@@ -559,6 +562,66 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html">Content Based Router</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-prereq">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-create-channels">Create Knative  Channels</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-deploy-routes">Deploy Routes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="content-based-router.html#cbr-comedy-genre-handler">Comedy Genre Handler</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="content-based-router.html#cbr-others-genre-handler">Others Genre Handler</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="content-based-router.html#cbr-cartoon-genre-router">Cartoon Genre Router</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-see-what-you-have-deployed">See what you have deployed </a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-test-cartoon-genre-router">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
 </ul>
@@ -593,7 +656,7 @@
   <ul>
     <li class="crumb"><a href="../index.html">Knative Tutorial</a></li>
     <li class="crumb"><a href="intro.html">9.Eventing with Apache Camel</a></li>
-    <li class="crumb"><a href="poll-enrich.html">s3 File Downloader</a></li>
+    <li class="crumb"><a href="poll-enrich.html">Poll Enrich</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="file:///root/project/documentation/modules/camelk/pages/poll-enrich.adoc">Edit this Page</a></div>
@@ -853,13 +916,23 @@ You can skip this step and move to <a href="#pe-cartoon-messages-downloader">dep
 </div>
 <div class="sect2">
 <h3 id="pe-make-s3-data-bucket"><a class="anchor" href="#pe-make-s3-data-bucket"></a>Make s3 <strong>data</strong> bucket</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>For this demos we will be using a s3 bucket called <code>data</code>, run the following command to create the bucket in s3:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)
-aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -867,8 +940,7 @@ aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># should list `data` bucket as part of the list
-aws --endpoint-url $S3_URL s3 ls</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -975,27 +1047,48 @@ cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</c
 <h3 id="pe-test-cartoon-messages-downloader"><a class="anchor" href="#pe-test-cartoon-messages-downloader"></a>Test the Route</h3>
 <div class="sect3">
 <h4 id="pe-test-data"><a class="anchor" href="#pe-test-data"></a>Upload test data</h4>
+<div class="paragraph">
+<p>Navigate to the <code>quickstart</code> folder:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart
-
-S3_URL=$(minikube service -n knativetutorial minio-server --url)
-
-aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message1.xml">data/message1.xml</a> s3://data
-
-aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/hello.txt">data/hello.txt</a> s3://data
-
-# run the command to verify upload
-aws --endpoint-url $S3_URL s3 ls s3://data <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The command wil return two files named <code>message1.xml</code> and <code>hello.txt</code></td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Upload XML file called <code>message1.xml</code> to s3 bucket called <code>data</code>,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message1.xml">data/message1.xml</a>  s3://data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Upload a text file called <code>hello.txt</code> to s3 bucket called <code>data</code>,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/hello.txt">data/hello.txt</a>  s3://data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify if the XML and text files were uploaded to the  s3 bucket:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1006,11 +1099,18 @@ aws --endpoint-url $S3_URL s3 ls s3://data <i class="conum" data-value="1"></i><
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>We need to have knative service <code>cartoon-messages-downloader</code> domain name which needs to be passed as $SVC_URL when invoking the Knative service:</p>
+<p>We need to know the knative service <code>cartoon-messages-downloader</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1054,7 +1154,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;cartoon name="TomAndJerry"&gt;
+&lt;cartoon title="TomAndJerry"&gt;
   &lt;productionHouse&gt;MGM&lt;/productionHouse&gt;
   &lt;country&gt;US&lt;/country&gt;
   &lt;genre&gt;comedy&lt;/genre&gt;
