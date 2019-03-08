@@ -82,7 +82,6 @@
 * xref:05eventing/eventing.adoc[7. Eventing]
 ** xref:05eventing/eventing.adoc#eventing-prerequisite[Prerequisites]
 ** xref:05eventing/eventing.adoc#eventing-assumptions[Assumptions]
-** xref:05eventing/eventing.adoc#eventing-watch-logs[Watching Logs]
 ** xref:05eventing/eventing-src-svc.adoc[Source to Service]
 *** xref:05eventing/eventing-src-svc.adoc#eventing-source[Event Source]
 *** xref:05eventing/eventing-src-svc.adoc#eventing-create-event-source[Create Event Source]
@@ -108,6 +107,7 @@
 **** xref:05eventing/eventing-src-sub.adoc#eventing-gen-subscriber-service[Generate Service]
 **** xref:05eventing/eventing-src-sub.adoc#eventing-deploy-subscriber-service[Deploy Service]
 *** xref:05eventing/eventing-src-sub.adoc#eventing-cleanup[Cleanup]
+** xref:05eventing/eventing.adoc#eventing-watch-logs[Watching Logs]
 
 
 * xref:faq.adoc[8.Frequently Asked Questions]

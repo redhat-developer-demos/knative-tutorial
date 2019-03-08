@@ -307,7 +307,15 @@ image::event-greeter-00001.png[Event Greeter Service]
 [#build-invoke-service]
 == Invoke service 
 
-include::partial$invoke-service.adoc[tag=env]
+:k8s-env: minikube
+:k8s-cli: kubectl
+include::ROOT:partial$invoke-service.adoc[tag=env]
+
+.(OR)
+
+:k8s-env: minishift
+:k8s-cli: oc
+include::ROOT:partial$invoke-service.adoc[tag=env]
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----

@@ -8,9 +8,9 @@
 :scaling-repo: 03-scaling
 :build-repo: 04-build
 :eventing-repo: 05-eventing
-:camelk-repo: 09-camelk
+:camelk-repo: 09-camel-k
 :experimental:
-:knative-version: v0.3.0
+:knative-version: v0.4.0
 :knative-serving-repo: https://github.com/knative/serving/releases/download
 :knative-build-repo: https://github.com/knative/build/releases/download
 :knative-eventing-repo: https://github.com/knative/eventing/releases/download

@@ -71,7 +71,15 @@ image::greeter-00001.png[Greeter Service]
 [#scaling-invoke-service]
 == Invoke Service
 
-include::partial$invoke-service.adoc[tags=*]
+:k8s-env: minikube
+:k8s-cli: kubectl
+include::ROOT:partial$invoke-service.adoc[tag=*]
+
+.(OR)
+
+:k8s-env: minishift
+:k8s-cli: oc
+include::ROOT:partial$invoke-service.adoc[tag=*]
 
 The last `curl` command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
 
