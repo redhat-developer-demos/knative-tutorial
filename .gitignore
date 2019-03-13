@@ -39,3 +39,6 @@ mvnw
 mvnw.cmd
 .mvn
 gh-pages
+node_modules
+package.json
+dev-site.yml
