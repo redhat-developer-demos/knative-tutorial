@@ -135,7 +135,7 @@ kamel run --dependency='camel-aws'\#<1>
 
 NOTE: Note the first build usually takes time, you can watch the status with commands
 
-:kube-ns: knative-tutorial
+:kube-ns: knativetutorial
 :it-name: comedy-genre-handler
 include::camelk:partial$kamel-objects-status.adoc[tag=integration-status]
 
@@ -164,7 +164,7 @@ kamel run --dependency='camel-aws'\#<1>
 
 NOTE: Note the first build usually takes time, you can watch the status with commands
 
-:kube-ns: knative-tutorial
+:kube-ns: knativetutorial
 :it-name: others-genre-handler
 include::camelk:partial$kamel-objects-status.adoc[tag=integration-status]
 
@@ -195,7 +195,7 @@ kamel run --dependency='camel-aws'\#<1>
 
 NOTE: Note the first build usually takes time, you can watch the status with command:
 
-:kube-ns: knative-tutorial
+:kube-ns: knativetutorial
 :it-name: cartooon-genre-router
 include::camelk:partial$kamel-objects-status.adoc[tag=integration-status]
 
