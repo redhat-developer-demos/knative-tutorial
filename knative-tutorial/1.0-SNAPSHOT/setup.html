@@ -816,9 +816,11 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="1"></i><b>(1)</b>
-  --kubernetes-version=v1.12.0 \<i class="conum" data-value="2"></i><b>(2)</b>
-  --vm-driver=hyperkit \<i class="conum" data-value="3"></i><b>(3)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube profile knative \<i class="conum" data-value="1"></i><b>(1)</b>
+
+minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2"></i><b>(2)</b>
+  --kubernetes-version=v1.12.0 \<i class="conum" data-value="3"></i><b>(3)</b>
+  --vm-driver=hyperkit \<i class="conum" data-value="4"></i><b>(4)</b>
   --disk-size=50g \
   --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"</code></pre>
 </div>
@@ -827,14 +829,18 @@
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Starting a profile named <strong>knative</strong></td>
+<td>Setting minikube profile to <strong>knative</strong> so that all future minikube commands are executed with this profile context</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Minimum kubernetes version needs to be &gt;= 1.12.0, refer to issue <a href="https://github.com/knative/serving/issues/3067" class="bare">https://github.com/knative/serving/issues/3067</a> for more details.</td>
+<td>Starting a profile named <strong>knative</strong></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Minimum kubernetes version needs to be &gt;= 1.12.0, refer to issue <a href="https://github.com/knative/serving/issues/3067" class="bare">https://github.com/knative/serving/issues/3067</a> for more details.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>If you are on linux then use <code>--vm-driver=kvm2</code></td>
 </tr>
 </table>
