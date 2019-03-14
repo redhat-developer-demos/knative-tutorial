@@ -785,7 +785,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Knative <code>v0.4.0</code></p>
+<p>Knative <code>v0.3.0</code></p>
 </li>
 <li>
 <p>minikube <code>v0.34.1</code></p>
@@ -844,8 +844,8 @@
 <h4 id="install-knative-istio"><a class="anchor" href="#install-knative-istio"></a>Install Istio</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.4.0/istio-crds.yaml
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.4.0/istio.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio-crds.yaml
+kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -896,8 +896,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m<
 <h5 id="install-knative-serving"><a class="anchor" href="#install-knative-serving"></a><strong>Install Knative Serving</strong></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.4.0/serving.yaml
-kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serving/v0.4.0/third_party/config/build/clusterrole.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.4.0/third_party/config/build/clusterrole.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/serving.yaml</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -939,7 +938,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
 <h5 id="install-knative-build"><a class="anchor" href="#install-knative-build"></a><strong>Install Knative Build</strong></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.4.0/build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.3.0/build.yaml</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -979,9 +978,9 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></p
 <h5 id="install-knative-eventing"><a class="anchor" href="#install-knative-eventing"></a><strong>Install Knative Eventing</strong></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.4.0/release.yaml
-kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.4.0/in-memory-channel.yaml
-kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.4.0/release.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
+kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/in-memory-channel.yaml
+kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
