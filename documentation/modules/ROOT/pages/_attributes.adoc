@@ -7,7 +7,7 @@
 :build-repo: 04-build
 :eventing-repo: 05-eventing
 :experimental:
-:knative-version: v0.4.0
+:knative-version: v0.3.0
 :knative-serving-uri: https://github.com/knative/serving
 :knative-serving-repo: {knative-serving-uri}/releases/download
 :knative-build-repo: https://github.com/knative/build/releases/download
