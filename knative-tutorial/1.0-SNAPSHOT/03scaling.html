@@ -1265,17 +1265,17 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <div class="sect2">
 <h3 id="scaling-load-service"><a class="anchor" href="#scaling-load-service"></a>Load the service</h3>
 <div class="paragraph">
-<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 10s</code>) with no connection timeout(<code>-t 0</code>)</p>
+<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 10s</code>) and test will run for 30 seconds (<code>-t 30S</code>)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -z 10s -c 50 -t 0 \
-  -host "greeter.knativetutorial.example.com" \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">seige -r 1 -c 50 -t 30S -d 2 \
+  -H "Host: greeter.knativetutorial.example.com" \
   "http://${IP_ADDRESS}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After youÄ&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:</p>
+<p>After you&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:</p>
 </div>
 <div class="imageblock">
 <div class="content">

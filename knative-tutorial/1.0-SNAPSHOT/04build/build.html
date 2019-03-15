@@ -1089,6 +1089,36 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The builds right now can&#8217;t be started from the step where it has failed, you always need to start a new build by deleting the existing build followed by creating a new one again.</p>
+</div>
+<div class="paragraph">
+<p>e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n knativetutorial -f docker-build.yaml
+kubectl apply -n knativetutorial -f docker-build.yaml</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -n knativetutorial -f docker-build.yaml
+oc apply -n knativetutorial -f docker-build.yaml</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
