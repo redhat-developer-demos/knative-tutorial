@@ -339,16 +339,16 @@ watch oc get pods -n knativetutorial
 [#scaling-load-service]
 === Load the service
 
-We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 10s`) with no connection timeout(`-t 0`)
+We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 10s`) and test will run for 30 seconds (`-t 30S`)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-hey -z 10s -c 50 -t 0 \
-  -host "greeter.knativetutorial.example.com" \
+seige -r 1 -c 50 -t 30S -d 2 \
+  -H "Host: greeter.knativetutorial.example.com" \
   "http://pass:[${IP_ADDRESS}]"
 ----
 
-After youÄ've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:
+After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:
 
 image::greeter-00001-scaled.png[Greeter Service]
 
