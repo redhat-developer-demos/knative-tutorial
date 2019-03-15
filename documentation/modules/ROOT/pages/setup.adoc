@@ -44,15 +44,10 @@ The following CLI tools are required for running the exercises in this tutorial.
 | `dnf install httpie`
 |
 
-| https://golang.org[go]
-| `brew install golang`
-| https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
+| https://github.com/JoeDog/siege[siege]
+| `brew install siege`
+| https://github.com/JoeDog/siege  
 |
-
-| https://github.com/rakyll/hey[hey]
-| `go get -u github.com/rakyll/hey`
-| `go get -u github.com/rakyll/hey`
-| Add `hey` to the path using the command `export PATH=$HOME/go/bin:$PATH`
 
 | https://jsonnet.org/
 |`brew install jsonnet`
@@ -193,7 +188,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-build-repo}/{knative-version}/build.yaml
+kubectl apply --filename {knative-build-repo}/{knative-version}/release.yaml
 ----
 
 [NOTE]

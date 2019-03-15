@@ -249,6 +249,26 @@ oc apply -n knativetutorial -f docker-build.yaml
 === build 
 include::partial$knative-objects.adoc[tag=knative-build]
 
+[NOTE]
+====
+The builds right now can't be started from the step where it has failed, you always need to start a new build by deleting the existing build followed by creating a new one again.
+
+e.g. 
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl delete -n knativetutorial -f docker-build.yaml
+kubectl apply -n knativetutorial -f docker-build.yaml
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc delete -n knativetutorial -f docker-build.yaml
+oc apply -n knativetutorial -f docker-build.yaml
+----
+====
+
 [#build-watching-logs]
 == Watching logs
 include::partial$watching-build-logs.adoc[]
