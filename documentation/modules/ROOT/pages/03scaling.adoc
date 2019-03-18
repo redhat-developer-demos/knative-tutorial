@@ -83,7 +83,7 @@ include::ROOT:partial$invoke-service.adoc[tag=*]
 
 The last `curl` command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
 
-Check <<basics-see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
+Check <<01basic-fundas.adoc#see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
 
 [#scaling-scale-to-zero]
 == Configure scale to zero 
