@@ -2,6 +2,7 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
 metadata:
   name: greeter
+  namespace: knativetutorial
 spec:
   revisionTemplate:
     metadata:

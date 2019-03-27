@@ -2,6 +2,7 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Route
 metadata:
   name: greeter
+  namespace: knativetutorial
 spec:
   traffic:
     - revisionName: greeter-00002
