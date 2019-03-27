@@ -2,8 +2,9 @@ apiVersion: sources.eventing.knative.dev/v1alpha1
 kind: CronJobSource
 metadata:
   name: event-greeter-cronjob-source
+  namespace: knativetutorial
 spec:
-  schedule: "* * * * *"
+  schedule: "*/1 * * * *"
   data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:
     apiVersion: serving.knative.dev/v1alpha1
