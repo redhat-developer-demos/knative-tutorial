@@ -2,6 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: kaniko-cache
+  namespace: knativetutorial
 spec:
   accessModes:
     - ReadWriteOnce

@@ -4,6 +4,7 @@ local lib = import 'library-ext.libjsonnet';
   kind: 'Secret',
   metadata: {
     name: 'basic-user-pass',
+    namespace: 'knativetutorial',
     annotations: {
       'build.knative.dev/docker-0': 'https://index.docker.io/v1/',
     },

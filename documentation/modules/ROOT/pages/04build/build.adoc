@@ -205,20 +205,20 @@ Run the following commands to create the pre-requisite resources:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n knativetutorial -f docker-secret.yaml
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml]
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml]
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml]
+kubectl apply -f docker-secret.yaml
+kubectl apply -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml]
+kubectl apply -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml]
+kubectl apply -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml]
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n knativetutorial -f docker-secret.yaml <1>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] <2>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] <3>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml] <4>
+oc apply -f docker-secret.yaml <1>
+oc apply -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] <2>
+oc apply -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] <3>
+oc apply -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml] <4>
 ----
 
 
@@ -232,14 +232,14 @@ oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pv
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f docker-build.yaml
+kubectl apply -f docker-build.yaml
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f docker-build.yaml
+oc apply -f docker-build.yaml
 ----
 
 [#build-see-what-you-have-deployed]
@@ -256,16 +256,16 @@ The builds right now can't be started from the step where it has failed, you alw
 e.g. 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl delete -n knativetutorial -f docker-build.yaml
-kubectl apply -n knativetutorial -f docker-build.yaml
+kubectl delete -f docker-build.yaml
+kubectl apply -f docker-build.yaml
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc delete -n knativetutorial -f docker-build.yaml
-oc apply -n knativetutorial -f docker-build.yaml
+oc delete -f docker-build.yaml
+oc apply -f docker-build.yaml
 ----
 ====
 
@@ -309,14 +309,14 @@ With a successful build you are ready to deploy the service, run the following c
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service-build.yaml
+kubectl apply -f service-build.yaml
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service-build.yaml
+oc apply -f service-build.yaml
 ----
 
 After successful deployment of the service we should see a kubernetes deployment called `event-greeter-00001-deployment` available in the OpenShift dashboard:

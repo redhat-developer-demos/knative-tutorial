@@ -4,6 +4,7 @@ local lib = import 'library-ext.libjsonnet';
   kind: 'Build',
   metadata: {
     name: 'docker-build',
+    namespace: 'knativetutorial',
   },
   spec: {
     serviceAccountName: 'build-bot',

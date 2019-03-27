@@ -5,6 +5,7 @@ local lib = import 'library-ext.libjsonnet';
   kind: 'Service',
   metadata: {
     name: 'event-greeter',
+    namespace: 'knativetutorial',
   },
   spec: {
     runLatest: {

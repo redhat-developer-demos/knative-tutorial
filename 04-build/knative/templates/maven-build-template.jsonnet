@@ -4,6 +4,7 @@ local lib = import 'library-ext.libjsonnet';
   kind: 'BuildTemplate',
   metadata: {
     name: 'build-java-maven',
+    namespace: 'knativetutorial',
   },
   spec: {
     parameters: [
