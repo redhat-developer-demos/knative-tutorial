@@ -18,6 +18,48 @@ include::partial$prereq-cli.adoc[]
 == Build Containers
 include::partial$build-containers.adoc[tag=greeter]
 
+[#scaling-modify-configmap]
+== Setting Configmap Defaults
+
+Knative v0.4.0 changed how the default configuration map values are set and provided.
+For the purposes of this section, lets apply a few defaults.
+
+[.text-center]
+.link:{github-repo}/{scaling-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+[source,yaml,linenums]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-autoscaler
+  namespace: knative-serving
+  labels:
+    serving.knative.dev/release: devel
+data:
+  scale-to-zero-grace-period: 30s
+  stable-window: 60s
+----
+Navigate to the tutorial chapter's `Knative` folder:
+
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/03-serving/knative
+----
+
+The service can be deployed using the command:
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc apply -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+----
+
 [#scaling-deploy-service]
 == Deploy Service
 
@@ -343,7 +385,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-seige -r 1 -c 50 -t 30S -d 2 \
+siege -r 1 -c 50 -t 30S -d 2 \
   -H "Host: greeter.knativetutorial.example.com" \
   "http://pass:[${IP_ADDRESS}]"
 ----

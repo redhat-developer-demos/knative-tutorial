@@ -2,6 +2,7 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  namespace: knativetutorial
   annotations:
     # Target 10 in-flight-requests per pod.
     autoscaling.knative.dev/target: "10"
