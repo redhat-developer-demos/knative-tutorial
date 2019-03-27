@@ -81,8 +81,8 @@ The `work` folder in `$TUTORIAL_HOME` can be used to download the demo applicati
 
 This tutorial was developed and tested with:
 
-- Knative `v0.3.0`
-- minikube `v0.34.1`
+- Knative `v0.4.0`
+- minikube `v0.35.0`
 - OpenShift `v3.11`
 - minishift `v1.30.0+186b034`
 ====
@@ -105,8 +105,7 @@ minikube profile knative \#<1>
 minikube start -p knative --memory=8192 --cpus=4 \#<2> 
   --kubernetes-version=v1.12.0 \#<3> 
   --vm-driver=hyperkit \#<4>  
-  --disk-size=50g \
-  --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+  --disk-size=50g"
 ----
 
 <1> Setting minikube profile to **knative** so that all future minikube commands are executed with this profile context
@@ -216,7 +215,6 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply --filename {knative-eventing-repo}/{knative-version}/release.yaml
-kubectl apply --filename {knative-eventing-repo}/{knative-version}/in-memory-channel.yaml
 kubectl apply --filename {knative-sources-repo}/{knative-version}/release.yaml
 ----
 
