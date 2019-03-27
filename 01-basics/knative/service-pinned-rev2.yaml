@@ -2,9 +2,10 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  namespace: knativetutorial
 spec:
-  pinned:
-    revisionName: greeter-00002
+  release:
+    revisions: ["greeter-00002"]
     configuration:
       revisionTemplate:
         spec:

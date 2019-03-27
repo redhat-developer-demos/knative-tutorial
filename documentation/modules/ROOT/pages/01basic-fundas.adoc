@@ -36,6 +36,7 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  namespace: knativetutorial
 spec:
   runLatest: #<1>
     configuration:
@@ -52,14 +53,14 @@ The service could be deployed using the command:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+kubectl apply -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
 
 .(OR)
 
 [source,bash,linenums,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+oc apply -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
 
 
@@ -135,6 +136,7 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  namespace: knativetutorial
 spec:
   runLatest:
     configuration:
@@ -153,14 +155,14 @@ Let us deploy the new revision using the command:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+kubectl apply -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+oc apply -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 ----
 
 After successful deployment of the service we should see a kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
@@ -192,9 +194,10 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
+  namespace: knativetutorial
 spec:
-  pinned: #<1>
-    revisionName: greeter-00001
+  release: #<1>
+    revisions: ["greeter-00001"]
   configuration:
     revisionTemplate:
       spec:
@@ -202,20 +205,20 @@ spec:
           image: dev.local/rhdevelopers/greeter:0.0.1
 ----
 
-<1> The **pinned** attribute in service resource file will make Knative use the revision specified in the **revisionName** attribute.
+<1> The **release** attribute in service resource file will make Knative use the revision specified in the **revisionName** attribute.
 
 Let redeploy the greeter service to be pinned to revision __greeter-00001__:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+kubectl apply -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+oc apply -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
 ----
 
 <<basics-invoke-service,Invoking Service>> will now show an output like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 3**.
