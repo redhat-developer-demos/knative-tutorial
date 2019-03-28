@@ -1270,7 +1270,7 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">seige -r 1 -c 50 -t 30S -d 2 \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">siege -r 1 -c 50 -t 30S -d 2 \
   -H "Host: greeter.knativetutorial.example.com" \
   "http://${IP_ADDRESS}"</code></pre>
 </div>
