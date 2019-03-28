@@ -283,12 +283,13 @@ apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
   name: greeter
-  annotations:    
-    autoscaling.knative.dev/target: "10" #<1>
 spec:
   runLatest:
     configuration:
       revisionTemplate:
+        metadata:
+          annotations:
+          autoscaling.knative.dev/target: "10" #<1>
         spec:
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
