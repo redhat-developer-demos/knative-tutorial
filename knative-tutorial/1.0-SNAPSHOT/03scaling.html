@@ -1199,12 +1199,13 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 kind: Service
 metadata:
   name: greeter
-  annotations:
-    autoscaling.knative.dev/target: "10" <i class="conum" data-value="1"></i><b>(1)</b>
 spec:
   runLatest:
     configuration:
       revisionTemplate:
+        metadata:
+          annotations:
+          autoscaling.knative.dev/target: "10" <i class="conum" data-value="1"></i><b>(1)</b>
         spec:
           container:
             image: dev.local/rhdevelopers/greeter:0.0.1
