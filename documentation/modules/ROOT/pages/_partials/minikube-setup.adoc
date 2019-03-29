@@ -175,7 +175,7 @@ kubectl create namespace knativetutorial
 ====
 kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx], allows change the kubernetes namespace easily. 
 
-[sources,bash] 
+[source,bash] 
 ----
 kubens knativetutorial
 ----
