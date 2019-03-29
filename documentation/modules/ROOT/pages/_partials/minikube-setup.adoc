@@ -1,95 +1,3 @@
-= Setup
-include::_attributes.adoc[]
-
-[#prerequisite]
-== Prerequisite CLI tools
-
-The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
-
-[cols="4*^,4*."]
-|===
-|**Tool** |**macOS** |**Fedora** | **Remarks**
-| `minikube` 
-| https://kubernetes.io/docs/setup/minikube
-| https://kubernetes.io/docs/setup/minikube
-|
-
-| `minishift` 
-| https://github.com/minishift/minishift/releases
-| https://github.com/minishift/minishift/releases
-|
-
-| https://maven.apacge.org[Apache Maven]
-| `brew install maven`
-| `dnf install maven`
-|
-
-| https://github.com/wercker/stern[stern]
-| `brew install stern`
-| `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
-|
-
-| http://xmlstar.sourceforge.net/[xmlstarlet]
-| `brew install xmlstarlet`
-| http://xmlstar.sourceforge.net/
-|
-
-| https://github.com/mikefarah/yq[yq]
-| `brew install yq`
-|  https://github.com/mikefarah/yq/releases/latest
-|
-
-| https://httpie.org/[httpie]
-| `brew install httpie`
-| `dnf install httpie`
-|
-
-| https://github.com/JoeDog/siege[siege]
-| `brew install siege`
-| https://github.com/JoeDog/siege  
-|
-
-| https://jsonnet.org/
-|`brew install jsonnet`
-| https://github.com/google/jsonnet
-|
-
-| watch
-|`brew install watch`
-| it will be pre-installed
-|
-
-| kubectx and kubens
-| `brew install kubectx`
-| https://github.com/ahmetb/kubectx
-|
-|===
-
-[#download-tutorial-sources]
-== Download Tutorial Sources
-Before we start to setting up the environment, lets clone the tutorial sources and call the cloned folder as `$TUTORIAL_HOME`
-
-[source,bash]
-----
-git clone https://github.com/redhat-developer-demos/knative-tutorial
-----
-
-The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer them during the exercises. The `work` folder has a README, which has instructions on source code repo and git commands to clone the sources.
-
-[IMPORTANT]
-====
-
-This tutorial was developed and tested with:
-
-- Knative `v0.3.0`
-- minikube `v0.34.1`
-- OpenShift `v3.11`
-- minishift `v1.30.0+186b034`
-====
-
-[#kubernetes-cluster]
-== Kubernetes Cluster
-
 [#install-knative-minikube]
 === Minikube
 
@@ -114,13 +22,14 @@ minikube start -p knative --memory=8192 --cpus=4 \#<2>
 <3> Minimum kubernetes version needs to be >= 1.12.0, refer to issue https://github.com/knative/serving/issues/3067 for more details.
 <4> If you are on linux then use `--vm-driver=kvm2`
 
+
 [#install-knative-istio]
 ==== Install Istio 
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-serving-repo}/{knative-version}/istio-crds.yaml
-kubectl apply --filename {knative-serving-repo}/{knative-version}/istio.yaml
+kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/istio-crds.yaml
+kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/istio.yaml
 ----
 
 [NOTE]
@@ -159,7 +68,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-serving-repo}/{knative-version}/serving.yaml
+kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/serving.yaml
 ----
 
 [NOTE]
@@ -188,7 +97,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-build-repo}/{knative-version}/release.yaml
+kubectl apply --filename {knative-build-repo}/{knative-build-version}/build.yaml
 ----
 
 [NOTE]
@@ -215,9 +124,9 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-eventing-repo}/{knative-version}/release.yaml
-kubectl apply --filename {knative-eventing-repo}/{knative-version}/in-memory-channel.yaml
-kubectl apply --filename {knative-sources-repo}/{knative-version}/release.yaml
+kubectl apply --filename {knative-eventing-repo}/{knative-eventing-version}/release.yaml
+kubectl apply --filename {knative-sources-repo}/{knative-sources-version}/release.yaml
+kubectl apply --filename https://raw.githubusercontent.com/knative/serving/{knative-serving-version}/third_party/config/build/clusterrole.yaml
 ----
 
 [NOTE]
@@ -262,57 +171,12 @@ We will use a non default kubernetes namespace called `knativetutorial` for all 
 kubectl create namespace knativetutorial
 ----
 
-[#install-knative-openshift]
-=== OpenShift 
+[TIP]
+====
+kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx], allows change the kubernetes namespace easily. 
 
-For OpenShift Knative installations we will use the OpenShift Cloud Function's https://github.com/openshift-cloud-functions/knative-operators[Knative Operators].
-
-Clone the Knative Operator sources locally:
-
-[source,bash,linenums]
------
-cd $TUTORIAL_HOME/work
-git clone https://github.com/openshift-cloud-functions/knative-operators
-cd knative-operators
------
-
-[#install-knative-ocp]
-==== OCP
-
-If you have an existing OpenShift cluster then run the following commands:
-
-[source,bash,linenums]
------
-./etc/scripts/install.sh
------
-
-If you need more details about the installation or customizations refer https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md[Knative with OpenShift].
-
-[#install-knative-minishift]
-==== minishift
-
-Run the following commands to configure Knative with minishift:
-
-[source,bash,linenums]
------
-./etc/scripts/install-on-minishift.sh #<1>
------
-
-<1> It will create a minishift profile and install knative.  It also assumes that you already have minishift and your computer has 10GB or more of memory
-
-[#configure-openshift-project]
-==== Configuring OpenShift project for Knative applications
-
-[source,bash,linenums]
+[sources,bash] 
 ----
-oc new-project knativetutorial
-oc adm policy add-scc-to-user privileged -z default #<1>
-oc adm policy add-scc-to-user anyuid -z default
+kubens knativetutorial
 ----
-
-<1> The `oc adm policy` adds the **privileged** https://docs.okd.io/3.10/admin_guide/manage_scc.html[Security Context Constraints(SCCs)]to the **default** Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in kubernetes.
-
-[#setup-work-folder]
-== Work folder
-
-The work folder i.e `$TUTORIAL_HOME/work` can be used as a work directory during the build. The README in the work folder as the GitHub repository links of the applications `greeter` and `event-greeter` that will be used in various exercises.
+====

@@ -1,15 +1,22 @@
 :moduledir: ..
 :branch: master
 :github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
-:basics-repo: 01-basics
-:configs-and-routes-repo: 02-configs-and-routes
-:scaling-repo: 03-scaling
-:build-repo: 04-build
-:eventing-repo: 05-eventing
+:basics-repo: 02-basics
+:configs-and-routes-repo: 03-configs-and-routes
+:scaling-repo: 04-scaling
+:build-repo: 05-build
+:eventing-repo: 06-eventing
 :experimental:
-:knative-version: v0.3.0
-:knative-serving-uri: https://github.com/knative/serving
-:knative-serving-repo: {knative-serving-uri}/releases/download
+:minikube-version: v1.0.0
+:knative-version: v0.4.0
+:openshift-version: v3.11
+:minishift-version: v1.30.0+186b034
+
+:knative-serving-repo: https://github.com/knative/serving/releases/download
+:knative-serving-version: v0.4.0
 :knative-build-repo: https://github.com/knative/build/releases/download
+:knative-build-version: v0.4.0
 :knative-eventing-repo: https://github.com/knative/eventing/releases/download
+:knative-eventing-version: v0.4.0
 :knative-sources-repo: https://github.com/knative/eventing-sources/releases/download
+:knative-sources-version: v0.4.0

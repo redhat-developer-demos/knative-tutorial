@@ -48,7 +48,7 @@ spec:
         image: dev.local/rhdevelopers/greeter:0.0.1 #<1>
 ----
 
-<1> It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this <<faq-q2,Question 2 of FAQ>>.
+<1> It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ].
 
 The service is then deployed using:
 [source,bash,subs="+macros,+attributes",linenums]
@@ -111,7 +111,7 @@ kubectl apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}
 oc apply -n knativetutorial -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
 ----
 
-<<invoke-service,Invoking Service>> now should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
+<<crtd-invoke-service,Invoking Service>> now should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
 
 NOTE: Sometimes the response might not be returned immediately especially when the pod is coming up from a dormant state. You might need to be a little patient.
 
@@ -197,9 +197,9 @@ After the deployment was successful we should see a kubernetes deployment called
 
 image::greeter-00002.png[Greeter Service rev2]
 
-Now running the <<show-knative-revisions,command>> will show two revisions: `greeter-00001` and `greeter-0002`.
+Now running the <<crtd-show-knative-revisions,command>> will show two revisions: `greeter-00001` and `greeter-0002`.
 
-<<invoke-service,Invoking Service>> will now show an output like **Namaste greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 2**, where __Namaste__ is the value that we configured via environment variable in the Knative service resource file.
+<<crtd-invoke-service,Invoking Service>> will now show an output like **Namaste greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 2**, where __Namaste__ is the value that we configured via environment variable in the Knative service resource file.
 
 [#crtd-distributing-traffic]
 == Distributing traffic

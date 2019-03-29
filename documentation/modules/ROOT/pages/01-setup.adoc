@@ -1,0 +1,89 @@
+= Setup
+include::_attributes.adoc[]
+
+[#prerequisite]
+== Prerequisite CLI tools
+
+The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
+
+[cols="4*^,4*."]
+|===
+|**Tool** |**macOS** |**Fedora** | **Remarks**
+| `minikube` 
+| https://kubernetes.io/docs/setup/minikube
+| https://kubernetes.io/docs/setup/minikube
+|
+
+| `minishift` 
+| https://github.com/minishift/minishift/releases
+| https://github.com/minishift/minishift/releases
+|
+
+| https://maven.apacge.org[Apache Maven]
+| `brew install maven`
+| `dnf install maven`
+|
+
+| https://github.com/wercker/stern[stern]
+| `brew install stern`
+| `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
+|
+
+| https://github.com/mikefarah/yq[yq]
+| `brew install yq`
+|  https://github.com/mikefarah/yq/releases/latest
+|
+
+| https://httpie.org/[httpie]
+| `brew install httpie`
+| `dnf install httpie`
+|
+
+| https://github.com/JoeDog/siege[siege]
+| `brew install siege`
+| https://github.com/JoeDog/siege  
+|
+
+| watch
+|`brew install watch`
+| it will be pre-installed
+|
+
+| kubectx and kubens
+| `brew install kubectx`
+| https://github.com/ahmetb/kubectx
+|
+|===
+
+[#download-tutorial-sources]
+== Download Tutorial Sources
+Before we start to setting up the environment, lets clone the tutorial sources and call the cloned folder as `$TUTORIAL_HOME`
+
+[source,bash]
+----
+git clone https://github.com/redhat-developer-demos/knative-tutorial
+----
+
+The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer them during the exercises. The `work` folder has a README, which has instructions on source code repo and git commands to clone the sources.
+
+[IMPORTANT,subs="+macros,+attributes"]
+====
+
+This tutorial was developed and tested with:
+
+- Knative `{knative-version}`
+- minikube `{minikube-version}`
+- OpenShift `{openshift-version}`
+- minishift `{minishift-version}`
+====
+
+[#kubernetes-cluster]
+== Kubernetes Cluster
+
+include::partial$minikube-setup.adoc[]
+include::partial$openshift-setup.adoc[]
+
+[#setup-work-folder]
+== Work folder
+
+The work folder i.e `$TUTORIAL_HOME/work` can be used as a work directory during the build. The README in the work folder as the GitHub repository links of the applications `greeter` and `event-greeter` that will be used in various exercises.
