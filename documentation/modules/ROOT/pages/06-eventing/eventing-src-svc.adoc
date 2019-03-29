@@ -40,7 +40,7 @@ spec:
 Event Source can define the attributes that it wishes to receive via the 
 spec.  In the above example it defines **schedule**(the the cron expression) and **data** that will be sent as part of the event.
 
-When you xref:05eventing/eventing.adoc#eventing-watch-logs[watch logs], you will notice this data being delivered to the service.
+When you xref:06-eventing/eventing.adoc#eventing-watch-logs[watch logs], you will notice this data being delivered to the service.
 ====
 
 Run the following commands to create the event source resources:
@@ -156,7 +156,7 @@ spec:
 
 [NOTE]
 ====
-If you have skipped the xref:ROOT:04build/build.adoc[Build] or xref:ROOT:04build/build-templates.adoc[Build Templates] do not have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1`
+If you have skipped the xref:ROOT:05-build/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates] do not have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1`
 ====
 
 [#eventing-deploy-sink-service]
@@ -183,7 +183,7 @@ kubectl apply -n knativetutorial -f service.yaml
 oc apply -n knativetutorial -f service.yaml 
 ----
 
-You can xref:05eventing/eventing.adoc#eventing-watch-logs[watch logs] to see the cron job source sending an event every 1 minute.
+You can xref:06-eventing/eventing.adoc#eventing-watch-logs[watch logs] to see the cron job source sending an event every 1 minute.
 
 [#eventing-see-what-you-have-deployed]
 === See what you have deployed
@@ -213,4 +213,4 @@ oc -n knativetutorial delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
 ----
 
-NOTE: You can also delete xref:ROOT:04build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you dont need them any more.
+NOTE: You can also delete xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you dont need them any more.

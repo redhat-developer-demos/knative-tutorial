@@ -8,10 +8,13 @@ site:
 
 content:
   sources:
-    - url: .
+    - url: git@github.com:redhat-developer-demos/knative-tutorial.git
       tags: v*
       branches: master
       start_path: documentation
+    - url: git@github.com:redhat-developer-docs/knative-tutorial-module-camelk.git
+      tags: v*
+      branches: master
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable

@@ -1,7 +1,7 @@
 = Build Template
 include::_attributes.adoc[]
 
-The raw builds like what we did in xref:ROOT:04build/build.adoc[previous chapter] has some disadvantages:
+The raw builds like what we did in xref:ROOT:05-build/build.adoc[previous chapter] has some disadvantages:
 
  * No reusability 
  * Hard coding of build parameters 
@@ -17,9 +17,9 @@ include::partial$prereq-cli.adoc[]
 
 [IMPORTANT]
 ====
-* Please ensure that you have xref:ROOT:04build/build.adoc#build-registry-account[ registry account] created.
+* Please ensure that you have xref:ROOT:05-build/build.adoc#build-registry-account[ registry account] created.
 
-* Pre-requisite xref:ROOT:04build/build.adoc#build-apply-prereq-resources[kubernetes resources] have been created and applied.
+* Pre-requisite xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[kubernetes resources] have been created and applied.
 ====
 
 [#build-template-generate-template]
@@ -94,7 +94,7 @@ spec:
 
 <1> The build template does not have any hard-coded values, *the dynamic values could be passed using **parameters** of the template.
 
-The build done by the build steps of the template is exactly same like what was done by xref:ROOT:04build/build.adoc#build-create-build[raw build], but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.
+The build done by the build steps of the template is exactly same like what was done by xref:ROOT:05-build/build.adoc#build-create-build[raw build], but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.
 
 [#build-template-generate-service]
 === Generate Knative service
@@ -165,7 +165,7 @@ spec:
 [#build-template-apply-resources]
 === Apply resources
 
-As we have already xref:ROOT:04build/build.adoc#build-apply-prereq-resources[applied the pre-req] resources, lets jump straight to applying the template and service.
+As we have already xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[applied the pre-req] resources, lets jump straight to applying the template and service.
 
 Navigate to the tutorial chapter's `knative` folder:
 
@@ -216,7 +216,7 @@ oc apply -n knativetutorial -f service-with-build-template.yaml
 ----
 
 
-You can also xref:ROOT:04build/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
+You can also xref:ROOT:05-build/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
 
 After successful deployment of the service we should see a kubernetes deployment called `event-greeter-00001-deployment` available.
 
@@ -279,4 +279,4 @@ oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
 ----
 
-NOTE: You can also delete xref:ROOT:04build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you dont need them any more.
+NOTE: You can also delete xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you dont need them any more.

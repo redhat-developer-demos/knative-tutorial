@@ -41,7 +41,7 @@ spec:
 ----
 
 <1> Configures the Knative service to always run the latest revision of the deployment.
-<2> It is very important that the image is a fully qualified docker image name, including a tag. For more details on this <<faq-q2,Question 2 of FAQ>>.
+<2> It is very important that the image is a fully qualified docker image name, including a tag. For more details on this xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ].
 
 Navigate to the tutorial chapter's `knative` folder:
 
@@ -83,7 +83,7 @@ include::ROOT:partial$invoke-service.adoc[tag=*]
 
 The last `curl` command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
 
-Check <<01basic-fundas.adoc#see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
+Check <<02-basic-fundas.adoc#see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
 
 [#scaling-scale-to-zero]
 == Configure scale to zero 

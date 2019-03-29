@@ -3,6 +3,5 @@ title: Knative Tutorial
 version: v1.1.0-SNAPSHOT
 nav:
   - modules/ROOT/nav.adoc
-  - modules/camelk/nav.adoc
 
 start_page: ROOT:index.adoc
