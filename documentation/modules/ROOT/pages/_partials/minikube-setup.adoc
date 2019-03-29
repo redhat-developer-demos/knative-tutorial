@@ -1,0 +1,182 @@
+[#install-knative-minikube]
+=== Minikube
+
+[#start-minikube]
+==== Configure and Start minikube 
+
+Before installing Knative and its components, we need to add few startup config to minikube.
+
+[source,bash,subs="+macros,+attributes"]
+----
+minikube profile knative \#<1>
+
+minikube start -p knative --memory=8192 --cpus=4 \#<2> 
+  --kubernetes-version=v1.12.0 \#<3> 
+  --vm-driver=hyperkit \#<4>  
+  --disk-size=50g \
+  --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+----
+
+<1> Setting minikube profile to **knative** so that all future minikube commands are executed with this profile context
+<2> Starting a profile named **knative**
+<3> Minimum kubernetes version needs to be >= 1.12.0, refer to issue https://github.com/knative/serving/issues/3067 for more details.
+<4> If you are on linux then use `--vm-driver=kvm2`
+
+
+[#install-knative-istio]
+==== Install Istio 
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/istio-crds.yaml
+kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/istio.yaml
+----
+
+[NOTE]
+====
+Installation of istio components will take some time and its highly recommended that you start Knative components installation only after you see all istio component pods are running. The istio pods can be watched using the command:
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n istio-system get pods -w 
+----
+You can use kbd:[CTRL + c ] to terminate the watch
+====
+
+A successful istio install will have the pods running in `istio-system` namespace as shown below:
+
+[source,bash]
+----
+NAME                                       READY   STATUS      RESTARTS   AGE
+cluster-local-gateway-547467ccf6-857mx     1/1     Running     0          6h35m
+istio-citadel-7d64db8bcf-xgdh7             1/1     Running     0          6h35m
+istio-cleanup-secrets-7mjbl                0/1     Completed   0          6h35m
+istio-egressgateway-6ddf4c8bd6-sglg6       1/1     Running     0          6h35m
+istio-galley-7dd996474-4jhr4               1/1     Running     0          6h35m
+istio-ingressgateway-84b89d647f-f9n4h      1/1     Running     0          6h35m
+istio-pilot-86bb4fcbbd-ptz7n               2/2     Running     0          6h35m
+istio-pilot-86bb4fcbbd-s9qxl               2/2     Running     0          6h34m
+istio-pilot-86bb4fcbbd-xd887               2/2     Running     0          6h34m
+istio-policy-5c4d9ff96b-tzkbw              2/2     Running     0          6h35m
+istio-sidecar-injector-6977b5cf5b-9wsjw    1/1     Running     0          6h35m
+istio-statsd-prom-bridge-b44b96d7b-x85xr   1/1     Running     0          6h35m
+istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m
+knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m
+----
+
+[#install-knative-serving]
+===== **Install Knative Serving**
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/serving.yaml
+----
+
+[NOTE]
+====
+Installation of knative serving components will take some time, the status of the knative serving pods can be watched using the command:
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n knative-serving get pods -w 
+----
+You can use kbd:[CTRL + c ] to terminate the watch
+====
+
+A successful Knative serving install will have the pods running in `knative-serving` as shown below:
+
+[source,bash]
+----
+NAME                          READY   STATUS    RESTARTS   AGE
+activator-69b8474d6b-fhnwq    2/2     Running   0          6h33m
+autoscaler-6579b57774-lcjd2   2/2     Running   0          6h33m
+controller-66cd7d99df-6lt2t   1/1     Running   0          6h33m
+webhook-6d9568d-htxlt         1/1     Running   0          6h33m
+----
+
+[#install-knative-build]
+===== **Install Knative Build** 
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply --filename {knative-build-repo}/{knative-build-version}/build.yaml
+----
+
+[NOTE]
+====
+Installation of knative build components will take some time, the status of the  knative serving pods can be watched using the command:
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n knative-build get pods -w 
+----
+You can use kbd:[CTRL + c ] to terminate the watch
+====
+
+A successful Knative build install will have the pods running in `knative-build` as shown below:
+
+[source,bash]
+----
+NAME                                READY   STATUS    RESTARTS   AGE
+build-controller-658d64d9bd-4m7l9   1/1     Running   0          6h32m
+build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m
+----
+
+[#install-knative-eventing]
+===== **Install Knative Eventing** 
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply --filename {knative-eventing-repo}/{knative-eventing-version}/release.yaml
+kubectl apply --filename {knative-sources-repo}/{knative-sources-version}/release.yaml
+kubectl apply --filename https://raw.githubusercontent.com/knative/serving/{knative-serving-version}/third_party/config/build/clusterrole.yaml
+----
+
+[NOTE]
+====
+Installation of knative eventing components will take some time, the status of the  knative serving pods can be watched using the command:
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n knative-sources get pods -w 
+kubectl -n knative-eventing get pods -w 
+----
+You can use kbd:[CTRL + c ] to terminate the watch
+====
+
+A successful Knative eventing install will have the pods running `knative-eventing` and `knative-sources` in as shown below:
+
+.knative-eventing namespace
+
+[source,bash]
+----
+NAME                                            READY   STATUS    RESTARTS   AGE
+eventing-controller-cfbb757bd-lg5zk             1/1     Running   0          6h35m
+in-memory-channel-controller-75d6cc4b77-f8bfl   1/1     Running   0          6h35m
+in-memory-channel-dispatcher-c89db8bb8-ktr26    2/2     Running   1          6h35m
+webhook-5fbb8dbcc7-gk6cx                        1/1     Running   0          6h35m
+----
+
+.knative-sources namespace
+
+[source,bash]
+----
+NAME                   READY   STATUS    RESTARTS   AGE
+controller-manager-0   1/1     Running   0          6h35m
+----
+
+[#set-knative-tutorial-ns]
+==== Configuring Kubernetes namespace
+
+We will use a non default kubernetes namespace called `knativetutorial` for all the tutorial exercises.
+
+[source,bash]
+----
+kubectl create namespace knativetutorial
+----
+
+[TIP]
+====
+kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx], allows change the kubernetes namespace easily. 
+
+[sources,bash] 
+----
+kubens knativetutorial
+----
+====
