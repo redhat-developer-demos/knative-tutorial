@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poll Enricher :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/camelk/poll-enrich.html">
+    <title>Content Based Routing :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/camelk/content-based-router.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">  </head>
@@ -47,7 +47,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="v1.0.0">
+<div class="navigation-container" data-component="knative-tutorial" data-version="v1.1.0-SNAPSHOT">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -517,108 +517,108 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="poll-enrich.html">Poll Enrich</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-prereq">Prerequisite</a>
+    <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-overview">Demo Overview</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="#pe-deployment">Deployment</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-make-s3-data-bucket">Create data s3 bucket</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-make-s3-top-bucket">Create top s3 bucket</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-cartoon-messages-downloader">Deploy Camel Route</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-watch-logs">Watching Logs</a>
+    <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#pe-test-cartoon-messages-downloader">Testing Route</a>
+    <a class="nav-link" href="poll-enrich.html#pe-deployment">Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-test-data">Upload Test Data</a>
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-data-bucket">Create data s3 bucket</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-invoke-service">Invoke service</a>
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-top-bucket">Create top s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-cartoon-messages-downloader">Deploy Camel Route</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-cleanup">Cleanup</a>
+    <a class="nav-link" href="poll-enrich.html#pe-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html#pe-test-cartoon-messages-downloader">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="poll-enrich.html#pe-invoke-service">Invoke service</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="content-based-router.html">Content Based Router</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="content-based-router.html#cbr-prereq">Prerequisite</a>
+    <a class="nav-link" href="#cbr-prereq">Prerequisite</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="content-based-router.html#cbr-overview">Demo Overview</a>
+    <a class="nav-link" href="#cbr-overview">Demo Overview</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="content-based-router.html#cbr-deployment">Deployment</a>
+    <a class="nav-link" href="#cbr-deployment">Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="content-based-router.html#cbr-make-s3-data-bucket">Create data s3 bucket</a>
+    <a class="nav-link" href="#cbr-make-s3-data-bucket">Create data s3 bucket</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="content-based-router.html#cbr-create-channels">Create Knative  Channels</a>
+    <a class="nav-link" href="#cbr-create-channels">Create Knative  Channels</a>
   </li>
   <li class="nav-item" data-depth="4">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="content-based-router.html#cbr-deploy-routes">Deploy Routes</a>
+    <a class="nav-link" href="#cbr-deploy-routes">Deploy Routes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="content-based-router.html#cbr-comedy-genre-handler">Comedy Genre Handler</a>
+    <a class="nav-link" href="#cbr-comedy-genre-handler">Comedy Genre Handler</a>
   </li>
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="content-based-router.html#cbr-others-genre-handler">Others Genre Handler</a>
+    <a class="nav-link" href="#cbr-others-genre-handler">Others Genre Handler</a>
   </li>
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="content-based-router.html#cbr-cartoon-genre-router">Cartoon Genre Router</a>
+    <a class="nav-link" href="#cbr-cartoon-genre-router">Cartoon Genre Router</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="content-based-router.html#cbr-see-what-you-have-deployed">See what you have deployed </a>
+    <a class="nav-link" href="#cbr-see-what-you-have-deployed">See what you have deployed </a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="content-based-router.html#cbr-watch-logs">Watching Logs</a>
+    <a class="nav-link" href="#cbr-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="content-based-router.html#cbr-test-cartoon-genre-router">Testing Route</a>
+    <a class="nav-link" href="#cbr-test-cartoon-genre-router">Testing Route</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="content-based-router.html#cbr-test-data">Upload Test Data</a>
+    <a class="nav-link" href="#cbr-test-data">Upload Test Data</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="content-based-router.html#cbr-invoke-service">Invoke service</a>
+    <a class="nav-link" href="#cbr-invoke-service">Invoke service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="content-based-router.html#cbr-cleanup">Cleanup</a>
+    <a class="nav-link" href="#cbr-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -632,17 +632,17 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">v1.0.0</span>
+    <span class="version">v1.1.0-SNAPSHOT</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../v1.1.0-SNAPSHOT/index.html">v1.1.0-SNAPSHOT</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">v1.1.0-SNAPSHOT</a>
         </li>
-        <li class="version is-current">
-          <a href="../index.html">v1.0.0</a>
+        <li class="version">
+          <a href="../../v1.0.0/index.html">v1.0.0</a>
         </li>
       </ul>
     </li>
@@ -654,34 +654,34 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="../index.html" class="home-link"></a>
+  <a href="../../v1.0.0/index.html" class="home-link"></a>
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="../index.html">Knative Tutorial</a></li>
     <li class="crumb"><a href="intro.html">9.Eventing with Apache Camel</a></li>
-    <li class="crumb"><a href="poll-enrich.html">Poll Enrich</a></li>
+    <li class="crumb"><a href="content-based-router.html">Content Based Router</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="versions-menu-toggle" title="Show other versions of page">v1.0.0</button>
+  <button class="versions-menu-toggle" title="Show other versions of page">v1.1.0-SNAPSHOT</button>
   <div class="versions-menu">
-    <a class="version" href="../../v1.1.0-SNAPSHOT/camelk/poll-enrich.html">v1.1.0-SNAPSHOT</a>
-    <a class="version is-current" href="poll-enrich.html">v1.0.0</a>
+    <a class="version is-current" href="content-based-router.html">v1.1.0-SNAPSHOT</a>
+    <a class="version" href="../../v1.0.0/camelk/content-based-router.html">v1.0.0</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.0.0/documentation/modules/camelk/pages/poll-enrich.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/camelk/pages/content-based-router.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Poll Enricher</h1>
+<h1>Content Based Routing</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter we will use Knative + Camel-k to deploy a simple route that will download a file from s3 and send the file content as response to the Knative serving call.</p>
+<p>In this chapter we will use Knative + Camel-k to deploy a route that will parse the content of the xml file that was added to an s3 bucket and routes the message to different endpoints based on the content.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="pe-prereq"><a class="anchor" href="#pe-prereq"></a>Prerequisite</h2>
+<h2 id="cbr-prereq"><a class="anchor" href="#cbr-prereq"></a>Prerequisite</h2>
 <div class="sectionbody">
 <div class="admonitionblock important">
 <table>
@@ -875,19 +875,14 @@ oc project -q</code></pre>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pe-overview"><a class="anchor" href="#pe-overview"></a>Enterprise Integration Pattern</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
+<div id="cbr-overview" class="sidebarblock">
 <div class="content">
-<div class="title">Poll Enrich</div>
+<div class="title">Content Based Router</div>
 <div class="paragraph">
-<p>Camel comes with flavor pollEnrich as a choice of content enricher in the DSL. The other one is enrich <code>pollEnrich</code> uses a Polling Consumer to obtain the additional data. It is usually used for Event Message messaging, for instance to read a file or download a FTP file.</p>
+<p>The Content-Based Router examines the message content and routes the message onto a different channel based on data contained in the message. The routing can be based on a number of criteria such as existence of fields, specific field values etc. When implementing a Content-Based Router, special caution should be taken to make the routing function easy to maintain as the router can become a point of frequent maintenance. In more sophisticated integration scenarios, the Content-Based Router can take on the form of a configurable rules engine that computes the destination channel based on a set of configurable rules.</p>
 </div>
 <div class="paragraph text-right">
-<p>Source: <a href="https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc" class="bare">https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc</a></p>
+<p>Source: <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html" class="bare">https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html</a></p>
 </div>
 </div>
 </div>
@@ -897,20 +892,33 @@ oc project -q</code></pre>
 <h2 id="_demo_overview"><a class="anchor" href="#_demo_overview"></a>Demo Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The demo has an Apache Camel route configured as <strong>knative serving</strong> endpoint, that gets activated once it receives an event i.e. s3 object (xml file) name. Upon activation it starts a Apache Camel route that applies <strong>Poll Enricher EIP</strong> to download the file from and send the content as the response to the Knative serving service call</p>
+<p>The demo has an Apache Camel route configured as <strong>knative serving</strong> endpoint, that gets activated once it receives an event i.e. s3 object (file) name. Upon activation it starts a Apache Camel route that applies <strong>Content Based Router EIP</strong> based on  cartoon&#8217;s <code>genre</code>. All cartoons of genre <code>comedy</code> will be delivered to a knative channel called <code>genre-comedy</code> and other genres wil be delivered to  knative channel called <code>genre-others</code>.</p>
+</div>
+<div class="paragraph">
+<p>There will be two message handlers that will be deployed to handle the respective genre messages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#cbr-comedy-genre-handler">Comedy Genre Handler</a></p>
+</li>
+<li>
+<p><a href="#cbr-others-genre-handler">Other Genre Handler</a></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The following diagram shows the pictorial overview of the demo:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/poll-enrich-demo.png" alt="Poll Enricher">
+<img src="_images/cbd-demo-overview.png" alt="Content Based Routing">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="pe-deployment"><a class="anchor" href="#pe-deployment"></a>Deployment</h2>
+<h2 id="cbr-deployment"><a class="anchor" href="#cbr-deployment"></a>Deployment</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -919,13 +927,13 @@ oc project -q</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can skip this step and move to <a href="#pe-cartoon-messages-downloader">deploy cartoon message downloader</a> if you have already completed the <a href="getting-started.html" class="page">previous section</a>
+You can skip this step and move to <a href="#cbr-create-channels">create knative channels</a> if you have already completed the <a href="poll-enrich.html" class="page">previous section</a>
 </td>
 </tr>
 </table>
 </div>
 <div class="sect2">
-<h3 id="pe-make-s3-data-bucket"><a class="anchor" href="#pe-make-s3-data-bucket"></a>Make s3 <strong>data</strong> bucket</h3>
+<h3 id="cbr-make-s3-data-bucket"><a class="anchor" href="#cbr-make-s3-data-bucket"></a>Make s3 <strong>data</strong> bucket</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
@@ -938,7 +946,7 @@ You can skip this step and move to <a href="#pe-cartoon-messages-downloader">dep
 </div>
 </div>
 <div class="paragraph">
-<p>For this demos we will be using a s3 bucket called <code>data</code>, run the following command to create the bucket in s3:</p>
+<p>For this demo we will be using a s3 bucket called <code>data</code>, run the following command to create the bucket in s3:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -972,22 +980,70 @@ You can skip this step and move to <a href="#pe-cartoon-messages-downloader">dep
 </div>
 </div>
 <div class="sect2">
-<h3 id="pe-cartoon-messages-downloader"><a class="anchor" href="#pe-cartoon-messages-downloader"></a>Deploy Cartoon Messages Downloader</h3>
+<h3 id="cbr-create-channels"><a class="anchor" href="#cbr-create-channels"></a>Create Knative Channels</h3>
 <div class="paragraph">
-<p>Navigate to camel-k demos in work folder:</p>
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/09-camel-k/knative</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/09-camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre>oc -n knativetutorial apply -f channels.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Checking the channels created:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial get channels.eventing.knative.dev</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre>oc -n knativetutorial get channels.eventing.knative.dev</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running the above commands should produce output as shown:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           READY   REASON
+genre-comedy   True
+genre-others   True</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cbr-deploy-routes"><a class="anchor" href="#cbr-deploy-routes"></a>Deploy Routes</h3>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>work</code> folder:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camelk/quickstart</code></pre>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cbr-comedy-genre-handler"><a class="anchor" href="#cbr-comedy-genre-handler"></a>Deploy Comedy Genre Handler</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
- --property 's3EndpointUrl=http://minio-server' \
- --property 'minioAccessKey=demoaccesskey' \
- --property 'minioSecretKey=demosecretkey' \
- <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/CartoonMessagesDownloader.java">src/main/java/CartoonMessagesDownloader.java</a></code></pre>
+  --property 's3EndpointUrl=http://minio-server' \
+  --property 'minioAccessKey=demoaccesskey' \
+  --property 'minioSecretKey=demosecretkey' \
+ <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/ComedyGenreHandler.java">src/main/java/ComedyGenreHandler.java</a></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -998,20 +1054,255 @@ You can skip this step and move to <a href="#pe-cartoon-messages-downloader">dep
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note the first build usually takes time, you can watch the status with commands
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>You can check the deployed integration context:</p>
+<p>A successfully built integration context will be in a phase called <code>Running</code> as shown below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel get
 # the command will return
-NAME                    PHASE                   CONTEXT
-cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</code></pre>
+NAME                   PHASE   CONTEXT
+comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cbr-others-genre-handler"><a class="anchor" href="#cbr-others-genre-handler"></a>Deploy Others Genre Handler</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
+  --property 's3EndpointUrl=http://minio-server' \
+  --property 'minioAccessKey=demoaccesskey' \
+  --property 'minioSecretKey=demosecretkey' \
+ <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/OthersGenreHandler.java">src/main/java/OthersGenreHandler.java</a></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note the first build usually takes time, you can watch the status with commands
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A successfully built integration context will be in a phase called <code>Running</code> as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel get
+# the command will return
+NAME                    PHASE   CONTEXT
+comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg
+comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cbr-cartoon-genre-router"><a class="anchor" href="#cbr-cartoon-genre-router"></a>Deploy Cartoon Genre Router</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
+  --property 's3EndpointUrl=http://minio-server' \
+  --property 'minioAccessKey=demoaccesskey' \
+  --property 'minioSecretKey=demosecretkey' \
+ <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/CartoonGenreRouter.java">src/main/java/CartoonGenreRouter.java</a></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note the first build usually takes time, you can watch the status with command:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A successfully built integration context will be in a phase called <code>Running</code> as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel get
+# the command will return
+NAME                    PHASE   CONTEXT
+cartoon-genre-router    Running ctx-bi0h1ur6a8efvn05oqbg
+comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg
+others-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="pe-watch-logs"><a class="anchor" href="#pe-watch-logs"></a>Watching Logs</h3>
+<h3 id="cbr-see-what-you-have-deployed"><a class="anchor" href="#cbr-see-what-you-have-deployed"></a>See what you have deployed</h3>
+<div class="paragraph">
+<p>The command above will create the following Kubernetes resources</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Some of the columns has removed from the above output for brevity
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_services"><a class="anchor" href="#_services"></a>Services</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get svc</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get svc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return you the following services:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP                                           PORT(S)           AGE
+camel-k-operator                     ClusterIP      10.108.197.67    &lt;none&gt;                                                60000/TCP         82m
+cartoon-genre-router-zx66c-service   ClusterIP      10.101.214.254   &lt;none&gt;                                                80/TCP,9090/TCP   8m59s
+comedy-genre-handler                 ExternalName   &lt;none&gt;           istio-ingressgateway.istio-system.svc.cluster.local   &lt;none&gt;            32m
+comedy-genre-handler-rgrt8-service   ClusterIP      10.111.249.8     &lt;none&gt;                                                80/TCP,9090/TCP   33m
+genre-comedy-channel-kxcwc           ClusterIP      10.97.30.253     &lt;none&gt;                                                80/TCP            61m
+genre-others-channel-l7kxj           ClusterIP      10.111.225.184   &lt;none&gt;                                                80/TCP            61m
+minio-server                         NodePort       10.99.84.238     &lt;none&gt;                                                80:32385/TCP      84m
+others-genre-handler                 ExternalName   &lt;none&gt;           istio-ingressgateway.istio-system.svc.cluster.local   &lt;none&gt;            32m
+others-genre-handler-jnwsd-service   ClusterIP      10.111.172.10    &lt;none&gt;                                                80/TCP,9090/TCP   32m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_integration_contexts"><a class="anchor" href="#_integration_contexts"></a>Integration Contexts</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get integrations.camel.apache.org</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get integrations.camel.apache.org</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                    PHASE     CONTEXT
+cartoon-genre-router    Running ctx-bi0h1ur6a8efvn05oqbg
+comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg
+others-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deployments"><a class="anchor" href="#_deployments"></a>Deployments</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get deployments</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get deployments</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+camel-k-operator                        1         1         1            1           93m
+cartoon-genre-router-zx66c-deployment   0         0         0            0           19m
+comedy-genre-handler-rgrt8-deployment   0         0         0            0           43m
+minio-server                            1         1         1            1           94m
+others-genre-handler-jnwsd-deployment   0         0         0            0           43m</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cbr-watch-logs"><a class="anchor" href="#cbr-watch-logs"></a>Watching logs</h3>
+<div class="paragraph">
+<p>Watching the logs of the deployed camel route.</p>
+</div>
+<div class="sect3">
+<h4 id="_comedy_genre_handler"><a class="anchor" href="#_comedy_genre_handler"></a>Comedy Genre Handler</h4>
 <div class="paragraph">
 <p>Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
 </div>
@@ -1039,13 +1330,13 @@ cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</c
 <div class="ulist">
 <ul>
 <li>
-<p>Using stern with the command <code>stern  -n knativetutorial cartoon-messages-downloader</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
+<p>Using stern with the command <code>stern  -n knativetutorial comedy-genre-handler</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container cartoon-messages-downloader</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container comedy-genre-handler</code></pre>
 </div>
 </div>
 </td>
@@ -1053,10 +1344,97 @@ cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</c
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="pe-test-cartoon-messages-downloader"><a class="anchor" href="#pe-test-cartoon-messages-downloader"></a>Test the Route</h3>
 <div class="sect3">
-<h4 id="pe-test-data"><a class="anchor" href="#pe-test-data"></a>Upload test data</h4>
+<h4 id="_other_genre_handler"><a class="anchor" href="#_other_genre_handler"></a>Other Genre Handler</h4>
+<div class="paragraph">
+<p>Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
+</div>
+<div class="paragraph">
+<p>The logs could be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Using stern with the command <code>stern  -n knativetutorial others-genre-handler</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container others-genre-handler</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_comedy_genre_router"><a class="anchor" href="#_comedy_genre_router"></a>Comedy Genre Router</h4>
+<div class="paragraph">
+<p>Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
+</div>
+<div class="paragraph">
+<p>The logs could be watched using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Using stern with the command <code>stern  -n knativetutorial comedy-genre-router</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container comedy-genre-router</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cbr-test-cartoon-genre-router"><a class="anchor" href="#cbr-test-cartoon-genre-router"></a>Test the Route</h3>
+<div class="sect3">
+<h4 id="cbr-test-data"><a class="anchor" href="#cbr-test-data"></a>Upload test data</h4>
 <div class="paragraph">
 <p>Navigate to the <code>quickstart</code> folder:</p>
 </div>
@@ -1085,15 +1463,15 @@ cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</c
 </div>
 </div>
 <div class="paragraph">
-<p>Upload a text file called <code>hello.txt</code> to s3 bucket called <code>data</code>,</p>
+<p>Upload XML file called <code>message2.xml</code> to s3 bucket called <code>data</code>,</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/hello.txt">data/hello.txt</a>  s3://data</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message2.xml">data/message2.xml</a>  s3://data</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Verify if the XML and text files were uploaded to the  s3 bucket:</p>
+<p>Verify if the XML files were uploaded to the  s3 bucket:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1102,9 +1480,9 @@ cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</c
 </div>
 </div>
 <div class="sect3">
-<h4 id="pe-invoke-service"><a class="anchor" href="#pe-invoke-service"></a>Invoke service</h4>
+<h4 id="cbr-invoke-service"><a class="anchor" href="#cbr-invoke-service"></a>Invoke service</h4>
 <div class="paragraph">
-<p>Invoke the service by passing a header <code>fileName</code> with value <code>message1.xml</code>, this <code>fileName</code> header value will be used by Camel route to download the file from s3 and return it as the response.</p>
+<p>Invoke the service by passing a header <code>fileName</code> with value <code>message1.xml</code>, this <code>fileName</code> header value will be used by Camel route to process the body content of the file to move them to <code>genre-comedy</code> or <code>genre-others</code> content buckets in s3.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1120,17 +1498,17 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </div>
 </div>
 <div class="paragraph">
-<p>We need to know the knative service <code>cartoon-messages-downloader</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
+<p>We need to know the knative service <code>cartoon-genre-router</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-messages-downloader -ojsonpath='{.status.domain}'`</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-messages-downloader -ojsonpath='{.status.domain}'`</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1159,16 +1537,33 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </table>
 </div>
 <div class="paragraph">
-<p>On success which is usually HTTP 200, with response having the content of the downloaded file in this case it will be:</p>
+<p>On success which is usually HTTP 200, you can list the out <code>genre-comedy</code> bucket to see the file <code>tomandjerry.xml</code>. You can list the bucket using the command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;cartoon title="TomAndJerry"&gt;
-  &lt;productionHouse&gt;MGM&lt;/productionHouse&gt;
-  &lt;country&gt;US&lt;/country&gt;
-  &lt;genre&gt;comedy&lt;/genre&gt;
-&lt;/cartoon&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://genre-comedy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lets try to upload non <code>comedy</code> genre to see the file getting uploaded to <code>genre-others</code>,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message2.xml' $IP_ADDRESS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message2.xml'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Like before on success which is usually HTTP 200, you can list the out <code>genre-others</code> bucket to see the file <code>theadventuresoftenaliraman.xml</code>. You can list the bucket using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://genre-others</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1179,7 +1574,7 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </td>
 <td class="content">
 <div class="paragraph">
-<p>When the <code>cartoon-messages-downloader</code> has been scaled to zero; when giving a new request it will try to scale up, it will not be able to serve the request until the pod is up, during such time you might get HTTP 502 Bad Gateway errors, give some more time for the pod to come up before issuing the request again.</p>
+<p>When the <code>cartoon-genre-router</code> has been scaled to zero; when giving a new request it will try to scale up, it will not be able to serve the request until the pod is up, during such time you might get HTTP 502 Bad Gateway errors, give some more time for the pod to come up before issuing the request again.</p>
 </div>
 <div class="paragraph">
 <p>Right now camel-k does not add Liveliness and Readiness Probes which can help avoid this issue. There is a open <a href="https://github.com/apache/camel-k/issues/525">issue</a> which is fixed and will be part of 0.3.1 release.</p>
@@ -1193,11 +1588,27 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </div>
 </div>
 <div class="sect1">
-<h2 id="pe-cleanup"><a class="anchor" href="#pe-cleanup"></a>Cleanup</h2>
+<h2 id="cbr-cleanup"><a class="anchor" href="#cbr-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete cartoon-messages-downloader -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete comedy-genre-handler -n knativetutorial
+kamel delete others-genre-handler -n knativetutorial
+kamel delete cartoon-genre-router -n knativetutorial
+cd $TUTORIAL_HOME/09-camel-k/knative</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f channels.yaml -n knativetutorial
+cd $TUTORIAL_HOME</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -f channels.yaml -n knativetutorial
+cd $TUTORIAL_HOME</code></pre>
 </div>
 </div>
 </div>

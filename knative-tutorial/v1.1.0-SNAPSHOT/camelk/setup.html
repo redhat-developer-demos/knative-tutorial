@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poll Enricher :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/camelk/poll-enrich.html">
+    <title>Setup :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/camelk/setup.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">  </head>
@@ -47,7 +47,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="v1.0.0">
+<div class="navigation-container" data-component="knative-tutorial" data-version="v1.1.0-SNAPSHOT">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -445,30 +445,30 @@
     <button class="nav-toggle"></button>
     <a class="nav-link" href="intro.html">9.Eventing with Apache Camel</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#camelk-prerequisite">Prerequisite</a>
+    <a class="nav-link" href="#camelk-prerequisite">Prerequisite</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#camelk-download-sources">Download Demo Sources</a>
+    <a class="nav-link" href="#camelk-download-sources">Download Demo Sources</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="setup.html#camelk-install-minio-s3">Install minio s3 Server</a>
+    <a class="nav-link" href="#camelk-install-minio-s3">Install minio s3 Server</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="setup.html#minio-aws-cli-configure">Configure AWS cli</a>
+    <a class="nav-link" href="#minio-aws-cli-configure">Configure AWS cli</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
+    <a class="nav-link" href="#install-camel-k">Install Camel-K </a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#configure-local-registry">Configure Local Container Registry</a>
+    <a class="nav-link" href="#configure-local-registry">Configure Local Container Registry</a>
   </li>
 </ul>
   </li>
@@ -517,48 +517,48 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="poll-enrich.html">Poll Enrich</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-prereq">Prerequisite</a>
+    <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-overview">Demo Overview</a>
+    <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#pe-deployment">Deployment</a>
+    <a class="nav-link" href="poll-enrich.html#pe-deployment">Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-make-s3-data-bucket">Create data s3 bucket</a>
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-data-bucket">Create data s3 bucket</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-make-s3-top-bucket">Create top s3 bucket</a>
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-top-bucket">Create top s3 bucket</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-cartoon-messages-downloader">Deploy Camel Route</a>
+    <a class="nav-link" href="poll-enrich.html#pe-cartoon-messages-downloader">Deploy Camel Route</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-watch-logs">Watching Logs</a>
+    <a class="nav-link" href="poll-enrich.html#pe-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#pe-test-cartoon-messages-downloader">Testing Route</a>
+    <a class="nav-link" href="poll-enrich.html#pe-test-cartoon-messages-downloader">Testing Route</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-test-data">Upload Test Data</a>
+    <a class="nav-link" href="poll-enrich.html#pe-test-data">Upload Test Data</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#pe-invoke-service">Invoke service</a>
+    <a class="nav-link" href="poll-enrich.html#pe-invoke-service">Invoke service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#pe-cleanup">Cleanup</a>
+    <a class="nav-link" href="poll-enrich.html#pe-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -632,17 +632,17 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">v1.0.0</span>
+    <span class="version">v1.1.0-SNAPSHOT</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../v1.1.0-SNAPSHOT/index.html">v1.1.0-SNAPSHOT</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">v1.1.0-SNAPSHOT</a>
         </li>
-        <li class="version is-current">
-          <a href="../index.html">v1.0.0</a>
+        <li class="version">
+          <a href="../../v1.0.0/index.html">v1.0.0</a>
         </li>
       </ul>
     </li>
@@ -654,55 +654,171 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="../index.html" class="home-link"></a>
+  <a href="../../v1.0.0/index.html" class="home-link"></a>
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="../index.html">Knative Tutorial</a></li>
     <li class="crumb"><a href="intro.html">9.Eventing with Apache Camel</a></li>
-    <li class="crumb"><a href="poll-enrich.html">Poll Enrich</a></li>
+    <li class="crumb"><a href="setup.html">Setup</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="versions-menu-toggle" title="Show other versions of page">v1.0.0</button>
+  <button class="versions-menu-toggle" title="Show other versions of page">v1.1.0-SNAPSHOT</button>
   <div class="versions-menu">
-    <a class="version" href="../../v1.1.0-SNAPSHOT/camelk/poll-enrich.html">v1.1.0-SNAPSHOT</a>
-    <a class="version is-current" href="poll-enrich.html">v1.0.0</a>
+    <a class="version is-current" href="setup.html">v1.1.0-SNAPSHOT</a>
+    <a class="version" href="../../v1.0.0/camelk/setup.html">v1.0.0</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.0.0/documentation/modules/camelk/pages/poll-enrich.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/camelk/pages/setup.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Poll Enricher</h1>
-<div id="preamble">
+<h1>Setup</h1>
+<div class="sect1">
+<h2 id="camelk-prerequisite"><a class="anchor" href="#camelk-prerequisite"></a>Prerequisite CLI tools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter we will use Knative + Camel-k to deploy a simple route that will download a file from s3 and send the file content as response to the Knative serving call.</p>
+<p>Apart from the tools you have <a href="../setup.html#prerequisite" class="page">installed</a>, you might need few more for camelk sections of the tutorial.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
+<th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Fedora</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Remarks</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">AWS CLI</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html">install-macos</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html">install-linux</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="camelk-download-sources"><a class="anchor" href="#camelk-download-sources"></a>Download Demo Sources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Download and clone the camel-k demo sources</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work
+
+git clone https://github.com/redhat-developer-demos/knative-tutorial-camelk</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="pe-prereq"><a class="anchor" href="#pe-prereq"></a>Prerequisite</h2>
+<h2 id="camelk-install-minio-s3"><a class="anchor" href="#camelk-install-minio-s3"></a>Install minio s3 Object Storage Server</h2>
 <div class="sectionbody">
-<div class="admonitionblock important">
+<div class="paragraph">
+<p>We will use s3 Object storage for all <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html">File Transfer</a> integration style exercises and demos. The following section shows how to setup <a href="https://www.minio.io/">minio</a> a light weight AWS s3 compatible object storage server.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/minio-s3-server
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/minio-s3-server/skaffold.yaml">skaffold.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/minio-s3-server
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/minio-s3-server/skaffold.yaml">skaffold.yaml</a></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This tutorial assumes that you have prior knowledge of:</p>
+<p>It may take few minutes for pods to come up, you can watch the status of the pods as shown below.
+You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods -w</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n  knativetutorial get pods -w</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A successful deployment of the minio server will show the following pods:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubectl -n knativetutorial get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+minio-server-66449f64bf-dtkch   1/1     Running   0          1m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The mino server exposes a web interface for managing the storage objects. To know the url of the web interface, run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube service list -n knativetutorial</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift openshift service list -n knativetutorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command produces an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">|-----------------|--------------|----------------------------|
+|    NAMESPACE    |     NAME     |            URL             |
+|-----------------|--------------|----------------------------|
+| knativetutorial | minio-server | <a href="http://192.168.64.44:31565" class="bare">http://192.168.64.44:31565</a> |
+|-----------------|--------------|----------------------------|</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://camel.apache.org">Apache Camel</a></p>
+<p>The actual port and ip in the URL might change in your setup</p>
 </li>
 <li>
-<p><a href="https://www.enterpriseintegrationpatterns.com">Enterprise Integration Patterns</a></p>
-</li>
-<li>
-<p><a href="https://cloud.google.com/knative/">Knative</a></p>
+<p>The default username and password is <code>demoaccesskey/demosecretkey</code></p>
 </li>
 </ul>
 </div>
@@ -711,322 +827,130 @@
 </table>
 </div>
 <div class="paragraph">
-<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+<p>Opening the url on your browser will show minio Object storage browser as shown below:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure the <strong>minikube</strong> clock is set to right timezone; this is required when using API&#8217;s that are time sensitive e.g. AWS s3 cli API that we will use in this tutorial demos</p>
-</li>
-</ul>
+<div id="minio-webconsole" class="imageblock">
+<div class="content">
+<img src="_images/minio-server-browser.png" alt="minio server browser">
 </div>
+</div>
+<div class="paragraph">
+<p>The official minio documentation is available <a href="https://docs.minio.io/">here</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="minio-aws-cli-configure"><a class="anchor" href="#minio-aws-cli-configure"></a>Configure s3 aws cli for minio</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift stop
-minishift start --timezone 'Asia/Kolkata' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws configure
+# AWS Access Key ID [None]: demoaccesskey <i class="conum" data-value="1"></i><b>(1)</b>
+# AWS Secret Access Key [None]: demosecretkey <i class="conum" data-value="2"></i><b>(2)</b>
+# Default region name [None]:
+# Default output format [None]:
+
+aws configure set default.s3.signature_version s3v4 <i class="conum" data-value="3"></i><b>(3)</b>
+
+aws configure list <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set it to your local timezone</td>
+<td>Using default user access key <strong>demoaccesskey</strong></td>
 </tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
 <tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you are a mac user then the following setup might help:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">brew install sleepwatcher
-brew services start sleepwatcher
-echo "PATH=$PATH:/usr/local/bin \n
-minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s" &gt; ~/.wakeup
-chmod +x ~/.wakeup</code></pre>
-</div>
-</div>
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Using default user secret key <strong>demosecretkey</strong></td>
 </tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure to be connected to minikube or minishift docker daemon and using right openshift client.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure right Kubernetes or OpenShift client are used.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.12+
-kubectl version</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure right <code>kamel</code> version, preferred is v0.3.0 or above</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Camel K Client 0.3.0
-kamel version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure AWS CLI is installed and has the right version</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># aws-cli/1.16.50 Python/3.7.1 Darwin/18.2.0 botocore/1.12.40
-$ aws --version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure right maven version is used (only for Java exercises)</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># right maven version Apache Maven 3.5.x or above
-./mvnw --version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># verify to return knativetutorial
-oc project -q</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
-</div>
-<div class="admonitionblock tip">
-<table>
 <tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you are on minikube then <strong>kubens</strong> utility can be used to switch to kubenretes namespace like:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubens knativetutorial</code></pre>
-</div>
-</div>
-</td>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Enable <strong>AWS Signature Version '4'</strong> for minio server</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>List the configuration</td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pe-overview"><a class="anchor" href="#pe-overview"></a>Enterprise Integration Pattern</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Poll Enrich</div>
-<div class="paragraph">
-<p>Camel comes with flavor pollEnrich as a choice of content enricher in the DSL. The other one is enrich <code>pollEnrich</code> uses a Polling Consumer to obtain the additional data. It is usually used for Event Message messaging, for instance to read a file or download a FTP file.</p>
-</div>
-<div class="paragraph text-right">
-<p>Source: <a href="https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc" class="bare">https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc</a></p>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_demo_overview"><a class="anchor" href="#_demo_overview"></a>Demo Overview</h2>
+<h2 id="install-camel-k"><a class="anchor" href="#install-camel-k"></a>Install Camel-k</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The demo has an Apache Camel route configured as <strong>knative serving</strong> endpoint, that gets activated once it receives an event i.e. s3 object (xml file) name. Upon activation it starts a Apache Camel route that applies <strong>Poll Enricher EIP</strong> to download the file from and send the content as the response to the Knative serving service call</p>
+<p>Download the camel-k release from <a href="https://github.com/apache/camel-k/releases/latest">here</a>. Extract the content and add the binary <code>kamel</code> to the PATH.</p>
 </div>
 <div class="paragraph">
-<p>The following diagram shows the pictorial overview of the demo:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/poll-enrich-demo.png" alt="Poll Enricher">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pe-deployment"><a class="anchor" href="#pe-deployment"></a>Deployment</h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You can skip this step and move to <a href="#pe-cartoon-messages-downloader">deploy cartoon message downloader</a> if you have already completed the <a href="getting-started.html" class="page">previous section</a>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="pe-make-s3-data-bucket"><a class="anchor" href="#pe-make-s3-data-bucket"></a>Make s3 <strong>data</strong> bucket</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For this demos we will be using a s3 bucket called <code>data</code>, run the following command to create the bucket in s3:</p>
+<p>Run the following commands to install the camel-k operator in the Kubernetes/OpenShift cluster:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify the created bucket by listing the s3 storage, running the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For more information on how to use aws cli with minio server is available <a href="https://docs.minio.io/docs/aws-cli-with-minio.html">here</a>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can also create the bucket via the minio <a href="setup.html#minio-webconsole" class="page">web console</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="pe-cartoon-messages-downloader"><a class="anchor" href="#pe-cartoon-messages-downloader"></a>Deploy Cartoon Messages Downloader</h3>
-<div class="paragraph">
-<p>Navigate to camel-k demos in work folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camelk/quickstart</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
- --property 's3EndpointUrl=http://minio-server' \
- --property 'minioAccessKey=demoaccesskey' \
- --property 'minioSecretKey=demosecretkey' \
- <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/CartoonMessagesDownloader.java">src/main/java/CartoonMessagesDownloader.java</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install -n knativetutorial --runtime-version='0.3.1-SNAPSHOT' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
+<td>Due to a existing <a href="https://github.com/apache/camel-k/issues/506">bug</a> which will be fixed as part of 0.3.1 runtime release, we need to use the 0.3.1-SNAPSHOT of the runtime. This constraint will be removed once 0.3.1 runtime is released.</td>
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>You can check the deployed integration context:</p>
+<p>It may take few minutes for pods to come up, you can watch the status of the pods as shown below.
+You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel get
-# the command will return
-NAME                    PHASE                   CONTEXT
-cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="pe-watch-logs"><a class="anchor" href="#pe-watch-logs"></a>Watching Logs</h3>
-<div class="paragraph">
-<p>Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
-</div>
-<div class="paragraph">
-<p>The logs could be watched using the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods -w</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n  knativetutorial get pods -w</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The camel-k install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful camel-k setup will have the following pods running/completed in <code>knativetutorial</code> namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubectl -n knativetutorial get pods | grep camel
+camel-k-cache                                              0/1     Completed   0          10h
+camel-k-ctx-bhq1ddi92mi5b779io60                           0/1     Completed   0          10h
+camel-k-groovy                                             0/1     Completed   0          10h
+camel-k-jvm                                                0/1     Completed   0          10h
+camel-k-knative                                            0/1     Completed   0          10h
+camel-k-kotlin                                             0/1     Completed   0          10h
+camel-k-operator-789b988bd9-9gzjn                          1/1     Running     0          10h
+camel-k-spring-boot                                        0/1     Completed   0          10h</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1036,168 +960,55 @@ cartoon-messages-downloader  Building Context        ctx-bhvn6lcba0587gdq5jbg</c
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Using stern with the command <code>stern  -n knativetutorial cartoon-messages-downloader</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>If you have a local <a href="https://www.sonatype.com/nexus-repository-sonatype">nexus</a> or <a href="https://jfrog.com/artifactory/">artifactory</a> repository managers, then you cane set them as part of the camel-k install. This will make all the camel-k runtime and integration maven builds to use the repository manager.</p>
+</div>
+<div class="paragraph">
+<p>e.g. assuming you have nexus repository manager and is available at <code><a href="http://192.168.64.1:8081/nexus/content/groups/public" class="bare">http://192.168.64.1:8081/nexus/content/groups/public</a></code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container cartoon-messages-downloader</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install -n knativetutorial \
+  --runtime-version="0.3.1-SNAPSHOT" \
+  --repository="http://192.168.64.1:8081/nexus/content/groups/public@id=public@snapshots"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Check <a href="https://github.com/apache/camel-k#configure-additional-maven-repositories">here</a> for more details on using maven repositories with camel-k.</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="pe-test-cartoon-messages-downloader"><a class="anchor" href="#pe-test-cartoon-messages-downloader"></a>Test the Route</h3>
-<div class="sect3">
-<h4 id="pe-test-data"><a class="anchor" href="#pe-test-data"></a>Upload test data</h4>
-<div class="paragraph">
-<p>Navigate to the <code>quickstart</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Upload XML file called <code>message1.xml</code> to s3 bucket called <code>data</code>,</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message1.xml">data/message1.xml</a>  s3://data</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Upload a text file called <code>hello.txt</code> to s3 bucket called <code>data</code>,</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/hello.txt">data/hello.txt</a>  s3://data</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify if the XML and text files were uploaded to the  s3 bucket:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="pe-invoke-service"><a class="anchor" href="#pe-invoke-service"></a>Invoke service</h4>
-<div class="paragraph">
-<p>Invoke the service by passing a header <code>fileName</code> with value <code>message1.xml</code>, this <code>fileName</code> header value will be used by Camel route to download the file from s3 and return it as the response.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>We need to know the knative service <code>cartoon-messages-downloader</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-messages-downloader -ojsonpath='{.status.domain}'`</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-messages-downloader -ojsonpath='{.status.domain}'`</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message1.xml' $IP_ADDRESS</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message1.xml'</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The event simulation above will be removed once the CamelSource event source is available with Knative Eventing.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>On success which is usually HTTP 200, with response having the content of the downloaded file in this case it will be:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;cartoon title="TomAndJerry"&gt;
-  &lt;productionHouse&gt;MGM&lt;/productionHouse&gt;
-  &lt;country&gt;US&lt;/country&gt;
-  &lt;genre&gt;comedy&lt;/genre&gt;
-&lt;/cartoon&gt;</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>When the <code>cartoon-messages-downloader</code> has been scaled to zero; when giving a new request it will try to scale up, it will not be able to serve the request until the pod is up, during such time you might get HTTP 502 Bad Gateway errors, give some more time for the pod to come up before issuing the request again.</p>
-</div>
-<div class="paragraph">
-<p>Right now camel-k does not add Liveliness and Readiness Probes which can help avoid this issue. There is a open <a href="https://github.com/apache/camel-k/issues/525">issue</a> which is fixed and will be part of 0.3.1 release.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="pe-cleanup"><a class="anchor" href="#pe-cleanup"></a>Cleanup</h2>
+<h2 id="configure-local-registry"><a class="anchor" href="#configure-local-registry"></a>Configure Local Container Registry</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>When camel-k builds the images, it pushes built container image to the local registry of the kubernetes cluster. Knative by default resolves all the tags of the container image to digests(SHA256), to be able to do this we need to have images pushed to real time container registry and repository, for these demos we will be using the local container registry that will be part of the minikube or minishift setup. Run the following commands to make Knative skip tag to digest resolution for local images from local registry.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete cartoon-messages-downloader -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`kubectl get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
+
+val="ko.local,dev.local,${K8S_LOCAL_REGISTRY}"
+
+kubectl -n knative-serving get cm config-controller -oyaml \
+  | yq w - data.registriesSkippingTagResolving $val \
+  | kubectl apply -f -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`oc get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
+
+val="ko.local,dev.local,${K8S_LOCAL_REGISTRY}"
+
+oc -n knative-serving get cm config-controller -oyaml \
+  | yq w - data.registriesSkippingTagResolving $val \
+  | kubectl apply -f -</code></pre>
 </div>
 </div>
 </div>
