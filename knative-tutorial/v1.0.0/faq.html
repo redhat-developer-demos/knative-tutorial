@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knative Tutorial :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/1.0-SNAPSHOT/index.html">
+    <title>FAQs :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.0.0/faq.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">  </head>
@@ -47,7 +47,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="1.0-SNAPSHOT">
+<div class="navigation-container" data-component="knative-tutorial" data-version="v1.0.0">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -434,7 +434,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="faq.html">8.Frequently Asked Questions</a>
   </li>
 </ul>
@@ -632,14 +632,14 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">1.0-SNAPSHOT</span>
+    <span class="version">v1.0.0</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">1.0-SNAPSHOT</a>
+          <a href="index.html">v1.0.0</a>
         </li>
       </ul>
     </li>
@@ -651,34 +651,137 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="index.html" class="home-link is-current"></a>
+  <a href="index.html" class="home-link"></a>
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
+    <li class="crumb"><a href="faq.html">8.Frequently Asked Questions</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/ROOT/pages/faq.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Knative Tutorial</h1>
+<h1>FAQs</h1>
+<div class="sect1">
+<h2 id="faq-q1"><a class="anchor" href="#faq-q1"></a>How to access the Knative services ?</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Serverless epitomize the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of server frameworks out there, Knative is the first serverless platform specifically designed for Kubernetes and OpenShift.</p>
+<p>When looking up the IP address to use for accessing your app, you need to look up the NodePort for the <strong>istio-ingressgateway</strong> well as the IP address used for minishift. You can use the following command to look up the value to use for the {IP_ADDRESS} placeholder used in the sample</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#!/bin/bash
+# In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
+INGRESSGATEWAY=knative-ingressgateway
+
+# The use of `knative-ingressgateway` is deprecated in Knative v0.3.x.
+# Use `istio-ingressgateway` instead, since `knative-ingressgateway`
+# will be removed in Knative v0.4.
+if kubectl get configmap config-istio -n knative-serving &amp;&gt; /dev/null; then
+    INGRESSGATEWAY=istio-ingressgateway
+fi
+
+INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
+
+# calling a knative service named greeter
+curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq-q2"><a class="anchor" href="#faq-q2"></a>Why <code>dev.local</code> suffixes for container images?</h2>
+<div class="sectionbody">
+<hr>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p>Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”</p>
+<p>Docker images wit v2 or later format has content addressable identifier called digest. The digest remains unchanged as long the underlying image content remains unchanged.</p>
 </div>
 </blockquote>
 </div>
 <div class="paragraph text-right">
-<p><em><strong>Source</strong></em>:  <a href="https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/" class="bare">https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/</a></p>
+<p><em><strong>Source</strong>: <a href="https://docs.docker.com/engine/reference/commandline/images/#list-image-digests" class="bare">https://docs.docker.com/engine/reference/commandline/images/#list-image-digests</a></em></p>
+</div>
+<hr>
+<div class="paragraph">
+<p>Let say you have a deployment like the following (note that resource definition have been trimmed for brevity):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: helloworld
+spec:
+  template:
+    spec:
+       containers:
+         - name: my-container
+           image: gcr.io/knative-samples/helloworld-go
+
+. . .</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>This tutorial will act as step-by-step guide in helping you to understand Knative starting with setup, understanding fundamentals concepts such as service, configuration, revision etc., and finally deploying some use cases which could help deploying serverless applications at enterprises.</p>
+<p>When you deploy this application in kubernetes, the deployment will look like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: helloworld
+spec:
+  template:
+    spec:
+       containers:
+          - name: my-container
+            image: &gt;-
+                   gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0
+. . .</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>This content is brought to you by <a href="http://developers.redhat.com">Red Hat Developer Program</a> - Register today!</p>
+<p>In the above example the container image name of the deployment  i.e. gcr.io/knative-samples/helloworld-go was resolved to its digest gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0. Kubernetes extracts the digest from the image manifest.  This process of resolving  image tag to its digest is informally called as “Tag to Digest”.</p>
+</div>
+<div class="paragraph">
+<p>Knative Serving deployments by default resolve the container images to digest during the deployment process. Knative Serving has been configured to skip the resolution of   image name/tag to image digest for registries ko.local and dev.local, which can be used for local development builds, as the underlying image content are subject to changes during the  development process.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also add any of the other image repo suffixes from skipping to digest by editing the configmap <strong>config-controller</strong> of <strong>knative-serving</strong> namespace and appending your repo to <code>registriesSkippingTagResolving</code> attribute of the configmap.</p>
+</div>
+<div class="paragraph">
+<p>The following command shows an example how to add a registry <strong>my.docker.registry</strong> to the be skipped:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>val=$(oc -n knative-serving get cm config-controller -oyaml | yq r - data.registriesSkippingTagResolving | awk '{print $1",my.docker.registry"}')
+
+oc -n knative-serving get cm config-controller -oyaml | yq w - data.registriesSkippingTagResolving $val | oc apply -f -</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq-q3"><a class="anchor" href="#faq-q3"></a>What is revision simpler terms?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Knative serving, things are driven via a <a href="https://github.com/knative/serving/blob/master/docs/spec/spec.md#configuration">Configuration</a> to make a separation between code (container images) and config. One of the good practices in configuration management is that we should always be able to rollback the application state to any “last known good configuration”, to be able to allow this type of rollback Knative creates an unique revision for each and every configuration change.</p>
+</div>
+</div>
 </div>
 </article>
   </main>

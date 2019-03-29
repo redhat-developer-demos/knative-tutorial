@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setup :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/1.0-SNAPSHOT/setup.html">
+    <title>Configurations and Routes :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.0.0/02configs-and-routes.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">  </head>
@@ -47,7 +47,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="1.0-SNAPSHOT">
+<div class="navigation-container" data-component="knative-tutorial" data-version="v1.0.0">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -56,66 +56,66 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="setup.html">1. Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#prerequisite">Prerequisites</a>
+    <a class="nav-link" href="setup.html#prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="setup.html#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#kubernetes-cluster">Kubernetes Cluster</a>
+    <a class="nav-link" href="setup.html#kubernetes-cluster">Kubernetes Cluster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#install-knative-minikube">Install with Minikube </a>
+    <a class="nav-link" href="setup.html#install-knative-minikube">Install with Minikube </a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#start-minikube">Configure and Start minikube </a>
+    <a class="nav-link" href="setup.html#start-minikube">Configure and Start minikube </a>
   </li>
-  <li class="nav-item is-current-page" data-depth="4">
+  <li class="nav-item" data-depth="4">
     <a class="nav-link" href="setup.html">Install Knative </a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#install-knative-istio">Install Istio </a>
+    <a class="nav-link" href="setup.html#install-knative-istio">Install Istio </a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#install-knative-serving">Install Knative Serving </a>
+    <a class="nav-link" href="setup.html#install-knative-serving">Install Knative Serving </a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#install-knative-build">Install Knative Build</a>
+    <a class="nav-link" href="setup.html#install-knative-build">Install Knative Build</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#install-knative-eventing">Install Knative Eventing </a>
+    <a class="nav-link" href="setup.html#install-knative-eventing">Install Knative Eventing </a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#set-knative-tutorial-ns">Configuring Kubernetes namespace </a>
+    <a class="nav-link" href="setup.html#set-knative-tutorial-ns">Configuring Kubernetes namespace </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#install-knative-openshift">Install with OpenShift</a>
+    <a class="nav-link" href="setup.html#install-knative-openshift">Install with OpenShift</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#install-knative-ocp">Install on OCP</a>
+    <a class="nav-link" href="setup.html#install-knative-ocp">Install on OCP</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#install-knative-minishift">Install on Minishift</a>
+    <a class="nav-link" href="setup.html#install-knative-minishift">Install on Minishift</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="#configure-openshift-project">Configure OpenShift project</a>
+    <a class="nav-link" href="setup.html#configure-openshift-project">Configure OpenShift project</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#setup-work-folder">Work Folder</a>
+    <a class="nav-link" href="setup.html#setup-work-folder">Work Folder</a>
   </li>
 </ul>
   </li>
@@ -149,36 +149,36 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="02configs-and-routes.html">3. Configurations and Routes</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="#crtd-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#ctrd-build-containers">Build Containers</a>
+    <a class="nav-link" href="#ctrd-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-deploy-configuration">Deploy Configuration</a>
+    <a class="nav-link" href="#crtd-deploy-configuration">Deploy Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="#crtd-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-deploy-route">Deploy Route</a>
+    <a class="nav-link" href="#crtd-deploy-route">Deploy Route</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-see-what-you-have-deployed">See what you have deployed</a>
+    <a class="nav-link" href="#crtd-see-what-you-have-deployed">See what you have deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-deploying-new-revision">Deploy new Revision Service</a>
+    <a class="nav-link" href="#crtd-deploying-new-revision">Deploy new Revision Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#crtd-distributing-traffic">Distributing Traffic</a>
+    <a class="nav-link" href="#crtd-distributing-traffic">Distributing Traffic</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02configs-and-routes.html#ctrd-cleanup">Cleanup</a>
+    <a class="nav-link" href="#ctrd-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -632,14 +632,14 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">1.0-SNAPSHOT</span>
+    <span class="version">v1.0.0</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">1.0-SNAPSHOT</a>
+          <a href="index.html">v1.0.0</a>
         </li>
       </ul>
     </li>
@@ -655,140 +655,453 @@
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
-    <li class="crumb"><a href="setup.html">1. Setup</a></li>
+    <li class="crumb"><a href="02configs-and-routes.html">3. Configurations and Routes</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/ROOT/pages/setup.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///root/project/documentation/modules/ROOT/pages/02configs-and-routes.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Setup</h1>
-<div class="sect1">
-<h2 id="prerequisite"><a class="anchor" href="#prerequisite"></a>Prerequisite CLI tools</h2>
+<h1>Configurations and Routes</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Tool</strong></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>macOS</strong></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Fedora</strong></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>Remarks</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>minikube</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/setup/minikube" class="bare">https://kubernetes.io/docs/setup/minikube</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/setup/minikube" class="bare">https://kubernetes.io/docs/setup/minikube</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>minishift</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://maven.apacge.org">Apache Maven</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install maven</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install maven</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>sudo curl --output /usr/local/bin/stern -L <a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64" class="bare">https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64</a> &amp;&amp; sudo chmod +x /usr/local/bin/stern</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://xmlstar.sourceforge.net/">xmlstarlet</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install xmlstarlet</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://xmlstar.sourceforge.net/" class="bare">http://xmlstar.sourceforge.net/</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install yq</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/latest" class="bare">https://github.com/mikefarah/yq/releases/latest</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/JoeDog/siege">siege</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install siege</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/JoeDog/siege" class="bare">https://github.com/JoeDog/siege</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://jsonnet.org/" class="bare">https://jsonnet.org/</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install jsonnet</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/google/jsonnet" class="bare">https://github.com/google/jsonnet</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">it will be pre-installed</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">kubectx and kubens</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install kubectx</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/ahmetb/kubectx" class="bare">https://github.com/ahmetb/kubectx</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Before we start to setting up the environment, lets clone the tutorial sources and call the cloned folder as <code>$TUTORIAL_HOME</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/redhat-developer-demos/knative-tutorial</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>work</code> folder in <code>$TUTORIAL_HOME</code> can be used to download the demo application resources and refer them during the exercises. The <code>work</code> folder has a README, which has instructions on source code repo and git commands to clone the sources.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This tutorial was developed and tested with:</p>
+<p>At the end of this chapter you will be able to understand and know how to :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Knative <code>v0.3.0</code></p>
+<p>Deploy Knative configurations and routes separately.</p>
 </li>
 <li>
-<p>minikube <code>v0.34.1</code></p>
+<p>Distribute traffic between revisions of a service.</p>
 </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="crtd-prerequisite"><a class="anchor" href="#crtd-prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>OpenShift <code>v3.11</code></p>
+<p>Make sure to be connected to minikube or minishift docker daemon and using right openshift client.</p>
 </li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>minishift <code>v1.30.0+186b034</code></p>
+<p>Make sure right OpenShift and kubernetes client are used.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.12+
+kubectl version</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
+oc version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># right maven version Apache Maven 3.5.x or above
+./mvnw --version</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># verify to return knativetutorial
+oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ctrd-build-containers"><a class="anchor" href="#ctrd-build-containers"></a>Build Containers</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have already cloned the repo and built the <code>greeter</code> service you can skip this step.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to work folder</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cd $TUTORIAL_HOME/work</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone the application source code</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Build the application and container image</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd knative-tutorial-greeter/java/springboot
+./mvnw clean package
+docker build -t dev.local/rhdevelopers/greeter:0.0.1 .</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if images are built and available:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker images | grep dev.local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return something like as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can also use the script <code>buildImage.sh</code> that will build source and create the container image
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="crtd-deploy-configuration"><a class="anchor" href="#crtd-deploy-configuration"></a>Deploy Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the previous chapter we saw how we can deploy services using a holistic service resource file, in this chapter we will see how to deploy the service using configurations and route files.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/02-configs-and-routes</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploy_configuration_revision_1"><a class="anchor" href="#_deploy_configuration_revision_1"></a>Deploy Configuration revision 1</h3>
+<div class="paragraph">
+<p>The following snippet shows how a Knative configuration resource YAML looks like:</p>
+</div>
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev1.yaml">configuration-rev1.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
+kind: Configuration
+metadata:
+  name: greeter
+spec:
+  revisionTemplate:
+    metadata:
+      labels:
+        app: greeter
+    spec:
+      container:
+        image: dev.local/rhdevelopers/greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this <a href="#faq-q2">Question 2 of FAQ</a>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The service is then deployed using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev1.yaml">config/configuration-rev1.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev1.yaml">config/configuration-rev1.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the deployment was successful, we should see a kubernetes deployment called <code>greeter-00001-deployment</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/greeter-00001.png" alt="Greeter Service">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="crtd-invoke-service"><a class="anchor" href="#crtd-invoke-service"></a>Invoke Service</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
+IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command will return <code>HTTP 404</code> as there are no routes deployed yet. Let us now deploy a route.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="crtd-deploy-route"><a class="anchor" href="#crtd-deploy-route"></a>Deploy Route</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.</p>
+</div>
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_default.yaml">route_default.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
+kind: Route
+metadata:
+  name: greeter
+spec:
+  traffic:
+    - configurationName: greeter
+      percent: 100</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#invoke-service">Invoking Service</a> now should return a response like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 1</strong></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Sometimes the response might not be returned immediately especially when the pod is coming up from a dormant state. You might need to be a little patient.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="crtd-see-what-you-have-deployed"><a class="anchor" href="#crtd-see-what-you-have-deployed"></a>See what you have deployed</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As we did not deploy a service this time</p>
+</div>
+<div class="sect2">
+<h3 id="crtd-show-knative-services"><a class="anchor" href="#crtd-show-knative-services"></a>service</h3>
+<div id="knative-services" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative Service (short name ksvc) called greeter
+oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will throw an error as there are no knative services deployed as part of the configuration + routes based deployment strategy.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-show-knative-configs"><a class="anchor" href="#crtd-show-knative-configs"></a>configuration</h3>
+<div id="knative-configs" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative configuration called greeter
+oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-show-knative-routes"><a class="anchor" href="#crtd-show-knative-routes"></a>routes</h3>
+<div id="knative-routes" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative routes called greeter
+oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the service is invoked with <code>curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code>, you noticed that we added a <strong>Host</strong> header to the <code>curl</code> command with the value <code>greeter.knativetutorial.example.com</code>. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format <code>&lt;route-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>domain-suffix</code> (in this case <em>example.com</em>) is configurable via the config map <strong>config-domain</strong> in the <strong>knative-serving</strong> namespace.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-show-knative-revisions"><a class="anchor" href="#crtd-show-knative-revisions"></a>revisions</h3>
+<div id="knative-revisions" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get revisions.serving.knative.dev</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative revisions called greeter you will see only one like greeter-00001
+oc -n knativetutorial get revisions.serving.knative.dev</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>add <code>-oyaml</code> to the commands above to see more details</p>
 </li>
 </ul>
 </div>
@@ -798,322 +1111,213 @@
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="kubernetes-cluster"><a class="anchor" href="#kubernetes-cluster"></a>Kubernetes Cluster</h2>
+<h2 id="crtd-deploying-new-revision"><a class="anchor" href="#crtd-deploying-new-revision"></a>Deploy a new revision</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="install-knative-minikube"><a class="anchor" href="#install-knative-minikube"></a>Minikube</h3>
-<div class="sect3">
-<h4 id="start-minikube"><a class="anchor" href="#start-minikube"></a>Configure and Start minikube</h4>
 <div class="paragraph">
-<p>Before installing Knative and its components, we need to add few startup config to minikube.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube profile knative \<i class="conum" data-value="1"></i><b>(1)</b>
-
-minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2"></i><b>(2)</b>
-  --kubernetes-version=v1.12.0 \<i class="conum" data-value="3"></i><b>(3)</b>
-  --vm-driver=hyperkit \<i class="conum" data-value="4"></i><b>(4)</b>
-  --disk-size=50g \
-  --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Setting minikube profile to <strong>knative</strong> so that all future minikube commands are executed with this profile context</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Starting a profile named <strong>knative</strong></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Minimum kubernetes version needs to be &gt;= 1.12.0, refer to issue <a href="https://github.com/knative/serving/issues/3067" class="bare">https://github.com/knative/serving/issues/3067</a> for more details.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>If you are on linux then use <code>--vm-driver=kvm2</code></td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="install-knative-istio"><a class="anchor" href="#install-knative-istio"></a>Install Istio</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio-crds.yaml
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/istio.yaml</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Installation of istio components will take some time and its highly recommended that you start Knative components installation only after you see all istio component pods are running. The istio pods can be watched using the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n istio-system get pods -w</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful istio install will have the pods running in <code>istio-system</code> namespace as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                       READY   STATUS      RESTARTS   AGE
-cluster-local-gateway-547467ccf6-857mx     1/1     Running     0          6h35m
-istio-citadel-7d64db8bcf-xgdh7             1/1     Running     0          6h35m
-istio-cleanup-secrets-7mjbl                0/1     Completed   0          6h35m
-istio-egressgateway-6ddf4c8bd6-sglg6       1/1     Running     0          6h35m
-istio-galley-7dd996474-4jhr4               1/1     Running     0          6h35m
-istio-ingressgateway-84b89d647f-f9n4h      1/1     Running     0          6h35m
-istio-pilot-86bb4fcbbd-ptz7n               2/2     Running     0          6h35m
-istio-pilot-86bb4fcbbd-s9qxl               2/2     Running     0          6h34m
-istio-pilot-86bb4fcbbd-xd887               2/2     Running     0          6h34m
-istio-policy-5c4d9ff96b-tzkbw              2/2     Running     0          6h35m
-istio-sidecar-injector-6977b5cf5b-9wsjw    1/1     Running     0          6h35m
-istio-statsd-prom-bridge-b44b96d7b-x85xr   1/1     Running     0          6h35m
-istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m
-knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m</code></pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="install-knative-serving"><a class="anchor" href="#install-knative-serving"></a><strong>Install Knative Serving</strong></h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.3.0/serving.yaml</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Installation of knative serving components will take some time, the status of the knative serving pods can be watched using the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get pods -w</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful Knative serving install will have the pods running in <code>knative-serving</code> as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                          READY   STATUS    RESTARTS   AGE
-activator-69b8474d6b-fhnwq    2/2     Running   0          6h33m
-autoscaler-6579b57774-lcjd2   2/2     Running   0          6h33m
-controller-66cd7d99df-6lt2t   1/1     Running   0          6h33m
-webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="install-knative-build"><a class="anchor" href="#install-knative-build"></a><strong>Install Knative Build</strong></h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.3.0/release.yaml</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Installation of knative build components will take some time, the status of the  knative serving pods can be watched using the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-build get pods -w</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful Knative build install will have the pods running in <code>knative-build</code> as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                READY   STATUS    RESTARTS   AGE
-build-controller-658d64d9bd-4m7l9   1/1     Running   0          6h32m
-build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="install-knative-eventing"><a class="anchor" href="#install-knative-eventing"></a><strong>Install Knative Eventing</strong></h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/release.yaml
-kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.3.0/in-memory-channel.yaml
-kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.3.0/release.yaml</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Installation of knative eventing components will take some time, the status of the  knative serving pods can be watched using the command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-sources get pods -w
-kubectl -n knative-eventing get pods -w</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful Knative eventing install will have the pods running <code>knative-eventing</code> and <code>knative-sources</code> in as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="title">knative-eventing namespace</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                            READY   STATUS    RESTARTS   AGE
-eventing-controller-cfbb757bd-lg5zk             1/1     Running   0          6h35m
-in-memory-channel-controller-75d6cc4b77-f8bfl   1/1     Running   0          6h35m
-in-memory-channel-dispatcher-c89db8bb8-ktr26    2/2     Running   1          6h35m
-webhook-5fbb8dbcc7-gk6cx                        1/1     Running   0          6h35m</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">knative-sources namespace</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                   READY   STATUS    RESTARTS   AGE
-controller-manager-0   1/1     Running   0          6h35m</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="set-knative-tutorial-ns"><a class="anchor" href="#set-knative-tutorial-ns"></a>Configuring Kubernetes namespace</h4>
-<div class="paragraph">
-<p>We will use a non default kubernetes namespace called <code>knativetutorial</code> for all the tutorial exercises.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create namespace knativetutorial</code></pre>
-</div>
-</div>
-</div>
+<p>Knative follows a revision model for its configurations. Each time you change something in the <code>revisionTemplate</code> Knative will effectively generate a new revision and thus a new deployment. In this example we add a new environment variable to demonstrate that mechanism.</p>
 </div>
 <div class="sect2">
-<h3 id="install-knative-openshift"><a class="anchor" href="#install-knative-openshift"></a>OpenShift</h3>
-<div class="paragraph">
-<p>For OpenShift Knative installations we will use the OpenShift Cloud Function&#8217;s <a href="https://github.com/openshift-cloud-functions/knative-operators">Knative Operators</a>.</p>
-</div>
-<div class="paragraph">
-<p>Clone the Knative Operator sources locally:</p>
-</div>
-<div class="listingblock">
+<h3 id="_deploy_configuration_revision_2"><a class="anchor" href="#_deploy_configuration_revision_2"></a>Deploy configuration revision 2</h3>
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev2.yaml">configuration-rev2.yaml</a></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work
-git clone https://github.com/openshift-cloud-functions/knative-operators
-cd knative-operators</code></pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="install-knative-ocp"><a class="anchor" href="#install-knative-ocp"></a>OCP</h4>
-<div class="paragraph">
-<p>If you have an existing OpenShift cluster then run the following commands:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install.sh</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you need more details about the installation or customizations refer <a href="https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md">Knative with OpenShift</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="install-knative-minishift"><a class="anchor" href="#install-knative-minishift"></a>minishift</h4>
-<div class="paragraph">
-<p>Run the following commands to configure Knative with minishift:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install-on-minishift.sh <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
+kind: Configuration
+metadata:
+  name: greeter
+spec:
+  revisionTemplate:
+    metadata:
+      labels:
+        app: greeter
+    spec:
+      container:
+        image: dev.local/rhdevelopers/greeter:0.0.1
+        env: <i class="conum" data-value="1"></i><b>(1)</b>
+          - name: MESSAGE_PREFIX
+            value: Namaste</code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It will create a minishift profile and install knative.  It also assumes that you already have minishift and your computer has 10GB or more of memory</td>
+<td>Adding an environment variable that will be used a message prefix.</td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Let us deploy the new revision using the command:</p>
 </div>
-<div class="sect3">
-<h4 id="configure-openshift-project"><a class="anchor" href="#configure-openshift-project"></a>Configuring OpenShift project for Knative applications</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-project knativetutorial
-oc adm policy add-scc-to-user privileged -z default <i class="conum" data-value="1"></i><b>(1)</b>
-oc adm policy add-scc-to-user anyuid -z default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev2.yaml">config/configuration-rev2.yaml</a></code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>oc adm policy</code> adds the <strong>privileged</strong> <a href="https://docs.okd.io/3.10/admin_guide/manage_scc.html">Security Context Constraints(SCCs)</a>to the <strong>default</strong> Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in kubernetes.</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/config/configuration-rev2.yaml">config/configuration-rev2.yaml</a></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>After the deployment was successful we should see a kubernetes deployment called <code>greeter-00002-deployment</code> in the OpenShift dashboard:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/greeter-00002.png" alt="Greeter Service rev2">
+</div>
+</div>
+<div class="paragraph">
+<p>Now running the <a href="#show-knative-revisions">command</a> will show two revisions: <code>greeter-00001</code> and <code>greeter-0002</code>.</p>
+</div>
+<div class="paragraph">
+<p><a href="#invoke-service">Invoking Service</a> will now show an output like <strong>Namaste greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 2</strong>, where <em>Namaste</em> is the value that we configured via environment variable in the Knative service resource file.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="setup-work-folder"><a class="anchor" href="#setup-work-folder"></a>Work folder</h2>
+<h2 id="crtd-distributing-traffic"><a class="anchor" href="#crtd-distributing-traffic"></a>Distributing traffic</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The work folder i.e <code>$TUTORIAL_HOME/work</code> can be used as a work directory during the build. The README in the work folder as the GitHub repository links of the applications <code>greeter</code> and <code>event-greeter</code> that will be used in various exercises.</p>
+<p>When deploying services with service object based approach, the service resource will take care of traffic distribution either 100% to latest or pinned revision. In this section we will explore how we can deploy routes to distribute traffic between deployed revisions.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For the sake of clarity we will call greeter-00001 as <strong>revision 1</strong> and greeter-00002 as <strong>revision 2</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Before we start to apply routes, let us open a new terminal and run the following command <code>$TUTORIAL_HOME/02-configs-and-routes/bin/call.sh</code>, this command will keep sending requests to greeter route every two seconds which allows us to monitor the changes to the responses as we keep applying the route that will distribute the traffic between the available two revisions.</p>
+</div>
+<div class="sect2">
+<h3 id="crtd-all-rev1"><a class="anchor" href="#crtd-all-rev1"></a>Send all traffic to revision 1</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will notice the output on your monitoring terminal to be something like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 34</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-all-rev2"><a class="anchor" href="#crtd-all-rev2"></a>Send all traffic to revision 2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev2.yaml">route/route_all_rev2.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_all_rev2.yaml">route/route_all_rev2.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will notice the output on your monitoring terminal to be something like <strong>Namaste greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 13</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-all-rev1-rev2-50"><a class="anchor" href="#crtd-all-rev1-rev2-50"></a>50-50 split between revision 1 and revision 2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will notice the output will be mix of responses like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 11</strong> and <strong>Namaste greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 10</strong> approximately distributed 50% between the two.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-all-rev1-rev2-75-25"><a class="anchor" href="#crtd-all-rev1-rev2-75-25"></a>75-25 split between revision 1 and revision 2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will notice the output will be mix of responses like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 6</strong> and <strong>Namaste greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 7</strong>, with more requests responded by revision  1 approximately distributed 75% to 25 % between revision 1 and revision 2.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crtd-all-rev1-rev2-10-90"><a class="anchor" href="#crtd-all-rev1-rev2-10-90"></a>10-90 split between revision 1 and revision 2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will notice the will be mix of responses like <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 4</strong> and <strong>Namaste greeter &#8658; greeter-00002-deployment-8d9984dc8-rgzx6: 5</strong>, with more requests responded by revision 2 approximately 10% to 90% between revision 1 and revision 2.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the response texts e.g <strong>Hi greeter &#8658; greeter-00001-deployment-5d696cc6c8-m65s5: 4</strong> the numbers at the end of the responses shows a count of how may requests have been handled by the service. In this example it is <em>4</em>. Also note that the output count number may vary according to number of requests that you might have issued.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ctrd-cleanup"><a class="anchor" href="#ctrd-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete configurations.serving.knative.dev greeter
+kubectl -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete configurations.serving.knative.dev greeter
+oc -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
+</div>
 </div>
 </div>
 </div>
