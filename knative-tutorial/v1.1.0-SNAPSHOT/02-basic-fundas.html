@@ -1013,8 +1013,8 @@ kind: Service
 metadata:
   name: greeter
 spec:
-  pinned: <i class="conum" data-value="1"></i><b>(1)</b>
-    revisionName: greeter-00001
+  release: <i class="conum" data-value="1"></i><b>(1)</b>
+    revisions: ["greeter-00001"]
   configuration:
     revisionTemplate:
       spec:
@@ -1026,7 +1026,7 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <strong>pinned</strong> attribute in service resource file will make Knative use the revision specified in the <strong>revisionName</strong> attribute.</td>
+<td>The <strong>release</strong> attribute in service resource file will make Knative use the revision specified in the <strong>revisions</strong> attribute.</td>
 </tr>
 </table>
 </div>
