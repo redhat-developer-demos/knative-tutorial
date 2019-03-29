@@ -8,13 +8,13 @@ At the end of this chapter you will be able to:
 * How to make service use builds for building container images a.k.a source-to -url
 
 [#build-prerequisite]
-== Prerequisite 
+== Prerequisite
 include::partial$prereq-cli.adoc[]
 
 [#build-registry-account]
 [IMPORTANT]
 ====
-Its required that you have container registry account which is needed during the exercises to push the built container images. 
+Its required that you have container registry account which is needed during the exercises to push the built container images.
 
 You can get one for free at https://hub.docker.com[Docker Hub]
 ====
@@ -37,7 +37,7 @@ cd $TUTORIAL_HOME/04-build/knative/templates
 jsonnet --ext-str user='<your-docker-repo-userid>' \
   --ext-str password='<your-docker-repo-user-password>' \
     link:{github-repo}/{build-repo}/knative/templates/docker-secret.jsonnet[docker-secret.jsonnet] \
-   | yq r - | tee ../docker-secret.yaml
+   | yq r - | kubectl apply -f -
 ----
 
 (e.g.)
@@ -47,13 +47,13 @@ jsonnet --ext-str user='<your-docker-repo-userid>' \
 jsonnet --ext-str user='demo' \
    --ext-str password='demopassword' \
    link:{github-repo}/{build-repo}/knative/templates/docker-secret.jsonnet[docker-secret.jsonnet] \
-   | yq r - | tee ../docker-secret.yaml
+   | yq r - | kubectl apply -f -
 ----
 
 The above command will generate a kubernetes secret as shown below:
 
 [.text-center]
-.docker-secret.yaml
+.Secret `basic-user-pass`
 [source,yaml,linenums]
 ----
 apiVersion: v1
@@ -205,7 +205,6 @@ Run the following commands to create the pre-requisite resources:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n knativetutorial -f docker-secret.yaml
 kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml]
 kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml]
 kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml]
@@ -215,20 +214,18 @@ kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kani
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n knativetutorial -f docker-secret.yaml <1>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] <2>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] <3>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml] <4>
+oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] <1>
+oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] <2>
+oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml] <3>
 ----
 
 
-<1> The kubernetes secret called `basic-auth-pass`, check https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker[here] for more details
-<2> The kubernetes service account called `build-bot` that wll run the build.  Only `build-bot` as access to the secret `basic-auth-pass`. Check https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker[here] for more details
-<3> the kubernetes persistence volume claim used to cache maven artifacts, to make subsequent builds faster
-<4> the kubernetes persistence volume claim  that will be used to cache docker base images to make subsequent https://github.com/GoogleContainerTools/kaniko[Kaniko] docker builds faster
+<1> The kubernetes service account called `build-bot` that will run the build.  Only `build-bot` as access to the secret `basic-user-pass` that we have created in <<build-create-docker-secret, Generate Docker Secret>>. Check https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker[here] for more details
+<2> the kubernetes persistence volume claim used to cache maven artifacts, to make subsequent builds faster
+<3> the kubernetes persistence volume claim  that will be used to cache docker base images to make subsequent https://github.com/GoogleContainerTools/kaniko[Kaniko] docker builds faster
 
 [#build-create-build]
-== Create build 
+== Create build
 
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -246,14 +243,14 @@ oc apply -n knativetutorial -f docker-build.yaml
 == See what you have deployed
 
 [#build-show-knative-builds]
-=== build 
+=== build
 include::partial$knative-objects.adoc[tag=knative-build]
 
 [NOTE]
 ====
 The builds right now can't be started from the step where it has failed, you always need to start a new build by deleting the existing build followed by creating a new one again.
 
-e.g. 
+e.g.
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl delete -n knativetutorial -f docker-build.yaml
@@ -303,7 +300,7 @@ docker-build-pod-ecc235   0/1       Completed   0          10m
 With this you should also be able to do `docker pull docker.io/demo/event-greeter:0.0.1` successfully.
 
 [#build-deploy-service-build]
-== Deploy service using Build 
+== Deploy service using Build
 
 With a successful build you are ready to deploy the service, run the following commands to deploy the service:
 
@@ -325,7 +322,7 @@ After successful deployment of the service we should see a kubernetes deployment
 image::event-greeter-00001.png[Event Greeter Service]
 
 [#build-invoke-service]
-== Invoke service 
+== Invoke service
 
 :k8s-env: minikube
 :k8s-cli: kubectl
