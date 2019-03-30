@@ -4,7 +4,6 @@
 ** xref:01-setup.adoc#kubernetes-cluster[Kubernetes Cluster]
 *** xref:01-setup.adoc#install-knative-minikube[Install with Minikube ]
 **** xref:01-setup.adoc#start-minikube[Configure and Start minikube ]
-**** xref:01-setup.adoc[Install Knative ]
 **** xref:01-setup.adoc#install-knative-istio[Install Istio ]
 **** xref:01-setup.adoc#install-knative-serving[Install Knative Serving ]
 **** xref:01-setup.adoc#install-knative-build[Install Knative Build]

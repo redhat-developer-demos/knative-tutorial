@@ -19,7 +19,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 | https://github.com/minishift/minishift/releases
 |
 
-| https://maven.apacge.org[Apache Maven]
+| https://maven.apache.org[Apache Maven]
 | `brew install maven`
 | `dnf install maven`
 |
@@ -57,7 +57,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 [#download-tutorial-sources]
 == Download Tutorial Sources
-Before we start setting up the environment, let's clone the tutorial sources and set the `$TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
+Before we start setting up the environment, let's clone the tutorial sources and set the `TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
 
 [source,bash]
 ----
@@ -86,4 +86,4 @@ include::partial$openshift-setup.adoc[]
 [#setup-work-folder]
 == Work folder
 
-The work folder i.e `$TUTORIAL_HOME/work` can be used as a work directory during the build. The README in the work folder as the GitHub repository links of the applications `greeter` and `event-greeter` that will be used in various exercises.
+The work folder i.e `$TUTORIAL_HOME/work` can be used as a work directory during the build. The README in the work folder has the GitHub repository links of the applications `greeter` and `event-greeter` that will be used in various exercises.
