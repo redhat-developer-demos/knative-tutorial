@@ -9,12 +9,12 @@ The following CLI tools are required for running the exercises in this tutorial.
 [cols="4*^,4*."]
 |===
 |**Tool** |**macOS** |**Fedora** | **Remarks**
-| `minikube` 
+| `minikube`
 | https://kubernetes.io/docs/setup/minikube
 | https://kubernetes.io/docs/setup/minikube
 |
 
-| `minishift` 
+| `minishift`
 | https://github.com/minishift/minishift/releases
 | https://github.com/minishift/minishift/releases
 |
@@ -41,12 +41,12 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 | https://github.com/JoeDog/siege[siege]
 | `brew install siege`
-| https://github.com/JoeDog/siege  
+| `dnf install siege`
 |
 
 | watch
-|`brew install watch`
-| it will be pre-installed
+| `brew install watch`
+| `dnf install procps-ng`
 |
 
 | kubectx and kubens
@@ -57,14 +57,14 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 [#download-tutorial-sources]
 == Download Tutorial Sources
-Before we start to setting up the environment, lets clone the tutorial sources and call the cloned folder as `$TUTORIAL_HOME`
+Before we start setting up the environment, let's clone the tutorial sources and set the `$TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
 
 [source,bash]
 ----
 git clone https://github.com/redhat-developer-demos/knative-tutorial
 ----
 
-The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer them during the exercises. The `work` folder has a README, which has instructions on source code repo and git commands to clone the sources.
+The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer to them during the exercises. The `work` folder has a README with instructions on the source code repo and git commands to clone the sources.
 
 [IMPORTANT,subs="+macros,+attributes"]
 ====
