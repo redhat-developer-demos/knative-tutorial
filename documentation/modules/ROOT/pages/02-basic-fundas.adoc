@@ -88,7 +88,7 @@ NOTE: Sometimes the response might not be returned immediately especially when t
 [#basics-see-what-you-have-deployed]
 == See what you have deployed
 
-The service based deployment strategy that we did now will create many knative resources, the following commands will help you to query and find what has been deployed.
+The service-based deployment strategy that we did now will create many Knative resources, the following commands will help you to query and find what has been deployed.
 
 [#basics-show-knative-services]
 === service 

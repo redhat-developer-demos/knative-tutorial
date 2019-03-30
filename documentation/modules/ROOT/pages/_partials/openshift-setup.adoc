@@ -34,7 +34,7 @@ Run the following commands to configure Knative with minishift:
 ./etc/scripts/install-on-minishift.sh #<1>
 -----
 
-<1> It will create a minishift profile and install knative.  It also assumes that you already have minishift and your computer has 10GB or more of memory
+<1> It will create a minishift profile and install Knative. It also assumes that you already have minishift and your computer has 10GB or more of memory.
 
 [#configure-openshift-project]
 ==== Configuring OpenShift project for Knative applications

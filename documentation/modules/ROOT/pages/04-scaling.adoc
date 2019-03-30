@@ -86,7 +86,7 @@ The last `curl` command should return a response like **Hi greeter => greeter-00
 Check <<02-basic-fundas.adoc#see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
 
 [#scaling-scale-to-zero]
-== Configure scale to zero 
+== Configure scale-to-zero 
 
 Assuming that <<scaling-deploy-service, Greeter service>> has been deployed, once no more traffic is seen going into that service, we'd like to scale this service down to zero replicas. That's called **scale-to-zero**.
 
@@ -95,7 +95,7 @@ Scale-to-zero is one of the main properties making Knative a serverless platform
 If another request tries to get to this revision, the activator will get it, instruct the autoscaler to create new pods for the revision as quickly as possible and buffer the request until those new pods are created.
 
 [#scale-to-zero-formulae]
-=== Calculating scale to zero time period
+=== Calculating scale-to-zero time period
 
 The Knative autoscaler uses the config map **config-autoscaler** in the **knative-serving** namespace for autoscaling related properties. The values of the attribute `stable-window` and `scale-to-zero-grace-period`, which we've seen above, are part of this config map.
 
@@ -133,6 +133,13 @@ For easier observation let us open a new terminal and run the following command,
 
 [source,bash,subs="+macros,+attributes"]
 ----
+watch 'kubectl get pods -n knativetutorial'
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
 watch 'oc get pods -n knativetutorial'
 ----
 
@@ -147,7 +154,7 @@ echo $STABLE_WINDOW
 echo $SCALE_TO_ZERO_GRACE_PERIOD 
 ----
 
-By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in `1 min 30 secs`(<<scale-to-zero-formulae,Compute scale to zero grace period>>).
+By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in `1 min 30 secs`(<<scale-to-zero-formulae,Compute scale-to-zero grace period>>).
 
 [#scaling-observer-scale-to-zero-1m]
 === Scale to zero in 1 minute
@@ -189,47 +196,10 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
 
-Now <<scaling-invoke-service,firing the request>> to the greeter service will bring up the pod to serve the request again. Leaving it without any further requests, it will automatically scale to zero in `2 mins`(<<scale-to-zero-formulae,Compute scale to zero grace period>>)
-
-[#scaling-observer-scale-to-zero-2m]
-=== Scale to zero in 2 minute
-
-Let us now update **scale-to-zero-grace-period** to `2m` and leave the **stable-window** to default `60s`.
-
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s link:{github-repo}/{scaling-repo}/knative/configure-scaling-to-2m.yaml[configure-scaling-to-2m.yaml] | kubectl apply -f -
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s link:{github-repo}/{scaling-repo}/knative/configure-scaling-to-2m.yaml[configure-scaling-to-2m.yaml] | oc apply -f -
-----
-
-Verifying the `scale-to-zero-grace-period` value, which should return `2m`: 
-
-[source,bash,subs="+macros,+attributes",linenums]
-----
-
-kubectl -n knative-serving get configmap config-autoscaler -o yaml \
- | yq r - data.scale-to-zero-grace-period
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc -n knative-serving get configmap config-autoscaler -o yaml \
-  | yq r - data.scale-to-zero-grace-period
-----
-
-
-Now <<scaling-invoke-service,firing the request>> to the greeter service will bring up the pod to serve the request and if we leave the service without any further requests, it will automatically scale to zero in `3 mins`(<<scale-to-zero-formulae,Compute scale to zero grace period>>).
+Now <<scaling-invoke-service,firing the request>> to the greeter service will bring up the pod to serve the request again. Leaving it without any further requests, it will automatically scale to zero in `2 mins`(<<scale-to-zero-formulae,Compute scale-to-zero grace period>>)
 
 [#scaling-reset-to-defaults]
-=== Reset scale to zero to defaults
+=== Reset scale-to-zero to defaults
 
 Let us revert the `scale-to-zero-grace-period` to its default:
 
@@ -264,7 +234,7 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
 
-For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed knative resources before going to next section.
+For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed Knative resources before going to next section.
 
 [#scaling-auto-scaling]
 == Auto Scaling
@@ -340,11 +310,11 @@ watch oc get pods -n knativetutorial
 [#scaling-load-service]
 === Load the service
 
-We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 10s`) and test will run for 30 seconds (`-t 30S`)
+We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 30s (`-t 30s`)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-siege -r 1 -c 50 -t 30S -d 2 \
+siege -r 1 -c 50 -t 30S \
   -H "Host: greeter.knativetutorial.example.com" \
   "http://pass:[${IP_ADDRESS}]"
 ----
