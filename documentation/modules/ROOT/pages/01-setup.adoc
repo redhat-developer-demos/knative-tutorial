@@ -21,7 +21,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 | `git`
 | https://git-scm.com/download/mac
-| dnf install git
+| `dnf install git`
 |
 
 | https://maven.apache.org[Apache Maven]

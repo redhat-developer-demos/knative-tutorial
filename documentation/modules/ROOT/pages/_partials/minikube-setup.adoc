@@ -4,7 +4,7 @@
 [#start-minikube]
 ==== Configure and Start minikube 
 
-Before installing Knative and its components, we need to add few startup config to minikube.
+Before installing Knative and its components, we need to create the minikube virtual machine and deploy Kubernetes into it:
 
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -20,7 +20,7 @@ minikube start -p knative --memory=8192 --cpus=4 \#<2>
 <1> Setting minikube profile to **knative** so that all future minikube commands are executed with this profile context
 <2> Starting a profile named **knative**
 <3> Minimum kubernetes version needs to be >= 1.12.0, refer to issue https://github.com/knative/serving/issues/3067 for more details.
-<4> If you are on linux then use `--vm-driver=kvm2`
+<4> On macOS. On Linux, please use `--vm-driver=kvm2`
 
 
 [#install-knative-istio]
@@ -34,7 +34,7 @@ kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/istio.
 
 [NOTE]
 ====
-Installation of istio components will take some time and its highly recommended that you start Knative components installation only after you see all istio component pods are running. The istio pods can be watched using the command:
+Installation of istio components will take some time and it is highly recommended that you start Knative components installation only after you have verified that all istio component pods are running. The istio pods can be watched using the command:
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n istio-system get pods -w 
@@ -42,7 +42,7 @@ kubectl -n istio-system get pods -w
 You can use kbd:[CTRL + c ] to terminate the watch
 ====
 
-A successful istio install will have the pods running in `istio-system` namespace as shown below:
+A successful istio install will have the pods running in the `istio-system` namespace as shown below:
 
 [source,bash]
 ----
@@ -73,7 +73,7 @@ kubectl apply --filename {knative-serving-repo}/{knative-serving-version}/servin
 
 [NOTE]
 ====
-Installation of knative serving components will take some time, the status of the knative serving pods can be watched using the command:
+As the Knative serving components are getting installed, you can watch their status using the following command:
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knative-serving get pods -w 
@@ -81,7 +81,7 @@ kubectl -n knative-serving get pods -w
 You can use kbd:[CTRL + c ] to terminate the watch
 ====
 
-A successful Knative serving install will have the pods running in `knative-serving` as shown below:
+A successful Knative serving installation will have its pods running in the `knative-serving` namespace as shown below:
 
 [source,bash]
 ----
@@ -102,7 +102,7 @@ kubectl apply --filename {knative-build-repo}/{knative-build-version}/build.yaml
 
 [NOTE]
 ====
-Installation of knative build components will take some time, the status of the  knative serving pods can be watched using the command:
+As the Knative build components are getting installed, you can watch their status using the following command:
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knative-build get pods -w 
@@ -110,7 +110,7 @@ kubectl -n knative-build get pods -w
 You can use kbd:[CTRL + c ] to terminate the watch
 ====
 
-A successful Knative build install will have the pods running in `knative-build` as shown below:
+A successful Knative build installation will have its pods running in the `knative-build` namespace as shown below:
 
 [source,bash]
 ----
@@ -131,7 +131,7 @@ kubectl apply --filename https://raw.githubusercontent.com/knative/serving/{knat
 
 [NOTE]
 ====
-Installation of knative eventing components will take some time, the status of the  knative serving pods can be watched using the command:
+As the Knative eventing components are getting installed, you can watch their status using the following commands:
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knative-sources get pods -w 
@@ -140,7 +140,7 @@ kubectl -n knative-eventing get pods -w
 You can use kbd:[CTRL + c ] to terminate the watch
 ====
 
-A successful Knative eventing install will have the pods running `knative-eventing` and `knative-sources` in as shown below:
+A successful Knative eventing installation will have the following pods running in the `knative-eventing` and `knative-sources` namespaces:
 
 .knative-eventing namespace
 
@@ -173,7 +173,7 @@ kubectl create namespace knativetutorial
 
 [TIP]
 ====
-kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx], allows change the kubernetes namespace easily. 
+The kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx] allows for easy switching between kubernetes namespaces.
 
 [source,bash] 
 ----

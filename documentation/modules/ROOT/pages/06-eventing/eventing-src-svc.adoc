@@ -114,7 +114,7 @@ Navigate to tutorial chapter's `templates` folder:
 cd $TUTORIAL_HOME/05-eventing/knative/templates
 ----
 
-Run the following command to create the knative service that will be used as the subscriber for the cron events:
+Run the following command to create the Knative service that will be used as the subscriber for the cron events:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----

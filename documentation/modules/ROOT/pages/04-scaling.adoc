@@ -234,7 +234,7 @@ oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
 
-For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed knative resources before going to next section.
+For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed Knative resources before going to next section.
 
 [#scaling-auto-scaling]
 == Auto Scaling

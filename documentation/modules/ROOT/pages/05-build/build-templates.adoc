@@ -7,9 +7,9 @@ The raw builds like what we did in xref:ROOT:05-build/build.adoc[previous chapte
  * Hard coding of build parameters 
  * Inability to make builds and services in synchronous i.e. services are deployed only after the related build is complete
 
-One of the solution to these problems is by using **Build Templates**.
+One of the solutions to these problems is **Build Templates**.
 
-Like the build spec the knative build template spec and knative service spec also needs some customizations before apply them.
+Similarly to the build spec, the Knative build template spec and the Knative service spec needs some customizations before being applied.
 
 [#build-template-prerequisite]
 == Prerequisite 

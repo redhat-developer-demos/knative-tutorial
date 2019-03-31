@@ -22,8 +22,8 @@ spec:
     name: in-memory-channel
 ----
 
-<1> The name of the channel, knative make it addressable i.e. resolveable to a target (a consumer service)
-<2> The channel provisioner which is responsible to provision this channel.Various messaging implementations provide their own channel(s) via __ClusterChannelProvisioner__.
+<1> The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)
+<2> The channel provisioner which is responsible for provisioning this channel. Various messaging implementations provide their own channel(s) via __ClusterChannelProvisioner__.
 
 Navigate to tutorial chapter's `knative` folder:
 
