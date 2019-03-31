@@ -19,6 +19,11 @@ The following CLI tools are required for running the exercises in this tutorial.
 | https://github.com/minishift/minishift/releases
 |
 
+| `git`
+| https://git-scm.com/download/mac
+| dnf install git
+|
+
 | https://maven.apache.org[Apache Maven]
 | `brew install maven`
 | `dnf install maven`

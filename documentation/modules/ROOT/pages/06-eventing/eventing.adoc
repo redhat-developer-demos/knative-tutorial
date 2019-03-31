@@ -14,7 +14,7 @@ At the end of this chapter you will know and understand:
 include::partial$prereq-cli.adoc[]
 
 [#eventing-assumptions]
-== Assumption
+== Assumptions
 
 You have completed the xref:ROOT:05-build/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates], as you will be using the container image `event-greeter:0.0.1` or `event-greeter:0.0.2`  in this chapter.
 

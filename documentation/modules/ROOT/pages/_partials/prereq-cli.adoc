@@ -36,7 +36,7 @@ oc version
 [source,bash]
 ----
 # right maven version Apache Maven 3.5.x or above
-./mvnw --version
+mvn --version
 ----
 
 * Make sure to be on `knativetutorial` OpenShift project/kubernetes namespace

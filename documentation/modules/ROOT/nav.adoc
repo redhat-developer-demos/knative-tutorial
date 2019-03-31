@@ -43,7 +43,7 @@
 ** xref:04-scaling.adoc#scaling-invoke-service[Invoke Service]
 ** xref:04-scaling.adoc#scaling-scale-to-zero[Scale to Zero]
 *** xref:04-scaling.adoc#scaling-observer-scale-to-zero[Observing default scale down ]
-*** xref:04-scaling.adoc#scaling-observer-scale-to-zero-1m[Change scale to zero time]
+*** xref:04-scaling.adoc#scaling-observer-scale-to-zero-1m[Change scale-to-zero time]
 *** xref:04-scaling.adoc#scaling-reset-to-defaults[Reset to Defaults]
 ** xref:04-scaling.adoc#scaling-auto-scaling[Auto Scaling]
 *** xref:04-scaling.adoc#scaling-autoscaling-deploy-service[Deploy Service]

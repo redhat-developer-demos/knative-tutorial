@@ -279,4 +279,4 @@ oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
 ----
 
-NOTE: You can also delete xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you dont need them any more.
+NOTE: You can also delete xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.
