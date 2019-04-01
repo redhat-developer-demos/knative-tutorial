@@ -81,9 +81,6 @@
     <a class="nav-link" href="../01-setup.html#start-minikube">Configure and Start minikube </a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../01-setup.html">Install Knative </a>
-  </li>
-  <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../01-setup.html#install-knative-istio">Install Istio </a>
   </li>
   <li class="nav-item" data-depth="4">
@@ -209,7 +206,7 @@
     <a class="nav-link" href="../04-scaling.html#scaling-observer-scale-to-zero">Observing default scale down </a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../04-scaling.html#scaling-observer-scale-to-zero-1m">Change scale to zero time</a>
+    <a class="nav-link" href="../04-scaling.html#scaling-observer-scale-to-zero-1m">Change scale-to-zero time</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../04-scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
@@ -597,7 +594,7 @@ oc project -q</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>As the Knative build and build template spec needs some customizations,such as creating a secret with your container registry credentials; we need to run following commands to create the needed kubernetes and knative resources with all your customizations. All the generated files will be placed in <code>$TUTORIAL_HOME/04-build/knative</code>.</p>
+<p>As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to run the following commands to create the needed kubernetes and Knative resources with all your customizations. All the generated files will be placed in <code>$TUTORIAL_HOME/04-build/knative</code>.</p>
 </div>
 </div>
 </div>
@@ -669,7 +666,7 @@ type: kubernetes.io/basic-auth</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>For more details on why we need to do this please check <a href="https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker">here</a>.</p>
+<p>For more details on why we need to do this please check <a href="https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker">here</a>.</p>
 </div>
 </div>
 </div>
@@ -677,7 +674,7 @@ type: kubernetes.io/basic-auth</code></pre>
 <h2 id="build-generate-build-spec"><a class="anchor" href="#build-generate-build-spec"></a>Generate Knative build spec</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The knative build spec is used to create and run the knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/build">here</a>.</p>
+<p>The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/docs/build">here</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -861,11 +858,11 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The kubernetes secret called <code>basic-auth-pass</code>, check <a href="https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker">here</a> for more details</td>
+<td>The kubernetes secret called <code>basic-auth-pass</code>, check <a href="https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker">here</a> for more details</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The kubernetes service account called <code>build-bot</code> that wll run the build.  Only <code>build-bot</code> as access to the secret <code>basic-auth-pass</code>. Check <a href="https://github.com/knative/docs/blob/master/build/auth.md#basic-authentication-docker">here</a> for more details</td>
+<td>The kubernetes service account called <code>build-bot</code> that will run the build.  Only <code>build-bot</code> has access to the secret <code>basic-auth-pass</code>. Check <a href="https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker">here</a> for more details</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>

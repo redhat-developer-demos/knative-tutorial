@@ -80,9 +80,6 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="#start-minikube">Configure and Start minikube </a>
   </li>
-  <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="01-setup.html">Install Knative </a>
-  </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="#install-knative-istio">Install Istio </a>
   </li>
@@ -209,7 +206,7 @@
     <a class="nav-link" href="04-scaling.html#scaling-observer-scale-to-zero">Observing default scale down </a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="04-scaling.html#scaling-observer-scale-to-zero-1m">Change scale to zero time</a>
+    <a class="nav-link" href="04-scaling.html#scaling-observer-scale-to-zero-1m">Change scale-to-zero time</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="04-scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
@@ -532,7 +529,13 @@
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://maven.apacge.org">Apache Maven</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>git</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/mac" class="bare">https://git-scm.com/download/mac</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install git</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://maven.apache.org">Apache Maven</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install maven</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install maven</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -558,13 +561,13 @@
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/JoeDog/siege">siege</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install siege</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/JoeDog/siege" class="bare">https://github.com/JoeDog/siege</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install siege</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">it will be pre-installed</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install procps-ng</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -581,7 +584,7 @@
 <h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before we start to setting up the environment, lets clone the tutorial sources and call the cloned folder as <code>$TUTORIAL_HOME</code></p>
+<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -589,7 +592,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>work</code> folder in <code>$TUTORIAL_HOME</code> can be used to download the demo application resources and refer them during the exercises. The <code>work</code> folder has a README, which has instructions on source code repo and git commands to clone the sources.</p>
+<p>The <code>work</code> folder in <code>$TUTORIAL_HOME</code> can be used to download the demo application resources and refer to them during the exercises. The <code>work</code> folder has a README with instructions on the source code repo and git commands to clone the sources.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -631,7 +634,7 @@
 <div class="sect3">
 <h4 id="start-minikube"><a class="anchor" href="#start-minikube"></a>Configure and Start minikube</h4>
 <div class="paragraph">
-<p>Before installing Knative and its components, we need to add few startup config to minikube.</p>
+<p>Before installing Knative and its components, we need to create the minikube virtual machine and deploy Kubernetes into it:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -660,7 +663,7 @@ minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>If you are on linux then use <code>--vm-driver=kvm2</code></td>
+<td>On macOS. On Linux, please use <code>--vm-driver=kvm2</code></td>
 </tr>
 </table>
 </div>
@@ -681,7 +684,7 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/v0
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Installation of istio components will take some time and its highly recommended that you start Knative components installation only after you see all istio component pods are running. The istio pods can be watched using the command:</p>
+<p>Installation of istio components will take some time and it is highly recommended that you start Knative components installation only after you have verified that all istio component pods are running. The istio pods can be watched using the command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -696,7 +699,7 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/v0
 </table>
 </div>
 <div class="paragraph">
-<p>A successful istio install will have the pods running in <code>istio-system</code> namespace as shown below:</p>
+<p>A successful istio install will have the pods running in the <code>istio-system</code> namespace as shown below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -732,7 +735,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m<
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Installation of knative serving components will take some time, the status of the knative serving pods can be watched using the command:</p>
+<p>As the Knative serving components are getting installed, you can watch their status using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -747,7 +750,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m<
 </table>
 </div>
 <div class="paragraph">
-<p>A successful Knative serving install will have the pods running in <code>knative-serving</code> as shown below:</p>
+<p>A successful Knative serving installation will have its pods running in the <code>knative-serving</code> namespace as shown below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -774,7 +777,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Installation of knative build components will take some time, the status of the  knative serving pods can be watched using the command:</p>
+<p>As the Knative build components are getting installed, you can watch their status using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -789,7 +792,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>A successful Knative build install will have the pods running in <code>knative-build</code> as shown below:</p>
+<p>A successful Knative build installation will have its pods running in the <code>knative-build</code> namespace as shown below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -816,7 +819,7 @@ kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serv
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Installation of knative eventing components will take some time, the status of the  knative serving pods can be watched using the command:</p>
+<p>As the Knative eventing components are getting installed, you can watch their status using the following commands:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -832,7 +835,7 @@ kubectl -n knative-eventing get pods -w</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>A successful Knative eventing install will have the pods running <code>knative-eventing</code> and <code>knative-sources</code> in as shown below:</p>
+<p>A successful Knative eventing installation will have the following pods running in the <code>knative-eventing</code> and <code>knative-sources</code> namespaces:</p>
 </div>
 <div class="listingblock">
 <div class="title">knative-eventing namespace</div>
@@ -871,7 +874,7 @@ controller-manager-0   1/1     Running   0          6h35m</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>kubens utility installed as part of <a href="https://github.com/ahmetb/kubectx">kubectx</a>, allows change the kubernetes namespace easily.</p>
+<p>The kubens utility installed as part of <a href="https://github.com/ahmetb/kubectx">kubectx</a> allows for easy switching between kubernetes namespaces.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -927,7 +930,7 @@ cd knative-operators</code></pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It will create a minishift profile and install knative.  It also assumes that you already have minishift and your computer has 10GB or more of memory</td>
+<td>It will create a minishift profile and install Knative. It also assumes that you already have minishift and your computer has 10GB or more of memory.</td>
 </tr>
 </table>
 </div>
@@ -957,7 +960,7 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 <h2 id="setup-work-folder"><a class="anchor" href="#setup-work-folder"></a>Work folder</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The work folder i.e <code>$TUTORIAL_HOME/work</code> can be used as a work directory during the build. The README in the work folder as the GitHub repository links of the applications <code>greeter</code> and <code>event-greeter</code> that will be used in various exercises.</p>
+<p>The work folder i.e <code>$TUTORIAL_HOME/work</code> can be used as a work directory during the build. The README in the work folder has the GitHub repository links of the applications <code>greeter</code> and <code>event-greeter</code> that will be used in various exercises.</p>
 </div>
 </div>
 </div>
