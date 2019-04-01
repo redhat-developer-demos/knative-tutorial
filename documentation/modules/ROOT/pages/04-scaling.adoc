@@ -310,11 +310,11 @@ watch oc get pods -n knativetutorial
 [#scaling-load-service]
 === Load the service
 
-We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 10s`) and test will run for 30 seconds (`-t 30S`)
+We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 30s (`-t 30s`)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-siege -r 1 -c 50 -t 30S -d 2 \
+siege -r 1 -c 50 -t 30S \
   -H "Host: greeter.knativetutorial.example.com" \
   "http://pass:[${IP_ADDRESS}]"
 ----
