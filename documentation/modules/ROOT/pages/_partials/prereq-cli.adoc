@@ -31,14 +31,6 @@ kubectl version
 oc version 
 ----
 
-* Make sure right maven version is used (only for Java exercises)
-
-[source,bash]
-----
-# right maven version Apache Maven 3.5.x or above
-./mvnw --version
-----
-
 * Make sure to be on `knativetutorial` OpenShift project/kubernetes namespace
 
 [source,bash]
