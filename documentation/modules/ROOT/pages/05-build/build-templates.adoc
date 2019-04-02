@@ -17,28 +17,22 @@ include::partial$prereq-cli.adoc[]
 
 [IMPORTANT]
 ====
-* Please ensure that you have xref:ROOT:05-build/build.adoc#build-registry-account[ registry account] created.
+* Please ensure that you have xref:ROOT:05-build/build.adoc#build-registry-account[container registry account] created.
+
+* xref:ROOT:05-build/build.adoc#build-set-env[Build environment variables] has been configured.
 
 * Pre-requisite xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[kubernetes resources] have been created and applied.
 ====
 
-[#build-template-generate-template]
-=== Generate build template 
-
-Navigate to the tutorial chapter's `templates` folder:
+[#build-template-template]
+=== Knative build template 
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/04-build/knative/templates
+cd $TUTORIAL_HOME/{build-repo}/knative
 ----
 
-[source,bash,subs="+macros,+attributes",linenums]
-----
-jsonnet link:{github-repo}/{build-repo}/knative/templates/maven-build-template.jsonnet[maven-build-template.jsonnet] \
-  | yq r - | tee ../maven-build-template.yaml
-----
-
-The above command will generate a knative build specification as shown below:
+For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages Kaniko to build and push the container image based on the Java application built using maven.
 
 [.text-center]
 .maven-build-template.yaml
@@ -50,46 +44,44 @@ metadata:
   name: build-java-maven
 spec:
   parameters: #<1>
-  - description: |
-      The name of the image to push.
-    name: IMAGE
-  - description: |
-      The context directory from where to run the build.
-    name: CONTEXT_DIR
+    - description: |
+        The name of the image to push.
+      name: IMAGE
+    - description: |
+        The context directory from where to run the build.
+      name: CONTEXT_DIR
   steps:
-  - args:
-    - clean
-    - package
-    - -Duser.home=/builder/home
-    - -Dimage=${IMAGE}
-    image: gcr.io/cloud-builders/mvn
-    name: build-maven
-    volumeMounts:
-    - mountPath: /builder/home/.m2
-      name: m2-cache
-    - mountPath: /cache
-      name: kaniko-cache
-    workingDir: /workspace/${CONTEXT_DIR}
-  - args:
-    - --context=/workspace/${CONTEXT_DIR}
-    - --dockerfile=/workspace/${CONTEXT_DIR}/Dockerfile
-    - --destination=${IMAGE}
-    env:
-    - name: DOCKER_CONFIG
-      value: /builder/home/.docker
-    image: gcr.io/kaniko-project/executor
-    name: docker-push
-    volumeMounts:
-    - mountPath: /cache
-      name: kaniko-cache
-    workingDir: /workspace/${CONTEXT_DIR}
+    - args:
+        - "/usr/local/bin/buildah.sh"
+      env:
+        - name: WORK_DIR
+          value: /workspace/${CONTEXT_DIR}
+        - name: DESTINATION_NAME
+          value: ${IMAGE}
+        # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
+        # speeds up the builds - the example below uses Nexus repo manager installed in host machine
+        # - name: MAVEN_MIRROR_URL
+        #  value: $http://192.168.64.1:8081/nexus/content/groups/public
+      image: quay.io/rhdevelopers/quarkus-java-builder
+      name: build-and-push
+      # needed for buildah builds to be running as containers
+      securityContext:
+        capabilities:
+          add: ["SYS_ADMIN"]
+      volumeMounts:
+        - mountPath: /root/.m2
+          name: m2-cache
+        - mountPath: /var/lib/containers
+          name: container-storage
+      workingDir: /workspace/${CONTEXT_DIR}
+  timeout: 60m
   volumes:
-  - name: m2-cache
-    persistentVolumeClaim:
-      claimName: m2-cache
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache
+    - name: m2-cache
+      persistentVolumeClaim:
+        claimName: m2-cache
+    - name: container-storage
+      hostPath:
+        path: /var/lib/containers
 ----
 
 <1> The build template does not have any hard-coded values, *the dynamic values could be passed using **parameters** of the template.
@@ -97,29 +89,16 @@ spec:
 The build done by the build steps of the template is exactly same like what was done by xref:ROOT:05-build/build.adoc#build-create-build[raw build], but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.
 
 [#build-template-generate-service]
-=== Generate Knative service
+=== Edit Knative service
 
-Run the following command to create the knative service that will use the image created by the `docker-build`.
-
-[source,bash,subs="+macros,+attributes",linenums]
-----
-jsonnet --ext-str contextDir='<the context dir within the application source>' \
-   --ext-str image='<the container image to use' \
-   link:{github-repo}/{build-repo}/knative/templates/service-with-build-template.jsonnet[service-with-build-template.jsonnet] \
-    | yq r - | tee ../service-with-build-template.yaml
-----
-
-(e.g.) 
+Run the following command to create the knative service that will use the image created by the Knative build template we defined earlier.
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-jsonnet --ext-str contextDir='java/springboot' \
-   --ext-str image='docker.io/demo/event-greeter:0.0.2' \
-   link:{github-repo}/{build-repo}/knative/templates/service-with-build-template.jsonnet[service-with-build-template.jsonnet] \
-    | yq r - | tee ../service-with-build-template.yaml
+pass:[ sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml ]
 ----
 
-Running the above command will result in the following knative service:
+Running the above command will result in the following knative service file:
 
 [.text-center]
 .service-with-build-template.yaml
@@ -146,7 +125,7 @@ spec:
               - name: IMAGE
                 value: docker.io/demo/event-greeter:0.0.2
               - name: CONTEXT_DIR
-                value: java/springboot
+                value: java/quarkus
             name: build-java-maven # <3>
           timeout: 20m
       revisionTemplate:
@@ -162,17 +141,12 @@ spec:
 <2> Passing the parameters required by the build template, not passing the required parameters will result in build validation failure
 <3> The name of the build template to use
 
+NOTE: The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values will be based on what you set in `setenv.sh`. For more details check the  xref:ROOT:05-build/build.adoc#build-set-env[Build environment variables] section.
+
 [#build-template-apply-resources]
 === Apply resources
 
 As we have already xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[applied the pre-req] resources, lets jump straight to applying the template and service.
-
-Navigate to the tutorial chapter's `knative` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/04-build/knative
-----
 
 [#build-template-create-template]
 == Create build template
@@ -218,10 +192,7 @@ oc apply -n knativetutorial -f service-with-build-template.yaml
 
 You can also xref:ROOT:05-build/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
 
-After successful deployment of the service we should see a kubernetes deployment called `event-greeter-00001-deployment` available.
-
-[.thumb]
-image::event-greeter-00001.png[Event Greeter Service]
+After successful deployment of the service we should see a kubernetes deployment like `event-greeter-8fvqf-deployment` available.
 
 [#build-template-invoke-service]
 == Invoke Service
@@ -257,8 +228,9 @@ The above command should return an response like:
 [source,json]
 ----
 {
-    "host": "Event greeter v0.0.2 => 'event-greeter-00001-deployment-67f96d589b-fgcj2' : 2 ",
-    "message": "test message"
+    "host": "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
+    "message": "test message",
+    "time": "15:54:45"
 }
 ----
 

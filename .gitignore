@@ -26,12 +26,7 @@ docs/output/*
 work/**/*
 !work/README.md
 #
-04-build/knative/*-build.yaml
-04-build/knative/*-build-template.yaml
-04-build/knaitve/maven-build-template.yaml
-04-build/knative/service*.yaml
-04-build/knative/docker-secret.yaml
-05-eventing/knative/service*.yaml
+04-build/knative/setenv.sh
 
 src/**
 pom.xml

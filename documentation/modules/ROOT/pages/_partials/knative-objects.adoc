@@ -75,15 +75,15 @@ oc -n knativetutorial get revisions.serving.knative.dev
 
 [source,bash]
 ----
-kubectl -n knativetutorial get builds.build.knative.dev docker-build
+kubectl -n knativetutorial get builds.build.knative.dev event-greeter-build
 ----
 
 .(OR)
 
 [source,bash,linenums]
 ----
-# get a knative builds called docker-build
-oc -n knativetutorial get builds.build.knative.dev docker-build
+# get a knative builds called event-greeter-build
+oc -n knativetutorial get builds.build.knative.dev event-greeter-build
 ----
 
 #end::knative-build[]

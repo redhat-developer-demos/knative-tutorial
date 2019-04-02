@@ -19,152 +19,129 @@ Its required that you have container registry account which is needed during the
 You can get one for free at https://hub.docker.com[Docker Hub]
 ====
 
-As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to run the following commands to create the needed kubernetes and Knative resources with all your customizations. All the generated files will be placed in `$TUTORIAL_HOME/04-build/knative`.
+As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to set the following environment variables before running the other commands of the section.
 
-[#build-create-docker-secret]
-== Generate Docker Secret
-A docker kubernetes secret is required for the build to authenticate with the Docker registry so that it can push the built container image to the registry.
-
-Navigate to the tutorial chapter's `templates` folder:
+Navigate to the `$TUTORIAL_HOME/{build-repo}/knative` folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/04-build/knative/templates
+cd $TUTORIAL_HOME/{build-repo}/knative
 ----
+
+[#build-set-env]
+== Configure build environment variables
+
+Copy file link:{github-repo}/{build-repo}/knative/setenv.sh.example[setenv.sh.example] to `setenv.sh`.
+
+Update the following environment variables as per your needs and customizations. 
+
+include::partial$build-env-vars.adoc[]
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-jsonnet --ext-str user='<your-docker-repo-userid>' \
-  --ext-str password='<your-docker-repo-user-password>' \
-    link:{github-repo}/{build-repo}/knative/templates/docker-secret.jsonnet[docker-secret.jsonnet] \
-   | yq r - | tee ../docker-secret.yaml
+source ./setenv.sh
 ----
 
-(e.g.)
+[#build-edit-cr-secret]
+== Edit Container Registry Secret
+A container registry secret is required for the build to authenticate with the container registry, so that it can build and push the image to the registry.
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-jsonnet --ext-str user='demo' \
-   --ext-str password='demopassword' \
-   link:{github-repo}/{build-repo}/knative/templates/docker-secret.jsonnet[docker-secret.jsonnet] \
-   | yq r - | tee ../docker-secret.yaml
+pass:[sed -i "s~\$registryUrl~${REGISTRY_URL}~g; s~\$username~${REGISTRY_USERNAME}~g; s~\$password~${REGISTRY_PASSWORD}~g" container-registry-secret.yaml]
 ----
 
 The above command will generate a kubernetes secret as shown below:
 
 [.text-center]
-.docker-secret.yaml
+.container-registry-secret.yaml
 [source,yaml,linenums]
 ----
 apiVersion: v1
 kind: Secret
 metadata:
   annotations:
-    build.knative.dev/docker-0: https://index.docker.io/v1/ #<1>
+    build.knative.dev/docker-0: https://index.docker.io/v1/ 
   name: basic-user-pass
 stringData:
-  password: demopassword #<2>
-  username: demo #<3>
+  password: demopassword
+  username: demo
 type: kubernetes.io/basic-auth
 ----
 
-<1> The username and password that are specified as part of this secret will be used for docker container registry available at https://index.docker.io/v1/
-<2> The username to use when authenticating with https://index.docker.io/v1/
-<3> The password to use when authenticating with https://index.docker.io/v1/
+NOTE: The above yaml has dummy values for username, password etc., the actual values will be based on the <<build-set-env,Build Environment Variables>>.
 
 For more details on why we need to do this please check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here].
 
-[#build-generate-build-spec]
-== Generate Knative build spec
-The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build https://github.com/knative/docs/tree/master/docs/build[here].
+[#build-edit-build-spec]
+== Edit Knative build spec
+The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build https://github.com/knative/docs/tree/master/docs/build[here]. In this example we will be using https://buildah.io[Buildah] to perform the build and push of of the container image.
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-jsonnet --ext-str contextDir='<the build context directory>' \
-  --ext-str image='<your-docker-image-name>' \
-   link:{github-repo}/{build-repo}/knative/templates/docker-build.jsonnet[docker-build.jsonnet] \
-    | yq r - | tee ../docker-build.yaml
+pass:[sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" event-greeter-build.yaml]
 ----
-
-(e.g.)
-
-[source,bash,subs="+macros,+attributes",linenums]
-----
-jsonnet --ext-str contextDir='java/springboot' \
-  --ext-str image='docker.io/demo/event-greeter:0.0.1' \ #<1>
-   link:{github-repo}/{build-repo}/knative/templates/docker-build.jsonnet[docker-build.jsonnet]\
-    | yq r - | tee ../docker-build.yaml
-----
-
-<1> In the example the destination container image will be pushed to the repository called `demo` in **hub.docker.com**. When you are creating the docker-build, be sure to update `demo` to the repository in your container registry where you want to push the built container image.
 
 The above command will generate a knative build specification as shown below:
 
 [.text-center]
-.docker-build.yaml
+.greeter-build.yaml
 [source,yaml]
 ----
 apiVersion: build.knative.dev/v1alpha1
 kind: Build
 metadata:
-  name: docker-build
+  name: greeter-build
 spec:
   serviceAccountName: build-bot
   source:
     git:
       revision: master
-      url: https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git <1>
-  steps: <2>
-  - args:
-    - --context=/workspace/java/springboot #<3>
-    - --dockerfile=/workspace/java/springboot/Dockerfile #<4>
-    - --destination=docker.io/demo/event-greeter:0.0.1 #<5>
-    env:
-    - name: DOCKER_CONFIG
-      value: /builder/home/.docker
-    image: gcr.io/kaniko-project/executor
-    name: docker-push
-    volumeMounts:
-    - mountPath: /builder/home/.m2
-      name: m2-cache
-    - mountPath: /cache
-      name: kaniko-cache
-    workingDir: /workspace/java/springboot
-  timeout: 20m
+      url: https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
+  steps:
+    - args:
+        - "/usr/local/bin/buildah.sh"
+      env:
+        - name: WORK_DIR
+          value: /workspace/java/quarkus
+        - name: DESTINATION_NAME
+          value: quay.io/workspace7/build-test:v0.0.1
+        # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
+        # speeds up the builds - the example below uses Nexus repo manager installed in host machine
+        # - name: MAVEN_MIRROR_URL
+        #  value: $http://192.168.64.1:8081/nexus/content/groups/public
+      image: quay.io/rhdevelopers/quarkus-java-builder
+      name: build-and-push
+      # needed for buildah builds to be running as containers
+      securityContext:
+        capabilities:
+          add: ["SYS_ADMIN"]
+      volumeMounts:
+        - mountPath: /root/.m2
+          name: m2-cache
+        - mountPath: /var/lib/containers
+          name: container-storage
+      workingDir: /workspace/java/quarkus
+  timeout: 60m
   volumes:
-  - name: m2-cache
-    persistentVolumeClaim:
-      claimName: m2-cache
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache
+    - name: m2-cache
+      persistentVolumeClaim:
+        claimName: m2-cache
+    - name: container-storage
+      hostPath:
+        path: /var/lib/containers
 ----
 
+NOTE: The above yaml has dummy values for --context, --destination etc., the actual values will be based on the <<build-set-env,Build Environment Variables>>.
 
-<1> The Git project repository which will be built as part of this build
-<2> Each build can have one or more steps, in this case its just one step
-<3> Set from `containerDir` parameter -- the sub directory relative to the root of the project from where the build will be run.  In this example it is the https://github.com/redhat-developer-demos/knative-tutorial-event-greeter/tree/master/java/springboot[java/springboot] --
-<4> The __Dockerfile__ is assumed to be in the root of the context directory
-<5> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry --
+[#build-edit-knative-service]
+== Edit Knative service
 
-[#build-generate-knative-service]
-== Generate Knative service
-
-Run the following command to create the knative service that will use the image created by the `docker-build`.
+Run the following command to create the knative service that will use the image created by the `event-greeter-build`.
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-jsonnet --ext-str image='<your-docker-image-name>' \
-   link:{github-repo}/{build-repo}/knative/templates/service.jsonnet[service.jsonnet]\
-   | yq r - | tee ../service-build.yaml
-----
-
-(e.g)
-[source,bash,subs="+macros,+attributes",linenums]
-----
-jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   link:{github-repo}/{build-repo}/knative/templates/service.jsonnet[service.jsonnet] \
-    | yq r - | tee ../service-build.yaml
+pass:[sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service.yaml]
 ----
 
 [.text-center]
@@ -184,20 +161,13 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.1 <1>
+            image: docker.io/demo/event-greeter:0.0.1
 ----
 
-<1> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry as part of the build --
+NOTE: The above yaml has dummy values for image, the actual values will be based on the <<build-set-env,Build Environment Variables>>.
 
 [#build-apply-prereq-resources]
 === Apply pre-requisite resources
-
-Navigate to the tutorial chapter's `knative` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/04-build/knative
-----
 
 Before we create the build and service, we need to create a few kubernetes resources that will be used by the build.
 
@@ -205,41 +175,41 @@ Run the following commands to create the pre-requisite resources:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n knativetutorial -f docker-secret.yaml
+kubectl apply -n knativetutorial -f container-registry-secret.yaml
 kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml]
 kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml]
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml]
+kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml]
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n knativetutorial -f docker-secret.yaml <1>
+oc apply -n knativetutorial -f container-registry-secret.yaml <1>
 oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] <2>
 oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] <3>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/kaniko-pvc.yaml[kaniko-pvc.yaml] <4>
+oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml] <4>
 ----
 
 
 <1> The kubernetes secret called `basic-auth-pass`, check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
 <2> The kubernetes service account called `build-bot` that will run the build.  Only `build-bot` has access to the secret `basic-auth-pass`. Check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
 <3> the kubernetes persistence volume claim used to cache maven artifacts, to make subsequent builds faster
-<4> the kubernetes persistence volume claim  that will be used to cache docker base images to make subsequent https://github.com/GoogleContainerTools/kaniko[Kaniko] docker builds faster
+<4> the kubernetes persistence volume claim  that will be used to mount and store the built contianer images
 
 [#build-create-build]
 == Create build 
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f docker-build.yaml
+kubectl apply -n knativetutorial -f event-greeter-build.yaml
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f docker-build.yaml
+oc apply -n knativetutorial -f event-greeter-build.yaml
 ----
 
 [#build-see-what-you-have-deployed]
@@ -256,16 +226,16 @@ The builds right now can't be started from the step where it has failed, you alw
 e.g. 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl delete -n knativetutorial -f docker-build.yaml
-kubectl apply -n knativetutorial -f docker-build.yaml
+kubectl delete -n knativetutorial -f event-greeter-build.yaml
+kubectl apply -n knativetutorial -f event-greeter-build.yaml
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc delete -n knativetutorial -f docker-build.yaml
-oc apply -n knativetutorial -f docker-build.yaml
+oc delete -n knativetutorial -f event-greeter-build.yaml
+oc apply -n knativetutorial -f event-greeter-build.yamll
 ----
 ====
 
@@ -297,10 +267,10 @@ The above command should return an output as shown below:
 [source,bash,subs="+macros,+attributes"]
 ----
 NAME                      READY     STATUS      RESTARTS   AGE
-docker-build-pod-ecc235   0/1       Completed   0          10m
+event-greeter-build-pod-cf0174   0/1       Completed   0          10m
 ----
 
-With this you should also be able to do `docker pull docker.io/demo/event-greeter:0.0.1` successfully.
+With this you should also be able to do pull your container images from the registry.
 
 [#build-deploy-service-build]
 == Deploy service using Build 
@@ -309,20 +279,17 @@ With a successful build you are ready to deploy the service, run the following c
 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service-build.yaml
+kubectl apply -n knativetutorial -f service.yaml
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service-build.yaml
+oc apply -n knativetutorial -f service.yaml
 ----
 
-After successful deployment of the service we should see a kubernetes deployment called `event-greeter-00001-deployment` available in the OpenShift dashboard:
-
-[.thumb]
-image::event-greeter-00001.png[Event Greeter Service]
+After successful deployment of the service we should see a kubernetes deployment like `event-greeter-8fvqf-deployment` available.
 
 [#build-invoke-service]
 == Invoke service 
@@ -358,9 +325,9 @@ The above command should return an response like:
 [source,json]
 ----
 {
-  "message":"test message",
-  "host":"Event greeter => 'event-greeter-00001-deployment-7446845c4c-f5r79' : 2 ",
-  "time":"22:10:44"
+    "host": "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
+    "message": "test message",
+    "time": "15:54:45"
 }
 ----
 
@@ -373,7 +340,7 @@ Before proceeding next chapter let us delete the build and service objects that 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
-kubectl -n knativetutorial delete builds.build.knative.dev docker-build
+kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build
 ----
 
 .(OR)
@@ -381,5 +348,5 @@ kubectl -n knativetutorial delete builds.build.knative.dev docker-build
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete builds.build.knative.dev docker-build
+oc -n knativetutorial delete builds.build.knative.dev event-greeter-build
 ----

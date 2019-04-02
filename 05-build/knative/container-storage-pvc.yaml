@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: kaniko-cache
+  name: container-storage
 spec:
   accessModes:
     - ReadWriteOnce
