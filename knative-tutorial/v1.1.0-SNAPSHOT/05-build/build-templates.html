@@ -251,13 +251,13 @@
     <a class="nav-link" href="build.html#build-prerequisite">Prerequisites</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-create-docker-secret">Generate Docker Secret</a>
+    <a class="nav-link" href="build.html#build-edit-cr-secret">Edit Container Registry Secret</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-generate-build-spec">Generate Build Spec</a>
+    <a class="nav-link" href="build.html#build-edit-build-spec">Edit Build Spec</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-generate-knative-service">Generate Knative service</a>
+    <a class="nav-link" href="build.html#build-edit-knative-service">Edit Knative service</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="build.html#build-apply-prereq-resources">Apply Resources</a>
@@ -296,20 +296,20 @@
     <a class="nav-link" href="#build-template-prerequisite">Prerequisites</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-template-generate-template">Generate build template</a>
+    <a class="nav-link" href="#build-template-template">Build template</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-template-generate-service">Generate Knative service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-template-apply-resources">Apply Resources</a>
+    <a class="nav-link" href="#build-template-edit-service">Edit Knative service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#build-template-create-template">Create Build Template</a>
+    <a class="nav-link" href="#build-template-apply-resources">Apply Resources</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#build-template-create-template">Create Build Template</a>
+  </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#build-see-what-you-have-deployed">See what you have deployed</a>
   </li>
@@ -592,7 +592,10 @@ oc project -q</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>Please ensure that you have <a href="build.html#build-registry-account" class="page"> registry account</a> created.</p>
+<p>Please ensure that you have <a href="build.html#build-registry-account" class="page">container registry account</a> created.</p>
+</li>
+<li>
+<p><a href="build.html#build-set-env" class="page">Build environment variables</a> has been configured.</p>
 </li>
 <li>
 <p>Pre-requisite <a href="build.html#build-apply-prereq-resources" class="page">kubernetes resources</a> have been created and applied.</p>
@@ -604,23 +607,14 @@ oc project -q</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="build-template-generate-template"><a class="anchor" href="#build-template-generate-template"></a>Generate build template</h3>
-<div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>templates</code> folder:</p>
-</div>
+<h3 id="build-template-template"><a class="anchor" href="#build-template-template"></a>Knative build template</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative/templates</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/maven-build-template.jsonnet">maven-build-template.jsonnet</a> \
-  | yq r - | tee ../maven-build-template.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-build/knative</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The above command will generate a knative build specification as shown below:</p>
+<p>For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages Kaniko to build and push the container image based on the Java application built using maven.</p>
 </div>
 <div class="listingblock text-center">
 <div class="title">maven-build-template.yaml</div>
@@ -631,46 +625,44 @@ metadata:
   name: build-java-maven
 spec:
   parameters: <i class="conum" data-value="1"></i><b>(1)</b>
-  - description: |
-      The name of the image to push.
-    name: IMAGE
-  - description: |
-      The context directory from where to run the build.
-    name: CONTEXT_DIR
+    - description: |
+        The name of the image to push.
+      name: IMAGE
+    - description: |
+        The context directory from where to run the build.
+      name: CONTEXT_DIR
   steps:
-  - args:
-    - clean
-    - package
-    - -Duser.home=/builder/home
-    - -Dimage=${IMAGE}
-    image: gcr.io/cloud-builders/mvn
-    name: build-maven
-    volumeMounts:
-    - mountPath: /builder/home/.m2
-      name: m2-cache
-    - mountPath: /cache
-      name: kaniko-cache
-    workingDir: /workspace/${CONTEXT_DIR}
-  - args:
-    - --context=/workspace/${CONTEXT_DIR}
-    - --dockerfile=/workspace/${CONTEXT_DIR}/Dockerfile
-    - --destination=${IMAGE}
-    env:
-    - name: DOCKER_CONFIG
-      value: /builder/home/.docker
-    image: gcr.io/kaniko-project/executor
-    name: docker-push
-    volumeMounts:
-    - mountPath: /cache
-      name: kaniko-cache
-    workingDir: /workspace/${CONTEXT_DIR}
+    - args:
+        - "/usr/local/bin/buildah.sh"
+      env:
+        - name: WORK_DIR
+          value: /workspace/${CONTEXT_DIR}
+        - name: DESTINATION_NAME
+          value: ${IMAGE}
+        # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
+        # speeds up the builds - the example below uses Nexus repo manager installed in host machine
+        # - name: MAVEN_MIRROR_URL
+        #  value: $http://192.168.64.1:8081/nexus/content/groups/public
+      image: quay.io/rhdevelopers/quarkus-java-builder
+      name: build-and-push
+      # needed for buildah builds to be running as containers
+      securityContext:
+        capabilities:
+          add: ["SYS_ADMIN"]
+      volumeMounts:
+        - mountPath: /root/.m2
+          name: m2-cache
+        - mountPath: /var/lib/containers
+          name: container-storage
+      workingDir: /workspace/${CONTEXT_DIR}
+  timeout: 60m
   volumes:
-  - name: m2-cache
-    persistentVolumeClaim:
-      claimName: m2-cache
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache</code></pre>
+    - name: m2-cache
+      persistentVolumeClaim:
+        claimName: m2-cache
+    - name: container-storage
+      hostPath:
+        path: /var/lib/containers</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -686,31 +678,17 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="build-template-generate-service"><a class="anchor" href="#build-template-generate-service"></a>Generate Knative service</h3>
+<h3 id="build-template-generate-service"><a class="anchor" href="#build-template-generate-service"></a>Edit Knative service</h3>
 <div class="paragraph">
-<p>Run the following command to create the knative service that will use the image created by the <code>docker-build</code>.</p>
+<p>Run the following command to create the knative service that will use the image created by the Knative build template we defined earlier.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='&lt;the context dir within the application source&gt;' \
-   --ext-str image='&lt;the container image to use' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/service-with-build-template.jsonnet">service-with-build-template.jsonnet</a> \
-    | yq r - | tee ../service-with-build-template.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml </code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>(e.g.)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='java/springboot' \
-   --ext-str image='docker.io/demo/event-greeter:0.0.2' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/service-with-build-template.jsonnet">service-with-build-template.jsonnet</a> \
-    | yq r - | tee ../service-with-build-template.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Running the above command will result in the following knative service:</p>
+<p>Running the above command will result in the following knative service file:</p>
 </div>
 <div class="listingblock text-center">
 <div class="title">service-with-build-template.yaml</div>
@@ -736,7 +714,7 @@ spec:
               - name: IMAGE
                 value: docker.io/demo/event-greeter:0.0.2
               - name: CONTEXT_DIR
-                value: java/springboot
+                value: java/quarkus
             name: build-java-maven <i class="conum" data-value="3"></i><b>(3)</b>
           timeout: 20m
       revisionTemplate:
@@ -764,19 +742,23 @@ spec:
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values will be based on what you set in <code>setenv.sh</code>. For more details check the  <a href="build.html#build-set-env" class="page">Build environment variables</a> section.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="build-template-apply-resources"><a class="anchor" href="#build-template-apply-resources"></a>Apply resources</h3>
 <div class="paragraph">
 <p>As we have already <a href="build.html#build-apply-prereq-resources" class="page">applied the pre-req</a> resources, lets jump straight to applying the template and service.</p>
-</div>
-<div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -839,12 +821,7 @@ oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</cod
 <p>You can also <a href="build.html#build-watching-logs" class="page">watch the logs</a> of the build triggered with the service deployment.</p>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>event-greeter-00001-deployment</code> available.</p>
-</div>
-<div class="imageblock thumb">
-<div class="content">
-<img src="../_images/event-greeter-00001.png" alt="Event Greeter Service">
-</div>
+<p>After successful deployment of the service we should see a kubernetes deployment like <code>event-greeter-8fvqf-deployment</code> available.</p>
 </div>
 </div>
 </div>
@@ -885,8 +862,9 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-    "host": "Event greeter v0.0.2 =&gt; 'event-greeter-00001-deployment-67f96d589b-fgcj2' : 2 ",
-    "message": "test message"
+    "host": "Event  greeter =&gt; 'event-greeter-rz7lz-pod-938e74' : 1",
+    "message": "test message",
+    "time": "15:54:45"
 }</code></pre>
 </div>
 </div>

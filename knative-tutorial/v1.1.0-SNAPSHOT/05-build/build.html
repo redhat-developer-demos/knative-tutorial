@@ -251,13 +251,13 @@
     <a class="nav-link" href="#build-prerequisite">Prerequisites</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-create-docker-secret">Generate Docker Secret</a>
+    <a class="nav-link" href="#build-edit-cr-secret">Edit Container Registry Secret</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-generate-build-spec">Generate Build Spec</a>
+    <a class="nav-link" href="#build-edit-build-spec">Edit Build Spec</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-generate-knative-service">Generate Knative service</a>
+    <a class="nav-link" href="#build-edit-knative-service">Edit Knative service</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#build-apply-prereq-resources">Apply Resources</a>
@@ -296,20 +296,20 @@
     <a class="nav-link" href="build-templates.html#build-template-prerequisite">Prerequisites</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build-templates.html#build-template-generate-template">Generate build template</a>
+    <a class="nav-link" href="build-templates.html#build-template-template">Build template</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build-templates.html#build-template-generate-service">Generate Knative service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build-templates.html#build-template-apply-resources">Apply Resources</a>
+    <a class="nav-link" href="build-templates.html#build-template-edit-service">Edit Knative service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="build-templates.html#build-template-create-template">Create Build Template</a>
+    <a class="nav-link" href="build-templates.html#build-template-apply-resources">Apply Resources</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="build-templates.html#build-template-create-template">Create Build Template</a>
+  </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="build-templates.html#build-see-what-you-have-deployed">See what you have deployed</a>
   </li>
@@ -594,74 +594,133 @@ oc project -q</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to run the following commands to create the needed kubernetes and Knative resources with all your customizations. All the generated files will be placed in <code>$TUTORIAL_HOME/04-build/knative</code>.</p>
+<p>As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to set the following environment variables before running the other commands of the section.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the <code>$TUTORIAL_HOME/05-build/knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-build/knative</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-create-docker-secret"><a class="anchor" href="#build-create-docker-secret"></a>Generate Docker Secret</h2>
+<h2 id="build-set-env"><a class="anchor" href="#build-set-env"></a>Configure build environment variables</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A docker kubernetes secret is required for the build to authenticate with the Docker registry so that it can push the built container image to the registry.</p>
+<p>Copy file <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/setenv.sh.example">setenv.sh.example</a> to <code>setenv.sh</code>.</p>
 </div>
 <div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>templates</code> folder:</p>
+<p>Update the following environment variables as per your needs and customizations.</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Build Environment Variables</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Variable</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Description</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Default Value</strong></th>
+<th class="tableblock halign-center valign-top"><strong>e.g.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_USERNAME</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry User Id that will be used to authenticate against the container registry <code>$REGISTRY_URL</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">demo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_PASSWORD</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry User Password that will be used to authenticate against the container registry <code>$REGISTRY_URL</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">demopassword</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry URL, defaults to <a href="https://index.docker.io" class="bare">https://index.docker.io</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://index.docker.io" class="bare">https://index.docker.io</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://quay.io/v2" class="bare">https://quay.io/v2</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">SOURCE_REPO_URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Source repository Git URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">SOURCE_REVISION</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Source revision</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">master</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">v1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Context directory within sources repository which will be used during build</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">java/quarkus</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DESTINATION_IMAGE_NAME</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The fully qualified image name that will be built</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">docker.io/foo/bar:v1.0</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative/templates</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source ./setenv.sh</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str user='&lt;your-docker-repo-userid&gt;' \
-  --ext-str password='&lt;your-docker-repo-user-password&gt;' \
-    <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/docker-secret.jsonnet">docker-secret.jsonnet</a> \
-   | yq r - | tee ../docker-secret.yaml</code></pre>
 </div>
 </div>
+<div class="sect1">
+<h2 id="build-edit-cr-secret"><a class="anchor" href="#build-edit-cr-secret"></a>Edit Container Registry Secret</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>(e.g.)</p>
+<p>A container registry secret is required for the build to authenticate with the container registry, so that it can build and push the image to the registry.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str user='demo' \
-   --ext-str password='demopassword' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/docker-secret.jsonnet">docker-secret.jsonnet</a> \
-   | yq r - | tee ../docker-secret.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i "s~\$registryUrl~${REGISTRY_URL}~g; s~\$username~${REGISTRY_USERNAME}~g; s~\$password~${REGISTRY_PASSWORD}~g" container-registry-secret.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The above command will generate a kubernetes secret as shown below:</p>
 </div>
 <div class="listingblock text-center">
-<div class="title">docker-secret.yaml</div>
+<div class="title">container-registry-secret.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
 kind: Secret
 metadata:
   annotations:
-    build.knative.dev/docker-0: https://index.docker.io/v1/ <i class="conum" data-value="1"></i><b>(1)</b>
+    build.knative.dev/docker-0: https://index.docker.io/v1/
   name: basic-user-pass
 stringData:
-  password: demopassword <i class="conum" data-value="2"></i><b>(2)</b>
-  username: demo <i class="conum" data-value="3"></i><b>(3)</b>
+  password: demopassword
+  username: demo
 type: kubernetes.io/basic-auth</code></pre>
 </div>
 </div>
-<div class="colist arabic">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The username and password that are specified as part of this secret will be used for docker container registry available at <a href="https://index.docker.io/v1/" class="bare">https://index.docker.io/v1/</a></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The username to use when authenticating with <a href="https://index.docker.io/v1/" class="bare">https://index.docker.io/v1/</a></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The password to use when authenticating with <a href="https://index.docker.io/v1/" class="bare">https://index.docker.io/v1/</a></td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above yaml has dummy values for username, password etc., the actual values will be based on the <a href="#build-set-env">Build Environment Variables</a>.
+</td>
 </tr>
 </table>
 </div>
@@ -671,127 +730,89 @@ type: kubernetes.io/basic-auth</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-generate-build-spec"><a class="anchor" href="#build-generate-build-spec"></a>Generate Knative build spec</h2>
+<h2 id="build-edit-build-spec"><a class="anchor" href="#build-edit-build-spec"></a>Edit Knative build spec</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/docs/build">here</a>.</p>
+<p>The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/docs/build">here</a>. In this example we will be using <a href="https://buildah.io">Buildah</a> to perform the build and push of of the container image.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='&lt;the build context directory&gt;' \
-  --ext-str image='&lt;your-docker-image-name&gt;' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/docker-build.jsonnet">docker-build.jsonnet</a> \
-    | yq r - | tee ../docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" event-greeter-build.yaml</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>(e.g.)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str contextDir='java/springboot' \
-  --ext-str image='docker.io/demo/event-greeter:0.0.1' \ <i class="conum" data-value="1"></i><b>(1)</b>
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/docker-build.jsonnet">docker-build.jsonnet</a>\
-    | yq r - | tee ../docker-build.yaml</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>In the example the destination container image will be pushed to the repository called <code>demo</code> in <strong>hub.docker.com</strong>. When you are creating the docker-build, be sure to update <code>demo</code> to the repository in your container registry where you want to push the built container image.</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>The above command will generate a knative build specification as shown below:</p>
 </div>
 <div class="listingblock text-center">
-<div class="title">docker-build.yaml</div>
+<div class="title">greeter-build.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: build.knative.dev/v1alpha1
 kind: Build
 metadata:
-  name: docker-build
+  name: greeter-build
 spec:
   serviceAccountName: build-bot
   source:
     git:
       revision: master
-      url: https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git <i class="conum" data-value="1"></i><b>(1)</b>
-  steps: <i class="conum" data-value="2"></i><b>(2)</b>
-  - args:
-    - --context=/workspace/java/springboot <i class="conum" data-value="3"></i><b>(3)</b>
-    - --dockerfile=/workspace/java/springboot/Dockerfile <i class="conum" data-value="4"></i><b>(4)</b>
-    - --destination=docker.io/demo/event-greeter:0.0.1 <i class="conum" data-value="5"></i><b>(5)</b>
-    env:
-    - name: DOCKER_CONFIG
-      value: /builder/home/.docker
-    image: gcr.io/kaniko-project/executor
-    name: docker-push
-    volumeMounts:
-    - mountPath: /builder/home/.m2
-      name: m2-cache
-    - mountPath: /cache
-      name: kaniko-cache
-    workingDir: /workspace/java/springboot
-  timeout: 20m
+      url: https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
+  steps:
+    - args:
+        - "/usr/local/bin/buildah.sh"
+      env:
+        - name: WORK_DIR
+          value: /workspace/java/quarkus
+        - name: DESTINATION_NAME
+          value: quay.io/workspace7/build-test:v0.0.1
+        # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
+        # speeds up the builds - the example below uses Nexus repo manager installed in host machine
+        # - name: MAVEN_MIRROR_URL
+        #  value: $http://192.168.64.1:8081/nexus/content/groups/public
+      image: quay.io/rhdevelopers/quarkus-java-builder
+      name: build-and-push
+      # needed for buildah builds to be running as containers
+      securityContext:
+        capabilities:
+          add: ["SYS_ADMIN"]
+      volumeMounts:
+        - mountPath: /root/.m2
+          name: m2-cache
+        - mountPath: /var/lib/containers
+          name: container-storage
+      workingDir: /workspace/java/quarkus
+  timeout: 60m
   volumes:
-  - name: m2-cache
-    persistentVolumeClaim:
-      claimName: m2-cache
-  - name: kaniko-cache
-    persistentVolumeClaim:
-      claimName: kaniko-cache</code></pre>
+    - name: m2-cache
+      persistentVolumeClaim:
+        claimName: m2-cache
+    - name: container-storage
+      hostPath:
+        path: /var/lib/containers</code></pre>
 </div>
 </div>
-<div class="colist arabic">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The Git project repository which will be built as part of this build</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Each build can have one or more steps, in this case its just one step</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Set from <code>containerDir</code> parameter&#8201;&#8212;&#8201;the sub directory relative to the root of the project from where the build will be run.  In this example it is the <a href="https://github.com/redhat-developer-demos/knative-tutorial-event-greeter/tree/master/java/springboot">java/springboot</a>&#8201;&#8212;&#8201;</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The <em>Dockerfile</em> is assumed to be in the root of the context directory</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry&#8201;&#8212;&#8201;</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above yaml has dummy values for --context, --destination etc., the actual values will be based on the <a href="#build-set-env">Build Environment Variables</a>.
+</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-generate-knative-service"><a class="anchor" href="#build-generate-knative-service"></a>Generate Knative service</h2>
+<h2 id="build-edit-knative-service"><a class="anchor" href="#build-edit-knative-service"></a>Edit Knative service</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run the following command to create the knative service that will use the image created by the <code>docker-build</code>.</p>
+<p>Run the following command to create the knative service that will use the image created by the <code>event-greeter-build</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/service.jsonnet">service.jsonnet</a>\
-   | yq r - | tee ../service-build.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>(e.g)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/templates/service.jsonnet">service.jsonnet</a> \
-    | yq r - | tee ../service-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service.yaml</code></pre>
 </div>
 </div>
 <div class="listingblock text-center">
@@ -810,27 +831,23 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+            image: docker.io/demo/event-greeter:0.0.1</code></pre>
 </div>
 </div>
-<div class="colist arabic">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above yaml has dummy values for image, the actual values will be based on the <a href="#build-set-env">Build Environment Variables</a>.
+</td>
 </tr>
 </table>
 </div>
 <div class="sect2">
 <h3 id="build-apply-prereq-resources"><a class="anchor" href="#build-apply-prereq-resources"></a>Apply pre-requisite resources</h3>
-<div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-build/knative</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>Before we create the build and service, we need to create a few kubernetes resources that will be used by the build.</p>
 </div>
@@ -839,19 +856,19 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f docker-secret.yaml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f container-registry-secret.yaml
 kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a>
 kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a>
-kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a></code></pre>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f container-registry-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
 oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a> <i class="conum" data-value="2"></i><b>(2)</b>
 oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> <i class="conum" data-value="3"></i><b>(3)</b>
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/kaniko-pvc.yaml">kaniko-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -870,7 +887,7 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>the kubernetes persistence volume claim  that will be used to cache docker base images to make subsequent <a href="https://github.com/GoogleContainerTools/kaniko">Kaniko</a> docker builds faster</td>
+<td>the kubernetes persistence volume claim  that will be used to mount and store the built contianer images</td>
 </tr>
 </table>
 </div>
@@ -882,13 +899,13 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
 </div>
 </div>
 </div>
@@ -900,14 +917,14 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <h3 id="build-show-knative-builds"><a class="anchor" href="#build-show-knative-builds"></a>build</h3>
 <div id="knative-build" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called docker-build
-oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called event-greeter-build
+oc -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -925,15 +942,15 @@ oc -n knativetutorial get builds.build.knative.dev docker-build</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n knativetutorial -f docker-build.yaml
-kubectl apply -n knativetutorial -f docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n knativetutorial -f event-greeter-build.yaml
+kubectl apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -n knativetutorial -f docker-build.yaml
-oc apply -n knativetutorial -f docker-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -n knativetutorial -f event-greeter-build.yaml
+oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 </div>
 </td>
@@ -967,17 +984,17 @@ oc apply -n knativetutorial -f docker-build.yaml</code></pre>
 <p>(e.g.)</p>
 </div>
 <div class="paragraph">
-<p>To watch the container logs of container <code>docker-push</code> within the build pod called <code>docker-build-pod-2a271e</code>:</p>
+<p>To watch the container logs of container <code>docker-push</code> within the build pod called <code>event-greeter-build-pod-2a271e</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial docker-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -995,23 +1012,23 @@ oc apply -n knativetutorial -f docker-build.yaml</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>(e.g.) the following command lists all the init container names of the pod <code>docker-build-pod-2986f2</code></p>
+<p>(e.g.) the following command lists all the init container names of the pod <code>event-greeter-build-pod-2986f2</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods docker-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Using <code>stern</code> you can watch logs of all the container of the build pod using  the command <code>stern docker-build-pod</code></p>
+<p>Using <code>stern</code> you can watch logs of all the container of the build pod using  the command <code>stern event-greeter-build-pod</code></p>
 </li>
 </ul>
 </div>
@@ -1047,11 +1064,11 @@ oc apply -n knativetutorial -f docker-build.yaml</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                      READY     STATUS      RESTARTS   AGE
-docker-build-pod-ecc235   0/1       Completed   0          10m</code></pre>
+event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>With this you should also be able to do <code>docker pull docker.io/demo/event-greeter:0.0.1</code> successfully.</p>
+<p>With this you should also be able to do pull your container images from the registry.</p>
 </div>
 </div>
 </div>
@@ -1063,22 +1080,17 @@ docker-build-pod-ecc235   0/1       Completed   0          10m</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a kubernetes deployment called <code>event-greeter-00001-deployment</code> available in the OpenShift dashboard:</p>
-</div>
-<div class="imageblock thumb">
-<div class="content">
-<img src="../_images/event-greeter-00001.png" alt="Event Greeter Service">
-</div>
+<p>After successful deployment of the service we should see a kubernetes deployment like <code>event-greeter-8fvqf-deployment</code> available.</p>
 </div>
 </div>
 </div>
@@ -1119,9 +1131,9 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-  "message":"test message",
-  "host":"Event greeter =&gt; 'event-greeter-00001-deployment-7446845c4c-f5r79' : 2 ",
-  "time":"22:10:44"
+    "host": "Event  greeter =&gt; 'event-greeter-rz7lz-pod-938e74' : 1",
+    "message": "test message",
+    "time": "15:54:45"
 }</code></pre>
 </div>
 </div>
@@ -1148,14 +1160,14 @@ the actual response&#8217;s host and time properties will be based on your envir
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
-kubectl -n knativetutorial delete builds.build.knative.dev docker-build</code></pre>
+kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete builds.build.knative.dev docker-build</code></pre>
+oc -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
 </div>
