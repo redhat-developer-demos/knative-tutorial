@@ -33,7 +33,7 @@ The logs will have the output like below printing every minute.
   "ID" : "1549548420001445196-715",
   "EventTime" : "2019-02-07T14:07:00.001470981Z",
   "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event greeter => 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
+  "host" : "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
   "time" : "14:07:00"
 }
 ----
@@ -45,7 +45,7 @@ The logs will have the output like below printing every minute.
   "ID" : "1549548420001445196-715",
   "EventTime" : "2019-02-07T14:07:00.001470981Z",
   "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event greeter v0.0.2 => 'event-greeter-00001-deployment-84f879ff6d-88rxb' : 3 ",
+  "host" : "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
   "time" : "14:07:00"
 }
 ----
