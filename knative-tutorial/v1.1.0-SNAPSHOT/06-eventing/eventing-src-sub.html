@@ -536,7 +536,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -847,7 +847,7 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative/templates</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative/templates</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -855,19 +855,7 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/templates/service.jsonnet">service.jsonnet</a>\
-   | yq r - | tee ../service.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>(e.g)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/templates/service.jsonnet">service.jsonnet</a> \
-    | yq r - | tee ../service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml </code></pre>
 </div>
 </div>
 <div class="listingblock text-center">
@@ -893,9 +881,12 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
+<td>Set from <code>${DESTINATION_IMAGE_NAME}</code> environment variable&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../05-build/build.html#build-set-env" class="page">Build Environment Variables</a></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -919,7 +910,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
 </div>
 </div>
 <div class="paragraph">

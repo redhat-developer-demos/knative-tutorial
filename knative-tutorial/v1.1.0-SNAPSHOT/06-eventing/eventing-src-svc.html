@@ -508,7 +508,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -628,31 +628,11 @@ cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running 
 <div class="sect2">
 <h3 id="eventing-gen-sink-service"><a class="anchor" href="#eventing-gen-sink-service"></a>Generate Sink Service</h3>
 <div class="paragraph">
-<p>Navigate to tutorial chapter&#8217;s <code>templates</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative/templates</code></pre>
-</div>
-</div>
-<div class="paragraph">
 <p>Run the following command to create the Knative service that will be used as the subscriber for the cron events:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='&lt;your-docker-image-name&gt;' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/templates/service.jsonnet">service.jsonnet</a>\
-   | yq r - | tee ../service.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>(e.g)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/templates/service.jsonnet">service.jsonnet</a> \
-    | yq r - | tee ../service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml </code></pre>
 </div>
 </div>
 <div class="listingblock text-center">
@@ -678,9 +658,12 @@ spec:
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set from <code>image</code> parameter&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
+<td>Set from <code>${DESTINATION_IMAGE_NAME}</code> environment variable&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Refer to <a href="../05-build/build.html#build-set-env" class="page">Build Environment Variables</a></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -690,7 +673,7 @@ spec:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you have skipped the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a> do not have the container image of <code>event-greeter</code>; then you can update the Knative serving service to use the pre-built event-greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1</code></p>
+<p>If you have skipped the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a> and dont have the container image of <code>event-greeter</code>; then you can update the Knative serving service to use the pre-built event-greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1</code></p>
 </div>
 </td>
 </tr>
@@ -699,14 +682,6 @@ spec:
 </div>
 <div class="sect2">
 <h3 id="eventing-deploy-sink-service"><a class="anchor" href="#eventing-deploy-sink-service"></a>Deploy Sink Service</h3>
-<div class="paragraph">
-<p>Navigate to tutorial chapter&#8217;s <code>knative</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>Run the following commands to create the service:</p>
 </div>
