@@ -43,7 +43,8 @@ gulp.task("watch", function() {
   let yaml_content = yaml.load(json_content);
   let dirs = yaml_content.content.sources.map(source => [
     `${source.url}/**/**.yml`,
-    `${source.url}/**/**.adoc`
+    `${source.url}/**/**.adoc`,
+    `${source.url}/**/**.hbs`
   ]);
   dirs.push(["dev-site.yml"]);
   gulp.watch(dirs, ["preview"]);

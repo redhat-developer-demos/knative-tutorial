@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# The Container Registry User Id
+REGISTRY_USERNAME=${REGISTRY_USERNAME:-'<your-docker-repo-userid>'}
+# The Container Registry User Password
+REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-'<your-docker-repo-user-password>'}
+# The Container Registry URL, defaults to https://index.docker.io
+REGISTRY_URL=${REGISTRY_URL:-'https://index.docker.io'}
+
+# The Source repository Git  URL default  https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
+SOURCE_REPO_URL=${SOURCE_REPO_URL:-' https://github.com/redhat-developer-demos/knative-tutorial-greeter.git'}
+# The Source revision defaults to master
+SOURCE_REVISION=${SOURCE_REVISION:-'master'}
+# The Context directory within sources repository which will be used during build
+CONTEXT_DIR=${CONTEXT_DIR:-'java/quarkus'}
+# The fully qualified image name e.g. docker.io/foo/bar:v1.0
+DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:'<your container registry url>'}

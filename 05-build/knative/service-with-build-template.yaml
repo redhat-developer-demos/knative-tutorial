@@ -1,0 +1,31 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: event-greeter
+spec:
+  runLatest:
+    configuration:
+      build:
+        apiVersion: build.knative.dev/v1alpha1
+        kind: Build
+        spec:
+          serviceAccountName: build-bot
+          source:
+            git:
+              revision: $sourceRevision
+              url: $sourceRepoUrl
+          template:
+            arguments:
+              - name: IMAGE
+                value: $destinationImageName
+              - name: CONTEXT_DIR
+                value: $contextDir
+            name: build-java-maven
+          timeout: 20m
+      revisionTemplate:
+        metadata:
+          labels:
+            app: event-greeter
+        spec:
+          container:
+            image: $destinationImageName
