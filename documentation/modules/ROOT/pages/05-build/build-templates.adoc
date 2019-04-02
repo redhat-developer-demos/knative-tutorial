@@ -88,7 +88,7 @@ spec:
 
 The build done by the build steps of the template is exactly same like what was done by xref:ROOT:05-build/build.adoc#build-create-build[raw build], but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.
 
-[#build-template-generate-service]
+[#build-template-edit-service]
 === Edit Knative service
 
 Run the following command to create the knative service that will use the image created by the Knative build template we defined earlier.

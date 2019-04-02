@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: event-greeter
 spec:
-  runLatest:
+  runLatest: 
     configuration:
       build:
         apiVersion: build.knative.dev/v1alpha1
