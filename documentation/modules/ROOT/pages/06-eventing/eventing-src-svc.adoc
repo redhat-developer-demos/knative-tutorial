@@ -10,7 +10,7 @@ Navigate to the tutorial chapter's `knative` folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/05-eventing/knative
+cd $TUTORIAL_HOME/{eventing-repo}/knative
 ----
 
 [#eventing-create-event-source]
@@ -107,29 +107,11 @@ cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running 
 [#eventing-gen-sink-service]
 === Generate Sink Service
 
-Navigate to tutorial chapter's `templates` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/05-eventing/knative/templates
-----
-
 Run the following command to create the Knative service that will be used as the subscriber for the cron events:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-
-jsonnet --ext-str image='<your-docker-image-name>' \
-   link:{github-repo}/{eventing-repo}/knative/templates/service.jsonnet[service.jsonnet]\
-   | yq r - | tee ../service.yaml
-----
-
-(e.g)
-[source,bash,subs="+macros,+attributes",linenums]
-----
-jsonnet --ext-str image='docker.io/demo/event-greeter:0.0.1' \
-   link:{github-repo}/{eventing-repo}/knative/templates/service.jsonnet[service.jsonnet] \
-    | yq r - | tee ../service.yaml
+pass:[ sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml ]
 ----
 
 [.text-center]
@@ -152,22 +134,17 @@ spec:
             image: docker.io/demo/event-greeter:0.0.1 <1>
 ----
 
-<1> Set from `image` parameter --  the fully qualified container image that will be pushed to the registry as part of the build --
+<1> Set from `${DESTINATION_IMAGE_NAME}` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
 
-[NOTE]
+Refer to xref:ROOT:05-build/build.adoc#build-set-env[Build Environment Variables]
+
+[NOTE,subs="macros+"]
 ====
-If you have skipped the xref:ROOT:05-build/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates] do not have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1`
+If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates] and dont have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1`
 ====
 
 [#eventing-deploy-sink-service]
 === Deploy Sink Service
-
-Navigate to tutorial chapter's `knative` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/05-eventing/knative
-----
 
 Run the following commands to create the service:
 

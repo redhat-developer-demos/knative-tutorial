@@ -11,4 +11,4 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/kameshsampath/event-greeter:0.0.1
+            image: $destinationImageName
