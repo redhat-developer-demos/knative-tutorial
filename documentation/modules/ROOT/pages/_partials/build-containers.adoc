@@ -6,33 +6,42 @@ If you have already cloned the repo and built the `greeter` service you can skip
 ====
 
 * Navigate to work folder
-[source,bash]
+
+[#navigate-to-work-folder]
+[source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/work
 ----
+copyToClipboard::navigate-to-work-folder[]
 
 * Clone the application source code 
 
-[source,bash]
+[#clone-greeter-sources]
+[source,bash,subs="+macros,+attributes"]
 ----
 git clone https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
 ----
+copyToClipboard::clone-greeter-sources[]
 
 * Build the application and container image 
 
-[source,bash,linenums]
+[#build-greeter]
+[source,bash,subs="+macros,+attributes"]
 ----
-cd knative-tutorial-greeter/java/springboot
-./mvnw clean package 
-docker build -t dev.local/rhdevelopers/greeter:0.0.1 .
+cd knative-tutorial-greeter/java/quarkus \
+./mvnw clean package \
+docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .
 ----
+copyToClipboard::build-greeter[]
 
 * Check if images are built and available:
 
-[source,bash]
+[#check-greeter-images]
+[source,bash,subs="+macros,+attributes"]
 ----
 docker images | grep dev.local
 ----
+copyToClipboard::check-greeter-images[]
 
 The above command should return something like as shown below:
 [source,bash]
@@ -44,19 +53,5 @@ TIP: You can also use the script `buildImage.sh` that will build source and crea
 # end::greeter[]
 
 # tag::event-greeter[]
-
-* Navigate to work folder
-[source,bash]
-----
-cd $TUTORIAL_HOME/work
-----
-
-* Clone the application source code 
-[source,bash]
-----
-git clone https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git
-----
-
-TIP: You can also use the script `buildImage.sh` that will build source and create the container image
 
 # end::event-greeter[]

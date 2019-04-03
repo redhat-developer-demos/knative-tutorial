@@ -4,7 +4,7 @@ metadata:
   name: greeter
 spec:
   traffic:
-    - revisionName: greeter-00001
+    - revisionName: $revision1
       percent: 50
-    - revisionName: greeter-00002
+    - revisionName: $revision2
       percent: 50

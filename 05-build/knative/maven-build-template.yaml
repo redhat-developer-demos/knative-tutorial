@@ -15,7 +15,7 @@ spec:
         - "/usr/local/bin/buildah.sh"
       env:
         - name: WORK_DIR
-          value: /workspace/${CONTEXT_DIR}
+          value: ${CONTEXT_DIR}
         - name: DESTINATION_NAME
           value: ${IMAGE}
         # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
@@ -33,7 +33,7 @@ spec:
           name: m2-cache
         - mountPath: /var/lib/containers
           name: container-storage
-      workingDir: /workspace/${CONTEXT_DIR}
+      workingDir: ${CONTEXT_DIR}
   timeout: 60m
   volumes:
     - name: m2-cache

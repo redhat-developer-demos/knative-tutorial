@@ -25,41 +25,44 @@ spec:
 <1> The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)
 <2> The channel provisioner which is responsible for provisioning this channel. Various messaging implementations provide their own channel(s) via __ClusterChannelProvisioner__.
 
-Navigate to tutorial chapter's `knative` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/{eventing-repo}/knative
-----
+include::partial$eventing-snippets.adoc[tag=eventing-nav-folder]
 
 Run the following commands to create the channel:
 
+[#eventing-run-source-sub]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 ----
+copyToClipboard::eventing-run-source-sub[]
 
-.(OR)
+**(OR)**
 
+[#eventing-run-oc-source-sub]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
 ----
+copyToClipboard::eventing-run-oc-source-sub[]
 
 [#eventing-verify-event-channel]
 ==== Verification
 
+[#eventing-run-verify-event-channel]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get channels.eventing.knative.dev 
+kubectl -n {tutorial-namespace} get channels.eventing.knative.dev 
 ----
+copyToClipboard::eventing-run-verify-event-channel[]
 
-.(OR)
+**(OR)**
 
+[#eventing-run-oc-verify-event-channel]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get channels.eventing.knative.dev 
+oc -n {tutorial-namespace} get channels.eventing.knative.dev 
 ----
+copyToClipboard::eventing-run-oc-verify-event-channel[]
 
 Running  the above command should return the following result:
 
@@ -106,32 +109,41 @@ When you xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs], you
 
 Run the following commands to create the event source resources:
 
+[#eventing-run-apply-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
 ----
+copyToClipboard::eventing-run-apply-event-src[]
 
-.(OR)
+**(OR)**
 
+[#eventing-run-oc-apply-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml] 
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml] 
 ----
+copyToClipboard::eventing-run-oc-apply-event-src[]
 
 [#eventing-verify-event-source]
 ==== Verification
 
+[#eventing-run-verify-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
+kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 ----
+copyToClipboard::eventing-run-verify-event-src[]
 
-.(OR)
+**(OR)**
 
+[#eventing-run-oc-verify-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev 
+oc -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 ----
+copyToClipboard::eventing-run-oc-verify-event-src[]
+
 Running  the above command should return the following result:
 
 [source,bash,subs="+macros,+attributes"]
@@ -140,28 +152,7 @@ NAME                       AGE
 event-greeter-cronjob-source  39s
 ----
 
-The conronjobsource also creates a service pod,
-
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl -n knativetutorial get pods 
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-oc -n knativetutorial get pods 
-----
-
-The above command will return an output like,
-
-[source,bash,subs="+macros,+attributes"]
-----
-NAME                                                          READY     STATUS    RESTARTS   AGE
-cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running   0          6m
-----
-
+include::partial$eventing-snippets.adoc[tag=cronjob-source]
 
 [#eventing-subscriber]
 == Event Subscriber
@@ -197,32 +188,40 @@ spec:
 
 Run the following commands to create the channel subscriber:
 
+[#eventing-run-create-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml] 
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml] 
 ----
+copyToClipboard::eventing-run-create-subscriber[]
 
-.(OR)
+**(OR)**
 
+[#eventing-run-oc-create-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
 ----
+copyToClipboard::eventing-run-oc-create-subscriber[]
 
 [#eventing-verify-subscriber]
 ==== Verification
 
+[#eventing-run-verify-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get subscriptions.eventing.knative.dev 
+kubectl -n {tutorial-namespace} get subscriptions.eventing.knative.dev 
 ----
+copyToClipboard::eventing-run-verify-subscriber[]
 
-.(OR)
+**(OR)**
 
+[#eventing-run-oc-verify-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get subscriptions.eventing.knative.dev 
+oc -n {tutorial-namespace} get subscriptions.eventing.knative.dev 
 ----
+copyToClipboard::eventing-run-oc-verify-subscriber[]
 
 Running  the above command should return the following result:
 
@@ -252,19 +251,14 @@ TIP: Add `-oyaml` to the above commands to get more details about each object th
 [#eventing-gen-subscriber-service]
 === Generate Subscriber Service
 
-Navigate to tutorial chapter's `templates` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/{eventing-repo}/knative/templates
-----
-
 Run the following command to create the knative service that will be used as the subscriber for the cron events:
 
+[#eventing-run-create-service]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-pass:[ sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml ]
+yq w -i service.yaml spec.runLatest.configuration.revisionTemplate.spec.container.image pass:[$DESTINATION_IMAGE_NAME]
 ----
+copyToClipboard::eventing-run-create-service[]
 
 [.text-center]
 .service.yaml
@@ -288,7 +282,7 @@ spec:
 
 <1> Set from `${DESTINATION_IMAGE_NAME}` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
 
-Refer to xref:ROOT:05-build/build.adoc#build-set-env[Build Environment Variables]
+Refer to xref:ROOT:{build-repo}/build.adoc#build-set-env[Build Environment Variables]
 
 [NOTE,subs="macros+"]
 ====
@@ -298,50 +292,52 @@ If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:{b
 [#eventing-deploy-subscriber-service]
 === Deploy Subscriber Service
 
-Navigate to tutorial chapter's `knative` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/{eventing-repo}/knative
-----
-
 Run the following commands to create the service:
 
+[#eventing-subscriber-deploy]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service.yaml 
+kubectl apply -n {tutorial-namespace} -f service.yaml 
 ----
+copyToClipboard::eventing-subscriber-deploy[]
 
-.(OR)
+**(OR)**
 
+[#eventing-subscriber-oc-deploy]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service.yaml 
+oc apply -n {tutorial-namespace} -f service.yaml 
 ----
+copyToClipboard::eventing-subscriber-oc-deploy[]
 
 You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to see the cron job source sending an event every 1 minute.
 
 [#eventing-cleanup]
 == Cleanup
 
+[#eventing-run-cleanup2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
-kubectl -n knativetutorial delete \
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+kubectl -n {tutorial-namespace} delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
-kubectl -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
-kubectl -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
+kubectl -n {tutorial-namespace} delete channels.eventing.knative.dev ch-event-greeter
+kubectl -n {tutorial-namespace} delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
 
-.(OR)
+copyToClipboard::eventing-run-cleanup2[]
 
+**(OR)**
+
+[#eventing-run-oc-cleanup2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete \
+oc -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+oc -n {tutorial-namespace} delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
-oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
-oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber
+oc -n {tutorial-namespace} delete channels.eventing.knative.dev ch-event-greeter
+oc -n {tutorial-namespace} delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
+copyToClipboard::eventing-run-oc-cleanup2[]
 
-NOTE: You can also delete xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.
+NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

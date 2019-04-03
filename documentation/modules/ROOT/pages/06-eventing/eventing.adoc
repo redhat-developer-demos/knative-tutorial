@@ -16,7 +16,12 @@ include::partial$prereq-cli.adoc[]
 [#eventing-assumptions]
 == Assumptions
 
-You have completed the xref:ROOT:05-build/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates], as you will be using the container image `event-greeter:0.0.1` or `event-greeter:0.0.2`  in this chapter.
+You have completed the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:{build-repo}/build-templates.adoc[Build Templates], as you will be using the container image `greeter:0.0.1` or `greeter:0.0.2`  in this chapter.
+
+[IMPORTANT,subs="marcos+,attributes+"]
+====
+Please ensure that you have set the needed environment variables as mentioned in xref:ROOT:{build-repo}/build.adoc#build-set-env[ Configure Environment Variables]
+====
 
 [#eventing-watch-logs]
 == Watching Logs
@@ -29,23 +34,21 @@ The logs will have the output like below printing every minute.
 
 [source]
 ----
-2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
-  "ID" : "1549548420001445196-715",
-  "EventTime" : "2019-02-07T14:07:00.001470981Z",
-  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
-  "time" : "14:07:00"
-}
+INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter => 'event-greeter-5cbh5-pod-52d8fb' : 1",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:50:07"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }
 ----
 [.text-center]
 (OR)
 [source]
 ----
-2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
-  "ID" : "1549548420001445196-715",
-  "EventTime" : "2019-02-07T14:07:00.001470981Z",
-  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
-  "time" : "14:07:00"
-}
+INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter => 'event-greeter-5cbh5-pod-52d8fb' : 2",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:51:00"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }
 ----

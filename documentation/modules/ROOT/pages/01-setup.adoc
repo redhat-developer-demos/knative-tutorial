@@ -1,7 +1,7 @@
 = Setup
 include::_attributes.adoc[]
 
-[#prerequisite]
+[[prerequisite]]
 == Prerequisite CLI tools
 
 The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
@@ -64,10 +64,12 @@ The following CLI tools are required for running the exercises in this tutorial.
 == Download Tutorial Sources
 Before we start setting up the environment, let's clone the tutorial sources and set the `TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
 
-[source,bash]
+[#cloneRepo]
+[source,bash,subs="+macros,+attributes"]
 ----
-git clone https://github.com/redhat-developer-demos/knative-tutorial
+git clone https://github.com/redhat-developer-demos/knative-tutorial 
 ----
+copyToClipboard::cloneRepo[]
 
 The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer to them during the exercises. The `work` folder has a README with instructions on the source code repo and git commands to clone the sources.
 
