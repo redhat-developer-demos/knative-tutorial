@@ -1,6 +1,6 @@
 = Knative Tutorial
 
-Serverless epitomize the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of server frameworks out there, Knative is the first serverless platform specifically designed for Kubernetes and OpenShift. 
+Serverless epitomizes the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of serverless frameworks out there, Knative is the first specifically designed for Kubernetes and OpenShift.
 
 > Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”
 
