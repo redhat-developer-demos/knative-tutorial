@@ -677,6 +677,51 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 </div>
 </div>
 <div class="sect1">
+<h2 id="scaling-modify-configmap"><a class="anchor" href="#scaling-modify-configmap"></a>Setting Configmap Defaults</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Knative v0.4.0 changed how the default configuration map values are set and provided.
+For the purposes of this section, lets apply a few defaults.</p>
+</div>
+<div class="listingblock text-center">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/autoscaling-configmap.yaml">autoscaling-configmap.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-autoscaler
+  labels:
+    serving.knative.dev/release: devel
+data:
+  scale-to-zero-grace-period: 30s
+  stable-window: 60s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>Knative</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/03-serving/knative</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The service can be deployed using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knative-serving -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/{serving-repo}/knative/autoscaling-configmap.yaml">autoscaling-configmap.yaml</a></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">(OR)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knative-serving -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/{serving-repo}/knative/autoscaling-configmap.yaml">autoscaling-configmap.yaml</a></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="scaling-deploy-service"><a class="anchor" href="#scaling-deploy-service"></a>Deploy Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
