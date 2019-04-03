@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-autoscaler
+  labels:
+    serving.knative.dev/release: devel
+data:
+  scale-to-zero-grace-period: 30s
+  stable-window: 60s
