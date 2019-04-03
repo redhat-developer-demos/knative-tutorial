@@ -18,6 +18,47 @@ include::partial$prereq-cli.adoc[]
 == Build Containers
 include::partial$build-containers.adoc[tag=greeter]
 
+[#scaling-modify-configmap]
+== Setting Configmap Defaults
+
+Knative v0.4.0 changed how the default configuration map values are set and provided.
+For the purposes of this section, lets apply a few defaults.
+
+[.text-center]
+.link:{github-repo}/{scaling-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+[source,yaml,linenums]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-autoscaler
+  labels:
+    serving.knative.dev/release: devel
+data:
+  scale-to-zero-grace-period: 30s
+  stable-window: 60s
+----
+Navigate to the tutorial chapter's `Knative` folder:
+
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/03-serving/knative
+----
+
+The service can be deployed using the command:
+
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply -n knative-serving -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+----
+
+.(OR)
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc apply -n knative-serving -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+----
+
 [#scaling-deploy-service]
 == Deploy Service
 
