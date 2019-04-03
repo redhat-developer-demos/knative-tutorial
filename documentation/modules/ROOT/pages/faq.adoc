@@ -17,11 +17,10 @@ if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
     INGRESSGATEWAY=istio-ingressgateway
 fi
 
-INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
 # calling a knative service named greeter
-curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
+curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS
 ----
 
 [#faq-q2]

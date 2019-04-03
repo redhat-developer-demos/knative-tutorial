@@ -356,7 +356,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 siege -r 1 -c 50 -t 30S \
-  -H "Host: greeter.knativetutorial.example.com" \
+  -H "Host:greeter.knativetutorial.example.com" \
   "http://pass:[${IP_ADDRESS}]"
 ----
 
