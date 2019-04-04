@@ -744,13 +744,13 @@ IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -762,13 +762,13 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -877,7 +877,7 @@ oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>When the service is invoked with <code>curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS</code>, you noticed that we added a <strong>Host</strong> header to the <code>curl</code> command with the value <code>greeter.knativetutorial.example.com</code>. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format <code>&lt;route-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</code>.</p>
+<p>When the service is invoked with <code>curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS</code>, you noticed that we added a <strong>Host</strong> header to the <code>curl</code> command with the value <code>greeter.knativetutorial.example.com</code>. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format <code>&lt;route-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

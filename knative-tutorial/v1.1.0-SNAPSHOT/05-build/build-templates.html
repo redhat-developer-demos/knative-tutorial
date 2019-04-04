@@ -843,7 +843,7 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host:event-greeter.knativetutorial.example.com" $IP_ADDRESS \
    -H "Content-Type: application/json" \
    -d '{"message": "test message"}'</code></pre>
 </div>
@@ -852,7 +852,7 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
-  'Host: event-greeter.knativetutorial.example.com'  \
+  'Host:event-greeter.knativetutorial.example.com'  \
    message="test message"</code></pre>
 </div>
 </div>
