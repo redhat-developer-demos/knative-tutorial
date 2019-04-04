@@ -24,7 +24,7 @@ Navigate to the tutorial chapter's `knative` folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/01-basics/knative
+cd $TUTORIAL_HOME/{basics-repo}/knative
 ----
 
 The following snippet shows how a Knative service YAML will look like:

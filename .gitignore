@@ -26,7 +26,7 @@ docs/output/*
 work/**/*
 !work/README.md
 #
-04-build/knative/setenv.sh
+**/setenv.sh
 
 src/**
 pom.xml

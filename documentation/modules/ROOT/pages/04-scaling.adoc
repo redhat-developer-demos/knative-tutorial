@@ -42,7 +42,7 @@ Navigate to the tutorial chapter's `Knative` folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/03-serving/knative
+cd $TUTORIAL_HOME/{scaling-repo}/knative
 ----
 
 The service can be deployed using the command:
@@ -88,7 +88,7 @@ Navigate to the tutorial chapter's `knative` folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/01-basics/knative
+cd $TUTORIAL_HOME/{basics-repo}/knative
 ----
 
 The service can be deployed using the command:
@@ -206,7 +206,7 @@ Navigate to the tutorial chapter's `knative` folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/03-scaling/knative
+cd $TUTORIAL_HOME/{scaling-repo}/knative
 ----
 
 [source,bash,subs="+macros,+attributes"]
