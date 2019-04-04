@@ -24,7 +24,7 @@ Navigate to the tutorial chapter's folder:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-cd $TUTORIAL_HOME/02-configs-and-routes
+cd $TUTORIAL_HOME/{configs-and-routes-repo}
 ----
 
 === Deploy Configuration revision 1
@@ -211,7 +211,7 @@ When deploying services with service object based approach, the service resource
 For the sake of clarity we will call greeter-00001 as **revision 1** and greeter-00002 as **revision 2**
 ====
 
-Before we start to apply routes, let us open a new terminal and run the following command `$TUTORIAL_HOME/02-configs-and-routes/bin/call.sh`, this command will keep sending requests to greeter route every two seconds which allows us to monitor the changes to the responses as we keep applying the route that will distribute the traffic between the available two revisions.
+Before we start to apply routes, let us open a new terminal and run the following command `$TUTORIAL_HOME/{configs-and-routes-repo}/bin/call.sh`, this command will keep sending requests to greeter route every two seconds which allows us to monitor the changes to the responses as we keep applying the route that will distribute the traffic between the available two revisions.
 
 [#crtd-all-rev1]
 === Send all traffic to revision 1
