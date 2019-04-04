@@ -7,7 +7,7 @@ IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-
 
 while true
 do
-  curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
+  curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS
   echo ""
   sleep .2
 done;

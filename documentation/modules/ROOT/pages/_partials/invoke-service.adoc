@@ -11,13 +11,13 @@ IP_ADDRESS="$({k8s-env} ip):$({k8s-cli} get svc $INGRESSGATEWAY --namespace isti
 #tag::call[]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
+curl -v -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS
 ----
 
 .(OR)
 
 [source,bash,subs="+macros,+attributes"]
 ----
-http $IP_ADDRESS 'Host: greeter.knativetutorial.example.com'
+http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'
 ----
 #end::call[]

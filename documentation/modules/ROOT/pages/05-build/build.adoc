@@ -306,7 +306,7 @@ include::ROOT:partial$invoke-service.adoc[tag=env]
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
+curl -H "Host:event-greeter.knativetutorial.example.com" $IP_ADDRESS \
    -H "Content-Type: application/json" \
    -d '{"message": "test message"}'
 ----
@@ -316,7 +316,7 @@ curl -H "Host: event-greeter.knativetutorial.example.com" $IP_ADDRESS \
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 http POST $IP_ADDRESS \
-  'Host: event-greeter.knativetutorial.example.com'  \
+  'Host:event-greeter.knativetutorial.example.com'  \
    message="test message"
 ----
 

@@ -134,7 +134,7 @@ include::partial$knative-objects.adoc[tag=knative-configs]
 === routes
 include::partial$knative-objects.adoc[tag=knative-routes]
 
-When the service is invoked with `curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS`, you noticed that we added a **Host** header to the `curl` command with the value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format `<route-name>.<namespace>.<domain-suffix>`.
+When the service is invoked with `curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS`, you noticed that we added a **Host** header to the `curl` command with the value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format `<route-name>.<namespace>.<domain-suffix>`.
 
 [NOTE]
 ====

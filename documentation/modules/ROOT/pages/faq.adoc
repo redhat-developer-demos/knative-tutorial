@@ -17,11 +17,10 @@ if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
     INGRESSGATEWAY=istio-ingressgateway
 fi
 
-INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
 # calling a knative service named greeter
-curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS 
+curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS
 ----
 
 [#faq-q2]
@@ -29,20 +28,20 @@ curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS
 
 .Tag Digest
 ***
-> Docker images wit v2 or later format has content addressable identifier called digest. The digest remains unchanged as long the underlying image content remains unchanged.
+> Docker images with v2 or later format have a content-addressable identifier called a `digest`. The digest is a hash of the image content, so images with the same digest are guaranteed to have idetical content.
 [.text-right]
 __**Source**: https://docs.docker.com/engine/reference/commandline/images/#list-image-digests__
 
 ***
 
-Let say you have a deployment like the following (note that resource definition have been trimmed for brevity):
+Given a deployment like the following (note that resource definitions have been trimmed for brevity):
 
 [source,yaml,linenums]
 ----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: helloworld 
+   name: helloworld
 spec:
   template:
     spec:
@@ -60,20 +59,19 @@ When you deploy this application in kubernetes, the deployment will look like:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: helloworld 
+   name: helloworld
 spec:
   template:
     spec:
        containers:
           - name: my-container
-            image: >-
-                   gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0
+            image: gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0
 . . .
 ----
 
-In the above example the container image name of the deployment  i.e. gcr.io/knative-samples/helloworld-go was resolved to its digest gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0. Kubernetes extracts the digest from the image manifest.  This process of resolving  image tag to its digest is informally called as “Tag to Digest”.
+The container image name `gcr.io/knative-samples/helloworld-go` was resolved to its digest `gcr.io/knative-samples/helloworld-go@sha256:98af362ceca8191277206b3b3854220ce125924b28a1166126296982e33882d0`. Kubernetes extracts the digest from the image manifest.  This process of resolving  image tag to its digest is informally called as “Tag to Digest”.
 
-Knative Serving deployments by default resolve the container images to digest during the deployment process. Knative Serving has been configured to skip the resolution of   image name/tag to image digest for registries ko.local and dev.local, which can be used for local development builds, as the underlying image content are subject to changes during the  development process.
+Knative Serving deployments, by default, resolve the container images to digest during the deployment process. Knative Serving has been configured to skip the resolution of image name/tag to image digest for registries ko.local and dev.local, which can be used for local development builds where the underlying image contents are subject to change during the  development process.
 
 [TIP]
 ====
@@ -84,10 +82,10 @@ The following command shows an example how to add a registry **my.docker.registr
 ```
 val=$(oc -n knative-serving get cm config-controller -oyaml | yq r - data.registriesSkippingTagResolving | awk '{print $1",my.docker.registry"}')
 
-oc -n knative-serving get cm config-controller -oyaml | yq w - data.registriesSkippingTagResolving $val | oc apply -f - 
+oc -n knative-serving get cm config-controller -oyaml | yq w - data.registriesSkippingTagResolving $val | oc apply -f -
 ```
 ====
 
 [#faq-q3]
-== What is revision simpler terms?
-In Knative serving, things are driven via a https://github.com/knative/serving/blob/master/docs/spec/spec.md#configuration[Configuration] to make a separation between code (container images) and config. One of the good practices in configuration management is that we should always be able to rollback the application state to any “last known good configuration”, to be able to allow this type of rollback Knative creates an unique revision for each and every configuration change.
+== What is a "revision" in simpler terms?
+A https://github.com/knative/serving/blob/master/docs/spec/overview.md#revision[Revision] is an immutable snapshot of code and configuration. Each change to an application's https://github.com/knative/serving/blob/master/docs/spec/overview.md#configuration[Configuration] creates a new *Revision*, which allows an application to be rolled back to any previous “known good configuration”.

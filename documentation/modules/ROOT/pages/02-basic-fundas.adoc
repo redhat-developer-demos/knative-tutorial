@@ -1,15 +1,16 @@
 = Basics and Fundamentals
 include::_attributes.adoc[]
 
-At the end of this chapter you will be able to understand and know how to :
+At the end of this chapter you will be able to :
 
-* Deploy first Knative service ?
-* Deploying multiple revisions of the service
-* What different service deployment strategies possible (service vs configurations/routes) ?
-* Always running latest vs pinning revision to services
+* Deploy a Knative service.
+* Deploy multiple revisions of a service.
+* Choose between different service deployment strategies.
+* Running different revisions of a service.
 
 [#basics-prerequisite]
-== Prerequisite 
+== Prerequisite
+
 include::partial$prereq-cli.adoc[]
 
 [#basics-build-containers]
@@ -102,7 +103,7 @@ include::partial$knative-objects.adoc[tag=knative-configs]
 === routes
 include::partial$knative-objects.adoc[tag=knative-routes]
 
-When the service was invoked with `curl -H "Host: greeter.knativetutorial.example.com" $IP_ADDRESS`,you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`,this FQDN is automatically assigned to your Knative service by the Knative Routes,it uses the format like `**<service-name>.<namespace>.<domain-suffix>**`.
+When the service was invoked with `curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS`,you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`,this FQDN is automatically assigned to your Knative service by the Knative Routes,it uses the format like `**<service-name>.<namespace>.<domain-suffix>**`.
 
 [NOTE]
 ====
