@@ -234,7 +234,7 @@ Let redeploy the greeter service by pinning it to the first revision that was cr
 [#run-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
-PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
+FIRST_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
 cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $FIRST_REVISION | kubectl -n {tutorial-namespace} apply -f -
 ----
 copyToClipboard::run-pinned-revision[]
@@ -244,7 +244,7 @@ copyToClipboard::run-pinned-revision[]
 [#run-oc-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
-PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
+FIRST_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
 cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $FIRST_REVISION | oc -n {tutorial-namespace}  apply -f -
 ----
 copyToClipboard::run-oc-pinned-revision[]
