@@ -1,13 +1,17 @@
-img.clippy {
-  margin-top: -3px;
-  position: relative;
-  top: 3px;
-}
-
-button.copybtn {
-  padding: 2px 6px;
+.copybtn {
+  background-color: #cc0000;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  font-size: 12px;
+  cursor: pointer !important;
+  outline: none;
   right: 4px;
   top: 4px;
   float: right;
-  cursor: pointer !important;
+}
+
+/* Darker background on mouse-over */
+.copybtn:hover {
+  background-color: #820000;
 }

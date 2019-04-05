@@ -1,5 +1,5 @@
 
-#tag:eventing-nav-folder[]
+# tag::eventing-nav-folder[]
 
 Navigate to the tutorial chapter's `knative` folder:
 
@@ -10,7 +10,7 @@ cd $TUTORIAL_HOME/{eventing-repo}/knative
 ----
 copyToClipboard::eventing-navigate-to-folder[]
 
-#end:eventing-nav-folder[]
+# end::eventing-nav-folder[]
 
 # tag::cronjob-source[]
 
