@@ -8,6 +8,7 @@
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
@@ -592,9 +593,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cloneRepo">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>The <code>work</code> folder in <code>$TUTORIAL_HOME</code> can be used to download the demo application resources and refer to them during the exercises. The <code>work</code> folder has a README with instructions on the source code repo and git commands to clone the sources.</p>
 </div>
@@ -651,9 +650,7 @@ minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2
   --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-minikube-start">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-minikube-start"><i class="fa fa-copy"></i></button><br/>
 <div class="colist arabic">
 <table>
 <tr>
@@ -683,9 +680,7 @@ minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2
 kubectl apply --filename https://github.com/knative/serving/releases/download/v0.4.0/istio.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-istio">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-istio"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -701,9 +696,7 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/v0
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n istio-system get pods -w</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-istio-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-istio-pods"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
 </div>
@@ -740,9 +733,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m<
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.4.0/serving.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-knative-serving">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-knative-serving"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -758,9 +749,7 @@ knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m<
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get pods -w</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-serving-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-serving-pods"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
 </div>
@@ -788,9 +777,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.4.0/build.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-knative-build">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-knative-build"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -806,9 +793,7 @@ webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-build get pods -w</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-build-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-build-pods"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
 </div>
@@ -836,9 +821,7 @@ kubectl apply --filename https://github.com/knative/eventing-sources/releases/do
 kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serving/v0.4.0/third_party/config/build/clusterrole.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.4.0/third_party/config/build/clusterrole.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-knative-eventing">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-install-knative-eventing"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -855,18 +838,14 @@ kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serv
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-sources get pods -w</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-sources-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-sources-pods"><i class="fa fa-copy"></i></button><br/>
 <div id="setup-watch-knative-eventing-pods" class="listingblock">
 <div class="title">Eventing</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-eventing get pods -w</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-eventing-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-eventing-pods"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
 </div>
@@ -906,9 +885,7 @@ controller-manager-0   1/1     Running   0          6h35m</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create namespace knativetutorial</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-knative-tutorial-ns">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-knative-tutorial-ns"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -924,9 +901,7 @@ controller-manager-0   1/1     Running   0          6h35m</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubens knativetutorial</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-knative-tutorial-kubens">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-knative-tutorial-kubens"><i class="fa fa-copy"></i></button><br/>
 </td>
 </tr>
 </table>
@@ -948,9 +923,7 @@ git clone <a href="https://github.com/openshift-cloud-functions/knative-operator
 cd knative-operators</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-ocp-kn-operator">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-ocp-kn-operator"><i class="fa fa-copy"></i></button><br/>
 <div class="sect3">
 <h4 id="install-knative-ocp"><a class="anchor" href="#install-knative-ocp"></a>OCP</h4>
 <div class="paragraph">
@@ -961,9 +934,7 @@ cd knative-operators</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install.sh</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-ocp-kn-operator">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-ocp-kn-operator"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If you need more details about the installation or customizations refer <a href="https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md">Knative with OpenShift</a>.</p>
 </div>
@@ -978,9 +949,7 @@ cd knative-operators</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install-on-minishift.sh <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-ocp-kn-operator-minishift">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-ocp-kn-operator-minishift"><i class="fa fa-copy"></i></button><br/>
 <div class="colist arabic">
 <table>
 <tr>
@@ -999,9 +968,7 @@ oc adm policy add-scc-to-user privileged -z default <i class="conum" data-value=
 oc adm policy add-scc-to-user anyuid -z default</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-ocp-project-config">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-ocp-project-config"><i class="fa fa-copy"></i></button><br/>
 <div class="colist arabic">
 <table>
 <tr>

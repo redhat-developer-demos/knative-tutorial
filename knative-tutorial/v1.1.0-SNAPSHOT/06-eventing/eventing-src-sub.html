@@ -8,6 +8,7 @@
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
@@ -533,6 +534,15 @@ spec:
 </table>
 </div>
 <div class="paragraph">
+<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+</div>
+<div id="eventing-navigate-to-folder" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
 <p>Run the following commands to create the channel:</p>
 </div>
 <div id="eventing-run-source-sub" class="listingblock">
@@ -540,9 +550,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-source-sub">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-source-sub"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -551,9 +559,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/channel.yaml">channel.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-source-sub">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-source-sub"><i class="fa fa-copy"></i></button><br/>
 <div class="sect3">
 <h4 id="eventing-verify-event-channel"><a class="anchor" href="#eventing-verify-event-channel"></a>Verification</h4>
 <div id="eventing-run-verify-event-channel" class="listingblock">
@@ -561,9 +567,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-event-channel">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-event-channel"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -572,9 +576,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-event-channel">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-event-channel"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Running  the above command should return the following result:</p>
 </div>
@@ -650,9 +652,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-apply-event-src">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-apply-event-src"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -661,9 +661,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source.yaml">event-source.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-apply-event-src">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-apply-event-src"><i class="fa fa-copy"></i></button><br/>
 <div class="sect3">
 <h4 id="eventing-verify-event-source"><a class="anchor" href="#eventing-verify-event-source"></a>Verification</h4>
 <div id="eventing-run-verify-event-src" class="listingblock">
@@ -671,9 +669,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-event-src">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-event-src"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -682,9 +678,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-event-src">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-event-src"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Running  the above command should return the following result:</p>
 </div>
@@ -702,9 +696,7 @@ event-greeter-cronjob-source  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-get-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-get-pods"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -713,9 +705,7 @@ event-greeter-cronjob-source  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-get-pods">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-get-pods"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>The above command will return an output like,</p>
 </div>
@@ -781,9 +771,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-create-subscriber">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-create-subscriber"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -792,9 +780,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/channel-subscriber.yaml">channel-subscriber.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-create-subscriber">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-create-subscriber"><i class="fa fa-copy"></i></button><br/>
 <div class="sect3">
 <h4 id="eventing-verify-subscriber"><a class="anchor" href="#eventing-verify-subscriber"></a>Verification</h4>
 <div id="eventing-run-verify-subscriber" class="listingblock">
@@ -802,9 +788,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-subscriber">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-subscriber"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -813,9 +797,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-subscriber">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-subscriber"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Running  the above command should return the following result:</p>
 </div>
@@ -836,9 +818,7 @@ event-greeter-subscriber  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-channel">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-channel"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -847,9 +827,7 @@ event-greeter-subscriber  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-channel">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-channel"><i class="fa fa-copy"></i></button><br/>
 </div>
 <div class="sect3">
 <h4 id="_sources"><a class="anchor" href="#_sources"></a>sources</h4>
@@ -858,9 +836,7 @@ event-greeter-subscriber  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-sources">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-sources"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -869,9 +845,7 @@ event-greeter-subscriber  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-sources">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-sources"><i class="fa fa-copy"></i></button><br/>
 </div>
 <div class="sect3">
 <h4 id="_subscription"><a class="anchor" href="#_subscription"></a>subscription</h4>
@@ -880,9 +854,7 @@ event-greeter-subscriber  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-subscribers">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-subscribers"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -891,9 +863,7 @@ event-greeter-subscriber  39s</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-subscribers">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-subscribers"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -923,9 +893,7 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i service.yaml spec.runLatest.configuration.revisionTemplate.spec.container.image $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-create-service">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-create-service"><i class="fa fa-copy"></i></button><br/>
 <div class="listingblock text-center">
 <div class="title">service.yaml</div>
 <div class="content">
@@ -981,9 +949,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-subscriber-deploy">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-subscriber-deploy"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -992,9 +958,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-subscriber-oc-deploy">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-subscriber-oc-deploy"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>You can <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a> to see the cron job source sending an event every 1 minute.</p>
 </div>
@@ -1013,9 +977,7 @@ kubectl -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
 kubectl -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-cleanup2">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-cleanup2"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1028,9 +990,7 @@ oc -n knativetutorial delete channels.eventing.knative.dev ch-event-greeter
 oc -n knativetutorial delete subscriptions.eventing.knative.dev event-greeter-subscriber</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-cleanup2">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-cleanup2"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>

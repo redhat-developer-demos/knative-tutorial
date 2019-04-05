@@ -8,6 +8,7 @@
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
@@ -541,9 +542,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -552,9 +551,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -567,9 +564,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -585,9 +580,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -600,9 +593,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
@@ -640,9 +631,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-build/knative</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages <a href="https://buildah.io">buildah</a> to build and push the container image based on the Java application built using maven.</p>
 </div>
@@ -721,9 +710,7 @@ yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spe
 yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-edit-service">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-edit-service"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Running the above command will result in the following knative service file:</p>
 </div>
@@ -808,9 +795,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f maven-build-template.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-create-template">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-create-template"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -819,9 +804,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f maven-build-template.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-create-template">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-create-template"><i class="fa fa-copy"></i></button><br/>
 <div class="sect2">
 <h3 id="build-see-what-you-have-deployed"><a class="anchor" href="#build-see-what-you-have-deployed"></a>See what you have deployed</h3>
 <div class="sect3">
@@ -831,9 +814,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-build-templates">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-build-templates"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -842,9 +823,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-build-templates">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-build-templates"><i class="fa fa-copy"></i></button><br/>
 </div>
 </div>
 </div>
@@ -863,9 +842,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-with-build-template.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-deploy-service">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-deploy-service"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -874,9 +851,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-with-build-template.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-deploy-service">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-deploy-service"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>You can also <a href="build.html#build-watching-logs" class="page">watch the logs</a> of the build triggered with the service deployment.</p>
 </div>
@@ -894,9 +869,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -906,9 +879,7 @@ IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-s
 IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div id="build-template-invoke-svc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
@@ -916,9 +887,7 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
    message="test message"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-invoke-svc">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-invoke-svc"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>The above command should return an response like:</p>
 </div>
@@ -939,9 +908,7 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-cleanup">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-cleanup"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -951,9 +918,7 @@ kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-ma
 oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-cleanup">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-cleanup"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>

@@ -8,6 +8,7 @@
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
@@ -1145,9 +1146,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1157,9 +1156,7 @@ IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-s
 IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>We need to know the knative service <code>cartoon-genre-router</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
 </div>

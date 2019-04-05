@@ -8,6 +8,7 @@
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
@@ -532,9 +533,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -543,9 +542,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -558,9 +555,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -576,9 +571,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -591,9 +584,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
@@ -628,9 +619,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-to-work-folder">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-to-work-folder"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -643,9 +632,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone <a href="https://github.com/redhat-developer-demos/knative-tutorial-greeter.git" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#clone-greeter-sources">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#clone-greeter-sources"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -660,9 +647,7 @@
 docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-greeter">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-greeter"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -675,9 +660,7 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker images | grep dev.local</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#check-greeter-images">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#check-greeter-images"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>The above command should return something like as shown below:</p>
 </div>
@@ -714,9 +697,7 @@ You can also use the script <code>buildImage.sh</code> that will build source an
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/03-configs-and-routes</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-crtd-folder">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-crtd-folder"><i class="fa fa-copy"></i></button><br/>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_1"><a class="anchor" href="#_deploy_configuration_revision_1"></a>Deploy Configuration revision 1</h3>
 <div class="paragraph">
@@ -755,9 +736,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev1.yaml">config/configuration-rev1.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-apply-config-rev1">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-apply-config-rev1"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -766,9 +745,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev1.yaml">config/configuration-rev1.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-oc-apply-config-rev1">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-oc-apply-config-rev1"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>After the deployment was successful, we should see a kubernetes deployment like <code>greeter-wlcn4-deployment</code>.</p>
 </div>
@@ -784,17 +761,13 @@ spec:
 IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div id="minikube-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-call">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-call"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -804,17 +777,13 @@ IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-s
 IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div id="minishift-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-call">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-call"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>The command will return <code>HTTP 404</code> as there are no routes deployed yet. Let us now deploy a route.</p>
 </div>
@@ -844,9 +813,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-apply-route-default">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-apply-route-default"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -855,9 +822,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-oc-apply-route-default">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-oc-apply-route-default"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><a href="#crtd-invoke-service">Invoking Service</a> now should return a response like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong></p>
 </div>
@@ -888,9 +853,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-services">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-services"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -899,9 +862,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-services">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-services"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>will throw an error as there are no knative services is deployed as part of the <em>configuration + routes</em> based deployment strategy.</p>
 </div>
@@ -913,9 +874,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-configs">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-configs"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -924,9 +883,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-configs">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-configs"><i class="fa fa-copy"></i></button><br/>
 </div>
 <div class="sect2">
 <h3 id="crtd-show-knative-routes"><a class="anchor" href="#crtd-show-knative-routes"></a>routes</h3>
@@ -935,9 +892,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-routes">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-routes"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -946,9 +901,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-routes">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-routes"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>When the service is invoked with <code>http $IP_ADDRESS "Host:greeter.knativetutorial.example.com"</code>, you noticed that we added a <strong>Host</strong> header to the <code>http</code> command with the value <code>greeter.knativetutorial.example.com</code>. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format <code>&lt;route-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</code>.</p>
 </div>
@@ -978,9 +931,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-config-revisions">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-config-revisions"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -989,9 +940,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-config-revisions">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-config-revisions"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -1057,9 +1006,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev2.yaml">config/configuration-rev2.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-apply-config-rev2">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-apply-config-rev2"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1068,9 +1015,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f  <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev2.yaml">config/configuration-rev2.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-apply-config-rev2">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-apply-config-rev2"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>After the deployment was successful we should see a kubernetes deployment like <code>greeter-tb57l-deployment</code>.</p>
 </div>
@@ -1108,9 +1053,7 @@ do
 done;</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-poll-sh">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-poll-sh"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -1135,9 +1078,7 @@ Copy and save the above contents to a script file e.g. <code>$TUTORIAL_HOME/work
 REVISION_2=`kubectl -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==3{print $1}'`</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-def-revisions">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-def-revisions"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1147,9 +1088,7 @@ REVISION_2=`kubectl -n knativetutorial get rev -l serving.knative.dev/configurat
 REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==3{print $1}'`</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-def-oc-revisions">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-def-oc-revisions"><i class="fa fa-copy"></i></button><br/>
 </div>
 <div class="sect2">
 <h3 id="crtd-all-rev1"><a class="anchor" href="#crtd-all-rev1"></a>Send all traffic to revision 1</h3>
@@ -1158,9 +1097,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-all-to-rev1">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-all-to-rev1"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1169,9 +1106,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-all-to-rev1">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-all-to-rev1"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If <a href="#crtd-poll-sh">poll the service</a> for some time,  you will notice the service always goes to your revision 1 e.g output will be something like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong>.</p>
 </div>
@@ -1183,9 +1118,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_to_revision.yaml">route/route_all_to_revision.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_2 | kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-all-to-rev2">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-all-to-rev2"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1194,9 +1127,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_to_revision.yaml">route/route_all_to_revision.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_2 | oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-all-to-rev2">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-all-to-rev2"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If <a href="#crtd-poll-sh">poll the service</a> for some time,  you will notice the service always goes to your revision 2 e.g output will be something like <strong>Namaste  greeter &#8658; '9be9ccd9a2e3' : 1</strong>.</p>
 </div>
@@ -1208,9 +1139,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | yq w - 'spec.traffic[1].revisionName' $REVISION_2 | kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-rev1-rev2-50">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-rev1-rev2-50"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1219,9 +1148,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | yq w - 'spec.traffic[1].revisionName' $REVISION_2 |  oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-rev1-rev2-50">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-rev1-rev2-50"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If <a href="#crtd-poll-sh">poll the service</a> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong> and <strong>Namaste  greeter &#8658; '9be9ccd9a2e3' : 1</strong>. You will also notice the traffic is distributed approximately 50% between the two revisions.</p>
 </div>
@@ -1233,9 +1160,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | yq w - 'spec.traffic[1].revisionName' $REVISION_2 | kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-rev1-rev2-75-25">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-rev1-rev2-75-25"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1244,9 +1169,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | yq w - 'spec.traffic[1].revisionName' $REVISION_2 |  oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-rev1-rev2-75-25">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-rev1-rev2-75-25"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If <a href="#crtd-poll-sh">poll the service</a> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong> and <strong>Namaste  greeter &#8658; '9be9ccd9a2e3' : 1</strong>. You will also notice the traffic is distributed approximately 75-25% between the two revisions.</p>
 </div>
@@ -1258,9 +1181,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | yq w - 'spec.traffic[1].revisionName' $REVISION_2 | kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-rev1-rev2-10-90">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-rev1-rev2-10-90"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1269,9 +1190,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a> | yq w - 'spec.traffic[0].revisionName' $REVISION_1 | yq w - 'spec.traffic[1].revisionName' $REVISION_2 |  oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-rev1-rev2-10-90">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-run-oc-rev1-rev2-10-90"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>If <a href="#crtd-poll-sh">poll the service</a> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong> and <strong>Namaste  greeter &#8658; '9be9ccd9a2e3' : 1</strong>. You will also notice the traffic is distributed approximately 75-25% between the two revisions.</p>
 </div>
@@ -1287,9 +1206,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 kubectl -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-cleanup">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-cleanup"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
@@ -1299,9 +1216,7 @@ kubectl -n knativetutorial delete routes.serving.knative.dev greeter</code></pre
 oc -n knativetutorial delete routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-oc-cleanup">
-      <img src="/_/img/clippy.svg" width="13">
-    </button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-run-oc-cleanup"><i class="fa fa-copy"></i></button><br/>
 </div>
 </div>
 </article>
