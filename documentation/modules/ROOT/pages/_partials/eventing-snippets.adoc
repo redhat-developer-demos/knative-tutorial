@@ -1,0 +1,43 @@
+
+#tag:eventing-nav-folder[]
+
+Navigate to the tutorial chapter's `knative` folder:
+
+[#eventing-navigate-to-folder]
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/{eventing-repo}/knative
+----
+copyToClipboard::eventing-navigate-to-folder[]
+
+#end:eventing-nav-folder[]
+
+# tag::cronjob-source[]
+
+The cronjob source also creates a service pod,
+
+[#eventing-run-get-pods]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get pods 
+----
+copyToClipboard::eventing-run-get-pods[]
+
+**(OR)**
+
+[#eventing-run-oc-get-pods]
+[source,bash,subs="+macros,+attributes"]
+----
+oc -n {tutorial-namespace} get pods 
+----
+copyToClipboard::eventing-run-oc-get-pods[]
+
+The above command will return an output like,
+
+[source,bash,subs="+macros,+attributes"]
+----
+NAME                                                          READY     STATUS    RESTARTS   AGE
+cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running   0          6m
+----
+
+#end::cronjob-source[]

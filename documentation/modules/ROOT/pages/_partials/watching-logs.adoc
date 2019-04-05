@@ -10,7 +10,7 @@ The logs could be watched using the command:
 kubectl logs -n {kube-ns} -f <pod-name> -c user-container
 ----
 
-.(OR)
+**(OR)**
 
 [source,bash,subs="+macros,+attributes"]
 ----

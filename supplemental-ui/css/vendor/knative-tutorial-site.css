@@ -1,0 +1,13 @@
+img.clippy {
+  margin-top: -3px;
+  position: relative;
+  top: 3px;
+}
+
+button.copybtn {
+  padding: 2px 6px;
+  right: 4px;
+  top: 4px;
+  float: right;
+  cursor: pointer !important;
+}

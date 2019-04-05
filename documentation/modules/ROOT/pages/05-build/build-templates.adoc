@@ -27,12 +27,9 @@ include::partial$prereq-cli.adoc[]
 [#build-template-template]
 === Knative build template 
 
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/{build-repo}/knative
-----
+include::partial$build-nav-folder.adoc[]
 
-For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages Kaniko to build and push the container image based on the Java application built using maven.
+For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages https://buildah.io[buildah] to build and push the container image based on the Java application built using maven.
 
 [.text-center]
 .maven-build-template.yaml
@@ -93,10 +90,16 @@ The build done by the build steps of the template is exactly same like what was 
 
 Run the following command to create the knative service that will use the image created by the Knative build template we defined earlier.
 
+[#build-template-run-edit-service]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-pass:[ sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml ]
+yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.template.arguments[0].value' pass:[$DESTINATION_IMAGE_NAME] && \
+yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.template.arguments[1].value' pass:["/workspace/$CONTEXT_DIR"] && \
+yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.source.git.url' pass:[$SOURCE_REPO_URL] && \
+yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.source.git.revision' pass:[$SOURCE_REVISION] && \
+yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' pass:[$DESTINATION_IMAGE_NAME]
 ----
+copyToClipboard::build-template-run-edit-service[]
 
 Running the above command will result in the following knative service file:
 
@@ -146,22 +149,26 @@ NOTE: The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual va
 [#build-template-apply-resources]
 === Apply resources
 
-As we have already xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[applied the pre-req] resources, lets jump straight to applying the template and service.
+As we have already xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[applied the pre-req] resources, lets jump straight to applying the template and service.
 
 [#build-template-create-template]
 == Create build template
 
+[#build-template-run-create-template]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f maven-build-template.yaml
+kubectl apply -n {tutorial-namespace} -f maven-build-template.yaml
 ----
+copyToClipboard::build-template-run-create-template[]
 
-.(OR)
+**(OR)**
 
+[#build-template-run-oc-create-template]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f maven-build-template.yaml
+oc apply -n {tutorial-namespace} -f maven-build-template.yaml
 ----
+copyToClipboard::build-template-run-oc-create-template[]
 
 [#build-see-what-you-have-deployed]
 === See what you have deployed
@@ -177,20 +184,23 @@ With build templates the automatic build may not be triggered unless and until s
 
 Run the following commands to deploy the service:
 
+[#build-template-run-deploy-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service-with-build-template.yaml
+kubectl apply -n {tutorial-namespace} -f service-with-build-template.yaml
 ----
+copyToClipboard::build-template-run-deploy-service[]
 
-.(OR)
+**(OR)**
 
+[#build-template-run-oc-deploy-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service-with-build-template.yaml
+oc apply -n {tutorial-namespace} -f service-with-build-template.yaml
 ----
+copyToClipboard::build-template-run-oc-deploy-service[]
 
-
-You can also xref:ROOT:05-build/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
+You can also xref:ROOT:{build-repo}/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
 
 After successful deployment of the service we should see a kubernetes deployment like `event-greeter-8fvqf-deployment` available.
 
@@ -201,54 +211,51 @@ After successful deployment of the service we should see a kubernetes deployment
 :k8s-cli: kubectl
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
-.(OR)
+**(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
-[source,bash,subs="+macros,+attributes",linenums]
-----
-curl -H "Host:event-greeter.knativetutorial.example.com" $IP_ADDRESS \
-   -H "Content-Type: application/json" \
-   -d '{"message": "test message"}'
-----
-
-.(OR)
-
+[#build-template-invoke-svc]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 http POST $IP_ADDRESS \
-  'Host:event-greeter.knativetutorial.example.com'  \
+  'Host:event-greeter.{tutorial-namespace}.example.com'  \
    message="test message"
 ----
+copyToClipboard::build-template-invoke-svc[]
 
 The above command should return an response like:
 
 [source,json]
 ----
 {
-    "host": "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
+    "host": "Event  greeter => 'event-greeter-5cbh5-pod-52d8fb' : 1",
     "message": "test message",
-    "time": "15:54:45"
+    "time": "05:34:05"
 }
 ----
 
 [#build-template-cleanup]
 === Cleanup
 
+[#build-template-run-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
-kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+kubectl -n {tutorial-namespace} delete buildtemplates.build.knative.dev build-java-maven
 ----
+copyToClipboard::build-template-run-cleanup[]
 
-.(OR)
+**(OR)**
 
+[#build-template-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven
+oc -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+oc -n {tutorial-namespace} delete buildtemplates.build.knative.dev build-java-maven
 ----
+copyToClipboard::build-template-run-oc-cleanup[]
 
-NOTE: You can also delete xref:ROOT:05-build/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.
+NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

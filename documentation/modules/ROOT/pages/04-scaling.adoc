@@ -40,24 +40,30 @@ data:
 ----
 Navigate to the tutorial chapter's `Knative` folder:
 
+[#scaling-navigate-to-folder]
 [source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/{scaling-repo}/knative
 ----
+copyToClipboard::scaling-navigate-to-folder[]
 
 The service can be deployed using the command:
 
+[#scaling-run-apply-cm]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply -n knative-serving -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
 ----
+copyToClipboard::scaling-run-apply-cm[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-apply-cm]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc apply -n knative-serving -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
 ----
+copyToClipboard::scaling-run-oc-apply-cm[]
 
 [#scaling-deploy-service]
 == Deploy Service
@@ -86,28 +92,32 @@ spec:
 
 Navigate to the tutorial chapter's `knative` folder:
 
+[#scaling-navigate-to-basics]
 [source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/{basics-repo}/knative
 ----
+copyToClipboard::scaling-navigate-to-basics[]
 
 The service can be deployed using the command:
 
+[#scaling-run-apply-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
+copyToClipboard::scaling-run-apply-service[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-apply-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
+copyToClipboard::scaling-run-oc-apply-service[]
 
-After the deployment was successful of the service we should see a kubernetes deployment called `greeter-00001-deployment`.
-
-image::greeter-00001.png[Greeter Service]
+After the deployment was successful of the service we should see a kubernetes deployment like `greeter-5nrtv-deployment`.
 
 [#scaling-invoke-service]
 == Invoke Service
@@ -116,13 +126,13 @@ image::greeter-00001.png[Greeter Service]
 :k8s-cli: kubectl
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
-.(OR)
+**(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
-The last `curl` command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
+The last `http` command should return a response like **Hi  greeter => '9be9ccd9a2e3' : 1**
 
 Check <<02-basic-fundas.adoc#see-what-you-have-deployed,deployed Knative resources>> for more details on which Knative objects and resources have been created with the service deployment above.
 
@@ -140,23 +150,27 @@ If another request tries to get to this revision, the activator will get it, ins
 
 The Knative autoscaler uses the config map **config-autoscaler** in the **knative-serving** namespace for autoscaling related properties. The values of the attribute `stable-window` and `scale-to-zero-grace-period`, which we've seen above, are part of this config map.
 
+[#scaling-set-env]
 [source,bash,subs="+macros,+attributes"]
 ----
 STABLE_WINDOW=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
- yq r - data.stable-window`
+ yq r - data.stable-window` \
 SCALE_TO_ZERO_GRACE_PERIOD=`kubectl -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.scale-to-zero-grace-period`
 ----
+copyToClipboard::scaling-set-env[]
 
-.(OR)
+**(OR)**
 
+[#scaling-oc-set-env]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 STABLE_WINDOW=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
- yq r - data.stable-window`
+ yq r - data.stable-window` \
 SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscaler -o yaml |
  yq r - data.scale-to-zero-grace-period`
 ----
+copyToClipboard::scaling-oc-set-env[]
 
 [.text-center]
 As described above, the time it takes to finally scale to zero will be `STABLE_WINDOW + SCALE_TO_ZERO_GRACE_PERIOD`.
@@ -172,21 +186,12 @@ As described above, the time it takes to finally scale to zero will be `STABLE_W
 
 For easier observation let us open a new terminal and run the following command,
 
-[source,bash,subs="+macros,+attributes"]
-----
-watch 'kubectl get pods -n knativetutorial'
-----
+include::partial$watch-scaling-pods.adoc[]
 
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-watch 'oc get pods -n knativetutorial'
-----
-
-TIP: Up- and downscaling can also be watched on the OpenShift dashboard by navigating to the `knativetutorial` project
+TIP: If you are on OpenShift up and downscaling can also be watched on using the OpenShift Web Console by navigating to the `{tutorial-namespace}` project
 
 Checking default values
+[#scaling-env-values-check]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 # should return 60s
@@ -194,6 +199,7 @@ echo $STABLE_WINDOW
 # should return 30s
 echo $SCALE_TO_ZERO_GRACE_PERIOD 
 ----
+copyToClipboard::scaling-env-values-check[]
 
 By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in `1 min 30 secs`(<<scale-to-zero-formulae,Compute scale-to-zero grace period>>).
 
@@ -204,38 +210,48 @@ Let us now update **scale-to-zero-grace-period** to `1m` and leave the **stable-
 
 Navigate to the tutorial chapter's `knative` folder:
 
+[#scaling-navigate-back]
 [source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/{scaling-repo}/knative
 ----
+copyToClipboard::scaling-navigate-back[]
 
+[#scaling-run-scale-to-zero-1m]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s link:{github-repo}/{scaling-repo}/knative/configure-scaling-to-1m.yaml[configure-scaling-to-1m.yaml] | kubectl apply -f -
 ----
+copyToClipboard::scaling-run-scale-to-zero-1m[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-scale-to-zero-1m]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s link:{github-repo}/{scaling-repo}/knative/configure-scaling-to-1m.yaml[configure-scaling-to-1m.yaml] | oc apply -f -
 ----
+copyToClipboard::scaling-run-oc-scale-to-zero-1m[]
 
 Verifying the `scale-to-zero-grace-period` value, which should return `1m`: 
 
+[#scaling-run-verify-scale-to-zero-1m]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knative-serving get configmap config-autoscaler -o yaml \
  | yq r - data.scale-to-zero-grace-period
 ----
+copyToClipboard::scaling-run-verify-scale-to-zero-1m[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-verify-scale-to-zero-1m]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
+copyToClipboard::scaling-run-oc-verify-scale-to-zero-1m[]
 
 Now <<scaling-invoke-service,firing the request>> to the greeter service will bring up the pod to serve the request again. Leaving it without any further requests, it will automatically scale to zero in `2 mins`(<<scale-to-zero-formulae,Compute scale-to-zero grace period>>)
 
@@ -244,36 +260,41 @@ Now <<scaling-invoke-service,firing the request>> to the greeter service will br
 
 Let us revert the `scale-to-zero-grace-period` to its default:
 
+[#scaling-run-reset-scale-to-zero]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s link:{github-repo}/{scaling-repo}/knative/configure-scaling-to-30s.yaml[configure-scaling-to-30s.yaml] | kubectl apply -f -
 ----
+copyToClipboard::scaling-run-reset-scale-to-zero[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-reset-scale-to-zero]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s link:{github-repo}/{scaling-repo}/knative/configure-scaling-to-30s.yaml[configure-scaling-to-30s.yaml] | oc apply -f -
 ----
-
+copyToClipboard::scaling-run-oc-reset-scale-to-zero[]
 
 Verifying the `scale-to-zero-grace-period` value, which should return `30s`: 
 
+[#run-verify-scale-to-zero-defaults]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-
 kubectl -n knative-serving get configmap config-autoscaler -o yaml \
  | yq r - data.scale-to-zero-grace-period
 ----
+copyToClipboard::run-verify-scale-to-zero-defaults[]
 
+**(OR)**
 
-.(OR)
-
+[#run-oc-verify-scale-to-zero-defaults]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 oc -n knative-serving get configmap config-autoscaler -o yaml \
   | yq r - data.scale-to-zero-grace-period
 ----
+copyToClipboard::run-oc-verify-scale-to-zero-defaults[]
 
 For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed Knative resources before going to next section.
 
@@ -317,52 +338,54 @@ spec:
 [#scaling-autoscaling-deploy-service]
 === Deploy service 
 
+[#scaling-run-autoscale-10]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
 ----
+copyToClipboard::scaling-run-autoscale-10[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-autoscale-10]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
 ----
+copyToClipboard::scaling-run-oc-autoscale-10[]
 
 [#scaling-autoscaling-invoke-service]
 === Invoke Service 
 
+:k8s-env: minikube
+:k8s-cli: kubectl
+include::partial$invoke-service.adoc[tag=env]
+
+**(OR)**
+
+:k8s-env: minishift
+:k8s-cli: oc
 include::partial$invoke-service.adoc[tag=env]
 
 Open a new terminal and run the following command:
 
-[source,bash,subs="+macros,+attributes"]
-----
-watch kubectl get pods -n knativetutorial
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-watch oc get pods -n knativetutorial
-----
+include::partial$watch-scaling-pods.adoc[]
 
 [#scaling-load-service]
 === Load the service
 
 We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 30s (`-t 30s`)
 
+[#scaling-run-siege]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 siege -r 1 -c 50 -t 30S \
   -H "Host:greeter.knativetutorial.example.com" \
   "http://pass:[${IP_ADDRESS}]"
 ----
+copyToClipboard::scaling-run-siege[]
 
-After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. You can also view the same via OpenShift dashboard as shown below:
-
-image::greeter-00001-scaled.png[Greeter Service]
+After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. 
 
 The autoscale pods is computed using the formula:
 
@@ -417,38 +440,27 @@ spec:
 <1> Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.
 <2> The deployment of this service will always have a minimum of 2 pods.
 
+[#scaling-run-min-scale]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
 ----
+copyToClipboard::scaling-run-min-scale[]
 
-.(OR)
+**(OR)**
 
+[#scaling-run-oc-min-scale]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
 ----
+copyToClipboard::scaling-run-min-scale[]
 
 After the deployment was successful we should see a kubernetes deployment called `greeter-00001-deployment` with **two** pods readily available.
 
-image::greeter-00001-minscale.png[Greeter Service]
-
-[.text-center]
-**OpenShift Dashboard Knative Tutorial project**
-
 Open a new terminal and run the following command :
 
-[source,bash,subs="+macros,+attributes"]
-----
-watch kubectl get pods -n knativetutorial
-----
-
-.(OR)
-
-[source,bash,subs="+macros,+attributes"]
-----
-watch oc get pods -n knativetutorial
-----
+include::partial$watch-scaling-pods.adoc[]
 
 Let us <<scaling-load-service,send some load to the service>> to trigger autoscaling.
 
@@ -457,14 +469,19 @@ When all requests are done and if we are beyond the `scale-to-zero-grace-period`
 [#scaling-cleanup]
 == Cleanup
 
+[#run-scaling-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial delete services.serving.knative.dev greeter
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
 ----
+copyToClipboard::run-scaling-cleanup[]
 
-.(OR)
+**(OR)**
 
+[#run-oc-scaling-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial delete services.serving.knative.dev greeter
+oc -n {tutorial-namespace} delete services.serving.knative.dev greeter
 ----
+copyToClipboard::run-oc-scaling-cleanup[]
+

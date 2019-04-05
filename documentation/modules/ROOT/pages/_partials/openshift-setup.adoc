@@ -5,22 +5,26 @@ For OpenShift Knative installations we will use the OpenShift Cloud Function's h
 
 Clone the Knative Operator sources locally:
 
-[source,bash,linenums]
+[#setup-ocp-kn-operator]
+[source,bash,subs="+macros,+attributes"]
 -----
-cd $TUTORIAL_HOME/work
-git clone https://github.com/openshift-cloud-functions/knative-operators
+cd $TUTORIAL_HOME/work \
+git clone https://github.com/openshift-cloud-functions/knative-operators \
 cd knative-operators
 -----
+copyToClipboard::setup-ocp-kn-operator[]
 
 [#install-knative-ocp]
 ==== OCP
 
 If you have an existing OpenShift cluster then run the following commands:
 
-[source,bash,linenums]
+[#run-ocp-kn-operator]
+[source,bash,subs="+macros,+attributes"]
 -----
 ./etc/scripts/install.sh
 -----
+copyToClipboard::run-ocp-kn-operator[]
 
 If you need more details about the installation or customizations refer https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md[Knative with OpenShift].
 
@@ -29,21 +33,25 @@ If you need more details about the installation or customizations refer https://
 
 Run the following commands to configure Knative with minishift:
 
-[source,bash,linenums]
+[#run-ocp-kn-operator-minishift]
+[source,bash,subs="+macros,+attributes"]
 -----
 ./etc/scripts/install-on-minishift.sh #<1>
 -----
+copyToClipboard::run-ocp-kn-operator-minishift[]
 
 <1> It will create a minishift profile and install Knative. It also assumes that you already have minishift and your computer has 10GB or more of memory.
 
 [#configure-openshift-project]
 ==== Configuring OpenShift project for Knative applications
 
-[source,bash,linenums]
+[#run-ocp-project-config]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc new-project knativetutorial
 oc adm policy add-scc-to-user privileged -z default #<1>
 oc adm policy add-scc-to-user anyuid -z default
 ----
+copyToClipboard::run-ocp-project-config[]
 
 <1> The `oc adm policy` adds the **privileged** https://docs.okd.io/3.10/admin_guide/manage_scc.html[Security Context Constraints(SCCs)]to the **default** Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in kubernetes.

@@ -4,14 +4,14 @@ The following command can be used to watch the log of a specific container withi
 
 [source,bash]
 ----
-kubectl logs -n knativetutorial <pod-name> -c <build-init-container-name>
+kubectl logs -n {tutorial-namespace} <pod-name> -c <build-init-container-name>
 ----
 
-.(OR)
+**(OR)**
 
 [source,bash]
 ----
-oc logs -n knativetutorial <pod-name> -c <build-init-container-name>
+oc logs -n {tutorial-namespace} <pod-name> -c <build-init-container-name>
 ----
 
 (e.g.)
@@ -20,14 +20,14 @@ To watch the container logs of container `docker-push` within the build pod call
 
 [source,bash]
 ----
-kubectl logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push
+kubectl logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push
 ----
 
-.(OR)
+**(OR)**
 
 [source,bash]
 ----
-oc logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push
+oc logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push
 ----
 
 [TIP]
@@ -38,14 +38,14 @@ oc logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-p
 
 [source,bash]
 ----
-kubectl -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
+kubectl -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
 ----
 
-.(OR)
+**(OR)**
 
 [source,bash]
 ----
-oc -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
+oc -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
 ----
 
 * Using `stern` you can watch logs of all the container of the build pod using  the command `stern event-greeter-build-pod`

@@ -3,40 +3,49 @@ The following checks ensures that each chapter exercises are done with right env
 
 * Make sure to be connected to minikube or minishift docker daemon and using right openshift client.
 
-[source,bash]
+[#minikube-set-env]
+[source,bash,subs="+macros,+attributes"]
 ----
 eval $(minikube docker-env)
 ----
+copyToClipboard::minikube-set-env[]
 
-.(OR)
+**(OR)**
 
-[source,bash]
+[#minishift-set-env]
+[source,bash,subs="+macros,+attributes"]
 ----
 eval $(minishift docker-env) && eval $(minishift oc-env)
 ----
+copyToClipboard::minishift-set-env[]
 
-* Make sure right OpenShift and kubernetes client are used.
+* Kubernetes should be v1.12+
 
-[source,bash]
+[#kubectl-version]
+[source,bash,subs="+macros,+attributes"]
 ----
-# kubernetes v1.12+
 kubectl version
 ----
+copyToClipboard::kubectl-version[]
 
-.(OR)
+**(OR)**
 
-[source,bash]
+** OpenShift CLI should be v3.11.0+
+
+[#oc-version]
+[source,bash,subs="+macros,+attributes"]
 ----
-# oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
 oc version 
 ----
+copyToClipboard::oc-version[]
 
 * Make sure to be on `knativetutorial` OpenShift project/kubernetes namespace
 
-[source,bash]
+[#right-openshift-project]
+[source,bash,subs="+macros,+attributes"]
 ----
-# verify to return knativetutorial
 oc project -q 
 ----
+copyToClipboard::right-openshift-project[]
 
-If you are not on `knativetutorial` project, use the command `oc project knativetutorial` to change to `knativetutorial` project
+If you are not on `{tutorial-namespace}` project, use the command `oc project {tutorial-namespace}` to change to `{tutorial-namespace}` project

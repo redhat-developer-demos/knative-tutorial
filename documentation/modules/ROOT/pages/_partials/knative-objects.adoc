@@ -1,175 +1,220 @@
 #tag::knative-services[]
+
 [#knative-services]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace}  get services.serving.knative.dev greeter 
+----
+copyToClipboard::knative-services[]
 
-[source,bash,linenums]
-----
-kubectl -n knativetutorial  get services.serving.knative.dev greeter 
-----
+**(OR)**
 
-.(OR)
-
-[source,bash,linenums]
+[#oc-knative-services]
+[source,bash,subs="+macros,+attributes"]
 ----
-# get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev greeter 
+oc -n {tutorial-namespace}  get services.serving.knative.dev greeter 
 ----
+copyToClipboard::oc-knative-services[]
 
 #end::knative-services[]
 
 #tag::knative-configs[]
+
 [#knative-configs]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get configurations.serving.knative.dev greeter
+----
+copyToClipboard::knative-configs[]
 
-[source,bash,linenums]
+**(OR)**
+[#oc-knative-configs]
+[source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial get configurations.serving.knative.dev greeter
+oc -n {tutorial-namespace} get configurations.serving.knative.dev greeter
 ----
-
-.(OR)
-
-[source,bash,linenums]
-----
-# get a Knative configuration called greeter
-oc -n knativetutorial get configurations.serving.knative.dev greeter
-----
+copyToClipboard::oc-knative-configs[]
 
 #end::knative-configs[]
 
 #tag::knative-routes[]
+
 [#knative-routes]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get routes.serving.knative.dev greeter
+----
+copyToClipboard::knative-routes[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get routes.serving.knative.dev greeter
-----
+**(OR)**
 
-.(OR)
-
-[source,bash,linenums]
+[#oc-knative-routes]
+[source,bash,subs="+macros,+attributes"]
 ----
-# get a Knative routes called greeter
-oc -n knativetutorial get routes.serving.knative.dev greeter
+oc -n {tutorial-namespace} get routes.serving.knative.dev greeter
 ----
+copyToClipboard::oc-knative-routes[]
 
 #end::knative-routes[]
 
 #tag::knative-revisions[]
+
 [#knative-revisions]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"
+----
+copyToClipboard::knative-revisions[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get revisions.serving.knative.dev
-----
+**(OR)**
 
-.(OR)
-
-[source,bash,linenums]
+[#oc-knative-revisions]
+[source,bash,subs="+macros,+attributes"]
 ----
-# get a Knative revisions called greeter you will see only one like greeter-00001
-oc -n knativetutorial get revisions.serving.knative.dev
+oc -n {tutorial-namespace} get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"
 ----
+copyToClipboard::oc-knative-revisions[]
 
 #end::knative-revisions[]
 
+#tag::knative-config-revisions[]
+
+[#knative-config-revisions]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}"
+----
+copyToClipboard::knative-config-revisions[]
+
+**(OR)**
+
+[#oc-knative-config-revisions]
+[source,bash,subs="+macros,+attributes"]
+----
+oc -n {tutorial-namespace} get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}"
+----
+copyToClipboard::oc-knative-config-revisions[]
+
+#end::knative-config-revisions[]
+
 #tag::knative-build[]
+
 [#knative-build]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get builds.build.knative.dev event-greeter-build
+----
+copyToClipboard::knative-build[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get builds.build.knative.dev event-greeter-build
-----
+**(OR)**
 
-.(OR)
-
-[source,bash,linenums]
+[#oc-knative-build]
+[source,bash,subs="+macros,+attributes"]
 ----
-# get a knative builds called event-greeter-build
-oc -n knativetutorial get builds.build.knative.dev event-greeter-build
+oc -n {tutorial-namespace} get builds.build.knative.dev event-greeter-build
 ----
+copyToClipboard::oc-knative-build[]
 
 #end::knative-build[]
 
 #tag::knative-build-templates[]
+
 [#knative-build-templates]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get buildtemplates.build.knative.dev build-java-maven
+----
+copyToClipboard::knative-build-templates[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
-----
+**(OR)**
 
-.(OR)
-
-[source,bash]
+[#oc-knative-build-templates]
+[source,bash,subs="+macros,+attributes"]
 ----
-# get a knative build template called  build-java-maven
-oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven
+oc -n {tutorial-namespace} get buildtemplates.build.knative.dev build-java-maven
 ----
+copyToClipboard::oc-knative-build-templates[]
 
 #end::knative-build-templates[]
 
 #tag::knative-event-channel[]
+
 [#knative-event-channel]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get channels.eventing.knative.dev ch-event-greeter
+----
+copyToClipboard::knative-event-channel[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
-----
+**(OR)**
 
-.(OR)
-
-[source,bash]
+[#oc-knative-event-channel]
+[source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get channels.eventing.knative.dev ch-event-greeter
+oc -n {tutorial-namespace} get channels.eventing.knative.dev ch-event-greeter
 ----
+copyToClipboard::oc-knative-event-channel[]
 
 #end::knative-event-channel[]
 
 #tag::knative-event-cronjob-sources[]
+
 [#knative-event-sources]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+----
+copyToClipboard::knative-event-sources[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
-----
+**(OR)**
 
-.(OR)
-
-[source,bash]
+[#oc-knative-event-sources]
+[source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
+oc -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
 ----
+copyToClipboard::oc-knative-event-sources[]
 
 #end::knative-event-cronjob-sources[]
 
 #tag::knative-event-subscribers[]
+
 [#knative-event-subscribers]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+copyToClipboard::knative-event-subscribers[]
 
-[source,bash]
-----
-kubectl -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
-----
+**(OR)**
 
-.(OR)
+[#oc-knative-event-subscribers]
+[source,bash,subs="+macros,+attributes"]
+----
+oc -n {tutorial-namespace} get subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+copyToClipboard::oc-knative-event-subscribers[]
 
-[source,bash]
-----
-oc -n knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
-----
 #end::knative-event-subscribers[]
 
 #tag::knative-event-services[]
+
 [#knative-services]
-
-[source,bash,linenums]
+[source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial  get services.serving.knative.dev event-greeter  
+kubectl -n {tutorial-namespace}  get services.serving.knative.dev event-greeter  
 ----
+copyToClipboard::knative-services[]
 
-.(OR)
+**(OR)**
 
-[source,bash,linenums]
+[#oc-knative-services]
+[source,bash,subs="+macros,+attributes"]
 ----
 # get a Knative Service (short name ksvc) called greeter
-oc -n knativetutorial  get services.serving.knative.dev event-greeter 
+oc -n {tutorial-namespace}  get services.serving.knative.dev event-greeter 
 ----
+copyToClipboard::oc-knative-services[]
+
 
 #end::knative-event-services[]

@@ -21,35 +21,41 @@ You can get one for free at https://hub.docker.com[Docker Hub]
 
 As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to set the following environment variables before running the other commands of the section.
 
-Navigate to the `$TUTORIAL_HOME/{build-repo}/knative` folder:
-
-[source,bash,subs="+macros,+attributes"]
-----
-cd $TUTORIAL_HOME/{build-repo}/knative
-----
+include::partial$build-nav-folder.adoc[]
 
 [#build-set-env]
 == Configure build environment variables
 
-Copy file link:{github-repo}/{build-repo}/knative/setenv.sh.example[setenv.sh.example] to `setenv.sh`.
+[#copy-set-env-sh]
+[source,bash,subs="+macros,+attributes"]
+----
+cp link:{github-repo}/{build-repo}/knative/setenv.sh.example[setenv.sh.example] setenv.sh
+----
+copyToClipboard::copy-set-env-sh[]
 
 Update the following environment variables as per your needs and customizations. 
 
 include::partial$build-env-vars.adoc[]
 
+[#source-set-env-sh]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-source ./setenv.sh
+source $TUTORIAL_HOME/{build-repo}/knative/setenv.sh
 ----
+copyToClipboard::source-set-env-sh[]
 
 [#build-edit-cr-secret]
 == Edit Container Registry Secret
 A container registry secret is required for the build to authenticate with the container registry, so that it can build and push the image to the registry.
 
+[#build-run-edit-cr-secret]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-pass:[sed -i "s~\$registryUrl~${REGISTRY_URL}~g; s~\$username~${REGISTRY_USERNAME}~g; s~\$password~${REGISTRY_PASSWORD}~g" container-registry-secret.yaml]
+yq w -i container-registry-secret.yaml 'metadata.annotations.[build.knative.dev/docker-0]' pass:[$REGISTRY_URL] && \
+yq w -i container-registry-secret.yaml stringData.username pass:[$REGISTRY_USERNAME] && \
+yq w -i container-registry-secret.yaml stringData.password pass:[$REGISTRY_PASSWORD]
 ----
+copyToClipboard::build-run-edit-cr-secret[]
 
 The above command will generate a kubernetes secret as shown below:
 
@@ -77,15 +83,21 @@ For more details on why we need to do this please check https://github.com/knati
 == Edit Knative build spec
 The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build https://github.com/knative/docs/tree/master/docs/build[here]. In this example we will be using https://buildah.io[Buildah] to perform the build and push of of the container image.
 
+[#build-run-edit-build-spec]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-pass:[sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" event-greeter-build.yaml]
+yq w -i event-greeter-build.yaml 'spec.steps[0].env[0].value' pass:["/workspace/$CONTEXT_DIR"] && \
+yq w -i event-greeter-build.yaml 'spec.steps[0].workingDir' pass:["/workspace/$CONTEXT_DIR"] && \
+yq w -i event-greeter-build.yaml 'spec.source.git.url' pass:[$SOURCE_REPO_URL] && \
+yq w -i event-greeter-build.yaml 'spec.source.git.revision' pass:[$SOURCE_REVISION] && \
+yq w -i event-greeter-build.yaml 'spec.steps[0].env[1].value' pass:[$DESTINATION_IMAGE_NAME] 
 ----
+copyToClipboard::build-run-edit-build-spec[]
 
 The above command will generate a knative build specification as shown below:
 
 [.text-center]
-.greeter-build.yaml
+.event-greeter-build.yaml
 [source,yaml]
 ----
 apiVersion: build.knative.dev/v1alpha1
@@ -139,10 +151,12 @@ NOTE: The above yaml has dummy values for --context, --destination etc., the act
 
 Run the following command to create the knative service that will use the image created by the `event-greeter-build`.
 
+[#build-run-edit-knative-service]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-pass:[sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service.yaml]
+yq w -i service.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' pass:[$DESTINATION_IMAGE_NAME] 
 ----
+copyToClipboard::build-run-edit-knative-service[]
 
 [.text-center]
 .service-build.yaml
@@ -173,23 +187,27 @@ Before we create the build and service, we need to create a few kubernetes resou
 
 Run the following commands to create the pre-requisite resources:
 
+[#build-run-apply-prereq-resources]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n knativetutorial -f container-registry-secret.yaml
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml]
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml]
-kubectl apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml]
+kubectl apply -n {tutorial-namespace} -f container-registry-secret.yaml && \#<1>
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] && \#<2>
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml]  && \#<3>
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml] #<4>
 ----
+copyToClipboard::build-run-apply-prereq-resources[]
 
-.(OR)
+**(OR)**
 
+[#build-run-oc-apply-prereq-resources]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n knativetutorial -f container-registry-secret.yaml <1>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] <2>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] <3>
-oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml] <4>
+oc apply -n {tutorial-namespace} -f container-registry-secret.yaml && \#<1>
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/build-sa.yaml[build-sa.yaml] && \#<2>
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/m2-pvc.yaml[m2-pvc.yaml] && \#<3>
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml] #<4>
 ----
+copyToClipboard::build-run-oc-apply-prereq-resources[]
 
 
 <1> The kubernetes secret called `basic-auth-pass`, check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
@@ -200,17 +218,21 @@ oc apply -n knativetutorial -f link:{github-repo}/{build-repo}/knative/container
 [#build-create-build]
 == Create build 
 
+[#build-run-create-build]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f event-greeter-build.yaml
+kubectl apply -n {tutorial-namespace} -f event-greeter-build.yaml
 ----
+copyToClipboard::build-run-create-build[]
 
-.(OR)
+**(OR)**
 
+[#build-run-oc-create-build]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f event-greeter-build.yaml
+oc apply -n {tutorial-namespace} -f event-greeter-build.yaml
 ----
+copyToClipboard::build-run-oc-create-build[]
 
 [#build-see-what-you-have-deployed]
 == See what you have deployed
@@ -226,16 +248,16 @@ The builds right now can't be started from the step where it has failed, you alw
 e.g. 
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl delete -n knativetutorial -f event-greeter-build.yaml
-kubectl apply -n knativetutorial -f event-greeter-build.yaml
+kubectl delete -n {tutorial-namespace} -f event-greeter-build.yaml
+kubectl apply -n {tutorial-namespace} -f event-greeter-build.yaml
 ----
 
-.(OR)
+**(OR)**
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc delete -n knativetutorial -f event-greeter-build.yaml
-oc apply -n knativetutorial -f event-greeter-build.yamll
+oc delete -n {tutorial-namespace} -f event-greeter-build.yaml
+oc apply -n {tutorial-namespace} -f event-greeter-build.yamll
 ----
 ====
 
@@ -252,14 +274,14 @@ You can check the status of build as shown below:
 
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl -n knativetutorial get pods
+kubectl -n {tutorial-namespace} get pods
 ----
 
-.(OR)
+**(OR)**
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial get pods
+oc -n {tutorial-namespace} get pods
 ----
 
 The above command should return an output as shown below:
@@ -277,17 +299,21 @@ With this you should also be able to do pull your container images from the regi
 
 With a successful build you are ready to deploy the service, run the following commands to deploy the service:
 
+[#build-run-deploy-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f service.yaml
+kubectl apply -n {tutorial-namespace} -f service.yaml
 ----
+copyToClipboard::build-run-deploy-service[]
 
-.(OR)
+**(OR)**
 
+[#build-run-oc-deploy-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f service.yaml
+oc apply -n {tutorial-namespace} -f service.yaml
 ----
+copyToClipboard::build-run-oc-deploy-service[]
 
 After successful deployment of the service we should see a kubernetes deployment like `event-greeter-8fvqf-deployment` available.
 
@@ -298,36 +324,29 @@ After successful deployment of the service we should see a kubernetes deployment
 :k8s-cli: kubectl
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
-.(OR)
+**(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
-[source,bash,subs="+macros,+attributes",linenums]
-----
-curl -H "Host:event-greeter.knativetutorial.example.com" $IP_ADDRESS \
-   -H "Content-Type: application/json" \
-   -d '{"message": "test message"}'
-----
-
-.(OR)
-
+[#build-run-service-call]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 http POST $IP_ADDRESS \
-  'Host:event-greeter.knativetutorial.example.com'  \
+  'Host:event-greeter.{tutorial-namespace}.example.com'  \
    message="test message"
 ----
+copyToClipboard::build-run-service-call[]
 
 The above command should return an response like:
 
 [source,json]
 ----
 {
-    "host": "Event  greeter => 'event-greeter-rz7lz-pod-938e74' : 1",
+    "host": "Event  greeter => 'event-greeter-build-pod-d55571' : 1",
     "message": "test message",
-    "time": "15:54:45"
+    "time": "04:50:40"
 }
 ----
 
@@ -337,16 +356,22 @@ NOTE: the actual response's host and time properties will be based on your envir
 == Cleanup
 Before proceeding next chapter let us delete the build and service objects that were created.
 
+[#build-run-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
-kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+kubectl -n {tutorial-namespace} delete builds.build.knative.dev event-greeter-build
 ----
+copyToClipboard::build-run-cleanup[]
 
-.(OR)
+**(OR)**
 
+[#build-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete builds.build.knative.dev event-greeter-build
+oc -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+oc -n {tutorial-namespace} delete builds.build.knative.dev event-greeter-build
 ----
+copyToClipboard::build-run-oc-cleanup[]
+
+NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

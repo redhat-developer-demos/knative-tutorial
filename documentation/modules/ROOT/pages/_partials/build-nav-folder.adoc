@@ -1,0 +1,8 @@
+Navigate to the `$TUTORIAL_HOME/{build-repo}/knative` folder:
+
+[#build-navigate-to-folder]
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/{build-repo}/knative
+----
+copyToClipboard::build-navigate-to-folder[]

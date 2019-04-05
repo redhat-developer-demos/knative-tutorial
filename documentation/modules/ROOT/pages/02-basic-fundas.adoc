@@ -51,38 +51,43 @@ spec:
 
 The service could be deployed using the command:
 
+[#basics-run-svc-apply]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
+copyToClipboard::basics-run-svc-apply[]
 
-.(OR)
+**(OR)**
 
+[#basics-run-oc-svc-apply]
 [source,bash,linenums,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 ----
+copyToClipboard::basics-run-oc-svc-apply[]
 
+After successful deployment of the service we should see a kubernetes deployment like `greeter-nsrbr-deployment` available.
 
-After successful deployment of the service we should see a kubernetes deployment called `greeter-00001-deployment` available.
-
-[.thumb]
-image::greeter-00001.png[Greeter Service]
+[NOTE]
+====
+* The actual deployment name may vary in your setup
+====
 
 [#basics-invoke-service]
 == Invoke Service
-
 :k8s-env: minikube
 :k8s-cli: kubectl
+
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
-.(OR)
+**(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
-The last curl command should return a response like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 1**
+The last curl command should return a response like **Hi  greeter => '6fee83923a9f' : 1**
 
 NOTE: Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state, at those times try giving request again
 
@@ -93,14 +98,17 @@ The service-based deployment strategy that we did now will create many Knative r
 
 [#basics-show-knative-services]
 === service 
+
 include::partial$knative-objects.adoc[tag=knative-services]
 
 [#basics-show-knative-configs]
 === configuration
+
 include::partial$knative-objects.adoc[tag=knative-configs]
 
 [#basics-show-knative-routes]
 === routes
+
 include::partial$knative-objects.adoc[tag=knative-routes]
 
 When the service was invoked with `curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS`,you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`,this FQDN is automatically assigned to your Knative service by the Knative Routes,it uses the format like `**<service-name>.<namespace>.<domain-suffix>**`.
@@ -152,41 +160,42 @@ spec:
 
 Let us deploy the new revision using the command:
 
+[#basics-run-service-env]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 ----
+copyToClipboard::basics-run-service-env[]
 
-.(OR)
-
+**(OR)**
+[#oc-basics-run-service-env]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
 ----
+copyToClipboard::oc-basics-run-service-env[]
 
-After successful deployment of the service we should see a kubernetes deployment called `greeter-00002-deployment` available in the OpenShift dashboard:
+After successful deployment of the service we should see a kubernetes deployment called `greeter-cqgcf-deployment`.
 
-image::greeter-00002.png[Greeter Service rev2]
+Now running the <<basics-show-knative-revisions,command>> will show two revisions namely `greeter-cqgcf` and `greeter-nsrbr`.
 
-Now running the <<basics-show-knative-revisions,command>> will show two revisions namely `greeter-00001` and `greeter-0002`.
-
-<<basics-invoke-service,Invoking Service>> will now show an output like **Namaste greeter => greeter-00002-deployment-8d9984dc8-rgzx6: 2**, where __Namaste__ is the value that we configured via environment variable in the Knative service resource file.
+<<basics-invoke-service,Invoking Service>> will now show an output like **Namaste  greeter => '6fee83923a9f' : 1**, where __Namaste__ is the value that we configured via environment variable in the Knative service resource file.
 
 [#basics-pinning-revision]
 == Pinning service to a revision
 
 As you noticed that the Knative services always routes the traffic to the **latest** revision of the service deployment, thats because of the **runLatest** attribute in <<basics-service-rev2,service resource file>>.
 
-Let us now make the greeter service use earlier revision `greeter-00001`. 
+Let us now make the greeter service use first revision created i.e. the one using the default `MESSAGE_PREFIX`. 
 
 [TIP]
 ====
 You can use the get <<basics-show-knative-revisions, show knative revisions>> command to find the available revisions for the greeter service.
 ====
 
-=== Service pinned to revision 1
+=== Service pinned to first revision
 
-.link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+.link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned.yaml]
 [source,yaml,linenums]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -195,43 +204,69 @@ metadata:
   name: greeter
 spec:
   release: #<1>
-    revisions: ["greeter-00001"]
+    revisions:
+    - greeter-nsrbr
   configuration:
     revisionTemplate:
       spec:
         container:
           image: dev.local/rhdevelopers/greeter:0.0.1
+          env:
+            - name: MESSAGE_PREFIX
+              value: Namaste
+          livenessProbe:
+            httpGet:
+              path: /healthz
+          readinessProbe:
+            httpGet:
+              path: /healthz
 ----
 
 <1> The **release** attribute in service resource file will make Knative use the revision specified in the **revisions** attribute.
 
-Let redeploy the greeter service to be pinned to revision __greeter-00001__:
+[IMPORTANT]
+====
+The value of revisions might be different in your setup 
+====
 
+Let redeploy the greeter service by pinning it to the first revision that was created:
+
+[#run-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
+cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $FIRST_REVISION | kubectl -n {tutorial-namespace} apply -f -
 ----
+copyToClipboard::run-pinned-revision[]
 
-.(OR)
+**(OR)**
 
+[#run-oc-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knativetutorial -f link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned-rev1.yaml]
+PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
+cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $FIRST_REVISION | oc -n {tutorial-namespace}  apply -f -
 ----
+copyToClipboard::run-oc-pinned-revision[]
 
-<<basics-invoke-service,Invoking Service>> will now show an output like **Hi greeter => greeter-00001-deployment-5d696cc6c8-m65s5: 3**.
+<<basics-invoke-service,Invoking Service>> will now show an output like **Hi  greeter => '6fee83923a9f' : 1**
 
 [#basics-cleanup]
 == Cleanup
 
+[#basics-run-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n knativetutorial delete services.serving.knative.dev greeter
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
 ----
+copyToClipboard::basics-run-cleanup[]
 
-.(OR)
+**(OR)**
 
+[#basics-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc -n knativetutorial delete services.serving.knative.dev greeter
+oc -n {tutorial-namespace} delete services.serving.knative.dev greeter
 ----
+copyToClipboard::basics-run-oc-cleanup[]
+
