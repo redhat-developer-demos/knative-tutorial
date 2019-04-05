@@ -7,7 +7,8 @@
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/05-build/build.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
-<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">  </head>
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
   <nav class="navbar">
@@ -529,37 +530,58 @@
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div id="minikube-set-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="minishift-set-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure right OpenShift and kubernetes client are used.</p>
+<p>Kubernetes should be v1.12+</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div id="kubectl-version" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.12+
-kubectl version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift CLI should be v3.11.0+</p>
+</li>
+</ul>
+</div>
+<div id="oc-version" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -567,12 +589,14 @@ oc version</code></pre>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div id="right-openshift-project" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># verify to return knativetutorial
-oc project -q</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
@@ -599,19 +623,27 @@ oc project -q</code></pre>
 <div class="paragraph">
 <p>Navigate to the <code>$TUTORIAL_HOME/05-build/knative</code> folder:</p>
 </div>
-<div class="listingblock">
+<div id="build-navigate-to-folder" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-build/knative</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 </div>
 </div>
 <div class="sect1">
 <h2 id="build-set-env"><a class="anchor" href="#build-set-env"></a>Configure build environment variables</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Copy file <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/setenv.sh.example">setenv.sh.example</a> to <code>setenv.sh</code>.</p>
+<div id="copy-set-env-sh" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/setenv.sh.example">setenv.sh.example</a> setenv.sh</code></pre>
 </div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#copy-set-env-sh">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>Update the following environment variables as per your needs and customizations.</p>
 </div>
@@ -676,11 +708,14 @@ oc project -q</code></pre>
 </tr>
 </tbody>
 </table>
-<div class="listingblock">
+<div id="source-set-env-sh" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source ./setenv.sh</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source $TUTORIAL_HOME/05-build/knative/setenv.sh</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#source-set-env-sh">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 </div>
 </div>
 <div class="sect1">
@@ -689,11 +724,16 @@ oc project -q</code></pre>
 <div class="paragraph">
 <p>A container registry secret is required for the build to authenticate with the container registry, so that it can build and push the image to the registry.</p>
 </div>
-<div class="listingblock">
+<div id="build-run-edit-cr-secret" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i "s~\$registryUrl~${REGISTRY_URL}~g; s~\$username~${REGISTRY_USERNAME}~g; s~\$password~${REGISTRY_PASSWORD}~g" container-registry-secret.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i container-registry-secret.yaml 'metadata.annotations.[build.knative.dev/docker-0]' $REGISTRY_URL &amp;&amp; \
+yq w -i container-registry-secret.yaml stringData.username $REGISTRY_USERNAME &amp;&amp; \
+yq w -i container-registry-secret.yaml stringData.password $REGISTRY_PASSWORD</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-cr-secret">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>The above command will generate a kubernetes secret as shown below:</p>
 </div>
@@ -735,16 +775,23 @@ The above yaml has dummy values for username, password etc., the actual values w
 <div class="paragraph">
 <p>The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/docs/build">here</a>. In this example we will be using <a href="https://buildah.io">Buildah</a> to perform the build and push of of the container image.</p>
 </div>
-<div class="listingblock">
+<div id="build-run-edit-build-spec" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i "s~\$contextDir~${CONTEXT_DIR}~g; s~\$sourceRepoUrl~${SOURCE_REPO_URL}~g; s~\$sourceRevision~${SOURCE_REVISION}~g; s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" event-greeter-build.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i event-greeter-build.yaml 'spec.steps[0].env[0].value' "/workspace/$CONTEXT_DIR" &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.steps[0].workingDir' "/workspace/$CONTEXT_DIR" &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.source.git.url' $SOURCE_REPO_URL &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.source.git.revision' $SOURCE_REVISION &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.steps[0].env[1].value' $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-build-spec">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>The above command will generate a knative build specification as shown below:</p>
 </div>
 <div class="listingblock text-center">
-<div class="title">greeter-build.yaml</div>
+<div class="title">event-greeter-build.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: build.knative.dev/v1alpha1
 kind: Build
@@ -810,11 +857,14 @@ The above yaml has dummy values for --context, --destination etc., the actual va
 <div class="paragraph">
 <p>Run the following command to create the knative service that will use the image created by the <code>event-greeter-build</code>.</p>
 </div>
-<div class="listingblock">
+<div id="build-run-edit-knative-service" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i service.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-knative-service">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="listingblock text-center">
 <div class="title">service-build.yaml</div>
 <div class="content">
@@ -854,23 +904,31 @@ The above yaml has dummy values for image, the actual values will be based on th
 <div class="paragraph">
 <p>Run the following commands to create the pre-requisite resources:</p>
 </div>
-<div class="listingblock">
+<div id="build-run-apply-prereq-resources" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f container-registry-secret.yaml
-kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a>
-kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a>
-kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f container-registry-secret.yaml &amp;&amp; \<i class="conum" data-value="1"></i><b>(1)</b>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a> &amp;&amp; \<i class="conum" data-value="2"></i><b>(2)</b>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a>  &amp;&amp; \<i class="conum" data-value="3"></i><b>(3)</b>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-apply-prereq-resources">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-apply-prereq-resources" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f container-registry-secret.yaml <i class="conum" data-value="1"></i><b>(1)</b>
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a> <i class="conum" data-value="2"></i><b>(2)</b>
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> <i class="conum" data-value="3"></i><b>(3)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f container-registry-secret.yaml &amp;&amp; \<i class="conum" data-value="1"></i><b>(1)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a> &amp;&amp; \<i class="conum" data-value="2"></i><b>(2)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> &amp;&amp; \<i class="conum" data-value="3"></i><b>(3)</b>
 oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-apply-prereq-resources">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="colist arabic">
 <table>
 <tr>
@@ -897,17 +955,25 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <div class="sect1">
 <h2 id="build-create-build"><a class="anchor" href="#build-create-build"></a>Create build</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div id="build-run-create-build" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-create-build">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-create-build" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-create-build">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 </div>
 </div>
 <div class="sect1">
@@ -920,13 +986,20 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-build">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="oc-knative-build" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a knative builds called event-greeter-build
-oc -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-build">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -946,8 +1019,10 @@ oc -n knativetutorial get builds.build.knative.dev event-greeter-build</code></p
 kubectl apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -n knativetutorial -f event-greeter-build.yaml
 oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
@@ -971,13 +1046,15 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n {tutorial-namespace} &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n {tutorial-namespace} &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -988,13 +1065,15 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1016,13 +1095,15 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1052,8 +1133,10 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
@@ -1078,17 +1161,25 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <div class="paragraph">
 <p>With a successful build you are ready to deploy the service, run the following commands to deploy the service:</p>
 </div>
-<div class="listingblock">
+<div id="build-run-deploy-service" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-deploy-service">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-deploy-service" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-deploy-service">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>After successful deployment of the service we should see a kubernetes deployment like <code>event-greeter-8fvqf-deployment</code> available.</p>
 </div>
@@ -1097,43 +1188,46 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <div class="sect1">
 <h2 id="build-invoke-service"><a class="anchor" href="#build-invoke-service"></a>Invoke service</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div id="minikube-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="minishift-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host:event-greeter.knativetutorial.example.com" $IP_ADDRESS \
-   -H "Content-Type: application/json" \
-   -d '{"message": "test message"}'</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div id="build-run-service-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
   'Host:event-greeter.knativetutorial.example.com'  \
    message="test message"</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-service-call">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>The above command should return an response like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-    "host": "Event  greeter =&gt; 'event-greeter-rz7lz-pod-938e74' : 1",
+    "host": "Event  greeter =&gt; 'event-greeter-build-pod-d55571' : 1",
     "message": "test message",
-    "time": "15:54:45"
+    "time": "04:50:40"
 }</code></pre>
 </div>
 </div>
@@ -1157,18 +1251,38 @@ the actual response&#8217;s host and time properties will be based on your envir
 <div class="paragraph">
 <p>Before proceeding next chapter let us delete the build and service objects that were created.</p>
 </div>
-<div class="listingblock">
+<div id="build-run-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-cleanup">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
 </div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-cleanup">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can also delete <a href="#build-apply-prereq-resources">pre-req resources</a> that were created if you don&#8217;t need them anymore.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1181,5 +1295,18 @@ oc -n knativetutorial delete builds.build.knative.dev event-greeter-build</code>
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
-  </body>
+<script src="../../../_/js/vendor/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.copybtn');
+
+    clipboard.on('success', function (e) {
+        console.info('Text:', e);
+        //e.clearSelection();        
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+</script>  </body>
 </html>

@@ -7,7 +7,8 @@
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/06-eventing/eventing.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
-<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">  </head>
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
   <nav class="navbar">
@@ -535,37 +536,58 @@
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div id="minikube-set-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="minishift-set-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure right OpenShift and kubernetes client are used.</p>
+<p>Kubernetes should be v1.12+</p>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div id="kubectl-version" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.12+
-kubectl version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift CLI should be v3.11.0+</p>
+</li>
+</ul>
+</div>
+<div id="oc-version" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -573,12 +595,14 @@ oc version</code></pre>
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div id="right-openshift-project" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># verify to return knativetutorial
-oc project -q</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
@@ -588,7 +612,21 @@ oc project -q</code></pre>
 <h2 id="eventing-assumptions"><a class="anchor" href="#eventing-assumptions"></a>Assumptions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You have completed the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a>, as you will be using the container image <code>event-greeter:0.0.1</code> or <code>event-greeter:0.0.2</code>  in this chapter.</p>
+<p>You have completed the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a>, as you will be using the container image <code>greeter:0.0.1</code> or <code>greeter:0.0.2</code>  in this chapter.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please ensure that you have set the needed environment variables as mentioned in <a href="../05-build/build.html#build-set-env" class="page"> Configure Environment Variables</a></p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -606,8 +644,10 @@ oc project -q</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
@@ -640,13 +680,12 @@ oc project -q</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
-  "ID" : "1549548420001445196-715",
-  "EventTime" : "2019-02-07T14:07:00.001470981Z",
-  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event  greeter =&gt; 'event-greeter-rz7lz-pod-938e74' : 1",
-  "time" : "14:07:00"
-}</code></pre>
+<pre class="highlightjs highlight"><code>INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter =&gt; 'event-greeter-5cbh5-pod-52d8fb' : 1",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:50:07"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }</code></pre>
 </div>
 </div>
 <div class="paragraph text-center">
@@ -654,13 +693,12 @@ oc project -q</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>2019-02-07 14:07:00.011  INFO 1 --- [-server-epoll-6] com.example.demo.EventGreeterController  : Event Message Received {
-  "ID" : "1549548420001445196-715",
-  "EventTime" : "2019-02-07T14:07:00.001470981Z",
-  "Body" : "{\"message\": \"Thanks for doing Knative Tutorial\"}",
-  "host" : "Event  greeter =&gt; 'event-greeter-rz7lz-pod-938e74' : 1",
-  "time" : "14:07:00"
-}</code></pre>
+<pre class="highlightjs highlight"><code>INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter =&gt; 'event-greeter-5cbh5-pod-52d8fb' : 2",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:51:00"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }</code></pre>
 </div>
 </div>
 </div>
@@ -674,5 +712,18 @@ oc project -q</code></pre>
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
-  </body>
+<script src="../../../_/js/vendor/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.copybtn');
+
+    clipboard.on('success', function (e) {
+        console.info('Text:', e);
+        //e.clearSelection();        
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+</script>  </body>
 </html>

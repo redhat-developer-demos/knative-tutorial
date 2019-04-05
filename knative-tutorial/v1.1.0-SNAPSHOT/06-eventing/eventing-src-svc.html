@@ -7,7 +7,8 @@
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/06-eventing/eventing-src-svc.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
-<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">  </head>
+<link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
   <nav class="navbar">
@@ -503,14 +504,6 @@
 <div class="paragraph">
 <p>The event source listens to external events e.g. a kafka topic or for a file on a FTP server. It is responsible to drain the received event(s) along with its data to a configured <a href="https://en.wikipedia.org/wiki/Sink_(computing)">sink</a>.</p>
 </div>
-<div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
-</div>
-</div>
 <div class="sect2">
 <h3 id="eventing-create-event-source"><a class="anchor" href="#eventing-create-event-source"></a>Create Event Source</h3>
 <div class="listingblock text-center">
@@ -562,30 +555,46 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <div class="paragraph">
 <p>Run the following commands to create the event source resources:</p>
 </div>
-<div class="listingblock">
+<div id="eventing-run-event-src-svc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-event-src-svc">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="eventing-run-oc-event-src-svc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-event-src-svc">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="sect3">
 <h4 id="eventing-verify-event-source"><a class="anchor" href="#eventing-verify-event-source"></a>Verification</h4>
-<div class="listingblock">
+<div id="eventing-run-verify-event-source" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-event-source">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="eventing-run-oc-verify-event-source" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-event-source">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>Running  the above command should return the following result:</p>
 </div>
@@ -596,19 +605,27 @@ event-greeter-cronjob-source  39s</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The conronjobsource also creates a service pod,</p>
+<p>The cronjob source also creates a service pod,</p>
 </div>
-<div class="listingblock">
+<div id="eventing-run-get-pods" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-get-pods">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="eventing-run-oc-get-pods" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-get-pods">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>The above command will return an output like,</p>
 </div>
@@ -630,11 +647,14 @@ cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running 
 <div class="paragraph">
 <p>Run the following command to create the Knative service that will be used as the subscriber for the cron events:</p>
 </div>
-<div class="listingblock">
+<div id="eventing-run-gen-sink-service" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"> sed -i "s~\$destinationImageName~${DESTINATION_IMAGE_NAME}~g" service-with-build-template.yaml </code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i service.yaml spec.runLatest.configuration.revisionTemplate.spec.container.image $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-gen-sink-service">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="listingblock text-center">
 <div class="title">service.yaml</div>
 <div class="content">
@@ -673,7 +693,7 @@ spec:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you have skipped the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a> and dont have the container image of <code>event-greeter</code>; then you can update the Knative serving service to use the pre-built event-greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1</code></p>
+<p>If you have skipped the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a> and dont have the container image of <code>event-greeter</code>; then you can update the Knative serving service to use the pre-built event-greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-greeter:0.0.1</code></p>
 </div>
 </td>
 </tr>
@@ -685,17 +705,25 @@ spec:
 <div class="paragraph">
 <p>Run the following commands to create the service:</p>
 </div>
-<div class="listingblock">
+<div id="run-deploy-sink-service" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-deploy-sink-service">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="run-oc-deploy-sink-service" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-oc-deploy-sink-service">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>You can <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a> to see the cron job source sending an event every 1 minute.</p>
 </div>
@@ -709,12 +737,20 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-event-sources">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="oc-knative-event-sources" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-event-sources">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 </div>
 <div class="sect3">
 <h4 id="_services"><a class="anchor" href="#_services"></a>services</h4>
@@ -723,13 +759,21 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev event-greeter</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-services">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="oc-knative-services" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative Service (short name ksvc) called greeter
 oc -n knativetutorial  get services.serving.knative.dev event-greeter</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-services">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 </div>
 </div>
 </div>
@@ -737,21 +781,29 @@ oc -n knativetutorial  get services.serving.knative.dev event-greeter</code></pr
 <div class="sect1">
 <h2 id="eventing-cleanup"><a class="anchor" href="#eventing-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div id="eventing-run-src-svc-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
 kubectl -n knativetutorial delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-src-svc-cleanup">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="eventing-run-oc-src-svc-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
 oc -n knativetutorial delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-src-svc-cleanup">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -775,5 +827,18 @@ You can also delete <a href="../05-build/build.html#build-apply-prereq-resources
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
-  </body>
+<script src="../../../_/js/vendor/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.copybtn');
+
+    clipboard.on('success', function (e) {
+        console.info('Text:', e);
+        //e.clearSelection();        
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+</script>  </body>
 </html>

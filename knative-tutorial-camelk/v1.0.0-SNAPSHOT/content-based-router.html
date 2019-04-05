@@ -7,7 +7,8 @@
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0/content-based-router.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
-<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">  </head>
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../_/css/vendor/knative-tutorial-site.css">  </head>
   <body class="article">
 <header class="header" role="banner">
   <nav class="navbar">
@@ -347,8 +348,10 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift stop
 minishift start --timezone 'Asia/Kolkata' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
@@ -397,8 +400,10 @@ chmod +x ~/.wakeup</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
 </div>
@@ -416,8 +421,10 @@ chmod +x ~/.wakeup</code></pre>
 kubectl version</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
 oc version</code></pre>
@@ -561,8 +568,10 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
 </div>
@@ -616,10 +625,12 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre>oc -n knativetutorial apply -f channels.yaml</pre>
+<pre>oc -n {tutorial-namespace} apply -f channels.yaml</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -630,10 +641,12 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre>oc -n knativetutorial get channels.eventing.knative.dev</pre>
+<pre>oc -n {tutorial-namespace} get channels.eventing.knative.dev</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -693,8 +706,10 @@ Note the first build usually takes time, you can watch the status with commands
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
 </div>
@@ -747,8 +762,10 @@ Note the first build usually takes time, you can watch the status with commands
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
 </div>
@@ -802,8 +819,10 @@ Note the first build usually takes time, you can watch the status with command:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
 </div>
@@ -844,13 +863,15 @@ Some of the columns has removed from the above output for brevity
 <h4 id="_services"><a class="anchor" href="#_services"></a>Services</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get svc</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace}  get svc</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get svc</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace}  get get svc</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -875,13 +896,15 @@ others-genre-handler-jnwsd-service   ClusterIP      10.111.172.10    &lt;none&gt
 <h4 id="_integration_contexts"><a class="anchor" href="#_integration_contexts"></a>Integration Contexts</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get integrations.camel.apache.org</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace}  get integrations.camel.apache.org</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get integrations.camel.apache.org</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace}  get get integrations.camel.apache.org</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -897,13 +920,15 @@ others-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
 <h4 id="_deployments"><a class="anchor" href="#_deployments"></a>Deployments</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get deployments</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace}  get deployments</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get deployments</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace}  get get deployments</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -936,8 +961,10 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
@@ -979,8 +1006,10 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
@@ -1022,8 +1051,10 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
@@ -1070,8 +1101,10 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
 </div>
@@ -1106,19 +1139,27 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="paragraph">
 <p>Invoke the service by passing a header <code>fileName</code> with value <code>message1.xml</code>, this <code>fileName</code> header value will be used by Camel route to process the body content of the file to move them to <code>genre-comedy</code> or <code>genre-others</code> content buckets in s3.</p>
 </div>
-<div class="listingblock">
+<div id="minikube-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS="$(minikube ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">(OR)</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="minishift-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">INGRESSGATEWAY=istio-ingressgateway
 IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env">
+      <img src="/_/img/clippy.svg" width="13">
+    </button><br/>
 <div class="paragraph">
 <p>We need to know the knative service <code>cartoon-genre-router</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
 </div>
@@ -1127,8 +1168,10 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
@@ -1138,8 +1181,10 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message1.xml' $IP_ADDRESS</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message1.xml'</code></pre>
 </div>
@@ -1174,8 +1219,10 @@ IP_ADDRESS="$(minishift ip):$(oc get svc $INGRESSGATEWAY --namespace istio-syste
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message2.xml' $IP_ADDRESS</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message2.xml'</code></pre>
 </div>
@@ -1226,8 +1273,10 @@ cd $TUTORIAL_HOME/01-camel-k/knative</code></pre>
 cd $TUTORIAL_HOME</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
 <div class="listingblock">
-<div class="title">(OR)</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -f channels.yaml -n knativetutorial
 cd $TUTORIAL_HOME</code></pre>
@@ -1244,5 +1293,18 @@ cd $TUTORIAL_HOME</code></pre>
 <script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
-  </body>
+<script src="../../_/js/vendor/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.copybtn');
+
+    clipboard.on('success', function (e) {
+        console.info('Text:', e);
+        //e.clearSelection();        
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+</script>  </body>
 </html>
