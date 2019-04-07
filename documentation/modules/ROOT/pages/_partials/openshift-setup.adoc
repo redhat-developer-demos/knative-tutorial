@@ -54,4 +54,4 @@ oc adm policy add-scc-to-user anyuid -z default
 ----
 copyToClipboard::run-ocp-project-config[]
 
-<1> The `oc adm policy` adds the **privileged** https://docs.okd.io/3.10/admin_guide/manage_scc.html[Security Context Constraints(SCCs)]to the **default** Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in kubernetes.
+<1> The `oc adm policy` adds the **privileged** https://docs.okd.io/3.10/admin_guide/manage_scc.html[Security Context Constraints (SCCs)] to the **default** Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in Kubernetes.

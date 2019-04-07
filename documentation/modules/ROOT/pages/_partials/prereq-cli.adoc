@@ -1,7 +1,7 @@
 
-The following checks ensures that each chapter exercises are done with right environment settings.
+The following checks ensure that each chapter exercises are done with the right environment settings.
 
-* Make sure to be connected to minikube or minishift docker daemon and using right openshift client.
+* Make sure you connect to the minikube or Minishift Docker daemon and use the right kubectl or OpenShift client.
 
 [#minikube-set-env]
 [source,bash,subs="+macros,+attributes"]
@@ -39,7 +39,7 @@ oc version
 ----
 copyToClipboard::oc-version[]
 
-* Make sure to be on `knativetutorial` OpenShift project/kubernetes namespace
+* Make sure to be on `knativetutorial` OpenShift project/Kubernetes namespace
 
 [#right-openshift-project]
 [source,bash,subs="+macros,+attributes"]

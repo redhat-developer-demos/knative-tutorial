@@ -52,7 +52,7 @@ spec:
 . . .
 ----
 
-When you deploy this application in kubernetes, the deployment will look like:
+When you deploy this application in Kubernetes, the deployment will look like:
 
 [source,yaml,linenums]
 ----
