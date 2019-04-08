@@ -7,7 +7,7 @@ You can preview changes as you make them as follows:
 1. Install the `antora` website generator and `gulp` build system
 +
 ....
-npm install -g @antora/cli @antora/site-generator-default gulp@^3.9.1 gulp-connect yaml-js
+npm install @antora/cli @antora/site-generator-default gulp@^3.9.1 gulp-connect yaml-js
 ....
 
 2. Create a `dev-site.yml` file (the `site.yml` file is for the public website)
@@ -27,6 +27,11 @@ content:
     - url: .
       branches: HEAD
       start_path: documentation
+asciidoc:
+  attributes:
+    tutorial-namespace: knativetutorial
+  extensions:
+    - ./lib/copy-to-clipboard.js
 
 ui:
   bundle:

@@ -28,8 +28,8 @@ copyToClipboard::clone-greeter-sources[]
 [#build-greeter]
 [source,bash,subs="+macros,+attributes"]
 ----
-cd knative-tutorial-greeter/java/quarkus \
-./mvnw clean package \
+cd knative-tutorial-greeter/java/quarkus
+./mvnw clean package
 docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .
 ----
 copyToClipboard::build-greeter[]
@@ -46,10 +46,9 @@ copyToClipboard::check-greeter-images[]
 The above command should return something like as shown below:
 [source,bash]
 ----
-# dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB
+dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB
 ----
 
-TIP: You can also use the script `buildImage.sh` that will build source and create the container image
 # end::greeter[]
 
 # tag::event-greeter[]

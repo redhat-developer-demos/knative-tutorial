@@ -202,7 +202,7 @@ copyToClipboard::build-template-run-oc-deploy-service[]
 
 You can also xref:ROOT:{build-repo}/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
 
-After successful deployment of the service we should see a kubernetes deployment like `event-greeter-8fvqf-deployment` available.
+After successful deployment of the service we should see a Kubernetes deployment like `event-greeter-8fvqf-deployment` available.
 
 [#build-template-invoke-service]
 == Invoke Service

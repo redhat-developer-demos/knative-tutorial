@@ -6,58 +6,52 @@ include::_attributes.adoc[]
 
 The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
 
-[cols="4*^,4*."]
+[cols="3*^,3*.",options="header"]
 |===
-|**Tool** |**macOS** |**Fedora** | **Remarks**
-| `minikube`
-| https://kubernetes.io/docs/setup/minikube
-| https://kubernetes.io/docs/setup/minikube
-|
+|**Tool**|**macOS**|**Fedora**
 
-| `minishift`
-| https://github.com/minishift/minishift/releases
-| https://github.com/minishift/minishift/releases
-|
+| `Minikube`
+2+| https://kubernetes.io/docs/setup/minikube
+
+| `Minishift`
+2+| https://github.com/minishift/minishift/releases
 
 | `git`
 | https://git-scm.com/download/mac
 | `dnf install git`
-|
+
+| `Docker`
+| https://docs.docker.com/docker-for-mac/install
+| `dnf install docker`
 
 | https://maven.apache.org[Apache Maven]
 | `brew install maven`
 | `dnf install maven`
-|
 
 | https://github.com/wercker/stern[stern]
 | `brew install stern`
 | `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
-|
 
 | https://github.com/mikefarah/yq[yq]
 | `brew install yq`
 |  https://github.com/mikefarah/yq/releases/latest
-|
 
 | https://httpie.org/[httpie]
 | `brew install httpie`
 | `dnf install httpie`
-|
 
 | https://github.com/JoeDog/siege[siege]
 | `brew install siege`
 | `dnf install siege`
-|
 
 | watch
 | `brew install watch`
 | `dnf install procps-ng`
-|
 
 | kubectx and kubens
 | `brew install kubectx`
 | https://github.com/ahmetb/kubectx
-|
+
 |===
 
 [#download-tutorial-sources]
@@ -79,9 +73,9 @@ The `work` folder in `$TUTORIAL_HOME` can be used to download the demo applicati
 This tutorial was developed and tested with:
 
 - Knative `{knative-version}`
-- minikube `{minikube-version}`
+- Minikube `{minikube-version}`
 - OpenShift `{openshift-version}`
-- minishift `{minishift-version}`
+- Minishift `{minishift-version}`
 ====
 
 [#kubernetes-cluster]

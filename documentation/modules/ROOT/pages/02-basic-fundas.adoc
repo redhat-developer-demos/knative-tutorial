@@ -6,7 +6,7 @@ At the end of this chapter you will be able to :
 * Deploy a Knative service.
 * Deploy multiple revisions of a service.
 * Choose between different service deployment strategies.
-* Running different revisions of a service.
+* Run different revisions of a service.
 
 [#basics-prerequisite]
 == Prerequisite
@@ -27,7 +27,7 @@ Navigate to the tutorial chapter's `knative` folder:
 cd $TUTORIAL_HOME/{basics-repo}/knative
 ----
 
-The following snippet shows how a Knative service YAML will look like:
+The following snippet shows what a Knative service YAML looks like:
 
 
 .link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
@@ -46,10 +46,10 @@ spec:
             image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
 ----
 
-<1> Makes Knative to always run the latest revision of the deployment
-<2> It is very important that the image is a fully qualified name docker image name with tag. For more details on this xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ]
+<1> Makes Knative always run the latest revision of the deployment
+<2> It is very important that the image is a fully qualified docker image name with tag. For more details on this, see xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ]
 
-The service could be deployed using the command:
+The service can be deployed using the following command:
 
 [#basics-run-svc-apply]
 [source,bash,subs="+macros,+attributes"]
@@ -67,7 +67,24 @@ oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/ser
 ----
 copyToClipboard::basics-run-oc-svc-apply[]
 
-After successful deployment of the service we should see a kubernetes deployment like `greeter-nsrbr-deployment` available.
+After successful deployment of the service we should see a Kubernetes Deployment named similar to `greeter-nsrbr-deployment` available:
+
+[#basics-run-svc-apply]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get deployments -n {tutorial-namespace}
+----
+copyToClipboard::basics-run-svc-apply[]
+
+**(OR)**
+
+[#basics-run-oc-svc-apply]
+[source,bash,linenums,subs="+macros,+attributes"]
+----
+oc get deployments -n {tutorial-namespace}
+----
+copyToClipboard::basics-run-oc-svc-apply[]
+
 
 [NOTE]
 ====
@@ -87,9 +104,9 @@ include::ROOT:partial$invoke-service.adoc[tag=*]
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
-The last curl command should return a response like **Hi  greeter => '6fee83923a9f' : 1**
+The last http command should return a response containing a line similar to **Hi  greeter => '6fee83923a9f' : 1**
 
-NOTE: Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state, at those times try giving request again
+NOTE: Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state. In that case, repeat service invocation.
 
 [#basics-see-what-you-have-deployed]
 == See what you have deployed
@@ -111,7 +128,7 @@ include::partial$knative-objects.adoc[tag=knative-configs]
 
 include::partial$knative-objects.adoc[tag=knative-routes]
 
-When the service was invoked with `curl -H "Host:greeter.knativetutorial.example.com" $IP_ADDRESS`,you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`,this FQDN is automatically assigned to your Knative service by the Knative Routes,it uses the format like `**<service-name>.<namespace>.<domain-suffix>**`.
+When the service was invoked with `http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'`, you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative Routes and uses the following format: `**<service-name>.<namespace>.<domain-suffix>**`.
 
 [NOTE]
 ====
@@ -128,9 +145,9 @@ include::partial$knative-objects.adoc[tag=knative-revisions]
 ====
 
 [#deploying-new-revision]
-== Deploy new Revision Service
+== Deploy a New Revision of a Service
 
-As Knative follows https://12factor.net[12-Factor] application principles, any new https://12factor.net/config[configuration] change will trigger new revision of the deployment. 
+As Knative follows https://12factor.net[12-Factor] application principles, any https://12factor.net/config[configuration] change will trigger creation of a new revision of the deployment.
  
 To deploy a new revision of the greeter service, we will add an environment variable to the existing service as shown below:
 
@@ -175,22 +192,28 @@ oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/ser
 ----
 copyToClipboard::oc-basics-run-service-env[]
 
-After successful deployment of the service we should see a kubernetes deployment called `greeter-cqgcf-deployment`.
+After successful deployment of the service we should see a Kubernetes deployment called `greeter-cqgcf-deployment`.
 
-Now running the <<basics-show-knative-revisions,command>> will show two revisions namely `greeter-cqgcf` and `greeter-nsrbr`.
+Now if you list revisions
 
-<<basics-invoke-service,Invoking Service>> will now show an output like **Namaste  greeter => '6fee83923a9f' : 1**, where __Namaste__ is the value that we configured via environment variable in the Knative service resource file.
+[#basics-show-knative-revisions]
+=== revisions
+include::partial$knative-objects.adoc[tag=knative-revisions]
+
+, you will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
+
+<<basics-invoke-service,Invoking Service>> will now show an output like **Namaste  greeter => '6fee83923a9f' : 1**, where __Namaste__ is the value we configured via environment variable in the Knative service resource file.
 
 [#basics-pinning-revision]
-== Pinning service to a revision
+== Pinning Service to a Revision
 
-As you noticed that the Knative services always routes the traffic to the **latest** revision of the service deployment, thats because of the **runLatest** attribute in <<basics-service-rev2,service resource file>>.
+As you noticed, Knative service always routes traffic to the **latest** revision of the service deployment, due to the **runLatest** attribute in the <<basics-service-rev2,service resource file>>.
 
-Let us now make the greeter service use first revision created i.e. the one using the default `MESSAGE_PREFIX`. 
+Let us now make the greeter service use the first revision created, the one using the default `MESSAGE_PREFIX`.
 
 [TIP]
 ====
-You can use the get <<basics-show-knative-revisions, show knative revisions>> command to find the available revisions for the greeter service.
+You can use the <<basics-show-knative-revisions, show Knative service revisions>> command to find the available revisions for the greeter service.
 ====
 
 === Service pinned to first revision
@@ -222,20 +245,20 @@ spec:
               path: /healthz
 ----
 
-<1> The **release** attribute in service resource file will make Knative use the revision specified in the **revisions** attribute.
+<1> The **release** attribute in the service resource file will make Knative use the revision specified in the **revisions** attribute.
 
 [IMPORTANT]
 ====
-The value of revisions might be different in your setup 
+The names of revisions may be different in your setup
 ====
 
-Let redeploy the greeter service by pinning it to the first revision that was created:
+Let us redeploy the greeter service by pinning it to the first revision that was created:
 
 [#run-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
 PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
-cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $FIRST_REVISION | kubectl -n {tutorial-namespace} apply -f -
+cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kubectl -n {tutorial-namespace} apply -f -
 ----
 copyToClipboard::run-pinned-revision[]
 
@@ -244,12 +267,12 @@ copyToClipboard::run-pinned-revision[]
 [#run-oc-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
-PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
-cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $FIRST_REVISION | oc -n {tutorial-namespace}  apply -f -
+PIN_REVISION=`oc get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
+cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc -n {tutorial-namespace}  apply -f -
 ----
 copyToClipboard::run-oc-pinned-revision[]
 
-<<basics-invoke-service,Invoking Service>> will now show an output like **Hi  greeter => '6fee83923a9f' : 1**
+<<basics-invoke-service,Invoking Service>> will produce output similar to **Hi  greeter => '6fee83923a9f' : 1**
 
 [#basics-cleanup]
 == Cleanup

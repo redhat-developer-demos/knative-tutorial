@@ -1,15 +1,15 @@
 [#install-knative-minikube]
-=== Minikube
+=== Install with Minikube
 
 [#start-minikube]
-==== Configure and Start minikube 
+==== Configure and Start Minikube
 
-Before installing Knative and its components, we need to create the minikube virtual machine and deploy Kubernetes into it:
+Before installing Knative and its components, we need to create a Minikube virtual machine and deploy Kubernetes into it:
 
 [[setup-minikube-start]]
 [source,bash,subs="+macros,+attributes"]
 ----
-minikube profile knative \#<1>
+minikube profile knative #<1>
 
 minikube start -p knative --memory=8192 --cpus=4 \#<2> 
   --kubernetes-version=v1.12.0 \#<3> 
@@ -19,9 +19,9 @@ minikube start -p knative --memory=8192 --cpus=4 \#<2>
 ----
 copyToClipboard::setup-minikube-start[]
 
-<1> Setting minikube profile to **knative** so that all future minikube commands are executed with this profile context
+<1> Setting Minikube profile to **knative** so that all future Minikube commands are executed with this profile context
 <2> Starting a profile named **knative**
-<3> Minimum kubernetes version needs to be >= 1.12.0, refer to issue https://github.com/knative/serving/issues/3067 for more details.
+<3> Minimum Kubernetes version needs to be 1.12, refer to issue https://github.com/knative/serving/issues/3067 for more details.
 <4> On macOS. On Linux, please use `--vm-driver=kvm2`
 
 
@@ -38,7 +38,7 @@ copyToClipboard::run-install-istio[]
 
 [NOTE,subs="+macros,+attributes"]
 ====
-Installation of istio components will take some time and it is highly recommended that you start Knative components installation only after you have verified that all istio component pods are running. The istio pods can be watched using the command:
+Installation of Istio components will take some time and it is highly recommended that you start Knative components installation only after you have verified that all Istio component pods are running. The Istio pods can be watched using the command:
 
 [#setup-watch-istio-pods]
 [source,bash,subs="+macros,+attributes"]
@@ -50,7 +50,7 @@ copyToClipboard::setup-watch-istio-pods[]
 You can use kbd:[CTRL + c ] to terminate the watch
 ====
 
-A successful istio install will have the pods running in the `istio-system` namespace as shown below:
+A successful Istio install will have the pods running in the `istio-system` namespace as shown below:
 
 [source,bash]
 ----
@@ -198,7 +198,7 @@ controller-manager-0   1/1     Running   0          6h35m
 [#set-knative-tutorial-ns]
 ==== Configuring Kubernetes namespace
 
-We will use a non default kubernetes namespace called `{tutorial-namespace}` for all the tutorial exercises.
+We will use a non default Kubernetes namespace called `{tutorial-namespace}` for all the tutorial exercises.
 
 [#setup-knative-tutorial-ns]
 [source,bash,subs="+macros,+attributes"]
@@ -209,7 +209,7 @@ copyToClipboard::setup-knative-tutorial-ns[]
 
 [TIP]
 ====
-The kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx] allows for easy switching between kubernetes namespaces.
+The kubens utility installed as part of https://github.com/ahmetb/kubectx[kubectx] allows for easy switching between Kubernetes namespaces.
 
 [#setup-knative-tutorial-kubens]
 [source,bash,subs="+macros,+attributes"]

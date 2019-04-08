@@ -117,7 +117,7 @@ oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/ser
 ----
 copyToClipboard::scaling-run-oc-apply-service[]
 
-After the deployment was successful of the service we should see a kubernetes deployment like `greeter-5nrtv-deployment`.
+After the deployment was successful of the service we should see a Kubernetes deployment like `greeter-5nrtv-deployment`.
 
 [#scaling-invoke-service]
 == Invoke Service
@@ -402,7 +402,7 @@ For more clarity and understanding let us <<scaling-cleanup,clean up>> existing 
 [#scaling-min-scale]
 == Minimum Scale
 
-In real world scenarios your service might need to handle sudden spikes in requests. Knative starts each service with a default of **1** replica. As described above, this will eventually be scaled to zero as described above. If your app needs to stay particularly responsive under any circumstances and/or has a slow startup time, it might be beneficial to always keep a minimum amount of pods around. This can be done via an the annotation **autoscaling.knative.dev/minScale**.
+In real world scenarios your service might need to handle sudden spikes in requests. Knative starts each service with a default of **1** replica. As described above, this will eventually be scaled to zero as described above. If your app needs to stay particularly responsive under any circumstances and/or has a long startup time, it might be beneficial to always keep a minimum number of pods around. This can be done via an the annotation **autoscaling.knative.dev/minScale**.
 
 The following example shows how to make Knative create services that start with a replica count of **2** and never scale below it.
 
@@ -456,7 +456,7 @@ oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/se
 ----
 copyToClipboard::scaling-run-min-scale[]
 
-After the deployment was successful we should see a kubernetes deployment called `greeter-00001-deployment` with **two** pods readily available.
+After the deployment was successful we should see a Kubernetes Deployment called `greeter-00001-deployment` with **two** pods available.
 
 Open a new terminal and run the following command :
 
