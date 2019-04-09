@@ -437,8 +437,8 @@ spec:
                 path: /healthz
 ----
 
-<1> Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.
-<2> The deployment of this service will always have a minimum of 2 pods.
+<1> The deployment of this service will always have a minimum of 2 pods.
+<2> Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.
 
 [#scaling-run-min-scale]
 [source,bash,subs="+macros,+attributes"]

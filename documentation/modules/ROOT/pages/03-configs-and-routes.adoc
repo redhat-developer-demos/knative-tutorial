@@ -230,7 +230,7 @@ We need to run the service invocation in loop to see the results of traffic dist
 set -eu
 while true
 do
-  http --body $IP_ADDRESS 'Host: greeter.{tutorial-namespace}.example.com'
+  http --body $IP_ADDRESS 'Host:greeter.{tutorial-namespace}.example.com'
   sleep 3
 done;
 ----
