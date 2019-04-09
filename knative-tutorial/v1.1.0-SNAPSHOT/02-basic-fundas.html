@@ -1111,7 +1111,7 @@ spec:
 </div>
 <div id="run-pinned-revision" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">PIN_REVISION=`kubectl get rev -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` &amp;&amp; \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">PIN_REVISION=`kubectl get rev -n knativetutorial -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` &amp;&amp; \
 cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kubectl -n knativetutorial apply -f -</code></pre>
 </div>
 </div>
