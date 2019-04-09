@@ -159,7 +159,7 @@ yq w -i service.yaml 'spec.runLatest.configuration.revisionTemplate.spec.contain
 copyToClipboard::build-run-edit-knative-service[]
 
 [.text-center]
-.service-build.yaml
+.service.yaml
 [source,yaml,linenums]
 ----
 apiVersion: serving.knative.dev/v1alpha1
