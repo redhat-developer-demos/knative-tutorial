@@ -14,4 +14,4 @@ SOURCE_REVISION=${SOURCE_REVISION:-'master'}
 # The Context directory within sources repository which will be used during build
 CONTEXT_DIR=${CONTEXT_DIR:-'java/quarkus'}
 # The fully qualified image name e.g. docker.io/foo/bar:v1.0
-DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:'<your container registry url>'}
+DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:-'<your container registry url>'}

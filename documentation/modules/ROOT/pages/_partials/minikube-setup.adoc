@@ -145,8 +145,8 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m
 [#run-install-knative-eventing]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply --filename {knative-eventing-repo}/{knative-eventing-version}/release.yaml \
-kubectl apply --filename {knative-sources-repo}/{knative-sources-version}/release.yaml \
+kubectl apply --filename {knative-eventing-repo}/{knative-eventing-version}/release.yaml && \
+kubectl apply --filename {knative-sources-repo}/{knative-sources-version}/release.yaml && \
 kubectl apply --filename https://raw.githubusercontent.com/knative/serving/{knative-serving-version}/third_party/config/build/clusterrole.yaml
 ----
 copyToClipboard::run-install-knative-eventing[]
