@@ -809,8 +809,8 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></p
 <h5 id="install-knative-eventing"><a class="anchor" href="#install-knative-eventing"></a><strong>Install Knative Eventing</strong></h5>
 <div id="run-install-knative-eventing" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.4.0/release.yaml \
-kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.4.0/release.yaml \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.4.0/release.yaml &amp;&amp; \
+kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.4.0/release.yaml &amp;&amp; \
 kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serving/v0.4.0/third_party/config/build/clusterrole.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.4.0/third_party/config/build/clusterrole.yaml</a></code></pre>
 </div>
 </div>
