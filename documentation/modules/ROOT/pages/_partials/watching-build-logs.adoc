@@ -2,14 +2,14 @@ The Knative build creates an init container for each build step. The init contai
 
 The following command can be used to watch the log of a specific container within a pod,
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl logs -n {tutorial-namespace} <pod-name> -c <build-init-container-name>
 ----
 
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc logs -n {tutorial-namespace} <pod-name> -c <build-init-container-name>
 ----
@@ -25,7 +25,7 @@ kubectl logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-ste
 
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push
 ----
@@ -36,14 +36,14 @@ oc logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-doc
 
 (e.g.) the following command lists all the init container names of the pod `event-greeter-build-pod-2986f2`
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
 ----
 
 **(OR)**
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name
 ----
