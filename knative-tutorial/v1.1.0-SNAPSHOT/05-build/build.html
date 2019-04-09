@@ -1013,7 +1013,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n {tutorial-namespace} &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1021,7 +1021,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n {tutorial-namespace} &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1040,7 +1040,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -1062,7 +1062,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1070,7 +1070,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace} get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
 </div>
 </div>
 <div class="ulist">
