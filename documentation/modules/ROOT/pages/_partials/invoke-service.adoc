@@ -6,8 +6,7 @@
 [#{k8s-env}-svc-gateway-env]
 [source,bash,subs="+macros,+attributes"]
 ----
-INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS="$({k8s-env} ip):$({k8s-cli} get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
+IP_ADDRESS="$({k8s-env} ip):$({k8s-cli} get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 ----
 copyToClipboard::{k8s-env}-svc-gateway-env[]
 
