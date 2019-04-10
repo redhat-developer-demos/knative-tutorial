@@ -4,16 +4,11 @@ Modifying the tutorial
 The tutorial is written in asciidoc and can be updated using any text editor.
 You can preview changes as you make them as follows:
 
-1. Install the `antora` website generator and `gulp` build system
-+
-....
-npm install @antora/cli @antora/site-generator-default gulp@^3.9.1 gulp-connect yaml-js
-....
+1. Install the `antora` website generator and the `gulp` build system
+$ npm install @antora/cli @antora/site-generator-default gulp@^3.9.1 gulp-connect yaml-js
 
-2. Create a `dev-site.yml` file (the `site.yml` file is for the public website)
-+
-.dev-site.yml
-....
+2. Create a `dev-site.yml` file (the `site.yml` file is for the public website) with the following contents:
+
 runtime:
   cache_dir: ./.cache/antora
 
@@ -27,6 +22,7 @@ content:
     - url: .
       branches: HEAD
       start_path: documentation
+
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
@@ -41,8 +37,7 @@ ui:
 
 output:
   dir: ./gh-pages
-....
 
 3. Run `node_modules/.bin/gulp`
 
-This will generate HTML, start a local web server at `localhost:5373`, open the server index in a browser, and automatically update the HTML when the asciidoc source changes.
+This will generate HTML, start a local web server at `localhost:5373`, which you can open in your browser, and automatically update the HTML when the asciidoc source changes. If you are not seeing your source changes reflected in the browser, try cleaning browser cache.
