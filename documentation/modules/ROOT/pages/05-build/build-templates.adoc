@@ -5,11 +5,11 @@ The raw builds like what we did in xref:ROOT:05-build/build.adoc[previous chapte
 
  * No reusability 
  * Hard coding of build parameters 
- * Inability to make builds and services in synchronous i.e. services are deployed only after the related build is complete
+ * Inability to make builds and services asynchronous i.e. services are deployed only after the related build is complete
 
 One of the solutions to these problems is **Build Templates**.
 
-Similarly to the build spec, the Knative build template spec and the Knative service spec needs some customizations before being applied.
+Similar to the build spec, the Knative build template spec and the Knative service spec needs some customizations before being applied.
 
 [#build-template-prerequisite]
 == Prerequisite 
@@ -29,7 +29,7 @@ include::partial$prereq-cli.adoc[]
 
 include::partial$build-nav-folder.adoc[]
 
-For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages https://buildah.io[buildah] to build and push the container image based on the Java application built using maven.
+For this chapter's build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages https://buildah.io[buildah] to build and push the container image based on the Java application built using maven.
 
 [.text-center]
 .maven-build-template.yaml
@@ -52,7 +52,7 @@ spec:
         - "/usr/local/bin/buildah.sh"
       env:
         - name: WORK_DIR
-          value: /workspace/${CONTEXT_DIR}
+          value: ${CONTEXT_DIR}
         - name: DESTINATION_NAME
           value: ${IMAGE}
         # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
@@ -70,7 +70,7 @@ spec:
           name: m2-cache
         - mountPath: /var/lib/containers
           name: container-storage
-      workingDir: /workspace/${CONTEXT_DIR}
+      workingDir: ${CONTEXT_DIR}
   timeout: 60m
   volumes:
     - name: m2-cache
@@ -122,13 +122,13 @@ spec:
           source:
             git:
               revision: v0.0.2 # <1>
-              url: https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git
+              url: https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
           template:
             arguments: # <2>
               - name: IMAGE
                 value: docker.io/demo/event-greeter:0.0.2
               - name: CONTEXT_DIR
-                value: java/quarkus
+                value: /workspace/java/quarkus
             name: build-java-maven # <3>
           timeout: 20m
       revisionTemplate:
@@ -137,7 +137,7 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/kameshsampath/event-greeter:0.0.2
+            image: docker.io/demo/event-greeter:0.0.2
 ----
 
 <1> Using another branch from the sources, just to differentiate the image produced by this build
@@ -222,6 +222,7 @@ include::ROOT:partial$invoke-service.adoc[tag=env]
 ----
 http POST $IP_ADDRESS \
   'Host:event-greeter.{tutorial-namespace}.example.com'  \
+  'Accept:*/*' \
    message="test message"
 ----
 copyToClipboard::build-template-invoke-svc[]

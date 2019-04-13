@@ -333,7 +333,7 @@ include::ROOT:partial$invoke-service.adoc[tag=env]
 [#build-run-service-call]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-http POST $IP_ADDRESS \
+http POST $IP_ADDRESS 'Accept:*/*' \
   'Host:event-greeter.{tutorial-namespace}.example.com'  \
    message="test message"
 ----
