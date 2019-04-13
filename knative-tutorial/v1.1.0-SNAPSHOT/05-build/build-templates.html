@@ -512,7 +512,7 @@
 <p>Hard coding of build parameters</p>
 </li>
 <li>
-<p>Inability to make builds and services in synchronous i.e. services are deployed only after the related build is complete</p>
+<p>Inability to make builds and services asynchronous i.e. services are deployed only after the related build is complete</p>
 </li>
 </ul>
 </div>
@@ -520,7 +520,7 @@
 <p>One of the solutions to these problems is <strong>Build Templates</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Similarly to the build spec, the Knative build template spec and the Knative service spec needs some customizations before being applied.</p>
+<p>Similar to the build spec, the Knative build template spec and the Knative service spec needs some customizations before being applied.</p>
 </div>
 </div>
 </div>
@@ -633,7 +633,7 @@
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p>For this chapters build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages <a href="https://buildah.io">buildah</a> to build and push the container image based on the Java application built using maven.</p>
+<p>For this chapter&#8217;s build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages <a href="https://buildah.io">buildah</a> to build and push the container image based on the Java application built using maven.</p>
 </div>
 <div class="listingblock text-center">
 <div class="title">maven-build-template.yaml</div>
@@ -655,7 +655,7 @@ spec:
         - "/usr/local/bin/buildah.sh"
       env:
         - name: WORK_DIR
-          value: /workspace/${CONTEXT_DIR}
+          value: ${CONTEXT_DIR}
         - name: DESTINATION_NAME
           value: ${IMAGE}
         # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
@@ -673,7 +673,7 @@ spec:
           name: m2-cache
         - mountPath: /var/lib/containers
           name: container-storage
-      workingDir: /workspace/${CONTEXT_DIR}
+      workingDir: ${CONTEXT_DIR}
   timeout: 60m
   volumes:
     - name: m2-cache
@@ -732,13 +732,13 @@ spec:
           source:
             git:
               revision: v0.0.2 <i class="conum" data-value="1"></i><b>(1)</b>
-              url: https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git
+              url: https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
           template:
             arguments: <i class="conum" data-value="2"></i><b>(2)</b>
               - name: IMAGE
                 value: docker.io/demo/event-greeter:0.0.2
               - name: CONTEXT_DIR
-                value: java/quarkus
+                value: /workspace/java/quarkus
             name: build-java-maven <i class="conum" data-value="3"></i><b>(3)</b>
           timeout: 20m
       revisionTemplate:
@@ -747,7 +747,7 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/kameshsampath/event-greeter:0.0.2</code></pre>
+            image: docker.io/demo/event-greeter:0.0.2</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -882,6 +882,7 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
   'Host:event-greeter.knativetutorial.example.com'  \
+  'Accept:*/*' \
    message="test message"</code></pre>
 </div>
 </div>

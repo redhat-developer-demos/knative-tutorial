@@ -1168,7 +1168,7 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
 <div id="build-run-service-call" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS 'Accept:*/*' \
   'Host:event-greeter.knativetutorial.example.com'  \
    message="test message"</code></pre>
 </div>
