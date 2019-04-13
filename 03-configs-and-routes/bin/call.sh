@@ -2,8 +2,7 @@
 
 set -e 
 
-INGRESSGATEWAY=istio-ingressgateway
-IP_ADDRESS="$(minishift ip):$(kubectl get svc $INGRESSGATEWAY --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
+IP_ADDRESS="$(minishift ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
 while true
 do
