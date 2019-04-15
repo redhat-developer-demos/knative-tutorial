@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Build Template :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/v1.1.0-SNAPSHOT/05-build/build-templates.html">
+    <title>Build :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/dev/05-build/build.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
@@ -52,7 +52,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="v1.1.0-SNAPSHOT">
+<div class="navigation-container" data-component="knative-tutorial" data-version="dev">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -244,87 +244,87 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="build.html">5. Build</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="build.html#build-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="#build-prerequisite">Prerequisites</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-edit-cr-secret">Edit Container Registry Secret</a>
+    <a class="nav-link" href="#build-edit-cr-secret">Edit Container Registry Secret</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-edit-build-spec">Edit Build Spec</a>
+    <a class="nav-link" href="#build-edit-build-spec">Edit Build Spec</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-edit-knative-service">Edit Knative Service</a>
+    <a class="nav-link" href="#build-edit-knative-service">Edit Knative Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-apply-prereq-resources">Apply Resources</a>
+    <a class="nav-link" href="#build-apply-prereq-resources">Apply Resources</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-create-build">Create Build</a>
+    <a class="nav-link" href="#build-create-build">Create Build</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
+    <a class="nav-link" href="#build-see-what-you-have-deployed">See What You Have Deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-watching-logs">Watching Logs</a>
+    <a class="nav-link" href="#build-watching-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-build-status">Build Status</a>
+    <a class="nav-link" href="#build-build-status">Build Status</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-deploy-service-build">Deploy Service</a>
+    <a class="nav-link" href="#build-deploy-service-build">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="#build-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-build-cleanup">Cleanup</a>
+    <a class="nav-link" href="#build-build-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="build-templates.html">6. Build Template</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#build-template-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="build-templates.html#build-template-prerequisite">Prerequisites</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-template-template">Build Template</a>
+    <a class="nav-link" href="build-templates.html#build-template-template">Build Template</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-template-edit-service">Edit Knative Service</a>
+    <a class="nav-link" href="build-templates.html#build-template-edit-service">Edit Knative Service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="#build-template-apply-resources">Apply Resources</a>
+    <a class="nav-link" href="build-templates.html#build-template-apply-resources">Apply Resources</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-template-create-template">Create Build Template</a>
+    <a class="nav-link" href="build-templates.html#build-template-create-template">Create Build Template</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#build-see-what-you-have-deployed">See What You Have Deployed</a>
+    <a class="nav-link" href="build-templates.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#build-deploy-service-build-template">Deploy Service</a>
+    <a class="nav-link" href="build-templates.html#build-deploy-service-build-template">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#build-template-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="build-templates.html#build-template-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#build-template-cleanup">Cleanup</a>
+    <a class="nav-link" href="build-templates.html#build-template-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -447,7 +447,7 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">v1.1.0-SNAPSHOT</span>
+    <span class="version">dev</span>
   </div>
   <ul class="components">
     <li class="component">
@@ -465,10 +465,7 @@
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../index.html">v1.1.0-SNAPSHOT</a>
-        </li>
-        <li class="version">
-          <a href="../../v1.0.0/index.html">v1.0.0</a>
+          <a href="../index.html">dev</a>
         </li>
       </ul>
     </li>
@@ -484,48 +481,35 @@
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="../index.html">Knative Tutorial</a></li>
-    <li class="crumb"><a href="build-templates.html">6. Build Template</a></li>
+    <li class="crumb"><a href="build.html">5. Build</a></li>
   </ul>
 </nav>
-<div class="page-versions">
-  <button class="versions-menu-toggle" title="Show other versions of page">v1.1.0-SNAPSHOT</button>
-  <div class="versions-menu">
-    <a class="version is-current" href="build-templates.html">v1.1.0-SNAPSHOT</a>
-    <a class="version is-missing" href="../../v1.0.0/index.html">v1.0.0</a>
-  </div>
-</div>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/ROOT/pages/05-build/build-templates.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/release/0.4.0/documentation/modules/ROOT/pages/05-build/build.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Build Template</h1>
+<h1>Build</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The raw builds like what we did in <a href="build.html" class="page">previous chapter</a> has some disadvantages:</p>
+<p>At the end of this chapter you will be able to:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>No reusability</p>
+<p>Define build</p>
 </li>
 <li>
-<p>Hard coding of build parameters</p>
+<p>Define build templates</p>
 </li>
 <li>
-<p>Inability to make builds and services asynchronous i.e. services are deployed only after the related build is complete</p>
+<p>How to make service use builds for building container images a.k.a source-to -url</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>One of the solutions to these problems is <strong>Build Templates</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Similar to the build spec, the Knative build template spec and the Knative service spec needs some customizations before being applied.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-template-prerequisite"><a class="anchor" href="#build-template-prerequisite"></a>Prerequisite</h2>
+<h2 id="build-prerequisite"><a class="anchor" href="#build-prerequisite"></a>Prerequisite</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following checks ensure that each chapter exercises are done with the right environment settings.</p>
@@ -597,32 +581,26 @@
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
-<div class="admonitionblock important">
+<div id="build-registry-account" class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Please ensure that you have <a href="build.html#build-registry-account" class="page">container registry account</a> created.</p>
-</li>
-<li>
-<p><a href="build.html#build-set-env" class="page">Build environment variables</a> has been configured.</p>
-</li>
-<li>
-<p>Pre-requisite <a href="build.html#build-apply-prereq-resources" class="page">kubernetes resources</a> have been created and applied.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Its required that you have container registry account which is needed during the exercises to push the built container images.</p>
+</div>
+<div class="paragraph">
+<p>You can get one for free at <a href="https://hub.docker.com">Docker Hub</a></p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="build-template-template"><a class="anchor" href="#build-template-template"></a>Knative build template</h3>
+<div class="paragraph">
+<p>As the Knative build and build template specs need some customizations, such as creating a secret with your container registry credentials; we need to set the following environment variables before running the other commands of the section.</p>
+</div>
 <div class="paragraph">
 <p>Navigate to the <code>$TUTORIAL_HOME/05-build/knative</code> folder:</p>
 </div>
@@ -632,32 +610,178 @@
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-set-env"><a class="anchor" href="#build-set-env"></a>Configure build environment variables</h2>
+<div class="sectionbody">
+<div id="copy-set-env-sh" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/setenv.sh.example">setenv.sh.example</a> setenv.sh</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#copy-set-env-sh"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p>For this chapter&#8217;s build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages <a href="https://buildah.io">buildah</a> to build and push the container image based on the Java application built using maven.</p>
+<p>Update the following environment variables as per your needs and customizations.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Build Environment Variables</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Variable</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Description</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Default Value</strong></th>
+<th class="tableblock halign-center valign-top"><strong>e.g.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_USERNAME</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry User Id that will be used to authenticate against the container registry <code>$REGISTRY_URL</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">demo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_PASSWORD</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry User Password that will be used to authenticate against the container registry <code>$REGISTRY_URL</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">demopassword</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry URL, defaults to <a href="https://index.docker.io" class="bare">https://index.docker.io</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://index.docker.io" class="bare">https://index.docker.io</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://quay.io/v2" class="bare">https://quay.io/v2</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">SOURCE_REPO_URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Source repository Git URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">SOURCE_REVISION</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Source revision</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">master</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">v1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The Context directory within sources repository which will be used during build</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">java/quarkus</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DESTINATION_IMAGE_NAME</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">The fully qualified image name that will be built</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">docker.io/foo/bar:v1.0</p></td>
+</tr>
+</tbody>
+</table>
+<div id="source-set-env-sh" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source $TUTORIAL_HOME/05-build/knative/setenv.sh</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#source-set-env-sh"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-edit-cr-secret"><a class="anchor" href="#build-edit-cr-secret"></a>Edit Container Registry Secret</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A container registry secret is required for the build to authenticate with the container registry, so that it can build and push the image to the registry.</p>
+</div>
+<div id="build-run-edit-cr-secret" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i container-registry-secret.yaml 'metadata.annotations.[build.knative.dev/docker-0]' $REGISTRY_URL &amp;&amp; \
+yq w -i container-registry-secret.yaml stringData.username $REGISTRY_USERNAME &amp;&amp; \
+yq w -i container-registry-secret.yaml stringData.password $REGISTRY_PASSWORD</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-cr-secret"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p>The above command will generate a Kubernetes secret as shown below:</p>
 </div>
 <div class="listingblock text-center">
-<div class="title">maven-build-template.yaml</div>
+<div class="title">container-registry-secret.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    build.knative.dev/docker-0: https://index.docker.io/v1/
+  name: basic-user-pass
+stringData:
+  password: demopassword
+  username: demo
+type: kubernetes.io/basic-auth</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above yaml has dummy values for username, password etc., the actual values will be based on the <a href="#build-set-env">Build Environment Variables</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more details on why we need to do this please check <a href="https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-edit-build-spec"><a class="anchor" href="#build-edit-build-spec"></a>Edit Knative build spec</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Knative build spec is used to create and run the Knative builds. You can find more details on Knative build <a href="https://github.com/knative/docs/tree/master/docs/build">here</a>. In this example we will be using <a href="https://buildah.io">Buildah</a> to perform the build and push of of the container image.</p>
+</div>
+<div id="build-run-edit-build-spec" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i event-greeter-build.yaml 'spec.steps[0].env[0].value' "/workspace/$CONTEXT_DIR" &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.steps[0].workingDir' "/workspace/$CONTEXT_DIR" &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.source.git.url' $SOURCE_REPO_URL &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.source.git.revision' $SOURCE_REVISION &amp;&amp; \
+yq w -i event-greeter-build.yaml 'spec.steps[0].env[1].value' $DESTINATION_IMAGE_NAME</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-build-spec"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p>The above command will generate a knative build specification as shown below:</p>
+</div>
+<div class="listingblock text-center">
+<div class="title">event-greeter-build.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: build.knative.dev/v1alpha1
-kind: BuildTemplate
+kind: Build
 metadata:
-  name: build-java-maven
+  name: greeter-build
 spec:
-  parameters: <i class="conum" data-value="1"></i><b>(1)</b>
-    - description: |
-        The name of the image to push.
-      name: IMAGE
-    - description: |
-        The context directory from where to run the build.
-      name: CONTEXT_DIR
+  serviceAccountName: build-bot
+  source:
+    git:
+      revision: master
+      url: https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
   steps:
     - args:
         - "/usr/local/bin/buildah.sh"
       env:
         - name: WORK_DIR
-          value: ${CONTEXT_DIR}
+          value: /workspace/java/quarkus
         - name: DESTINATION_NAME
-          value: ${IMAGE}
+          value: quay.io/workspace7/build-test:v0.0.1
         # uncomment this if you have MAVEN_MIRROR thats is reachable from your kube cluster
         # speeds up the builds - the example below uses Nexus repo manager installed in host machine
         # - name: MAVEN_MIRROR_URL
@@ -673,7 +797,7 @@ spec:
           name: m2-cache
         - mountPath: /var/lib/containers
           name: container-storage
-      workingDir: ${CONTEXT_DIR}
+      workingDir: /workspace/java/quarkus
   timeout: 60m
   volumes:
     - name: m2-cache
@@ -684,38 +808,34 @@ spec:
         path: /var/lib/containers</code></pre>
 </div>
 </div>
-<div class="colist arabic">
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The build template does not have any hard-coded values, *the dynamic values could be passed using <strong>parameters</strong> of the template.</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above yaml has dummy values for --context, --destination etc., the actual values will be based on the <a href="#build-set-env">Build Environment Variables</a>.
+</td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-edit-knative-service"><a class="anchor" href="#build-edit-knative-service"></a>Edit Knative service</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The build done by the build steps of the template is exactly same like what was done by <a href="build.html#build-create-build" class="page">raw build</a>, but templates gives flexibility and ease of configuration via parameters. The template step(s) modifications are transparent to the consumers (the builds inheriting the template), the builds using the template will automatically inherit the modified steps.</p>
+<p>Run the following command to create the knative service that will use the image created by the <code>event-greeter-build</code>.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="build-template-edit-service"><a class="anchor" href="#build-template-edit-service"></a>Edit Knative service</h3>
-<div class="paragraph">
-<p>Run the following command to create the knative service that will use the image created by the Knative build template we defined earlier.</p>
-</div>
-<div id="build-template-run-edit-service" class="listingblock">
+<div id="build-run-edit-knative-service" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.template.arguments[0].value' $DESTINATION_IMAGE_NAME &amp;&amp; \
-yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.template.arguments[1].value' "/workspace/$CONTEXT_DIR" &amp;&amp; \
-yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.source.git.url' $SOURCE_REPO_URL &amp;&amp; \
-yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.build.spec.source.git.revision' $SOURCE_REVISION &amp;&amp; \
-yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' $DESTINATION_IMAGE_NAME</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i service.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-edit-service"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p>Running the above command will result in the following knative service file:</p>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-knative-service"><i class="fa fa-copy"></i></button><br/>
 <div class="listingblock text-center">
-<div class="title">service-with-build-template.yaml</div>
+<div class="title">service.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -724,47 +844,14 @@ metadata:
 spec:
   runLatest:
     configuration:
-      build:
-        apiVersion: build.knative.dev/v1alpha1
-        kind: Build
-        spec:
-          serviceAccountName: build-bot
-          source:
-            git:
-              revision: v0.0.2 <i class="conum" data-value="1"></i><b>(1)</b>
-              url: https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
-          template:
-            arguments: <i class="conum" data-value="2"></i><b>(2)</b>
-              - name: IMAGE
-                value: docker.io/demo/event-greeter:0.0.2
-              - name: CONTEXT_DIR
-                value: /workspace/java/quarkus
-            name: build-java-maven <i class="conum" data-value="3"></i><b>(3)</b>
-          timeout: 20m
       revisionTemplate:
         metadata:
           labels:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.2</code></pre>
+            image: docker.io/demo/event-greeter:0.0.1</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Using another branch from the sources, just to differentiate the image produced by this build</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Passing the parameters required by the build template, not passing the required parameters will result in build validation failure</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The name of the build template to use</td>
-</tr>
-</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -773,95 +860,286 @@ spec:
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values will be based on what you set in <code>setenv.sh</code>. For more details check the  <a href="build.html#build-set-env" class="page">Build environment variables</a> section.
+The above yaml has dummy values for image, the actual values will be based on the <a href="#build-set-env">Build Environment Variables</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="build-apply-prereq-resources"><a class="anchor" href="#build-apply-prereq-resources"></a>Apply pre-requisite resources</h3>
+<div class="paragraph">
+<p>Before we create the build and service, we need to create a few Kubernetes resources that will be used by the build.</p>
+</div>
+<div class="paragraph">
+<p>Run the following commands to create the pre-requisite resources:</p>
+</div>
+<div id="build-run-apply-prereq-resources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f container-registry-secret.yaml &amp;&amp; \<i class="conum" data-value="1"></i><b>(1)</b>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a> &amp;&amp; \<i class="conum" data-value="2"></i><b>(2)</b>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a>  &amp;&amp; \<i class="conum" data-value="3"></i><b>(3)</b>
+kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-apply-prereq-resources"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-apply-prereq-resources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f container-registry-secret.yaml &amp;&amp; \<i class="conum" data-value="1"></i><b>(1)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/build-sa.yaml">build-sa.yaml</a> &amp;&amp; \<i class="conum" data-value="2"></i><b>(2)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/m2-pvc.yaml">m2-pvc.yaml</a> &amp;&amp; \<i class="conum" data-value="3"></i><b>(3)</b>
+oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-apply-prereq-resources"><i class="fa fa-copy"></i></button><br/>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Kubernetes secret called <code>basic-auth-pass</code>, check <a href="https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker">here</a> for more details</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Kubernetes service account called <code>build-bot</code> that will run the build.  Only <code>build-bot</code> has access to the secret <code>basic-auth-pass</code>. Check <a href="https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker">here</a> for more details</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The Kubernetes persistence volume claim used to cache maven artifacts, to make subsequent builds faster</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The Kubernetes persistence volume claim  that will be used to mount and store the built contianer images</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-create-build"><a class="anchor" href="#build-create-build"></a>Create build</h2>
+<div class="sectionbody">
+<div id="build-run-create-build" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-create-build"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-create-build" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-create-build"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-see-what-you-have-deployed"><a class="anchor" href="#build-see-what-you-have-deployed"></a>See what you have deployed</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="build-show-knative-builds"><a class="anchor" href="#build-show-knative-builds"></a>build</h3>
+<div id="knative-build" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-build"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="oc-knative-build" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-build"><i class="fa fa-copy"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The builds right now can&#8217;t be started from the step where it has failed, you always need to start a new build by deleting the existing build followed by creating a new one again.</p>
+</div>
+<div class="paragraph">
+<p>e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n knativetutorial -f event-greeter-build.yaml
+kubectl apply -n knativetutorial -f event-greeter-build.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -n knativetutorial -f event-greeter-build.yaml
+oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="build-template-apply-resources"><a class="anchor" href="#build-template-apply-resources"></a>Apply resources</h3>
-<div class="paragraph">
-<p>As we have already <a href="build.html#build-apply-prereq-resources" class="page">applied the pre-req</a> resources, lets jump straight to applying the template and service.</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="build-watching-logs"><a class="anchor" href="#build-watching-logs"></a>Watching logs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Knative build creates an init container for each build step. The init containers will be named like <code>build-step-&lt;step-name&gt;</code> e.g. if the build step is named "foo" then there will be an init container named "build-step-foo" added to the build pod.</p>
+</div>
+<div class="paragraph">
+<p>The following command can be used to watch the log of a specific container within a pod,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial &lt;pod-name&gt; -c &lt;build-init-container-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(e.g.)</p>
+</div>
+<div class="paragraph">
+<p>To watch the container logs of container <code>docker-push</code> within the build pod called <code>event-greeter-build-pod-2a271e</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n {tutorial-namespace} event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial event-greeter-build-pod-2a271e -c build-step-docker-push</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can use the following command to list names of all the init containers within a pod .</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>(e.g.) the following command lists all the init container names of the pod <code>event-greeter-build-pod-2986f2</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods event-greeter-build-pod-2986f2 -o yaml | yq r - spec.initContainers[*].name</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using <code>stern</code> you can watch logs of all the container of the build pod using  the command <code>stern event-greeter-build-pod</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-template-create-template"><a class="anchor" href="#build-template-create-template"></a>Create build template</h2>
+<h2 id="build-build-status"><a class="anchor" href="#build-build-status"></a>Checking build status</h2>
 <div class="sectionbody">
-<div id="build-template-run-create-template" class="listingblock">
+<div class="paragraph">
+<p>A successful build will have the container image pushed to the container registry, going by the examples above you should the image `event-greeter:0.0.1 ` in your container registry.</p>
+</div>
+<div class="paragraph">
+<p>You can check the status of build as shown below:</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f maven-build-template.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-create-template"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
-<div id="build-template-run-oc-create-template" class="listingblock">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f maven-build-template.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-create-template"><i class="fa fa-copy"></i></button><br/>
-<div class="sect2">
-<h3 id="build-see-what-you-have-deployed"><a class="anchor" href="#build-see-what-you-have-deployed"></a>See what you have deployed</h3>
-<div class="sect3">
-<h4 id="build-show-knative-build-templates"><a class="anchor" href="#build-show-knative-build-templates"></a>build templates</h4>
-<div id="knative-build-templates" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-build-templates"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p><strong>(OR)</strong></p>
+<p>The above command should return an output as shown below:</p>
 </div>
-<div id="oc-knative-build-templates" class="listingblock">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get buildtemplates.build.knative.dev build-java-maven</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                      READY     STATUS      RESTARTS   AGE
+event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-build-templates"><i class="fa fa-copy"></i></button><br/>
-</div>
+<div class="paragraph">
+<p>With this you should also be able to do pull your container images from the registry.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-deploy-service-build-template"><a class="anchor" href="#build-deploy-service-build-template"></a>Deploy service using Build Template</h2>
+<h2 id="build-deploy-service-build"><a class="anchor" href="#build-deploy-service-build"></a>Deploy service using Build</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With build templates the automatic build may not be triggered unless and until some service or build referring to the template gets created.</p>
+<p>With a successful build you are ready to deploy the service, run the following commands to deploy the service:</p>
 </div>
-<div class="paragraph">
-<p>Run the following commands to deploy the service:</p>
-</div>
-<div id="build-template-run-deploy-service" class="listingblock">
+<div id="build-run-deploy-service" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service-with-build-template.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-deploy-service"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-deploy-service"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p><strong>(OR)</strong></p>
 </div>
-<div id="build-template-run-oc-deploy-service" class="listingblock">
+<div id="build-run-oc-deploy-service" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service-with-build-template.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f service.yaml</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-deploy-service"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p>You can also <a href="build.html#build-watching-logs" class="page">watch the logs</a> of the build triggered with the service deployment.</p>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-deploy-service"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>After successful deployment of the service we should see a Kubernetes deployment like <code>event-greeter-8fvqf-deployment</code> available.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build-template-invoke-service"><a class="anchor" href="#build-template-invoke-service"></a>Invoke Service</h2>
+<h2 id="build-invoke-service"><a class="anchor" href="#build-invoke-service"></a>Invoke service</h2>
 <div class="sectionbody">
 <div id="minikube-svc-gateway-env" class="listingblock">
 <div class="content">
@@ -878,46 +1156,26 @@ The above yaml has dummy values for IMAGE, CONTEXT_DIR etc., the actual values w
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
-<div id="build-template-invoke-svc" class="listingblock">
+<div id="build-run-service-call" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http POST $IP_ADDRESS 'Accept:*/*' \
   'Host:event-greeter.knativetutorial.example.com'  \
-  'Accept:*/*' \
    message="test message"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-invoke-svc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-service-call"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>The above command should return an response like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
-    "host": "Event  greeter =&gt; 'event-greeter-5cbh5-pod-52d8fb' : 1",
+    "host": "Event  greeter =&gt; 'event-greeter-build-pod-d55571' : 1",
     "message": "test message",
-    "time": "05:34:05"
+    "time": "04:50:40"
 }</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="build-template-cleanup"><a class="anchor" href="#build-template-cleanup"></a>Cleanup</h3>
-<div id="build-template-run-cleanup" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
-kubectl -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-cleanup"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div id="build-template-run-oc-cleanup" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
-oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-template-run-oc-cleanup"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -925,11 +1183,47 @@ oc -n knativetutorial delete buildtemplates.build.knative.dev build-java-maven</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can also delete <a href="build.html#build-apply-prereq-resources" class="page">pre-req resources</a> that were created if you don&#8217;t need them anymore.
+the actual response&#8217;s host and time properties will be based on your environment
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build-build-cleanup"><a class="anchor" href="#build-build-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before proceeding next chapter let us delete the build and service objects that were created.</p>
+</div>
+<div id="build-run-cleanup" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev event-greeter
+kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-cleanup"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="build-run-oc-cleanup" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev event-greeter
+oc -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-cleanup"><i class="fa fa-copy"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can also delete <a href="#build-apply-prereq-resources">pre-req resources</a> that were created if you don&#8217;t need them anymore.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
