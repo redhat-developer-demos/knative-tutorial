@@ -65,7 +65,7 @@ Before we start setting up the environment, let's clone the tutorial sources and
 [#cloneRepo]
 [source,bash,subs="+macros,+attributes"]
 ----
-git clone https://github.com/redhat-developer-demos/knative-tutorial 
+git clone -b release/0.4 https://github.com/redhat-developer-demos/knative-tutorial 
 ----
 copyToClipboard::cloneRepo[]
 
