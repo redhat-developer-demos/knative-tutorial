@@ -3,17 +3,18 @@ runtime:
 
 site:
   title: Knative Tutorial
-  url: https://redhat-developer-demos.github.io/knative-tutorial
-  start_page: 0.4.0@knative-tutorial::index.adoc
+  url: https://redhat-developer-docs.github.io/knative-tutorial
+  start_page: dev@knative-tutorial::index.adoc
 
 content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
       tags: []
-      branches: release/*
+      branches: master
       start_path: documentation
     - url: git@github.com:redhat-developer-docs/knative-tutorial-module-camelk.git
-      tags: v*
+      tags: []
+      branches: master
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
