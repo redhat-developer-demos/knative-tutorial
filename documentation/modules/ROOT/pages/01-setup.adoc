@@ -6,6 +6,8 @@ include::_attributes.adoc[]
 
 The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
 
+You don't have to have both `Minikube` and `Minishift`. Also, if you have an existing OpenShift cluster you can also use it.
+
 [cols="3*^,3*.",options="header"]
 |===
 |**Tool**|**macOS**|**Fedora**

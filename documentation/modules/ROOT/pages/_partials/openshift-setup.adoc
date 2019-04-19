@@ -1,5 +1,5 @@
 [#install-knative-openshift]
-=== OpenShift 
+=== Install with OpenShift 
 
 For OpenShift Knative installations we will use the OpenShift Cloud Function's https://github.com/openshift-cloud-functions/knative-operators[Knative Operators].
 
