@@ -241,7 +241,7 @@ TIP: Copy and save the above contents to a script file e.g. `$TUTORIAL_HOME/work
 [#crtd-define-revisions]
 === Define revisions
 
-For easier explanation and understanding lets give logical names to the revision and set them to environment variables:
+For easier explanation and understanding lets give logical names to the revisions and set them to environment variables:
 
 [#ctrd-def-revisions]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -364,7 +364,7 @@ cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yam
 ----
 copyToClipboard::ctrd-run-oc-rev1-rev2-10-90[]
 
-If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like **Hi  greeter => '9be9ccd9a2e3' : 1** and **Namaste  greeter => '9be9ccd9a2e3' : 1**. You will also notice the traffic is distributed approximately 75-25% between the two revisions.
+If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like **Hi  greeter => '9be9ccd9a2e3' : 1** and **Namaste  greeter => '9be9ccd9a2e3' : 1**. You will also notice the traffic is distributed approximately 10-90% between the two revisions.
 
 
 [#ctrd-cleanup]

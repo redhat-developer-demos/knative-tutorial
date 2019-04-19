@@ -40,4 +40,4 @@ output:
 
 3. Run `node_modules/.bin/gulp`
 
-This will generate HTML, start a local web server at `localhost:5373`, which you can open in your browser, and automatically update the HTML when the asciidoc source changes. If you are not seeing your source changes reflected in the browser, try cleaning browser cache.
+This will generate HTML, start a local web server at `localhost:5353`, which you can open in your browser, and automatically update the HTML when the asciidoc source changes. If you are not seeing your source changes reflected in the browser, try cleaning browser cache.
