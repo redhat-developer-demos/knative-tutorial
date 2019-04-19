@@ -93,15 +93,17 @@ copyToClipboard::basics-run-oc-get-deployments[]
 
 [#basics-invoke-service]
 == Invoke Service
+
 :k8s-env: minikube
 :k8s-cli: kubectl
-
+:doc-sec: bis
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 **(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
+:doc-sec: bis
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 The `http` command should return a response containing a line similar to **Hi  greeter => '6fee83923a9f' : 1**
@@ -135,8 +137,9 @@ When the service was invoked with `http $IP_ADDRESS 'Host:greeter.knativetutoria
 * The domain suffix in this case __example.com__ is configurable via the config map **config-domain** of **knative-serving** namespace.
 ====
 
-[#basics-show-knative-revisions]
+[#rev1-basics-show-knative-revisions]
 === revisions
+:doc-sec: rev1
 include::partial$knative-objects.adoc[tag=knative-revisions]
 
 [TIP]
@@ -196,8 +199,9 @@ After successful deployment of the service we should see a Kubernetes deployment
 
 Now if you list revisions, you will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
 
-[#basics-show-knative-revisions]
+[#rev2-basics-show-knative-revisions]
 === revisions
+:doc-sec: rev2
 include::partial$knative-objects.adoc[tag=knative-revisions]
 
 <<basics-invoke-service,Invoking Service>> will now show an output like **Namaste  greeter => '6fee83923a9f' : 1**, where __Namaste__ is the value we configured via environment variable in the Knative service resource file.
@@ -211,7 +215,7 @@ Let us now make the greeter service use the first revision created, the one usin
 
 [TIP]
 ====
-You can use the <<basics-show-knative-revisions, show Knative service revisions>> command to find the available revisions for the greeter service.
+You can use the <<rev1-basics-show-knative-revisions, show Knative service revisions>> command to find the available revisions for the greeter service.
 ====
 
 === Service pinned to first revision

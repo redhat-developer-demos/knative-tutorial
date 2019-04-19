@@ -1,3 +1,5 @@
+[doc-sec='']
+
 #tag::knative-services[]
 
 [#knative-services]
@@ -59,7 +61,7 @@ copyToClipboard::oc-knative-routes[]
 
 #tag::knative-revisions[]
 
-[#knative-revisions]
+[#{doc-sec}knative-revisions]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"
@@ -68,7 +70,7 @@ copyToClipboard::knative-revisions[]
 
 **(OR)**
 
-[#oc-knative-revisions]
+[#{doc-sec}-oc-knative-revisions]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"

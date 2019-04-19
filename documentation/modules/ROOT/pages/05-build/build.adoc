@@ -322,12 +322,14 @@ After successful deployment of the service we should see a Kubernetes deployment
 
 :k8s-env: minikube
 :k8s-cli: kubectl
+:doc-sec: build-is
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
 **(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
+:doc-sec: build-is
 include::ROOT:partial$invoke-service.adoc[tag=env]
 
 [#build-run-service-call]

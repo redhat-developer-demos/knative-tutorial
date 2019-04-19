@@ -51,7 +51,7 @@ The service can be deployed using the command:
 [#scaling-run-apply-cm]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n knative-serving -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+kubectl apply -n knative-serving -f link:{github-repo}/{scaling-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
 ----
 copyToClipboard::scaling-run-apply-cm[]
 
@@ -60,7 +60,7 @@ copyToClipboard::scaling-run-apply-cm[]
 [#scaling-run-oc-apply-cm]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n knative-serving -f link:{github-repo}/{serving-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
+oc apply -n knative-serving -f link:{github-repo}/{scaling-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
 ----
 copyToClipboard::scaling-run-oc-apply-cm[]
 
@@ -123,12 +123,14 @@ After the deployment was successful of the service we should see a Kubernetes de
 
 :k8s-env: minikube
 :k8s-cli: kubectl
+:doc-sec: scaling-is
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 **(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
+:doc-sec: scaling-is
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 The last `http` command should return a response like **Hi  greeter => '9be9ccd9a2e3' : 1**
@@ -185,6 +187,14 @@ As described above, the time it takes to finally scale to zero will be `STABLE_W
 
 For easier observation let us open a new terminal and run the following command,
 
+:k8s-cli: kubectl
+:doc-sec: obs-scale-down
+include::partial$watch-scaling-pods.adoc[]
+
+**(OR)**
+
+:k8s-cli: oc
+:doc-sec: obs-scale-down
 include::partial$watch-scaling-pods.adoc[]
 
 TIP: If you are on OpenShift up and downscaling can also be watched on using the OpenShift Web Console by navigating to the `{tutorial-namespace}` project
@@ -358,16 +368,26 @@ copyToClipboard::scaling-run-oc-autoscale-10[]
 
 :k8s-env: minikube
 :k8s-cli: kubectl
+:doc-sec: scaling-auto-is
 include::partial$invoke-service.adoc[tag=env]
 
 **(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
+:doc-sec: scaling-auto-is
 include::partial$invoke-service.adoc[tag=env]
 
 Open a new terminal and run the following command:
 
+:k8s-cli: kubectl
+:doc-sec: autoscale
+include::partial$watch-scaling-pods.adoc[]
+
+**(OR)**
+
+:k8s-cli: oc
+:doc-sec: autoscale
 include::partial$watch-scaling-pods.adoc[]
 
 [#scaling-load-service]
@@ -459,6 +479,14 @@ After the deployment was successful we should see a Kubernetes Deployment called
 
 Open a new terminal and run the following command :
 
+:k8s-cli: kubectl
+:doc-sec: min-scale
+include::partial$watch-scaling-pods.adoc[]
+
+**(OR)**
+
+:k8s-cli: oc
+:doc-sec: min-scale
 include::partial$watch-scaling-pods.adoc[]
 
 Let us <<scaling-load-service,send some load to the service>> to trigger autoscaling.

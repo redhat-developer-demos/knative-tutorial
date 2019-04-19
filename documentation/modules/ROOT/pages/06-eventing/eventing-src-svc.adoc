@@ -120,7 +120,7 @@ spec:
             image: docker.io/demo/event-greeter:0.0.1 <1>
 ----
 
-<1> Set from `${DESTINATION_IMAGE_NAME}` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
+<1> Set from `pass:[${DESTINATION_IMAGE_NAME}]` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
 
 Refer to xref:ROOT:{build-repo}/build.adoc#build-set-env[Build Environment Variables]
 

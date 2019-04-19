@@ -76,12 +76,14 @@ After the deployment was successful, we should see a kubernetes deployment like 
 
 :k8s-env: minikube
 :k8s-cli: kubectl
+:doc-sec: crtd-is
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 **(OR)**
 
 :k8s-env: minishift
 :k8s-cli: oc
+:doc-sec: crtd-is
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 The command will return `HTTP 404` as there are no routes deployed yet. Let us now deploy a route.
