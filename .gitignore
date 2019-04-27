@@ -36,4 +36,5 @@ mvnw.cmd
 gh-pages
 node_modules
 package.json
+package-lock.json
 dev-site.yml

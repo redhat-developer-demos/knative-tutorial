@@ -213,7 +213,7 @@ copyToClipboard::build-run-oc-apply-prereq-resources[]
 <1> The Kubernetes secret called `basic-auth-pass`, check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
 <2> The Kubernetes service account called `build-bot` that will run the build.  Only `build-bot` has access to the secret `basic-auth-pass`. Check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
 <3> The Kubernetes persistence volume claim used to cache maven artifacts, to make subsequent builds faster
-<4> The Kubernetes persistence volume claim  that will be used to mount and store the built contianer images
+<4> The Kubernetes persistence volume claim  that will be used to mount and store the built container images
 
 [#build-create-build]
 == Create build 

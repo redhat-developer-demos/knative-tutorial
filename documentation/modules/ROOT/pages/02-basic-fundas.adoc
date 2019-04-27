@@ -69,21 +69,21 @@ copyToClipboard::basics-run-oc-svc-apply[]
 
 After successful deployment of the service we should see a Kubernetes Deployment named similar to `greeter-nsrbr-deployment` available:
 
-[#basics-run-svc-apply]
+[#basics-run-get-deployments]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl get deployments -n {tutorial-namespace}
 ----
-copyToClipboard::basics-run-svc-apply[]
+copyToClipboard::basics-run-get-deployments[]
 
 **(OR)**
 
-[#basics-run-oc-svc-apply]
+[#basics-run-oc-get-deployments]
 [source,bash,linenums,subs="+macros,+attributes"]
 ----
 oc get deployments -n {tutorial-namespace}
 ----
-copyToClipboard::basics-run-oc-svc-apply[]
+copyToClipboard::basics-run-oc-get-deployments[]
 
 
 [NOTE]
@@ -104,7 +104,7 @@ include::ROOT:partial$invoke-service.adoc[tag=*]
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
-The last http command should return a response containing a line similar to **Hi  greeter => '6fee83923a9f' : 1**
+The `http` command should return a response containing a line similar to **Hi  greeter => '6fee83923a9f' : 1**
 
 NOTE: Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state. In that case, repeat service invocation.
 
@@ -194,13 +194,11 @@ copyToClipboard::oc-basics-run-service-env[]
 
 After successful deployment of the service we should see a Kubernetes deployment called `greeter-cqgcf-deployment`.
 
-Now if you list revisions
+Now if you list revisions, you will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
 
 [#basics-show-knative-revisions]
 === revisions
 include::partial$knative-objects.adoc[tag=knative-revisions]
-
-, you will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
 
 <<basics-invoke-service,Invoking Service>> will now show an output like **Namaste  greeter => '6fee83923a9f' : 1**, where __Namaste__ is the value we configured via environment variable in the Knative service resource file.
 

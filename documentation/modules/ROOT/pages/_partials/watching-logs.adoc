@@ -1,7 +1,7 @@
 [kube-ns='knativetutorial']
 [kube-svc='']
 
-Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.
+Since a Cron job source is used in this section of the tutorial, it would emit events every minute. We can watch the logs of the service to see the messages delivered.
 
 The logs could be watched using the command:
 
