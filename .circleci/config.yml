@@ -49,4 +49,4 @@ workflows:
             - antora
           filters:
             branches:
-              only: master
+              only: /^release\/.*/
