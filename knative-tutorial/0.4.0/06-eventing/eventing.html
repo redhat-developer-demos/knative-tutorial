@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knative Workshop :: Knative Workshop</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/workshop-v0.4.0/06-eventing/eventing.html">
+    <title>Eventing :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/0.4.0/06-eventing/eventing.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
@@ -15,7 +15,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item">
-        <a href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Workshop</a>
+        <a href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
       </div>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
@@ -52,7 +52,7 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="workshop-v0.4.0">
+<div class="navigation-container" data-component="knative-tutorial" data-version="0.4.0">
   <aside class="navigation">
     <div class="panels">
 <div class="navigation-menu is-active" data-panel="menu">
@@ -69,13 +69,55 @@
     <a class="nav-link" href="../01-setup.html#prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
     <a class="nav-link" href="../01-setup.html#download-tutorial-sources">Download Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../01-setup.html#kubernetes-cluster">Kubernetes Cluster</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../01-setup.html#install-knative-minikube">Install with Minikube</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#start-minikube">Configure and Start Minikube</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#install-knative-istio">Install Istio </a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#install-knative-serving">Install Knative Serving</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#install-knative-build">Install Knative Build</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#install-knative-eventing">Install Knative Eventing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#set-knative-tutorial-ns">Configuring Kubernetes Namespace</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../01-setup.html#install-knative-openshift">Install with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#install-knative-ocp">Install on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../01-setup.html#install-knative-minishift">Install on Minishift</a>
+  </li>
+  <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../01-setup.html#configure-openshift-project">Configure OpenShift Project</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../01-setup.html#setup-work-folder">Work Folder</a>
   </li>
 </ul>
   </li>
@@ -85,6 +127,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../02-basic-fundas.html#basics-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../02-basic-fundas.html#basics-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../02-basic-fundas.html#basics-deploy-service">Deploy Service</a>
@@ -112,6 +157,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../03-configs-and-routes.html#crtd-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03-configs-and-routes.html#ctrd-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../03-configs-and-routes.html#crtd-deploy-configuration">Deploy Configuration</a>
@@ -142,6 +190,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../04-scaling.html#scaling-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../04-scaling.html#scaling-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../04-scaling.html#scaling-deploy-service">Deploy Service</a>
@@ -193,12 +244,99 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05-build/build.html">5. Build</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05-build/build.html#build-prerequisite">Prerequisites</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build.html#build-edit-cr-secret">Edit Container Registry Secret</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build.html#build-edit-build-spec">Edit Build Spec</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build.html#build-edit-knative-service">Edit Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build.html#build-apply-prereq-resources">Apply Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-create-build">Create Build</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-watching-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-build-status">Build Status</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-deploy-service-build">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build.html#build-build-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05-build/build-templates.html">6. Build Template</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-prerequisite">Prerequisites</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-template">Build Template</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-edit-service">Edit Knative Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-apply-resources">Apply Resources</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-create-template">Create Build Template</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../05-build/build-templates.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build-templates.html#build-deploy-service-build-template">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../05-build/build-templates.html#build-template-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="eventing.html">5. Eventing</a>
+    <a class="nav-link" href="eventing.html">7. Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#eventing-assumptions">Assumptions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
@@ -298,6 +436,9 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../faq.html">8. Frequently Asked Questions</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -306,14 +447,25 @@
 <div class="navigation-explore" data-panel="explore">
   <div class="context">
     <span class="title">Knative Tutorial</span>
-    <span class="version">workshop-v0.4.0</span>
+    <span class="version">0.4.0</span>
   </div>
   <ul class="components">
+    <li class="component">
+      <span class="title">Eventing with Apache Camel</span>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../knative-tutorial-camelk/v1.0.0/index.html">v1.0.0</a>
+        </li>
+        <li class="version">
+          <a href="../../../knative-tutorial-camelk/v1.0.0-SNAPSHOT/index.html">v1.0.0-SNAPSHOT</a>
+        </li>
+      </ul>
+    </li>
     <li class="component is-current">
       <span class="title">Knative Tutorial</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../index.html">workshop-v0.4.0</a>
+          <a href="../index.html">0.4.0</a>
         </li>
       </ul>
     </li>
@@ -329,13 +481,13 @@
 <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="../index.html">Knative Tutorial</a></li>
-    <li class="crumb"><a href="eventing.html">5. Eventing</a></li>
+    <li class="crumb"><a href="eventing.html">7. Eventing</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/workshop/0.4/documentation/modules/ROOT/pages/06-eventing/eventing.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/release/0.4/documentation/modules/ROOT/pages/06-eventing/eventing.adoc">Edit this Page</a></div>
 </div>
 <article class="doc">
-<h1>Knative Workshop</h1>
+<h1>Eventing</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -371,7 +523,45 @@
 <div class="ulist">
 <ul>
 <li>
-<p>OpenShift CLI should be <code>v4.1+</code></p>
+<p>Make sure you connect to the minikube or Minishift Docker daemon and use the right kubectl or OpenShift client.</p>
+</li>
+</ul>
+</div>
+<div id="minikube-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div id="minishift-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes should be v1.12+</p>
+</li>
+</ul>
+</div>
+<div id="kubectl-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift CLI should be v3.11.0+</p>
 </li>
 </ul>
 </div>
@@ -384,7 +574,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure to be on <code>$WORKSHOP_USER-knativetutorial</code> OpenShift project</p>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project/Kubernetes namespace</p>
 </li>
 </ul>
 </div>
@@ -395,115 +585,30 @@
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p>If you are not on <code>$WORKSHOP_USER-knativetutorial</code> OpenShift project, then use the following command to change to <code>$WORKSHOP_USER-knativetutorial</code> project:</p>
-</div>
-<div id="change-openshift-project" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project $WORKSHOP_USER-knativetutorial</code></pre>
+<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#change-openshift-project"><i class="fa fa-copy"></i></button><br/>
+</div>
+<div class="sect1">
+<h2 id="eventing-assumptions"><a class="anchor" href="#eventing-assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+<p>You have completed the <a href="../05-build/build.html" class="page">Build</a> or <a href="../05-build/build-templates.html" class="page">Build Templates</a>, as you will be using the container image <code>greeter:0.0.1</code> or <code>greeter:0.0.2</code>  in this chapter.</p>
 </div>
-<div id="eventing-navigate-to-folder" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please ensure that you have set the needed environment variables as mentioned in <a href="../05-build/build.html#build-set-env" class="page"> Configure Environment Variables</a></p>
 </div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Eventing Environment Variables</caption>
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top"><strong>Variable</strong></th>
-<th class="tableblock halign-center valign-top"><strong>Description</strong></th>
-<th class="tableblock halign-center valign-top"><strong>Default Value</strong></th>
-<th class="tableblock halign-center valign-top"><strong>e.g.</strong></th>
+</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_USERNAME</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry User Id that will be used to authenticate against the container registry <code>$REGISTRY_URL</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">demo</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_PASSWORD</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry User Password that will be used to authenticate against the container registry <code>$REGISTRY_URL</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">demopassword</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">REGISTRY_URL</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Container Registry URL, defaults to <a href="https://index.docker.io" class="bare">https://index.docker.io</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://index.docker.io" class="bare">https://index.docker.io</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://quay.io/v2" class="bare">https://quay.io/v2</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">SOURCE_REPO_URL</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Source repository Git URL</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git</a></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">SOURCE_REVISION</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Source revision</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">master</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">v1.0.0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">CONTEXT_DIR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Context directory within sources repository which will be used during build</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">java/quarkus</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">DESTINATION_IMAGE_NAME</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The fully qualified image name that will be built</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">docker.io/foo/bar:v1.0</p></td>
-</tr>
-</tbody>
 </table>
-<div class="paragraph">
-<p>Create a new file called <code>setenv.sh</code> and add the following content to it:</p>
 </div>
-<div id="eventing-set-env" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#!/bin/bash
-
-# The Container Registry User Id
-REGISTRY_USERNAME=${REGISTRY_USERNAME:-'&lt;your-docker-repo-userid&gt;'}
-# The Container Registry User Password
-REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-'&lt;your-docker-repo-user-password&gt;'}
-# The Container Registry URL, defaults to <a href="https://index.docker.io" class="bare">https://index.docker.io</a>
-REGISTRY_URL=${REGISTRY_URL:-'https://index.docker.io'}
-
-# The Source repository Git  URL default  <a href="https://github.com/redhat-developer-demos/knative-tutorial-greeter.git" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</a>
-SOURCE_REPO_URL=${SOURCE_REPO_URL:-' <a href="https://github.com/redhat-developer-demos/knative-tutorial-greeter.git'}" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-greeter.git'}</a>
-# The Source revision defaults to master
-SOURCE_REVISION=${SOURCE_REVISION:-'master'}
-# The Context directory within sources repository which will be used during build
-CONTEXT_DIR=${CONTEXT_DIR:-'java/quarkus'}
-# The fully qualified image name e.g. docker.io/foo/bar:v1.0
-DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:-'quay.io/rhdevelopers/knative-eventing-greeter:quarkus'}</code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#copy-set-env"><i class="fa fa-copy"></i></button><br/>
-<div id="eventing-source-env" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source ./setenv.sh</code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-source-env"><i class="fa fa-copy"></i></button><br/>
 </div>
 </div>
 <div class="sect1">
@@ -517,7 +622,15 @@ DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:-'quay.io/rhdevelopers/knative-e
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n $WORKSHOP_USER-knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>(OR)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -530,13 +643,13 @@ DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:-'quay.io/rhdevelopers/knative-e
 <div class="ulist">
 <ul>
 <li>
-<p>Using stern with the command <code>stern  -n $WORKSHOP_USER-knativetutorial event-greeter</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
+<p>Using stern with the command <code>stern  -n knativetutorial event-greeter</code>, to filter the logs further add <code>-c user-container</code> to the stern command.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n $WORKSHOP_USER-knativetutorial -c user-container event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern -n knativetutorial -c user-container event-greeter</code></pre>
 </div>
 </div>
 </td>
