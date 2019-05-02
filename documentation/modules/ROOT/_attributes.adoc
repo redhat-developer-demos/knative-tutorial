@@ -2,3 +2,4 @@
 :stem: latexmath
 :source-highlighter: coderay
 :imagesdir: {moduledir}/assets/images
+

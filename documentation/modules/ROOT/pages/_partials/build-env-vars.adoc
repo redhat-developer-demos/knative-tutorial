@@ -1,4 +1,6 @@
+ifndef::workshop[]
 .Build Environment Variables
+endif::[]
 
 [cols="4*^,4*."]
 |===

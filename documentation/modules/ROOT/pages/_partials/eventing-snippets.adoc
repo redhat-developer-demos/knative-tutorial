@@ -15,7 +15,7 @@ copyToClipboard::eventing-navigate-to-folder[]
 # tag::cronjob-source[]
 
 The cronjob source also creates a service pod,
-
+ifndef::workshop[]
 [#eventing-run-get-pods]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -24,6 +24,7 @@ kubectl -n {tutorial-namespace} get pods
 copyToClipboard::eventing-run-get-pods[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-get-pods]
 [source,bash,subs="+macros,+attributes"]

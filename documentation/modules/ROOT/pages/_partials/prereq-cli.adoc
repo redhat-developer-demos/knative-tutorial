@@ -1,6 +1,7 @@
 
 The following checks ensure that each chapter exercises are done with the right environment settings.
 
+ifndef::workshop[]
 * Make sure you connect to the minikube or Minishift Docker daemon and use the right kubectl or OpenShift client.
 
 [#minikube-set-env]
@@ -30,7 +31,9 @@ copyToClipboard::kubectl-version[]
 
 **(OR)**
 
-** OpenShift CLI should be v3.11.0+
+endif::[]
+
+* OpenShift CLI should be `v4.1+`
 
 [#oc-version]
 [source,bash,subs="+macros,+attributes"]
@@ -39,7 +42,7 @@ oc version
 ----
 copyToClipboard::oc-version[]
 
-* Make sure to be on `knativetutorial` OpenShift project/Kubernetes namespace
+* Make sure to be on `$WORKSHOP_USER-knativetutorial` OpenShift project
 
 [#right-openshift-project]
 [source,bash,subs="+macros,+attributes"]
@@ -48,4 +51,11 @@ oc project -q
 ----
 copyToClipboard::right-openshift-project[]
 
-If you are not on `{tutorial-namespace}` project, use the command `oc project {tutorial-namespace}` to change to `{tutorial-namespace}` project
+If you are not on `{tutorial-namespace}` OpenShift project, then use the following command to change to `{tutorial-namespace}` project:
+
+[#change-openshift-project]
+[source,bash,subs="+macros,+attributes"]
+----
+oc project {tutorial-namespace}
+----
+copyToClipboard::change-openshift-project[]

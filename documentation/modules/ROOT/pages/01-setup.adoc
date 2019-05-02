@@ -9,13 +9,12 @@ The following CLI tools are required for running the exercises in this tutorial.
 [cols="3*^,3*.",options="header"]
 |===
 |**Tool**|**macOS**|**Fedora**
-
+ifndef::workshop[]
 | `Minikube`
 2+| https://kubernetes.io/docs/setup/minikube
-
 | `Minishift`
 2+| https://github.com/minishift/minishift/releases
-
+endif::[]
 | `git`
 | https://git-scm.com/download/mac
 | `dnf install git`
@@ -65,12 +64,11 @@ Before we start setting up the environment, let's clone the tutorial sources and
 [#cloneRepo]
 [source,bash,subs="+macros,+attributes"]
 ----
-git clone -b release/0.4 https://github.com/redhat-developer-demos/knative-tutorial 
+git clone -b {workshop-version} https://github.com/redhat-developer-demos/knative-tutorial 
 ----
 copyToClipboard::cloneRepo[]
 
-The `work` folder in `$TUTORIAL_HOME` can be used to download the demo application resources and refer to them during the exercises. The `work` folder has a README with instructions on the source code repo and git commands to clone the sources.
-
+ifndef::workshop[]
 [IMPORTANT,subs="+macros,+attributes"]
 ====
 
@@ -81,14 +79,35 @@ This tutorial was developed and tested with:
 - OpenShift `{openshift-version}`
 - Minishift `{minishift-version}`
 ====
-
 [#kubernetes-cluster]
 == Kubernetes Cluster
 
 include::partial$minikube-setup.adoc[]
 include::partial$openshift-setup.adoc[]
 
-[#setup-work-folder]
-== Work folder
+endif::[]
 
-The work folder i.e `$TUTORIAL_HOME/work` can be used as a work directory during the build. The README in the work folder has the GitHub repository links of the applications `greeter` and `event-greeter` that will be used in various exercises.
+ifdef::workshop[]
+== Setup Workshop Environment
+
+Please set the following environment variables before running the exercises:
+
+[#setup-workshop-env]
+[source,bash,subs="+macros,+attributes"]
+----
+# This should be your workshop user id like dev001
+$WORKSHOP_USER=''
+$TUTORIAL_HOME='`pwd`'
+----
+copyToClipboard::setup-workshop-env[]
+endif::[]
+
+ifdef::workshop[]
+== OpenShift Project
+For this workshop you have been configured with OpenShift project **$WORKSHOP_USER-knativetutorial**, change to your workshop project:
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc project $WORKSHOP_USER-knativetutorial
+----
+endif::[]

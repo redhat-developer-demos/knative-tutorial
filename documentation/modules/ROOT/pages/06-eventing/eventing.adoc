@@ -1,6 +1,15 @@
 = Eventing
 include::_attributes.adoc[]
-
+ifdef::workshop[]
+:greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:url: pass:[$SVC_URL]
+:kube-ns: $WORKSHOP_USER-knativetutorial
+endif::[]
+ifndef::workshop[]
+:greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
+:url: pass:[$IP_ADDRESS]
+:kube-ns: knativetutorial
+endif::[]
 At the end of this chapter you will know and understand:
 
 * What is an event source ?
@@ -13,6 +22,7 @@ At the end of this chapter you will know and understand:
 == Prerequisite 
 include::partial$prereq-cli.adoc[]
 
+ifndef::workshop[]
 [#eventing-assumptions]
 == Assumptions
 
@@ -22,11 +32,52 @@ You have completed the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:{bu
 ====
 Please ensure that you have set the needed environment variables as mentioned in xref:ROOT:{build-repo}/build.adoc#build-set-env[ Configure Environment Variables]
 ====
+endif::[]
+
+ifdef::workshop[]
+
+include::partial$eventing-snippets.adoc[tag=eventing-nav-folder]
+
+.Eventing Environment Variables
+include::partial$build-env-vars.adoc[]
+
+Create a new file called `setenv.sh` and add the following content to it:
+
+[#eventing-set-env]
+[source,bash,subs="+macros,+attributes"]
+----
+#!/bin/bash
+
+# The Container Registry User Id
+REGISTRY_USERNAME=${REGISTRY_USERNAME:-'<your-docker-repo-userid>'}
+# The Container Registry User Password
+REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-'<your-docker-repo-user-password>'}
+# The Container Registry URL, defaults to https://index.docker.io
+REGISTRY_URL=${REGISTRY_URL:-'https://index.docker.io'}
+
+# The Source repository Git  URL default  https://github.com/redhat-developer-demos/knative-tutorial-greeter.git
+SOURCE_REPO_URL=${SOURCE_REPO_URL:-' https://github.com/redhat-developer-demos/knative-tutorial-greeter.git'}
+# The Source revision defaults to master
+SOURCE_REVISION=${SOURCE_REVISION:-'master'}
+# The Context directory within sources repository which will be used during build
+CONTEXT_DIR=${CONTEXT_DIR:-'java/quarkus'}
+# The fully qualified image name e.g. docker.io/foo/bar:v1.0
+DESTINATION_IMAGE_NAME=${DESTINATION_IMAGE_NAME:-'quay.io/rhdevelopers/knative-eventing-greeter:quarkus'}
+----
+copyToClipboard::copy-set-env[]
+
+[#eventing-source-env]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+source ./setenv.sh
+----
+copyToClipboard::eventing-source-env[]
+
+endif::[]
 
 [#eventing-watch-logs]
 == Watching Logs
 
-:kube-ns: knativetutorial
 :kube-svc: event-greeter
 include::partial$watching-logs.adoc[]
 

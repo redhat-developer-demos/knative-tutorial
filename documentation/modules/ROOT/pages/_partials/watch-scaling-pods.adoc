@@ -1,3 +1,4 @@
+ifndef::workshop[]
 [#watch-scale]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -6,6 +7,7 @@ watch 'kubectl get pods -n {tutorial-namespace}'
 copyToClipboard::watch-scale[]
 
 **(OR)**
+endif::[]
 
 [#oc-watch-scale]
 [source,bash,subs="+macros,+attributes"]

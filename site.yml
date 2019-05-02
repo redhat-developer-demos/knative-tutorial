@@ -2,21 +2,29 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Knative Tutorial
+  title: Knative Workshop
   url: https://redhat-developer-demos.github.io/knative-tutorial
   start_page: knative-tutorial::index.adoc
 
 content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
-      tags: []
-      branches: release/*
+      branches: 
+       - release/*
+       - workshop*
       start_path: documentation
-    - url: git@github.com:redhat-developer-docs/knative-tutorial-module-camelk.git
-      tags: v*
 asciidoc:
   attributes:
-    tutorial-namespace: knativetutorial
+    tutorial-namespace: $WORKSHOP_USER-knativetutorial
+    title: Knative Workshop
+    workshop: true
+    workshop-domain: guru.devx.red
+    workshop-version: release/0.4
+    workshop-chapters: 
+       - 02
+       - 03
+       - 04
+       - 07
   extensions:
     - ./lib/copy-to-clipboard.js
 ui:

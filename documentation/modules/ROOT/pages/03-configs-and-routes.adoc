@@ -1,5 +1,13 @@
 = Configurations and Routes
 include::_attributes.adoc[]
+ifdef::workshop[]
+:greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:url: pass:[$SVC_URL]
+endif::[]
+ifndef::workshop[]
+:greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
+:url: pass:[$IP_ADDRESS]
+endif::[]
 
 At the end of this chapter you will be able to understand and know how to :
 
@@ -10,10 +18,13 @@ At the end of this chapter you will be able to understand and know how to :
 == Prerequisite 
 include::partial$prereq-cli.adoc[]
 
+ifndef::workshop[]
 [#ctrd-build-containers]
 == Build Containers
 
 include::partial$build-containers.adoc[tag=greeter]
+
+endif::[]
 
 [#crtd-deploy-configuration]
 == Deploy Configuration
@@ -34,7 +45,7 @@ copyToClipboard::navigate-crtd-folder[]
 The following snippet shows how a Knative configuration resource YAML looks like:
 [.text-center]
 .link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[configuration-rev1.yaml]
-[source,yaml,linenums]
+[source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
@@ -47,12 +58,14 @@ spec:
         app: greeter
     spec:
       container:
-        image: dev.local/rhdevelopers/greeter:0.0.1 #<1>
+        image: {greeter-container-image} #<1>
 ----
-
+ifndef::workshop[]
 <1> It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ].
+endif::[]
 
 The service is then deployed using:
+ifndef::workshop[]
 [#crtd-run-apply-config-rev1]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -61,6 +74,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-
 copyToClipboard::crtd-run-apply-config-rev1[]
 
 **(OR)**
+endif::[]
 
 [#crtd-run-oc-apply-config-rev1]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -73,13 +87,13 @@ After the deployment was successful, we should see a kubernetes deployment like 
 
 [#crtd-invoke-service]
 == Invoke Service
-
+ifndef::workshop[]
 :k8s-env: minikube
 :k8s-cli: kubectl
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 **(OR)**
-
+endif::[]
 :k8s-env: minishift
 :k8s-cli: oc
 include::ROOT:partial$invoke-service.adoc[tag=*]
@@ -102,7 +116,7 @@ spec:
     - configurationName: greeter
       percent: 100
 ----
-
+ifndef::workshop[]
 [#crtd-run-apply-route-default]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -111,7 +125,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-
 copyToClipboard::crtd-run-apply-route-default[]
 
 **(OR)**
-
+endif::[]
 [#crtd-run-oc-apply-route-default]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -142,11 +156,19 @@ include::partial$knative-objects.adoc[tag=knative-configs]
 === routes
 include::partial$knative-objects.adoc[tag=knative-routes]
 
+ifndef::workshop[]
 When the service is invoked with `http $IP_ADDRESS "Host:greeter.knativetutorial.example.com"`, you noticed that we added a **Host** header to the `http` command with the value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative route we created. It follows a format `<route-name>.<namespace>.<domain-suffix>`.
+endif::[]
 
-[NOTE]
+[NOTE,subs="+macros,+attributes"]
 ====
-* The `domain-suffix` (in this case __example.com__) is configurable via the config map **config-domain** in the **knative-serving** namespace.
+ifndef::workshop[]
+* The domain suffix in this case __example.com__ is configurable via the config map **config-domain** of **knative-serving** namespace.
+endif::[]
+
+ifdef::workshop[]
+* The domain suffix in this case **{workshop-domain}** is the OpenShift Router domain which gets automatically assigned once the Knative Service is created.
+endif::[]
 ====
 
 [#crtd-show-knative-revisions]
@@ -166,7 +188,7 @@ Knative follows a revision model for its configurations. Each time you change so
 === Deploy configuration revision 2 
 [.text-center]
 .link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[configuration-rev2.yaml]
-[source,yaml,linenums]
+[source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
@@ -179,7 +201,7 @@ spec:
         app: greeter
     spec:
       container:
-        image: dev.local/rhdevelopers/greeter:0.0.1
+        image: {greeter-container-image}
         env: #<1>
           - name: MESSAGE_PREFIX
             value: Namaste
@@ -188,7 +210,7 @@ spec:
 <1> Adding an environment variable that will be used a message prefix.
 
 Let us deploy the new revision using the command:
-
+ifndef::workshop[]
 [#ctrd-run-apply-config-rev2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -197,6 +219,7 @@ kubectl apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes
 copyToClipboard::ctrd-run-apply-config-rev2[]
 
 **(OR)**
+endif::[]
 
 [#ctrd-run-oc-apply-config-rev2]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -216,7 +239,7 @@ Now running the <<crtd-show-knative-revisions,show revisions command>> will list
 
 When deploying services with service object based approach, the service resource will take care of traffic distribution either 100% to latest or pinned revision. In this section we will explore how we can deploy routes to distribute traffic between deployed revisions.
 
-Before we start to apply routes, let us open a new terminal and run the following command `$TUTORIAL_HOME/{configs-and-routes-repo}/bin/call.sh`, this command will keep sending requests to greeter route every two seconds which allows us to monitor the changes to the responses as we keep applying the route that will distribute the traffic between the available two revisions.
+Before we start to apply routes, let us open a new terminal and poll the service. Poll  command will keep sending requests to greeter route every three seconds which allows us to monitor the changes to the responses as we keep applying the route that will distribute the traffic between the available two revisions.
 
 [#ctrd-traffic-distribution-polling]
 === Polling the service
@@ -230,7 +253,7 @@ We need to run the service invocation in loop to see the results of traffic dist
 set -eu
 while true
 do
-  http --body $IP_ADDRESS 'Host:greeter.{tutorial-namespace}.example.com'
+  curl {url}
   sleep 3
 done;
 ----
@@ -242,7 +265,7 @@ TIP: Copy and save the above contents to a script file e.g. `$TUTORIAL_HOME/work
 === Define revisions
 
 For easier explanation and understanding lets give logical names to the revision and set them to environment variables:
-
+ifndef::workshop[]
 [#ctrd-def-revisions]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -252,6 +275,7 @@ REVISION_2=`kubectl -n knativetutorial get rev -l serving.knative.dev/configurat
 copyToClipboard::ctrd-def-revisions[]
 
 **(OR)**
+endif::[]
 
 [#ctrd-def-oc-revisions]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -369,7 +393,7 @@ If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service
 
 [#ctrd-cleanup]
 == Cleanup
-
+ifndef::workshop[]
 [#crtd-run-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -379,6 +403,7 @@ kubectl -n {tutorial-namespace} delete routes.serving.knative.dev greeter
 copyToClipboard::crtd-run-cleanup[]
 
 **(OR)**
+endif::[]
 
 [#crtd-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]

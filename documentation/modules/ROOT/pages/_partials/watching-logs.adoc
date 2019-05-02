@@ -1,16 +1,22 @@
+ifdef::workshop[]
+[kube-ns='$WORKSHOP_USER-knativetutorial']
+endif::[]
+ifndef::workshop[]
 [kube-ns='knativetutorial']
+endif::[]
 [kube-svc='']
 
 Since it is a Cron job source, it would have started to emit events every minute. We can watch the logs of the service to see the messages delivered.
 
 The logs could be watched using the command:
-
+ifndef::workshop[]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl logs -n {kube-ns} -f <pod-name> -c user-container
 ----
 
 **(OR)**
+endif::[]
 
 [source,bash,subs="+macros,+attributes"]
 ----

@@ -1,6 +1,15 @@
 = Eventing - Source to Subscriber
 include::_attributes.adoc[]
-
+ifdef::workshop[]
+:greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:url: pass:[$SVC_URL]
+:kube-ns: $WORKSHOP_USER-knativetutorial
+endif::[]
+ifndef::workshop[]
+:greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<1>
+:url: pass:[$IP_ADDRESS]
+:kube-ns: knativetutorial
+endif::[]
 [#eventing-channel]
 == Channel(Sink)
 
@@ -29,6 +38,7 @@ include::partial$eventing-snippets.adoc[tag=eventing-nav-folder]
 
 Run the following commands to create the channel:
 
+ifndef::workshop[]
 [#eventing-run-source-sub]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -37,6 +47,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knat
 copyToClipboard::eventing-run-source-sub[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-source-sub]
 [source,bash,subs="+macros,+attributes"]
@@ -47,7 +58,7 @@ copyToClipboard::eventing-run-oc-source-sub[]
 
 [#eventing-verify-event-channel]
 ==== Verification
-
+ifndef::workshop[]
 [#eventing-run-verify-event-channel]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -56,6 +67,7 @@ kubectl -n {tutorial-namespace} get channels.eventing.knative.dev
 copyToClipboard::eventing-run-verify-event-channel[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-verify-event-channel]
 [source,bash,subs="+macros,+attributes"]
@@ -108,7 +120,7 @@ When you xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs], you
 ====
 
 Run the following commands to create the event source resources:
-
+ifndef::workshop[]
 [#eventing-run-apply-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -117,6 +129,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knat
 copyToClipboard::eventing-run-apply-event-src[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-apply-event-src]
 [source,bash,subs="+macros,+attributes"]
@@ -127,7 +140,7 @@ copyToClipboard::eventing-run-oc-apply-event-src[]
 
 [#eventing-verify-event-source]
 ==== Verification
-
+ifndef::workshop[]
 [#eventing-run-verify-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -136,6 +149,7 @@ kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev
 copyToClipboard::eventing-run-verify-event-src[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-verify-event-src]
 [source,bash,subs="+macros,+attributes"]
@@ -187,7 +201,7 @@ spec:
 <3> The service reference to which the channel will forward the events
 
 Run the following commands to create the channel subscriber:
-
+ifndef::workshop[]
 [#eventing-run-create-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -196,6 +210,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knat
 copyToClipboard::eventing-run-create-subscriber[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-create-subscriber]
 [source,bash,subs="+macros,+attributes"]
@@ -206,7 +221,7 @@ copyToClipboard::eventing-run-oc-create-subscriber[]
 
 [#eventing-verify-subscriber]
 ==== Verification
-
+ifndef::workshop[]
 [#eventing-run-verify-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -215,6 +230,7 @@ kubectl -n {tutorial-namespace} get subscriptions.eventing.knative.dev
 copyToClipboard::eventing-run-verify-subscriber[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-verify-subscriber]
 [source,bash,subs="+macros,+attributes"]
@@ -262,7 +278,7 @@ copyToClipboard::eventing-run-create-service[]
 
 [.text-center]
 .service.yaml
-[source,yaml,linenums]
+[source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -277,9 +293,9 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.1 <1>
+            image: {greeter-container-image}
 ----
-
+ifndef::workshop[]
 <1> Set from `${DESTINATION_IMAGE_NAME}` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
 
 Refer to xref:ROOT:{build-repo}/build.adoc#build-set-env[Build Environment Variables]
@@ -288,12 +304,13 @@ Refer to xref:ROOT:{build-repo}/build.adoc#build-set-env[Build Environment Varia
 ====
 If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:{build-repo}/build-templates.adoc[Build Templates] do not have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-event-greeter:0.0.1`
 ====
+endif::[]
 
 [#eventing-deploy-subscriber-service]
 === Deploy Subscriber Service
 
 Run the following commands to create the service:
-
+ifndef::workshop[]
 [#eventing-subscriber-deploy]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -302,6 +319,7 @@ kubectl apply -n {tutorial-namespace} -f service.yaml
 copyToClipboard::eventing-subscriber-deploy[]
 
 **(OR)**
+endif::[]
 
 [#eventing-subscriber-oc-deploy]
 [source,bash,subs="+macros,+attributes"]
@@ -314,7 +332,7 @@ You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to se
 
 [#eventing-cleanup]
 == Cleanup
-
+ifndef::workshop[]
 [#eventing-run-cleanup2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -328,6 +346,7 @@ kubectl -n {tutorial-namespace} delete subscriptions.eventing.knative.dev event-
 copyToClipboard::eventing-run-cleanup2[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-cleanup2]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -340,4 +359,6 @@ oc -n {tutorial-namespace} delete subscriptions.eventing.knative.dev event-greet
 ----
 copyToClipboard::eventing-run-oc-cleanup2[]
 
+ifndef::workshop[]
 NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.
+endif::[]

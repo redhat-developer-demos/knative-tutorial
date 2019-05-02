@@ -1,4 +1,5 @@
-= Knative Tutorial
+include::_attributes.adoc[]
+= {title}
 
 Serverless epitomizes the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of serverless frameworks out there, Knative is the first specifically designed for Kubernetes and OpenShift.
 

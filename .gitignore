@@ -37,3 +37,4 @@ gh-pages
 node_modules
 package.json
 dev-site.yml
+package-lock.json

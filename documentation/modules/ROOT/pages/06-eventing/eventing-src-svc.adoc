@@ -1,5 +1,15 @@
 = Eventing Source to Service
 include::_attributes.adoc[]
+ifdef::workshop[]
+:greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:url: pass:[$SVC_URL]
+:kube-ns: $WORKSHOP_USER-knativetutorial
+endif::[]
+ifndef::workshop[]
+:greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<1>
+:url: pass:[$IP_ADDRESS]
+:kube-ns: knativetutorial
+endif::[]
 
 [#eventing-source]
 == Event Source
@@ -39,7 +49,7 @@ When you xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs], you
 ====
 
 Run the following commands to create the event source resources:
-
+ifndef::workshop[]
 [#eventing-run-event-src-svc]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -48,6 +58,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knat
 copyToClipboard::eventing-run-event-src-svc[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-event-src-svc]
 [source,bash,subs="+macros,+attributes"]
@@ -58,7 +69,7 @@ copyToClipboard::eventing-run-oc-event-src-svc[]
 
 [#eventing-verify-event-source]
 ==== Verification
-
+ifndef::workshop[]
 [#eventing-run-verify-event-source]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -67,6 +78,7 @@ kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev
 copyToClipboard::eventing-run-verify-event-source[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-verify-event-source]
 [source,bash,subs="+macros,+attributes"]
@@ -102,7 +114,7 @@ copyToClipboard::eventing-run-gen-sink-service[]
 
 [.text-center]
 .service.yaml
-[source,yaml,linenums]
+[source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -117,23 +129,25 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.1 <1>
+            image: {greeter-container-image}
 ----
-
+ifndef::workshop[]
 <1> Set from `${DESTINATION_IMAGE_NAME}` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
 
 Refer to xref:ROOT:{build-repo}/build.adoc#build-set-env[Build Environment Variables]
 
 [NOTE,subs="macros+"]
 ====
-If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates] and dont have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-greeter:0.0.1`
+If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates] and dont have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-greeter:quarkus`
 ====
+endif::[]
 
 [#eventing-deploy-sink-service]
 === Deploy Sink Service
 
 Run the following commands to create the service:
 
+ifndef::workshop[]
 [#run-deploy-sink-service]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -142,6 +156,7 @@ kubectl apply -n {tutorial-namespace} -f service.yaml
 copyToClipboard::run-deploy-sink-service[]
 
 **(OR)**
+endif::[]
 
 [#run-oc-deploy-sink-service]
 [source,bash,subs="+macros,+attributes"]
@@ -163,7 +178,7 @@ include::partial$knative-objects.adoc[tag=knative-event-services]
 
 [#eventing-cleanup]
 == Cleanup
-
+ifndef::workshop[]
 [#eventing-run-src-svc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -174,6 +189,7 @@ kubectl -n {tutorial-namespace} delete \
 copyToClipboard::eventing-run-src-svc-cleanup[]
 
 **(OR)**
+endif::[]
 
 [#eventing-run-oc-src-svc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -184,4 +200,6 @@ oc -n {tutorial-namespace} delete \
 ----
 copyToClipboard::eventing-run-oc-src-svc-cleanup[]
 
+ifndef::workshop[]
 NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.
+endif::[]

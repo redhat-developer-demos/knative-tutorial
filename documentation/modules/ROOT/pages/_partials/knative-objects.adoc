@@ -1,5 +1,6 @@
 #tag::knative-services[]
 
+ifndef::workshop[]
 [#knative-services]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -8,6 +9,7 @@ kubectl -n {tutorial-namespace}  get services.serving.knative.dev greeter
 copyToClipboard::knative-services[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-services]
 [source,bash,subs="+macros,+attributes"]
@@ -20,6 +22,7 @@ copyToClipboard::oc-knative-services[]
 
 #tag::knative-configs[]
 
+ifndef::workshop[]
 [#knative-configs]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -28,6 +31,8 @@ kubectl -n {tutorial-namespace} get configurations.serving.knative.dev greeter
 copyToClipboard::knative-configs[]
 
 **(OR)**
+endif::[]
+
 [#oc-knative-configs]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -39,6 +44,7 @@ copyToClipboard::oc-knative-configs[]
 
 #tag::knative-routes[]
 
+ifndef::workshop[]
 [#knative-routes]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -47,6 +53,7 @@ kubectl -n {tutorial-namespace} get routes.serving.knative.dev greeter
 copyToClipboard::knative-routes[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-routes]
 [source,bash,subs="+macros,+attributes"]
@@ -58,7 +65,7 @@ copyToClipboard::oc-knative-routes[]
 #end::knative-routes[]
 
 #tag::knative-revisions[]
-
+ifndef::workshop[]
 [#knative-revisions]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -67,6 +74,7 @@ kubectl -n {tutorial-namespace} get rev -l serving.knative.dev/service=greeter -
 copyToClipboard::knative-revisions[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-revisions]
 [source,bash,subs="+macros,+attributes"]
@@ -78,7 +86,7 @@ copyToClipboard::oc-knative-revisions[]
 #end::knative-revisions[]
 
 #tag::knative-config-revisions[]
-
+ifndef::workshop[]
 [#knative-config-revisions]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -87,6 +95,7 @@ kubectl -n {tutorial-namespace} get rev -l serving.knative.dev/configuration=gre
 copyToClipboard::knative-config-revisions[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-config-revisions]
 [source,bash,subs="+macros,+attributes"]
@@ -138,7 +147,7 @@ copyToClipboard::oc-knative-build-templates[]
 #end::knative-build-templates[]
 
 #tag::knative-event-channel[]
-
+ifndef::workshop[]
 [#knative-event-channel]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -147,6 +156,7 @@ kubectl -n {tutorial-namespace} get channels.eventing.knative.dev ch-event-greet
 copyToClipboard::knative-event-channel[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-event-channel]
 [source,bash,subs="+macros,+attributes"]
@@ -158,7 +168,7 @@ copyToClipboard::oc-knative-event-channel[]
 #end::knative-event-channel[]
 
 #tag::knative-event-cronjob-sources[]
-
+ifndef::workshop[]
 [#knative-event-sources]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -167,6 +177,7 @@ kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 copyToClipboard::knative-event-sources[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-event-sources]
 [source,bash,subs="+macros,+attributes"]
@@ -178,7 +189,7 @@ copyToClipboard::oc-knative-event-sources[]
 #end::knative-event-cronjob-sources[]
 
 #tag::knative-event-subscribers[]
-
+ifndef::workshop[]
 [#knative-event-subscribers]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -187,6 +198,7 @@ kubectl -n {tutorial-namespace} get subscriptions.eventing.knative.dev event-gre
 copyToClipboard::knative-event-subscribers[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-event-subscribers]
 [source,bash,subs="+macros,+attributes"]
@@ -198,7 +210,7 @@ copyToClipboard::oc-knative-event-subscribers[]
 #end::knative-event-subscribers[]
 
 #tag::knative-event-services[]
-
+ifndef::workshop[]
 [#knative-services]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -207,6 +219,7 @@ kubectl -n {tutorial-namespace}  get services.serving.knative.dev event-greeter
 copyToClipboard::knative-services[]
 
 **(OR)**
+endif::[]
 
 [#oc-knative-services]
 [source,bash,subs="+macros,+attributes"]

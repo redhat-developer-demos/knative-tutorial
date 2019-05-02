@@ -1,5 +1,11 @@
 = Basics and Fundamentals
 include::_attributes.adoc[]
+ifdef::workshop[]
+:greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+endif::[]
+ifndef::workshop[]
+:greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
+endif::[]
 
 At the end of this chapter you will be able to :
 
@@ -13,9 +19,11 @@ At the end of this chapter you will be able to :
 
 include::partial$prereq-cli.adoc[]
 
+ifndef::workshop[]
 [#basics-build-containers]
 == Build Containers
 include::partial$build-containers.adoc[tag=greeter]
+endif::[]
 
 [#basics-deploy-service]
 == Deploy Service
@@ -29,9 +37,8 @@ cd $TUTORIAL_HOME/{basics-repo}/knative
 
 The following snippet shows what a Knative service YAML looks like:
 
-
 .link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
-[source,yaml,linenums]
+[source,yaml,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -43,14 +50,17 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
+            image: {greeter-container-image}
 ----
 
 <1> Makes Knative always run the latest revision of the deployment
+ifndef::workshop[]
 <2> It is very important that the image is a fully qualified docker image name with tag. For more details on this, see xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ]
+endif::[]
 
 The service can be deployed using the following command:
 
+ifndef::workshop[]
 [#basics-run-svc-apply]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -59,6 +69,7 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knativ
 copyToClipboard::basics-run-svc-apply[]
 
 **(OR)**
+endif::[]
 
 [#basics-run-oc-svc-apply]
 [source,bash,linenums,subs="+macros,+attributes"]
@@ -69,6 +80,7 @@ copyToClipboard::basics-run-oc-svc-apply[]
 
 After successful deployment of the service we should see a Kubernetes Deployment named similar to `greeter-nsrbr-deployment` available:
 
+ifndef::workshop[]
 [#basics-run-svc-apply]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -77,6 +89,7 @@ kubectl get deployments -n {tutorial-namespace}
 copyToClipboard::basics-run-svc-apply[]
 
 **(OR)**
+endif::[]
 
 [#basics-run-oc-svc-apply]
 [source,bash,linenums,subs="+macros,+attributes"]
@@ -93,12 +106,14 @@ copyToClipboard::basics-run-oc-svc-apply[]
 
 [#basics-invoke-service]
 == Invoke Service
+ifndef::workshop[]
 :k8s-env: minikube
 :k8s-cli: kubectl
 
 include::ROOT:partial$invoke-service.adoc[tag=*]
 
 **(OR)**
+endif::[]
 
 :k8s-env: minishift
 :k8s-cli: oc
@@ -128,11 +143,20 @@ include::partial$knative-objects.adoc[tag=knative-configs]
 
 include::partial$knative-objects.adoc[tag=knative-routes]
 
+ifndef::workshop[]
 When the service was invoked with `http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'`, you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative Routes and uses the following format: `**<service-name>.<namespace>.<domain-suffix>**`.
+endif::[]
 
-[NOTE]
+
+[NOTE,subs="+macros,+attributes"]
 ====
+ifndef::workshop[]
 * The domain suffix in this case __example.com__ is configurable via the config map **config-domain** of **knative-serving** namespace.
+endif::[]
+
+ifdef::workshop[]
+* The domain suffix in this case **{workshop-domain}** is the OpenShift Router domain which gets automatically assigned once the Knative Service is created.
+endif::[]
 ====
 
 [#basics-show-knative-revisions]
@@ -155,7 +179,7 @@ To deploy a new revision of the greeter service, we will add an environment vari
 === Service revision 2
 
 .link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
-[source,yaml,linenums]
+[source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -167,7 +191,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: dev.local/rhdevelopers/greeter:0.0.1
+            image: {greeter-container-image}
             env:
              - name: MESSAGE_PREFIX #<1>
                value: Namaste
@@ -177,6 +201,7 @@ spec:
 
 Let us deploy the new revision using the command:
 
+ifndef::workshop[]
 [#basics-run-service-env]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -185,6 +210,8 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knativ
 copyToClipboard::basics-run-service-env[]
 
 **(OR)**
+endif::[]
+
 [#oc-basics-run-service-env]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -200,7 +227,7 @@ Now if you list revisions
 === revisions
 include::partial$knative-objects.adoc[tag=knative-revisions]
 
-, you will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
+You will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
 
 <<basics-invoke-service,Invoking Service>> will now show an output like **Namaste  greeter => '6fee83923a9f' : 1**, where __Namaste__ is the value we configured via environment variable in the Knative service resource file.
 
@@ -219,7 +246,7 @@ You can use the <<basics-show-knative-revisions, show Knative service revisions>
 === Service pinned to first revision
 
 .link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned.yaml]
-[source,yaml,linenums]
+[source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -233,7 +260,7 @@ spec:
     revisionTemplate:
       spec:
         container:
-          image: dev.local/rhdevelopers/greeter:0.0.1
+          image: {greeter-container-image}
           env:
             - name: MESSAGE_PREFIX
               value: Namaste
@@ -254,6 +281,7 @@ The names of revisions may be different in your setup
 
 Let us redeploy the greeter service by pinning it to the first revision that was created:
 
+ifndef::workshop[]
 [#run-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -263,6 +291,7 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kub
 copyToClipboard::run-pinned-revision[]
 
 **(OR)**
+endif::[]
 
 [#run-oc-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
@@ -277,6 +306,7 @@ copyToClipboard::run-oc-pinned-revision[]
 [#basics-cleanup]
 == Cleanup
 
+ifndef::workshop[]
 [#basics-run-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -285,6 +315,7 @@ kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
 copyToClipboard::basics-run-cleanup[]
 
 **(OR)**
+endif::[]
 
 [#basics-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes"]
