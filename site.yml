@@ -10,7 +10,6 @@ content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
       branches: 
-       - release/*
        - workshop/*
       start_path: documentation
 asciidoc:
