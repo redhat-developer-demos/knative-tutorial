@@ -49,6 +49,4 @@ workflows:
             - antora
           filters:
             branches:
-              only: 
-               - release/0.4
-               - workshop-v0.4.0
+              only: /^(release|workshop)\/.*/
