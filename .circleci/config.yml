@@ -50,5 +50,4 @@ workflows:
           filters:
             branches:
               only: 
-               - /^release\/.*/
-               - /^workshop\/.*/
+               - /^(release|workshop)\/.*/
