@@ -96,8 +96,8 @@ Please set the following environment variables before running the exercises:
 [source,bash,subs="+macros,+attributes"]
 ----
 # This should be your workshop user id like dev001
-$WORKSHOP_USER=''
-$TUTORIAL_HOME='`pwd`'
+$WORKSHOP_USER='PUT YOUR USERNAME HERE'
+$TUTORIAL_HOME=pass:[`pwd`]
 ----
 copyToClipboard::setup-workshop-env[]
 endif::[]
