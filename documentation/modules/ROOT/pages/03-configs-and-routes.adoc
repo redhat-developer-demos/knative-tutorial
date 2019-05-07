@@ -83,7 +83,7 @@ endif::[]
 [#crtd-run-oc-apply-config-rev1]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/config/{config-rev1-yaml}[config/{config-rev1-yaml}]
 ----
 copyToClipboard::crtd-run-oc-apply-config-rev1[]
 
@@ -228,7 +228,7 @@ endif::[]
 [#ctrd-run-oc-apply-config-rev2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/{config-rev2-yaml}[config/configuration-rev2.yaml]
+oc apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/{config-rev2-yaml}[config/{config-rev2-yaml}]
 ----
 copyToClipboard::ctrd-run-oc-apply-config-rev2[]
 
