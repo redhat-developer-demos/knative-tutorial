@@ -3,10 +3,14 @@ include::_attributes.adoc[]
 ifdef::workshop[]
 :greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
 :url: pass:[$SVC_URL]
+:config-rev1-yaml: config-rev1.remote.yaml
+:config-rev2-yaml: config-rev2.remote.yaml
 endif::[]
 ifndef::workshop[]
 :greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
 :url: pass:[$IP_ADDRESS]
+:config-rev1-yaml: config-rev1.yaml
+:config-rev2-yaml: config-rev2.yaml
 endif::[]
 
 At the end of this chapter you will be able to understand and know how to :
@@ -44,7 +48,7 @@ copyToClipboard::navigate-crtd-folder[]
 
 The following snippet shows how a Knative configuration resource YAML looks like:
 [.text-center]
-.link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[configuration-rev1.yaml]
+.link:{github-repo}/{configs-and-routes-repo}/config/{config-rev1-yaml}[{config-rev1-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -69,7 +73,7 @@ ifndef::workshop[]
 [#crtd-run-apply-config-rev1]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/config/{config-rev1-yaml}[config/{config-rev1-yaml}]
 ----
 copyToClipboard::crtd-run-apply-config-rev1[]
 
@@ -187,7 +191,7 @@ Knative follows a revision model for its configurations. Each time you change so
 
 === Deploy configuration revision 2 
 [.text-center]
-.link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[configuration-rev2.yaml]
+.link:{github-repo}/{configs-and-routes-repo}/config/{config-rev2-yaml}[{config-rev2-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -214,7 +218,7 @@ ifndef::workshop[]
 [#ctrd-run-apply-config-rev2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-kubectl apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
+kubectl apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/{config-rev2-yaml}[config/{config-rev2-yaml}]
 ----
 copyToClipboard::ctrd-run-apply-config-rev2[]
 
@@ -224,7 +228,7 @@ endif::[]
 [#ctrd-run-oc-apply-config-rev2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-oc apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
+oc apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/{config-rev2-yaml}[config/configuration-rev2.yaml]
 ----
 copyToClipboard::ctrd-run-oc-apply-config-rev2[]
 

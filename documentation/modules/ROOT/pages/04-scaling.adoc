@@ -2,9 +2,15 @@
 include::_attributes.adoc[]
 ifdef::workshop[]
 :greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:service-yaml: service.remote.yaml
+:service-10-yaml: service-10.remote.yaml
+:service-min-scale-yaml: service-min-scale.remote.yaml
 endif::[]
 ifndef::workshop[]
 :greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
+:service-yaml: service.yaml
+:service-10-yaml: service-10.yaml
+:service-min-scale-yaml: service-min-scale.yaml
 endif::[]
 At the end of this chapter you will be able to:
 
@@ -79,7 +85,7 @@ copyToClipboard::scaling-run-oc-apply-cm[]
 The following snippet shows how a Knative service YAML will look like:
 
 [.text-center]
-.link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+.link:{github-repo}/{basics-repo}/knative/{service-yaml}[{service-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -114,7 +120,7 @@ ifndef::workshop[]
 [#scaling-run-apply-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-yaml}[{service-yaml}]
 ----
 copyToClipboard::scaling-run-apply-service[]
 
@@ -124,7 +130,7 @@ endif::[]
 [#scaling-run-oc-apply-service]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-yaml}[{service-yaml}]
 ----
 copyToClipboard::scaling-run-oc-apply-service[]
 
@@ -328,7 +334,7 @@ For this exercise let us make our service handle only **10** concurrent requests
 [#scaling-concurrency-10]
 === Service with concurrency of 10 requests
 [.text-center]
-.link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
+.link:{github-repo}/{scaling-repo}/knative/{service-10-yaml}[{service-10-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -361,7 +367,7 @@ ifndef::workshop[]
 [#scaling-run-autoscale-10]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/{service-10-yaml}[{service-10-yaml}]
 ----
 copyToClipboard::scaling-run-autoscale-10[]
 
@@ -371,7 +377,7 @@ endif::[]
 [#scaling-run-oc-autoscale-10]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-10.yaml[service-10.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/{service-10-yaml}[{service-10-yaml}]
 ----
 copyToClipboard::scaling-run-oc-autoscale-10[]
 
@@ -430,7 +436,7 @@ The following example shows how to make Knative create services that start with 
 [#scaling-deploy-service-minscale]
 === Deploy service 
 [.text-center]
-.link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
+.link:{github-repo}/{scaling-repo}/knative/{service-min-scale-yaml}[{service-min-scale-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -465,7 +471,7 @@ ifndef::workshop[]
 [#scaling-run-min-scale]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/{service-min-scale-yaml}[{service-min-scale-yaml}]
 ----
 copyToClipboard::scaling-run-min-scale[]
 
@@ -475,7 +481,7 @@ endif::[]
 [#scaling-run-oc-min-scale]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/service-min-scale.yaml[service-min-scale.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/{service-min-scale-yaml}[{service-min-scale-yaml}]
 ----
 copyToClipboard::scaling-run-min-scale[]
 

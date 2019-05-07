@@ -2,9 +2,15 @@
 include::_attributes.adoc[]
 ifdef::workshop[]
 :greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:service-yaml: service.remote.yaml
+:service-env-yaml: service-env.remote.yaml
+:service-pinned-yaml: service-pinned.remote.yaml
 endif::[]
 ifndef::workshop[]
 :greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
+:service-yaml: service.yaml
+:service-env-yaml: service-env.yaml
+:service-pinned-yaml: service-pinned-yaml
 endif::[]
 
 At the end of this chapter you will be able to :
@@ -37,7 +43,7 @@ cd $TUTORIAL_HOME/{basics-repo}/knative
 
 The following snippet shows what a Knative service YAML looks like:
 
-.link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+.link:{github-repo}/{basics-repo}/knative/{service-yaml}[{service-yaml}]
 [source,yaml,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -74,7 +80,7 @@ endif::[]
 [#basics-run-oc-svc-apply]
 [source,bash,linenums,subs="+macros,+attributes"]
 ----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-yaml}[{service-yaml}]
 ----
 copyToClipboard::basics-run-oc-svc-apply[]
 
@@ -178,7 +184,7 @@ To deploy a new revision of the greeter service, we will add an environment vari
 [#basics-service-rev2]
 === Service revision 2
 
-.link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+.link:{github-repo}/{basics-repo}/knative/{service-env-yaml}[{service-env-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -205,7 +211,7 @@ ifndef::workshop[]
 [#basics-run-service-env]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-env-yaml}[{service-env-yaml}]
 ----
 copyToClipboard::basics-run-service-env[]
 
@@ -215,7 +221,7 @@ endif::[]
 [#oc-basics-run-service-env]
 [source,bash,subs="+macros,+attributes"]
 ----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
+oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-env-yaml}[{service-env-yaml}]
 ----
 copyToClipboard::oc-basics-run-service-env[]
 
@@ -245,7 +251,7 @@ You can use the <<basics-show-knative-revisions, show Knative service revisions>
 
 === Service pinned to first revision
 
-.link:{github-repo}/{basics-repo}/knative/service-pinned-rev1.yaml[service-pinned.yaml]
+.link:{github-repo}/{basics-repo}/knative/{service-pinned-yaml}[{service-pinned-yaml}]
 [source,yaml,linenums,subs="+macros,+attributes"]
 ----
 apiVersion: serving.knative.dev/v1alpha1
@@ -286,7 +292,7 @@ ifndef::workshop[]
 [source,bash,subs="+macros,+attributes"]
 ----
 PIN_REVISION=`kubectl get rev -n {tutorial-namespace} -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
-cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kubectl -n {tutorial-namespace} apply -f -
+cat {service-pinned-yaml} | yq w - "spec.release.revisions[+]" $PIN_REVISION | kubectl -n {tutorial-namespace} apply -f -
 ----
 copyToClipboard::run-pinned-revision[]
 
@@ -297,7 +303,7 @@ endif::[]
 [source,bash,subs="+macros,+attributes"]
 ----
 PIN_REVISION=`oc get rev -n {tutorial-namespace} -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` && \
-cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc -n {tutorial-namespace}  apply -f -
+cat {service-pinned-yaml} | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc -n {tutorial-namespace}  apply -f -
 ----
 copyToClipboard::run-oc-pinned-revision[]
 
