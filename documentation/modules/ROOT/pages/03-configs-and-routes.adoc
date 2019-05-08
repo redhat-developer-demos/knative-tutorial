@@ -256,7 +256,7 @@ set -eu
 while true
 do
   curl {url}
-  sleep 3
+  sleep 1
 done;
 ----
 copyToClipboard::crtd-poll-sh[]
