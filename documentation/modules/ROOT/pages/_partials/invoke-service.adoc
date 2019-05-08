@@ -16,7 +16,7 @@ ifdef::workshop[]
 [#{k8s-env}-svc-gateway-env]
 [source,bash,subs="+macros,+attributes"]
 ----
-SVC_URL="$({k8s-cli} get ksvc greeter | awk 'NR==2{print $2}')"
+SVC_URL="$({k8s-cli} get routes.serving.knative greeter | awk 'NR==2{print $2}')"
 ----
 copyToClipboard::{k8s-env}-svc-gateway-env[]
 endif::[]
