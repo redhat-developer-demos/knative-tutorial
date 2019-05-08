@@ -1,0 +1,13 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: ContainerSource
+metadata:
+  name: heartbeat-event-source
+spec:
+  image: docker.io/matzew/kube-heartbeat
+  args:
+    - '--label="Thanks for doing Knative Tutorial"'
+    - '--period=1000'
+  sink:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Broker
+    name: default
