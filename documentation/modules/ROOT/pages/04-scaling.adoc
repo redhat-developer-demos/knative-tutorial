@@ -407,7 +407,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 siege -r 1 -c 50 -t 30S \
-  "http://pass:[${SVC_URL}]?sleep=3&upto=10000&memload=100"
+  "http://pass:[${SVC_URL}]/?sleep=3&upto=10000&memload=100"
 ----
 copyToClipboard::scaling-run-siege[]
 
