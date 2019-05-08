@@ -50,7 +50,9 @@ data:
   scale-to-zero-grace-period: 30s
   stable-window: 60s
 ----
-Navigate to the tutorial chapter's `Knative` folder:
+endif::[]
+
+Navigate to the tutorial chapter's `knative` folder:
 
 [#scaling-navigate-to-folder]
 [source,bash,subs="+macros,+attributes"]
@@ -58,6 +60,8 @@ Navigate to the tutorial chapter's `Knative` folder:
 cd $TUTORIAL_HOME/{scaling-repo}/knative
 ----
 copyToClipboard::scaling-navigate-to-folder[]
+
+ifndef::workshop[]
 
 The service can be deployed using the command:
 [#scaling-run-apply-cm]
@@ -413,7 +417,7 @@ ifndef::workshop[]
 :k8s-cli: kubectl
 :k8s-env: minikube
 :doc-sec: auto-scale
-include::partial$watch-scaling-pods.adoc[tag=cmd]
+include::partial$watch-scaling-pods.adoc[]
 
 **(OR)**
 
@@ -422,7 +426,7 @@ endif::[]
 :k8s-cli: oc
 :k8s-env: minishift
 :doc-sec: auto-scale
-include::partial$watch-scaling-pods.adoc[tag=cmd]
+include::partial$watch-scaling-pods.adoc[]
 
 [#scaling-load-service]
 === Load the service
@@ -518,7 +522,7 @@ ifndef::workshop[]
 :k8s-cli: kubectl
 :k8s-env: minikube
 :doc-sec: min-scale
-include::partial$watch-scaling-pods.adoc[tag=cmd]
+include::partial$watch-scaling-pods.adoc[]
 
 **(OR)**
 
@@ -527,7 +531,7 @@ endif::[]
 :k8s-cli: oc
 :k8s-env: minishift
 :doc-sec: min-scale
-include::partial$watch-scaling-pods.adoc[tag=cmd]
+include::partial$watch-scaling-pods.adoc[]
 
 Let us <<scaling-load-service,send some load to the service>> to trigger autoscaling.
 
