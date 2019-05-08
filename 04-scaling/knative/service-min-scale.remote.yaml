@@ -13,7 +13,7 @@ spec:
             autoscaling.knative.dev/target: "10"
         spec:
           container:
-            image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+            image: quay.io/rhdevelopers/prime-generator:v27-quarkus
             livenessProbe:
               httpGet:
                 path: /healthz
