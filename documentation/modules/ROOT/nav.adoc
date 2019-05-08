@@ -43,7 +43,7 @@ endif::[]
 ** xref:03-configs-and-routes.adoc#crtd-deploying-new-revision[Deploy a New Revision of a Service]
 ** xref:03-configs-and-routes.adoc#crtd-distributing-traffic[Distributing Traffic]
 ** xref:03-configs-and-routes.adoc#ctrd-cleanup[Cleanup]
-
+ifndef::workshop[]
 * xref:04-scaling.adoc[4. Scaling]
 ** xref:04-scaling.adoc#scaling-prerequisite[Prerequisites]
 ifndef::workshop[]
@@ -63,7 +63,7 @@ endif::[]
 *** xref:04-scaling.adoc#scaling-deploy-service-minscale[Deploy Service]
 ** xref:04-scaling.adoc#scaling-cleanup[Cleanup]
 
-ifndef::workshop[]
+
 * xref:05-build/build.adoc[5. Build]
 ** xref:05-build/build.adoc#build-prerequisite[Prerequisites]
 *** xref:05-build/build.adoc#build-edit-cr-secret[Edit Container Registry Secret]
