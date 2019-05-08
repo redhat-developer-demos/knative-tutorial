@@ -284,8 +284,8 @@ endif::[]
 [#ctrd-def-oc-revisions]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
-REVISION_1=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==2{print $1}'`
-REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==3{print $1}'`
+REVISION_1=`oc -n {tutorial-namespace} get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==2{print $1}'`
+REVISION_2=`oc -n {tutorial-namespace} get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==3{print $1}'`
 ----
 copyToClipboard::ctrd-def-oc-revisions[]
 
