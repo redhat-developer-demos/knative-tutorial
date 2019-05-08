@@ -3,8 +3,8 @@ include::_attributes.adoc[]
 ifdef::workshop[]
 :greeter-container-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
 :url: pass:[$SVC_URL]
-:config-rev1-yaml: config-rev1.remote.yaml
-:config-rev2-yaml: config-rev2.remote.yaml
+:config-rev1-yaml: configuration-rev1.remote.yaml
+:config-rev2-yaml: configuration-rev2.remote.yaml
 endif::[]
 ifndef::workshop[]
 :greeter-container-image: dev.local/rhdevelopers/greeter:0.0.1 #<2>
