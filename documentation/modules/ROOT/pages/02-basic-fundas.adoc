@@ -77,12 +77,12 @@ copyToClipboard::basics-run-svc-apply[]
 **(OR)**
 endif::[]
 
-[#basics-run-oc-svc-apply]
+[#rev1-basics-run-oc-svc-apply]
 [source,bash,linenums,subs="+macros,+attributes"]
 ----
 oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-yaml}[{service-yaml}]
 ----
-copyToClipboard::basics-run-oc-svc-apply[]
+copyToClipboard::rev1-basics-run-oc-svc-apply[]
 
 After successful deployment of the service we should see a Kubernetes Deployment named similar to `greeter-nsrbr-deployment` available:
 
@@ -165,8 +165,9 @@ ifdef::workshop[]
 endif::[]
 ====
 
-[#basics-show-knative-revisions]
-=== revisions
+[#rev1-basics-show-knative-revisions]
+=== revisions 
+:doc-sec: rev1
 include::partial$knative-objects.adoc[tag=knative-revisions]
 
 [TIP]
@@ -229,8 +230,9 @@ After successful deployment of the service we should see a Kubernetes deployment
 
 Now if you list revisions
 
-[#basics-show-knative-revisions]
+[#rev2-basics-show-knative-revisions]
 === revisions
+:doc-sec: rev2
 include::partial$knative-objects.adoc[tag=knative-revisions]
 
 You will see two of them, named similar to `greeter-cqgcf` and `greeter-nsrbr`.
@@ -246,7 +248,7 @@ Let us now make the greeter service use the first revision created, the one usin
 
 [TIP]
 ====
-You can use the <<basics-show-knative-revisions, show Knative service revisions>> command to find the available revisions for the greeter service.
+You can use the <<rev1-basics-show-knative-revisions, show Knative service revisions>> command to find the available revisions for the greeter service.
 ====
 
 === Service pinned to first revision

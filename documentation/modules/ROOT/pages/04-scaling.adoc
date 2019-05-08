@@ -202,7 +202,20 @@ As described above, the time it takes to finally scale to zero will be `STABLE_W
 
 For easier observation let us open a new terminal and run the following command,
 
+ifndef::workshop[]
+:k8s-env: minikube
+:k8s-cli: kubectl
+:doc-sec: obs-def-scale-down
 include::partial$watch-scaling-pods.adoc[]
+endif::[]
+
+**(OR)**
+
+:k8s-env: minishift
+:k8s-cli: oc
+:doc-sec: obs-def-scale-down
+include::partial$watch-scaling-pods.adoc[]
+
 
 TIP: If you are on OpenShift up and downscaling can also be watched on using the OpenShift Web Console by navigating to the `{tutorial-namespace}` project
 
@@ -396,7 +409,20 @@ include::partial$invoke-service.adoc[tag=env]
 
 Open a new terminal and run the following command:
 
-include::partial$watch-scaling-pods.adoc[]
+ifndef::workshop[]
+:k8s-cli: kubectl
+:k8s-env: minikube
+:doc-sec: auto-scale
+include::partial$watch-scaling-pods.adoc[tag=cmd]
+
+**(OR)**
+
+endif::[]
+
+:k8s-cli: oc
+:k8s-env: minishift
+:doc-sec: auto-scale
+include::partial$watch-scaling-pods.adoc[tag=cmd]
 
 [#scaling-load-service]
 === Load the service
@@ -482,13 +508,26 @@ endif::[]
 ----
 oc apply -n {tutorial-namespace} -f link:{github-repo}/{scaling-repo}/knative/{service-min-scale-yaml}[{service-min-scale-yaml}]
 ----
-copyToClipboard::scaling-run-min-scale[]
+copyToClipboard::scaling-run-oc-min-scale[]
 
 After the deployment was successful we should see a Kubernetes Deployment called `greeter-00001-deployment` with **two** pods available.
 
 Open a new terminal and run the following command :
 
-include::partial$watch-scaling-pods.adoc[]
+ifndef::workshop[]
+:k8s-cli: kubectl
+:k8s-env: minikube
+:doc-sec: min-scale
+include::partial$watch-scaling-pods.adoc[tag=cmd]
+
+**(OR)**
+
+endif::[]
+
+:k8s-cli: oc
+:k8s-env: minishift
+:doc-sec: min-scale
+include::partial$watch-scaling-pods.adoc[tag=cmd]
 
 Let us <<scaling-load-service,send some load to the service>> to trigger autoscaling.
 
