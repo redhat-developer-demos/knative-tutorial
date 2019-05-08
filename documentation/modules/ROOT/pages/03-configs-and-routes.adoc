@@ -89,21 +89,6 @@ copyToClipboard::crtd-run-oc-apply-config-rev1[]
 
 After the deployment was successful, we should see a kubernetes deployment like `greeter-wlcn4-deployment`.
 
-[#crtd-invoke-service]
-== Invoke Service
-ifndef::workshop[]
-:k8s-env: minikube
-:k8s-cli: kubectl
-include::ROOT:partial$invoke-service.adoc[tag=*]
-
-**(OR)**
-endif::[]
-:k8s-env: minishift
-:k8s-cli: oc
-include::ROOT:partial$invoke-service.adoc[tag=*]
-
-The command will return `HTTP 404` as there are no routes deployed yet. Let us now deploy a route.
-
 [#crtd-deploy-route]
 == Deploy Route
 Let us now deploy a route that will route all the traffic to the configuration we just deployed.
@@ -136,6 +121,19 @@ endif::[]
 oc apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
 ----
 copyToClipboard::crtd-run-oc-apply-route-default[]
+
+[#crtd-invoke-service]
+== Invoke Service
+ifndef::workshop[]
+:k8s-env: minikube
+:k8s-cli: kubectl
+include::ROOT:partial$invoke-service.adoc[tag=*]
+
+**(OR)**
+endif::[]
+:k8s-env: minishift
+:k8s-cli: oc
+include::ROOT:partial$invoke-service.adoc[tag=*]
 
 <<crtd-invoke-service,Invoking Service>> now should return a response like **Hi  greeter => '9be9ccd9a2e3' : 1**
 
