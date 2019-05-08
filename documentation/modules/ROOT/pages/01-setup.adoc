@@ -97,6 +97,8 @@ Please set the following environment variables before running the exercises:
 ----
 # This should be your workshop user id like dev001
 export WORKSHOP_USER='PUT YOUR USERNAME HERE'
+# navigate to the source repo
+cd  knative-tutorial
 export TUTORIAL_HOME=pass:[`pwd`]
 
 #Windows users
