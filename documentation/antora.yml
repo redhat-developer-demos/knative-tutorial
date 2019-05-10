@@ -1,6 +1,6 @@
 name: knative-tutorial
 title: Knative Tutorial
-version: v1.1.0-SNAPSHOT
+version: 0.4.0
 nav:
   - modules/ROOT/nav.adoc
 
