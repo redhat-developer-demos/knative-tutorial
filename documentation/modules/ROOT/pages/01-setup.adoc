@@ -10,12 +10,6 @@ The following CLI tools are required for running the exercises in this tutorial.
 |===
 |**Tool**|**macOS**|**Fedora**
 
-| `Minikube`
-2+| https://kubernetes.io/docs/setup/minikube
-
-| `Minishift`
-2+| https://github.com/minishift/minishift/releases
-
 | `git`
 | https://git-scm.com/download/mac
 | `dnf install git`
@@ -23,10 +17,6 @@ The following CLI tools are required for running the exercises in this tutorial.
 | `Docker`
 | https://docs.docker.com/docker-for-mac/install
 | `dnf install docker`
-
-| https://maven.apache.org[Apache Maven]
-| `brew install maven`
-| `dnf install maven`
 
 | https://github.com/wercker/stern[stern]
 | `brew install stern`
@@ -85,8 +75,19 @@ This tutorial was developed and tested with:
 [#kubernetes-cluster]
 == Kubernetes Cluster
 
+[tabs]
+====
+Minikube::
++
+--
 include::partial$minikube-setup.adoc[]
+--
+Minishift::
++
+--
 include::partial$openshift-setup.adoc[]
+--
+====
 
 [#setup-work-folder]
 == Work folder

@@ -40,40 +40,36 @@ When you xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs], you
 
 Run the following commands to create the event source resources:
 
-[#eventing-run-event-src-svc]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/event-source-svc.yaml[event-source-svc.yaml]
-----
-copyToClipboard::eventing-run-event-src-svc[]
-
-**(OR)**
-
-[#eventing-run-oc-event-src-svc]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/event-source-svc.yaml[event-source-svc.yaml] 
-----
-copyToClipboard::eventing-run-oc-event-src-svc[]
+:doc-sec: event-src-svc
+:url: {github-repo}/{eventing-repo}/knative/event-source-svc.yaml
+:url-alt-text: event-source-svc.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 [#eventing-verify-event-source]
 ==== Verification
-
+[tabs]
+====
+kubectl::
++
+--
 [#eventing-run-verify-event-source]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-verify-event-source[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#eventing-run-oc-verify-event-source]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-oc-verify-event-source[]
+--
+====
 
 Running  the above command should return the following result:
 
@@ -134,21 +130,10 @@ If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:05
 
 Run the following commands to create the service:
 
-[#run-deploy-sink-service]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f service.yaml 
-----
-copyToClipboard::run-deploy-sink-service[]
-
-**(OR)**
-
-[#run-oc-deploy-sink-service]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f service.yaml 
-----
-copyToClipboard::run-oc-deploy-sink-service[]
+:doc-sec: deploy-sink-service
+:url: {github-repo}/{eventing-repo}/knative/service.yaml
+:url-alt-text: service.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to see the cron job source sending an event every 1 minute.
 
@@ -163,7 +148,11 @@ include::partial$knative-objects.adoc[tag=knative-event-services]
 
 [#eventing-cleanup]
 == Cleanup
-
+[tabs]
+====
+kubectl::
++
+--
 [#eventing-run-src-svc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -173,8 +162,10 @@ kubectl -n {tutorial-namespace} delete \
 ----
 copyToClipboard::eventing-run-src-svc-cleanup[]
 
-**(OR)**
-
+--
+oc::
++
+--
 [#eventing-run-oc-src-svc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -183,5 +174,7 @@ oc -n {tutorial-namespace} delete \
  cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
 ----
 copyToClipboard::eventing-run-oc-src-svc-cleanup[]
+--
+====
 
 NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

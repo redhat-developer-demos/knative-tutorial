@@ -1,5 +1,6 @@
 [#install-knative-openshift]
-=== OpenShift 
+
+.**OpenShift**
 
 For OpenShift Knative installations we will use the OpenShift Cloud Function's https://github.com/openshift-cloud-functions/knative-operators[Knative Operators].
 
@@ -15,7 +16,7 @@ cd knative-operators
 copyToClipboard::setup-ocp-kn-operator[]
 
 [#install-knative-ocp]
-==== OCP
+.**OCP**
 
 If you have an existing OpenShift cluster then run the following commands:
 
@@ -29,7 +30,9 @@ copyToClipboard::run-ocp-kn-operator[]
 If you need more details about the installation or customizations refer https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md[Knative with OpenShift].
 
 [#install-knative-minishift]
-==== minishift
+.**minishift**
+
+Download Minishift from https://github.com/minishift/minishift/releases and add it your path.
 
 Run the following commands to configure Knative with minishift:
 
@@ -43,7 +46,7 @@ copyToClipboard::run-ocp-kn-operator-minishift[]
 <1> It will create a minishift profile and install Knative. It also assumes that you already have minishift and your computer has 10GB or more of memory.
 
 [#configure-openshift-project]
-==== Configuring OpenShift project for Knative applications
+.**Configuring OpenShift project for Knative applications**
 
 [#run-ocp-project-config]
 [source,bash,subs="+macros,+attributes"]

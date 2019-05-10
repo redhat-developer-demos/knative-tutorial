@@ -154,21 +154,10 @@ As we have already xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resource
 [#build-template-create-template]
 == Create build template
 
-[#build-template-run-create-template]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f maven-build-template.yaml
-----
-copyToClipboard::build-template-run-create-template[]
-
-**(OR)**
-
-[#build-template-run-oc-create-template]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f maven-build-template.yaml
-----
-copyToClipboard::build-template-run-oc-create-template[]
+:doc-sec: build-create-template
+:url: {github-repo}/{build-repo}/knative/maven-build-template.yaml
+:url-alt-text:  maven-build-template.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 [#build-see-what-you-have-deployed]
 === See what you have deployed
@@ -184,21 +173,10 @@ With build templates the automatic build may not be triggered unless and until s
 
 Run the following commands to deploy the service:
 
-[#build-template-run-deploy-service]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f service-with-build-template.yaml
-----
-copyToClipboard::build-template-run-deploy-service[]
-
-**(OR)**
-
-[#build-template-run-oc-deploy-service]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f service-with-build-template.yaml
-----
-copyToClipboard::build-template-run-oc-deploy-service[]
+:doc-sec: build-template-deploy-service
+:url: {github-repo}/{build-repo}/knative/service-with-build-template.yaml
+:url-alt-text: service-with-build-template.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 You can also xref:ROOT:{build-repo}/build.adoc#build-watching-logs[watch the logs] of the build triggered with the service deployment.
 
@@ -206,18 +184,25 @@ After successful deployment of the service we should see a Kubernetes deployment
 
 [#build-template-invoke-service]
 == Invoke Service
-
+[tabs]
+====
+kubectl::
++
+--
 :k8s-env: minikube
 :k8s-cli: kubectl
 :doc-sec: build-tpl-is
 include::ROOT:partial$invoke-service.adoc[tag=env]
-
-**(OR)**
-
+--
+oc::
++
+--
 :k8s-env: minishift
 :k8s-cli: oc
 :doc-sec: build-tpl-is
 include::ROOT:partial$invoke-service.adoc[tag=env]
+--
+====
 
 [#build-template-invoke-svc]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -243,6 +228,11 @@ The above command should return an response like:
 [#build-template-cleanup]
 === Cleanup
 
+[tabs]
+====
+kubectl::
++
+--
 [#build-template-run-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -250,9 +240,10 @@ kubectl -n {tutorial-namespace} delete services.serving.knative.dev event-greete
 kubectl -n {tutorial-namespace} delete buildtemplates.build.knative.dev build-java-maven
 ----
 copyToClipboard::build-template-run-cleanup[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#build-template-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -260,5 +251,7 @@ oc -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
 oc -n {tutorial-namespace} delete buildtemplates.build.knative.dev build-java-maven
 ----
 copyToClipboard::build-template-run-oc-cleanup[]
+--
+====
 
 NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

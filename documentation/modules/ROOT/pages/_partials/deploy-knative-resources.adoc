@@ -1,0 +1,27 @@
+=====
+
+[tabs]
+====
+kubectl::
++
+--
+[#{doc-sec}-kn-resources-apply]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply -n {tutorial-namespace} -f link:{url}[{url-alt-text}]
+----
+copyToClipboard::{doc-sec}-kn-resources-apply[]
+--
+oc::
++
+--
+[#{doc-sec}-oc-kn-resources-apply]
+[source,bash,subs="+macros,+attributes"]
+----
+oc apply -n {tutorial-namespace} -f link:{url}[{url-alt-text}]
+----
+copyToClipboard::{doc-sec}-oc-kn-resources-apply[]
+--
+====
+
+=====

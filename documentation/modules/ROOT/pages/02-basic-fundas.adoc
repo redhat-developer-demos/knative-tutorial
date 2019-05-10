@@ -29,7 +29,6 @@ cd $TUTORIAL_HOME/{basics-repo}/knative
 
 The following snippet shows what a Knative service YAML looks like:
 
-
 .link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
 [source,yaml,linenums]
 ----
@@ -50,41 +49,37 @@ spec:
 <2> It is very important that the image is a fully qualified docker image name with tag. For more details on this, see xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ]
 
 The service can be deployed using the following command:
-
-[#basics-run-svc-apply]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
-----
-copyToClipboard::basics-run-svc-apply[]
-
-**(OR)**
-
-[#basics-run-oc-svc-apply]
-[source,bash,linenums,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service.yaml[service.yaml]
-----
-copyToClipboard::basics-run-oc-svc-apply[]
+ 
+:doc-sec: basics-rev1-deploy
+:url: {github-repo}/{basics-repo}/knative/service.yaml
+:url-alt-text: service.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 After successful deployment of the service we should see a Kubernetes Deployment named similar to `greeter-nsrbr-deployment` available:
 
+[tabs]
+====
+kubectl::
++
+--
 [#basics-run-get-deployments]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl get deployments -n {tutorial-namespace}
 ----
 copyToClipboard::basics-run-get-deployments[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#basics-run-oc-get-deployments]
 [source,bash,linenums,subs="+macros,+attributes"]
 ----
 oc get deployments -n {tutorial-namespace}
 ----
 copyToClipboard::basics-run-oc-get-deployments[]
-
+--
+====
 
 [NOTE]
 ====
@@ -93,18 +88,25 @@ copyToClipboard::basics-run-oc-get-deployments[]
 
 [#basics-invoke-service]
 == Invoke Service
-
+[tabs]
+====
+Minikube::
++
+--
 :k8s-env: minikube
 :k8s-cli: kubectl
 :doc-sec: bis
 include::ROOT:partial$invoke-service.adoc[tag=*]
-
-**(OR)**
-
+--
+Minishift::
++
+--
 :k8s-env: minishift
 :k8s-cli: oc
 :doc-sec: bis
 include::ROOT:partial$invoke-service.adoc[tag=*]
+--
+====
 
 The `http` command should return a response containing a line similar to **Hi  greeter => '6fee83923a9f' : 1**
 
@@ -180,20 +182,11 @@ spec:
 
 Let us deploy the new revision using the command:
 
-[#basics-run-service-env]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
-----
-copyToClipboard::basics-run-service-env[]
+:doc-sec: basics-rev2-deploy
+:url: {github-repo}/{basics-repo}/knative/service-env.yaml
+:url-alt-text: service-env.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
-**(OR)**
-[#oc-basics-run-service-env]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/service-env.yaml[service-env.yaml]
-----
-copyToClipboard::oc-basics-run-service-env[]
 
 After successful deployment of the service we should see a Kubernetes deployment called `greeter-cqgcf-deployment`.
 
@@ -255,7 +248,11 @@ The names of revisions may be different in your setup
 ====
 
 Let us redeploy the greeter service by pinning it to the first revision that was created:
-
+[tabs]
+====
+kubectl::
++
+--
 [#run-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -263,9 +260,10 @@ PIN_REVISION=`kubectl get rev -n {tutorial-namespace} -l serving.knative.dev/ser
 cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kubectl -n {tutorial-namespace} apply -f -
 ----
 copyToClipboard::run-pinned-revision[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#run-oc-pinned-revision]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -273,25 +271,34 @@ PIN_REVISION=`oc get rev -n {tutorial-namespace} -l serving.knative.dev/service=
 cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc -n {tutorial-namespace}  apply -f -
 ----
 copyToClipboard::run-oc-pinned-revision[]
+--
+====
 
 <<basics-invoke-service,Invoking Service>> will produce output similar to **Hi  greeter => '6fee83923a9f' : 1**
 
 [#basics-cleanup]
 == Cleanup
 
+[tabs]
+====
+kubectl::
++
+--
 [#basics-run-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
 ----
 copyToClipboard::basics-run-cleanup[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#basics-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} delete services.serving.knative.dev greeter
 ----
 copyToClipboard::basics-run-oc-cleanup[]
-
+--
+====
