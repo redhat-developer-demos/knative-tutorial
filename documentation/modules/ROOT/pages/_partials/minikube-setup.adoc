@@ -65,9 +65,10 @@ istio-pilot-86bb4fcbbd-ptz7n               2/2     Running     0          6h35m
 istio-pilot-86bb4fcbbd-s9qxl               2/2     Running     0          6h34m
 istio-pilot-86bb4fcbbd-xd887               2/2     Running     0          6h34m
 istio-policy-5c4d9ff96b-tzkbw              2/2     Running     0          6h35m
-istio-security-post-install-xdxc7          0/1     Completed   0          6h35m
 istio-sidecar-injector-6977b5cf5b-9wsjw    1/1     Running     0          6h35m
+istio-statsd-prom-bridge-b44b96d7b-x85xr   1/1     Running     0          6h35m
 istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m
+knative-ingressgateway-75644679c7-5xwx6    1/1     Running     0          6h27m
 ----
 
 [#install-knative-serving]
@@ -145,7 +146,7 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply --filename {knative-eventing-repo}/{knative-eventing-version}/release.yaml && \
-kubectl apply --filename {knative-sources-repo}/{knative-sources-version}/eventing-sources.yaml && \
+kubectl apply --filename {knative-sources-repo}/{knative-sources-version}/release.yaml && \
 kubectl apply --filename https://raw.githubusercontent.com/knative/serving/{knative-serving-version}/third_party/config/build/clusterrole.yaml
 ----
 copyToClipboard::run-install-knative-eventing[]
