@@ -29,33 +29,28 @@ include::partial$eventing-snippets.adoc[tag=eventing-nav-folder]
 
 Run the following commands to create the channel:
 
-[#eventing-run-source-sub]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
-----
-copyToClipboard::eventing-run-source-sub[]
-
-**(OR)**
-
-[#eventing-run-oc-source-sub]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel.yaml[channel.yaml]
-----
-copyToClipboard::eventing-run-oc-source-sub[]
+:doc-sec: eventing-run-source-sub
+:url: {github-repo}/{eventing-repo}/knative/channel.yaml
+:url-alt-text: channel.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 [#eventing-verify-event-channel]
 ==== Verification
-
+[tabs]
+====
+kubectl::
++
+--
 [#eventing-run-verify-event-channel]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} get channels.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-verify-event-channel[]
-
-**(OR)**
+--
+oc::
++
+--
 
 [#eventing-run-oc-verify-event-channel]
 [source,bash,subs="+macros,+attributes"]
@@ -63,6 +58,8 @@ copyToClipboard::eventing-run-verify-event-channel[]
 oc -n {tutorial-namespace} get channels.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-oc-verify-event-channel[]
+--
+====
 
 Running  the above command should return the following result:
 
@@ -109,40 +106,36 @@ When you xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs], you
 
 Run the following commands to create the event source resources:
 
-[#eventing-run-apply-event-src]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml]
-----
-copyToClipboard::eventing-run-apply-event-src[]
-
-**(OR)**
-
-[#eventing-run-oc-apply-event-src]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/event-source.yaml[event-source.yaml] 
-----
-copyToClipboard::eventing-run-oc-apply-event-src[]
+:doc-sec: eventing-run-apply-event-src
+:url: {github-repo}/{eventing-repo}/knative/event-source.yaml
+:url-alt-text: event-source.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 [#eventing-verify-event-source]
 ==== Verification
-
+[tabs]
+====
+kubectl::
++
+--
 [#eventing-run-verify-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-verify-event-src[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#eventing-run-oc-verify-event-src]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-oc-verify-event-src[]
+--
+====
 
 Running  the above command should return the following result:
 
@@ -188,40 +181,36 @@ spec:
 
 Run the following commands to create the channel subscriber:
 
-[#eventing-run-create-subscriber]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml] 
-----
-copyToClipboard::eventing-run-create-subscriber[]
-
-**(OR)**
-
-[#eventing-run-oc-create-subscriber]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/channel-subscriber.yaml[channel-subscriber.yaml]
-----
-copyToClipboard::eventing-run-oc-create-subscriber[]
+:doc-sec: create-subscriber
+:url: {github-repo}/{eventing-repo}/knative/channel-subscriber.yaml
+:url-alt-text: channel-subscriber.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 [#eventing-verify-subscriber]
 ==== Verification
-
+[tabs]
+====
+kubectl::
++
+--
 [#eventing-run-verify-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} get subscriptions.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-verify-subscriber[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#eventing-run-oc-verify-subscriber]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} get subscriptions.eventing.knative.dev 
 ----
 copyToClipboard::eventing-run-oc-verify-subscriber[]
+--
+====
 
 Running  the above command should return the following result:
 
@@ -294,27 +283,21 @@ If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:{b
 
 Run the following commands to create the service:
 
-[#eventing-subscriber-deploy]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f service.yaml 
-----
-copyToClipboard::eventing-subscriber-deploy[]
-
-**(OR)**
-
-[#eventing-subscriber-oc-deploy]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f service.yaml 
-----
-copyToClipboard::eventing-subscriber-oc-deploy[]
+:doc-sec: deploy-sub-svc
+:url: {github-repo}/{eventing-repo}/knative/service.yaml
+:url-alt-text: service.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to see the cron job source sending an event every 1 minute.
 
 [#eventing-cleanup]
 == Cleanup
 
+[tabs]
+====
+kubectl::
++
+--
 [#eventing-run-cleanup2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -324,11 +307,12 @@ kubectl -n {tutorial-namespace} delete \
 kubectl -n {tutorial-namespace} delete channels.eventing.knative.dev ch-event-greeter
 kubectl -n {tutorial-namespace} delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
-
 copyToClipboard::eventing-run-cleanup2[]
 
-**(OR)**
-
+--
+oc::
++
+--
 [#eventing-run-oc-cleanup2]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -339,5 +323,7 @@ oc -n {tutorial-namespace} delete channels.eventing.knative.dev ch-event-greeter
 oc -n {tutorial-namespace} delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ----
 copyToClipboard::eventing-run-oc-cleanup2[]
+--
+====
 
 NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

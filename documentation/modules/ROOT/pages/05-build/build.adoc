@@ -187,6 +187,11 @@ Before we create the build and service, we need to create a few Kubernetes resou
 
 Run the following commands to create the pre-requisite resources:
 
+[tabs]
+====
+kubectl::
++
+--
 [#build-run-apply-prereq-resources]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -196,9 +201,10 @@ kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative
 kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml] #<4>
 ----
 copyToClipboard::build-run-apply-prereq-resources[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#build-run-oc-apply-prereq-resources]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -208,7 +214,8 @@ oc apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/m2-p
 oc apply -n {tutorial-namespace} -f link:{github-repo}/{build-repo}/knative/container-storage-pvc.yaml[container-storage-pvc.yaml] #<4>
 ----
 copyToClipboard::build-run-oc-apply-prereq-resources[]
-
+--
+====
 
 <1> The Kubernetes secret called `basic-auth-pass`, check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
 <2> The Kubernetes service account called `build-bot` that will run the build.  Only `build-bot` has access to the secret `basic-auth-pass`. Check https://github.com/knative/docs/blob/master/docs/build/auth.md#basic-authentication-docker[here] for more details
@@ -218,21 +225,10 @@ copyToClipboard::build-run-oc-apply-prereq-resources[]
 [#build-create-build]
 == Create build 
 
-[#build-run-create-build]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f event-greeter-build.yaml
-----
-copyToClipboard::build-run-create-build[]
-
-**(OR)**
-
-[#build-run-oc-create-build]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f event-greeter-build.yaml
-----
-copyToClipboard::build-run-oc-create-build[]
+:doc-sec: create-build
+:url: {github-repo}/{build-repo}/knative/event-greeter-build.yaml
+:url-alt-text: event-greeter-build.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 [#build-see-what-you-have-deployed]
 == See what you have deployed
@@ -246,19 +242,27 @@ include::partial$knative-objects.adoc[tag=knative-build]
 The builds right now can't be started from the step where it has failed, you always need to start a new build by deleting the existing build followed by creating a new one again.
 
 e.g. 
+[tabs]
+=====
+kubectl::
++
+--
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl delete -n {tutorial-namespace} -f event-greeter-build.yaml
 kubectl apply -n {tutorial-namespace} -f event-greeter-build.yaml
 ----
-
-**(OR)**
-
+--
+oc::
++
+--
 [source,bash,subs="+macros,+attributes"]
 ----
 oc delete -n {tutorial-namespace} -f event-greeter-build.yaml
 oc apply -n {tutorial-namespace} -f event-greeter-build.yamll
 ----
+--
+=====
 ====
 
 [#build-watching-logs]
@@ -272,17 +276,29 @@ A successful build will have the container image pushed to the container registr
 
 You can check the status of build as shown below:
 
+[tabs]
+====
+kubectl::
++
+--
+[#build-check-status]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
 kubectl -n {tutorial-namespace} get pods
 ----
-
-**(OR)**
-
+copyToClipboard::build-check-status[]
+--
+oc::
++
+--
+[#build-oc-check-status]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace} get pods
 ----
+copyToClipboard::build-oc-check-status[]
+--
+====
 
 The above command should return an output as shown below:
 
@@ -299,38 +315,35 @@ With this you should also be able to do pull your container images from the regi
 
 With a successful build you are ready to deploy the service, run the following commands to deploy the service:
 
-[#build-run-deploy-service]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f service.yaml
-----
-copyToClipboard::build-run-deploy-service[]
-
-**(OR)**
-
-[#build-run-oc-deploy-service]
-[source,bash,subs="+macros,+attributes"]
-----
-oc apply -n {tutorial-namespace} -f service.yaml
-----
-copyToClipboard::build-run-oc-deploy-service[]
+:doc-sec: build-deploy-svc
+:url: {github-repo}/{build-repo}/knative/service.yaml
+:url-alt-text: service.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 After successful deployment of the service we should see a Kubernetes deployment like `event-greeter-8fvqf-deployment` available.
 
 [#build-invoke-service]
 == Invoke service 
 
+[tabs]
+====
+kubectl::
++
+--
 :k8s-env: minikube
 :k8s-cli: kubectl
 :doc-sec: build-is
 include::ROOT:partial$invoke-service.adoc[tag=env]
-
-**(OR)**
-
+--
+oc::
++
+--
 :k8s-env: minishift
 :k8s-cli: oc
 :doc-sec: build-is
 include::ROOT:partial$invoke-service.adoc[tag=env]
+--
+====
 
 [#build-run-service-call]
 [source,bash,subs="+macros,+attributes",linenums]
@@ -358,6 +371,11 @@ NOTE: the actual response's host and time properties will be based on your envir
 == Cleanup
 Before proceeding next chapter let us delete the build and service objects that were created.
 
+[tabs]
+====
+kubectl::
++
+--
 [#build-run-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -365,9 +383,10 @@ kubectl -n {tutorial-namespace} delete services.serving.knative.dev event-greete
 kubectl -n {tutorial-namespace} delete builds.build.knative.dev event-greeter-build
 ----
 copyToClipboard::build-run-cleanup[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#build-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -375,5 +394,7 @@ oc -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
 oc -n {tutorial-namespace} delete builds.build.knative.dev event-greeter-build
 ----
 copyToClipboard::build-run-oc-cleanup[]
+--
+====
 
 NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.

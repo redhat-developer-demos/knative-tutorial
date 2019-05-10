@@ -53,38 +53,36 @@ spec:
 <1> It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this xref:ROOT:faq.adoc#faq-q2[Question 2 of FAQ].
 
 The service is then deployed using:
-[#crtd-run-apply-config-rev1]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
-----
-copyToClipboard::crtd-run-apply-config-rev1[]
 
-**(OR)**
-
-[#crtd-run-oc-apply-config-rev1]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml[config/configuration-rev1.yaml]
-----
-copyToClipboard::crtd-run-oc-apply-config-rev1[]
+:doc-sec: crtd-rev1-apply
+:url: {github-repo}/{configs-and-routes-repo}/config/configuration-rev1.yaml
+:url-alt-text: config/configuration-rev1.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 After the deployment was successful, we should see a kubernetes deployment like `greeter-wlcn4-deployment`.
 
 [#crtd-invoke-service]
 == Invoke Service
 
+[tabs]
+====
+Minikube::
++
+--
 :k8s-env: minikube
 :k8s-cli: kubectl
-:doc-sec: crtd-is
+:doc-sec: ctrd-is
 include::ROOT:partial$invoke-service.adoc[tag=*]
-
-**(OR)**
-
+--
+Minishift::
++
+--
 :k8s-env: minishift
 :k8s-cli: oc
-:doc-sec: crtd-is
+:doc-sec: ctrd-is
 include::ROOT:partial$invoke-service.adoc[tag=*]
+--
+====
 
 The command will return `HTTP 404` as there are no routes deployed yet. Let us now deploy a route.
 
@@ -105,21 +103,10 @@ spec:
       percent: 100
 ----
 
-[#crtd-run-apply-route-default]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-kubectl apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
-----
-copyToClipboard::crtd-run-apply-route-default[]
-
-**(OR)**
-
-[#crtd-run-oc-apply-route-default]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n {tutorial-namespace} -f link:{github-repo}/{configs-and-routes-repo}/route/route_default.yaml[route/route_default.yaml]
-----
-copyToClipboard::crtd-run-oc-apply-route-default[]
+:doc-sec: crtd-route-default-apply
+:url: {github-repo}/{configs-and-routes-repo}/route/route_default.yaml
+:url-alt-text: route/route_default.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 <<crtd-invoke-service,Invoking Service>> now should return a response like **Hi  greeter => '9be9ccd9a2e3' : 1**
 
@@ -191,21 +178,10 @@ spec:
 
 Let us deploy the new revision using the command:
 
-[#ctrd-run-apply-config-rev2]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-kubectl apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
-----
-copyToClipboard::ctrd-run-apply-config-rev2[]
-
-**(OR)**
-
-[#ctrd-run-oc-apply-config-rev2]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-oc apply -n {tutorial-namespace} -f  link:{github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml[config/configuration-rev2.yaml]
-----
-copyToClipboard::ctrd-run-oc-apply-config-rev2[]
+:doc-sec: crtd-rev2-apply
+:url: {github-repo}/{configs-and-routes-repo}/config/configuration-rev2.yaml
+:url-alt-text: config/configuration-rev2.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
 
 After the deployment was successful we should see a kubernetes deployment like `greeter-tb57l-deployment`.
 
@@ -245,6 +221,11 @@ TIP: Copy and save the above contents to a script file e.g. `$TUTORIAL_HOME/work
 
 For easier explanation and understanding lets give logical names to the revisions and set them to environment variables:
 
+[tabs]
+====
+kubectl::
++
+--
 [#ctrd-def-revisions]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -252,9 +233,10 @@ REVISION_1=`kubectl -n knativetutorial get rev -l serving.knative.dev/configurat
 REVISION_2=`kubectl -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==3{print $1}'`
 ----
 copyToClipboard::ctrd-def-revisions[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#ctrd-def-oc-revisions]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -262,116 +244,70 @@ REVISION_1=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=greeter --sort-by="{.metadata.creationTimestamp}" | awk 'NR==3{print $1}'`
 ----
 copyToClipboard::ctrd-def-oc-revisions[]
+--
+====
 
 [#crtd-all-rev1]
 === Send all traffic to revision 1
-
-[#ctrd-run-all-to-rev1]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev1.yaml[route/route_all_rev1.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | kubectl apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-all-to-rev1[]
-
-**(OR)**
-
-[#ctrd-run-oc-all-to-rev1]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_all_rev1.yaml[route/route_all_rev1.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | oc apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-oc-all-to-rev1[]
+:doc-sec: all-rev1
+:url: {github-repo}/{configs-and-routes-repo}/route/route_all_rev1.yaml
+:url-text: route/route_all_rev1
+:revision: $REVISION_1
+include::ROOT:partial$crtd-send-traffic.adoc[]
 
 If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service always goes to your revision 1 e.g output will be something like **Hi  greeter => '9be9ccd9a2e3' : 1**.
 
 [#crtd-all-rev2]
 === Send all traffic to revision 2
 
-[#ctrd-run-all-to-rev2]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_all_to_revision.yaml[route/route_all_to_revision.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_2] | kubectl apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-all-to-rev2[]
-
-**(OR)**
-
-[#ctrd-run-oc-all-to-rev2]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_all_to_revision.yaml[route/route_all_to_revision.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_2] | oc apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-oc-all-to-rev2[]
+:doc-sec: all-rev2
+:url: {github-repo}/{configs-and-routes-repo}/route/route_all_to_revision.yaml
+:url-text: route/route_all_to_revision.yaml
+:revision: $REVISION_2
+include::ROOT:partial$crtd-send-traffic.adoc[]
 
 If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service always goes to your revision 2 e.g output will be something like **Namaste  greeter => '9be9ccd9a2e3' : 1**.
 
 [#crtd-all-rev1-rev2-50]
 === 50-50 split between revision 1 and revision 2
 
-[#ctrd-run-rev1-rev2-50]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-50_rev2-50.yaml[route/route_rev1-50_rev2-50.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | yq w - 'spec.traffic[1].revisionName' pass:[$REVISION_2] | kubectl apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-rev1-rev2-50[]
-
-**(OR)**
-
-[#ctrd-run-oc-rev1-rev2-50]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-50_rev2-50.yaml[route/route_rev1-50_rev2-50.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | yq w - 'spec.traffic[1].revisionName' pass:[$REVISION_2] |  oc apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-oc-rev1-rev2-50[]
+:doc-sec: rev1-50-rev2-50
+:url: {github-repo}/{configs-and-routes-repo}/route/route_rev1-50_rev2-50.yaml
+:url-text: route/route_rev1-50_rev2-50.yaml
+:revision: $REVISION_1
+include::ROOT:partial$crtd-send-traffic.adoc[]
 
 If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like **Hi  greeter => '9be9ccd9a2e3' : 1** and **Namaste  greeter => '9be9ccd9a2e3' : 1**. You will also notice the traffic is distributed approximately 50% between the two revisions.
 
 [#crtd-all-rev1-rev2-75-25]
 === 75-25 split between revision 1 and revision 2
 
-[#ctrd-run-rev1-rev2-75-25]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-75_rev2-25.yaml[route/route_rev1-75_rev2-25.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | yq w - 'spec.traffic[1].revisionName' pass:[$REVISION_2] | kubectl apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-rev1-rev2-75-25[]
-
-**(OR)**
-
-[#ctrd-run-oc-rev1-rev2-75-25]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-75_rev2-25.yaml[route/route_rev1-75_rev2-25.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | yq w - 'spec.traffic[1].revisionName' pass:[$REVISION_2] |  oc apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-oc-rev1-rev2-75-25[]
+:doc-sec: rev1-75-rev2-25
+:url: {github-repo}/{configs-and-routes-repo}/route/route_rev1-75_rev2-25.yaml
+:url-text: route/route_rev1-75_rev2-25.yaml
+:revision: $REVISION_1
+include::ROOT:partial$crtd-send-traffic.adoc[]
 
 If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like **Hi  greeter => '9be9ccd9a2e3' : 1** and **Namaste  greeter => '9be9ccd9a2e3' : 1**. You will also notice the traffic is distributed approximately 75-25% between the two revisions.
 
 [#crtd-all-rev1-rev2-10-90]
 === 10-90 split between revision 1 and revision 2
 
-[#ctrd-run-rev1-rev2-10-90]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yaml[route/route_rev1-10_rev2-90.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | yq w - 'spec.traffic[1].revisionName' pass:[$REVISION_2] | kubectl apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-rev1-rev2-10-90[]
-
-**(OR)**
-
-[#ctrd-run-oc-rev1-rev2-10-90]
-[source,bash,subs="+macros,+attributes",linenums]
-----
-cat link:{github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yaml[route/route_rev1-10_rev2-90.yaml] | yq w - 'spec.traffic[0].revisionName' pass:[$REVISION_1] | yq w - 'spec.traffic[1].revisionName' pass:[$REVISION_2] |  oc apply -n {tutorial-namespace} -f - 
-----
-copyToClipboard::ctrd-run-oc-rev1-rev2-10-90[]
+:doc-sec: rev1-rev2-10-90
+:url: {github-repo}/{configs-and-routes-repo}/route/route_rev1-10_rev2-90.yaml
+:url-text: route/route_rev1-10_rev2-90.yaml
+:revision: $REVISION_1
+include::ROOT:partial$crtd-send-traffic.adoc[]
 
 If <<crtd-poll-sh,poll the service>> for some time,  you will notice the service is distributed between revision 1 and revision 2 e.g output will be mix of responses like **Hi  greeter => '9be9ccd9a2e3' : 1** and **Namaste  greeter => '9be9ccd9a2e3' : 1**. You will also notice the traffic is distributed approximately 10-90% between the two revisions.
 
-
 [#ctrd-cleanup]
 == Cleanup
-
+[tabs]
+====
+kubectl::
++
+--
 [#crtd-run-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -379,9 +315,10 @@ kubectl -n {tutorial-namespace} delete configurations.serving.knative.dev greete
 kubectl -n {tutorial-namespace} delete routes.serving.knative.dev greeter
 ----
 copyToClipboard::crtd-run-cleanup[]
-
-**(OR)**
-
+--
+oc::
++
+--
 [#crtd-run-oc-cleanup]
 [source,bash,subs="+macros,+attributes",linenums]
 ----
@@ -389,3 +326,5 @@ oc -n {tutorial-namespace} delete configurations.serving.knative.dev greeter
 oc -n {tutorial-namespace} delete routes.serving.knative.dev greeter
 ----
 copyToClipboard::crtd-run-oc-cleanup[]
+--
+====

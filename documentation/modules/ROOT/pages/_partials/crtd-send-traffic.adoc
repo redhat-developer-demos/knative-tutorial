@@ -1,0 +1,28 @@
+=====
+[tabs]
+====
+kubectl::
++
+--
+[#{doc-sec}-ctrd-run-all-to-rev]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+cat link:{url}[{url-text}] |\
+ yq w - 'spec.traffic[0].revisionName' {revision} | kubectl apply -n {tutorial-namespace} -f - 
+----
+copyToClipboard::{doc-sec}-ctrd-run-all-to-rev[]
+--
+oc::
++
+--
+
+[#{doc-sec}-ctrd-run-oc-all-to-rev]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+cat link:{url}[{url-text}] |\
+ yq w - 'spec.traffic[0].revisionName' {revision} | oc apply -n {tutorial-namespace} -f - 
+----
+copyToClipboard::{doc-sec}-ctrd-run-oc-all-to-rev[]
+--
+====
+=====
