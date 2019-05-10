@@ -21,7 +21,8 @@ include::partial$build-containers.adoc[tag=greeter]
 [#scaling-modify-configmap]
 == Setting Configmap Defaults
 
-Let's apply a few defaults to Knative's auto scaling configuration.
+Knative v0.4.0 changed how the default configuration map values are set and provided.
+For the purposes of this section, lets apply a few defaults.
 
 [.text-center]
 .link:{github-repo}/{scaling-repo}/knative/autoscaling-configmap.yaml[autoscaling-configmap.yaml]
