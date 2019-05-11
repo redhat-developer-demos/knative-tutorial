@@ -91,26 +91,26 @@ copyToClipboard::oc-knative-routes[]
 kubectl::
 +
 --
-[#{doc-sec}knative-revisions]
+[#{doc-sec}-knative-revisions]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl --namespace {tutorial-namespace} get rev \
 --label=serving.knative.dev/service=greeter \
 --sort-by="{.metadata.creationTimestamp}"
 ----
-copyToClipboard::{doc-sec}knative-revisions[]
+copyToClipboard::{doc-sec}-knative-revisions[]
 --
 oc::
 +
 --
-[#{doc-sec}oc-knative-revisions]
+[#{doc-sec}-oc-knative-revisions]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc --namespace {tutorial-namespace} get rev \
  --label=serving.knative.dev/service=greeter \
  --sort-by="{.metadata.creationTimestamp}"
 ----
-copyToClipboard::{doc-sec}oc-knative-revisions[]
+copyToClipboard::{doc-sec}-oc-knative-revisions[]
 --
 ====
 
