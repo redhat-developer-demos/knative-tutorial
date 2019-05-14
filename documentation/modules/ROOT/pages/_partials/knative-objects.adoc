@@ -365,4 +365,4 @@ copyToClipboard::oc-knative-triggers[]
 --
 ====
 
-#end::knative-event-triggers[]
+#end::knative-triggers[]
