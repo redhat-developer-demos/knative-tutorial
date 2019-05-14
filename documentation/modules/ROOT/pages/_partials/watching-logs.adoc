@@ -1,8 +1,7 @@
 [kube-ns='knativetutorial']
 [kube-svc='']
 
-In the eventing related subsections of this tutorial, event sources are configured to emit events every minute
-with a `CronJobSource` or with a `ContainerSource`.  
+In the eventing related subsections of this tutorial, event sources are configured to emit events every minute with a `CronJobSource` or with a `ContainerSource`.  
 We can watch the logs of the service to see the messages delivered.
 
 The logs could be watched using the command:
