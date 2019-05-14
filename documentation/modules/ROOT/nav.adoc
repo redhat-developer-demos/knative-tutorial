@@ -94,6 +94,15 @@
 **** xref:06-eventing/eventing-src-sub.adoc#eventing-gen-subscriber-service[Generate Service]
 **** xref:06-eventing/eventing-src-sub.adoc#eventing-deploy-subscriber-service[Deploy Service]
 *** xref:06-eventing/eventing-src-sub.adoc#eventing-cleanup[Cleanup]
+** xref:06-eventing/eventing-trigger-broker.adoc[Triggers and Brokers]
+*** xref:06-eventing/eventing-trigger-broker.adoc#events-triggers-brokers[Events, Triggers and Brokers]
+*** xref:06-eventing/eventing-trigger-broker.adoc#broker[Broker]
+*** xref:06-eventing/eventing-trigger-broker.adoc#eventing-service[Service]
+*** xref:06-eventing/eventing-trigger-broker.adoc#eventing-event-source[Event Source]
+*** xref:06-eventing/eventing-trigger-broker.adoc#eventing-trigger[Trigger]
+*** xref:06-eventing/eventing-trigger-broker.adoc#eventing-verification[Verification]
+*** xref:06-eventing/eventing-trigger-broker.adoc#eventing-cleanup[Cleanup]
+
 ** xref:06-eventing/eventing.adoc#eventing-watch-logs[Watching Logs]
 
 * xref:faq.adoc[8. Frequently Asked Questions]

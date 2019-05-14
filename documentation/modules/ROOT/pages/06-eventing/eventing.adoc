@@ -3,11 +3,13 @@ include::_attributes.adoc[]
 
 At the end of this chapter you will know and understand:
 
-* What is an event source ?
-* What is a channel ?
-* What is a subscriber ?
-* How to make a Knative serving service receive an event ?
-* How to make a service a subscriber of an event ?
+* What is an event source?
+* What is a channel?
+* What is a subscriber?
+* What is a trigger?
+* What is a broker?
+* How to make a Knative serving service receive an event?
+* How to make a service a subscriber of an event?
 
 [#eventing-prerequisite]
 == Prerequisite 

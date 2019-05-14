@@ -1,0 +1,307 @@
+
+= Triggers and Brokers
+include::_attributes.adoc[]
+
+[#events-triggers-brokers]
+== Events, Triggers and Brokers
+
+With Knative 0.5.0, Broker and Trigger objects are introduced to make event filtering easier.
+
+Brokers provide selection of events by attributes. They receive events and forwards them to subscribers defined by matching Triggers.
+
+Triggers provide a way of filtering of events by attributes. They are attached to subscribers and make the subscribers receive the events only they are interested in.
+
+include::partial$eventing-snippets.adoc[tag=eventing-nav-folder]
+
+[#broker]
+== Broker
+
+First of all, we need to create a Broker. Knative eventing provides a Broker named `default` when a special label is added to a namespace.
+
+[tabs]
+====
+kubectl::
++
+--
+[#eventing-trigger-broker-label-namespace]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+kubectl label namespace {tutorial-namespace} knative-eventing-injection=enabled
+----
+copyToClipboard::eventing-trigger-broker-label-namespace[]
+
+--
+oc::
++
+--
+[#eventing-trigger-broker-oc-label-namespace]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc label namespace {tutorial-namespace} knative-eventing-injection=enabled
+----
+copyToClipboard::eventing-trigger-broker-oc-label-namespace[]
+--
+====
+
+This will create the `default` broker. Execute the following command to see it:
+
+[tabs]
+====
+kubectl::
++
+--
+[#eventing-trigger-broker-see-broker]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+kubectl -n {tutorial-namespace} get brokers.eventing.knative.dev
+----
+copyToClipboard::eventing-trigger-broker-see-broker[]
+
+--
+oc::
++
+--
+[#eventing-trigger-broker-oc-see-broker]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc label namespace {tutorial-namespace} get brokers.eventing.knative.dev
+----
+copyToClipboard::eventing-trigger-broker-oc-see-broker[]
+--
+====
+
+Output should be similar to below:
+
+[source,bash,subs="+macros,+attributes"]
+----
+NAME      READY     REASON    HOSTNAME                                           AGE
+default   True                default-broker.knativetutorial.svc.cluster.local   2m
+----
+
+Labeling the namespace will also create some pods that are related to the `default` broker.
+
+[tabs]
+====
+kubectl::
++
+--
+[#eventing-trigger-broker-see-broker-pods]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+kubectl -n {tutorial-namespace} get pods
+----
+copyToClipboard::eventing-trigger-broker-see-broker-pods[]
+
+--
+oc::
++
+--
+[#eventing-trigger-broker-oc-see-broker-pods]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc label namespace {tutorial-namespace} get pods
+----
+copyToClipboard::eventing-trigger-broker-oc-see-broker-pods[]
+--
+====
+
+Running  the above command should return the following result:
+
+[source,bash,subs="+macros,+attributes"]
+----
+NAME                                      READY     STATUS    RESTARTS   AGE
+default-broker-filter-5bb94d8ddf-r9j4v    2/2       Running   1          2m43s
+default-broker-ingress-59b9b4985c-8n6d4   2/2       Running   1          2m43s
+----
+
+
+[#eventing-service]
+== Service 
+
+[#eventing-gen-service]
+=== Generate Service
+
+Run the following command to create the Knative service that will be used as the subscriber for the events that are going to be published later:
+
+[#eventing-run-gen-service]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+yq w -i service.yaml spec.runLatest.configuration.revisionTemplate.spec.container.image pass:[$DESTINATION_IMAGE_NAME]
+----
+copyToClipboard::eventing-run-gen-service[]
+
+[.text-center]
+.service.yaml
+[source,yaml,linenums]
+----
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: event-greeter
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        metadata:
+          labels:
+            app: event-greeter
+        spec:
+          container:
+            image: docker.io/demo/event-greeter:0.0.1 <1>
+----
+
+<1> Set from `pass:[${DESTINATION_IMAGE_NAME}]` environment variable --  the fully qualified container image that will be pushed to the registry as part of the build --
+
+Refer to xref:ROOT:{build-repo}/build.adoc#build-set-env[Build Environment Variables]
+
+[NOTE,subs="macros+"]
+====
+If you have skipped the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:05-build/build-templates.adoc[Build Templates] and dont have the container image of `event-greeter`; then you can update the Knative serving service to use the pre-built event-greeter image available at `quay.io/rhdevelopers/knative-tutorial-greeter:0.0.1`
+====
+
+[#eventing-deploy-service]
+=== Deploy Service
+
+Run the following commands to create the service:
+
+:doc-sec: deploy-service
+:url: {github-repo}/{eventing-repo}/knative/service.yaml
+:url-alt-text: service.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+
+[#eventing-event-source]
+== Event Source
+[.text-center]
+.link:{github-repo}/{eventing-repo}/knative/event-source-broker.yaml[event-source-broker.yaml]
+[source,yaml,linenums]
+----
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: ContainerSource #<1>
+metadata:
+  name: heartbeat-event-source
+spec:
+  image: docker.io/matzew/kube-heartbeat  #<2>
+  args: #<3>                                            
+    - '--label="Thanks for doing Knative Tutorial"' 
+    - '--period=1000'
+  sink: #<4>                                             
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Broker
+    name: default
+----
+
+<1> The type of event source. `ContainerSource` type is basically a container sending events.
+<2> The image to run with this `ContainerSource`.
+<3> Arguments for the `ContainerSource` image. `label` in this particular case is what the image will be sending as event data and `period` is how often it will send events.
+<4> Sink here is the `default` broker created earlier. So, the `default` broker will receive the events sent by this event source.
+
+Run the following commands to create the event source resources:
+
+:doc-sec: eventing-trigger-broker-create-event-source
+:url: {github-repo}/{eventing-repo}/knative/event-source-broker.yaml
+:url-alt-text: event-source-broker.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+[#eventing-trigger]
+== Trigger
+[.text-center]
+.link:{github-repo}/{eventing-repo}/knative/trigger.yaml[trigger.yaml]
+[source,yaml,linenums]
+----
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: event-greeter-trigger
+spec:
+  filter:
+    sourceAndType:
+      type: dev.knative.source.heartbeats #<1>
+  subscriber: #<2>
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service #<3>
+      name: event-greeter #<4>
+----
+
+<1> The event type to filter on. The event type `dev.knative.source.heartbeats` is the one used by the `ContainerSource` image we deployed earlier. 
+<2> Definition of the subscriber for the events that are matched by the filter of the trigger.
+<3> In this case, the subscriber is a service.
+<4> Subscriber service name. This trigger will make sure the events filtered will be sent to this service.
+
+Run the following commands to create the event source resources:
+
+:doc-sec: eventing-trigger-broker-create-trigger
+:url: {github-repo}/{eventing-repo}/knative/trigger.yaml
+:url-alt-text: trigger.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+[#eventing-verification]
+== Verification
+
+=== Logs
+
+[NOTE]
+====
+When you xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs], you will notice this data being delivered to the service.
+====
+
+[#eventing-see-what-you-have-deployed]
+=== See what you have deployed
+
+==== sources
+include::partial$knative-objects.adoc[tag=knative-container-event-sources]
+
+==== services
+include::partial$knative-objects.adoc[tag=knative-event-services]
+
+==== triggers
+include::partial$knative-objects.adoc[tag=knative-triggers]
+
+
+[#eventing-cleanup]
+== Cleanup
+[tabs]
+====
+kubectl::
++
+--
+[#eventing-run-trigger-broker-cleanup]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+kubectl -n {tutorial-namespace} delete \
+ containersource.sources.eventing.knative.dev heartbeat-event-source
+kubectl -n {tutorial-namespace} delete triggers.eventing.knative.dev event-greeter-trigger
+kubectl label namespace {tutorial-namespace} knative-eventing-injection-
+kubectl -n {tutorial-namespace} delete brokers.eventing.knative.dev default
+kubectl -n {tutorial-namespace} delete \
+ clusterchannelprovisioners.eventing.knative.dev in-memory 
+kubectl -n {tutorial-namespace} delete \
+ clusterchannelprovisioners.eventing.knative.dev in-memory-channel 
+----
+copyToClipboard::eventing-run-trigger-broker-cleanup[]
+
+--
+oc::
++
+--
+[#eventing-run-oc-trigger-broker-cleanup]
+[source,bash,subs="+macros,+attributes",linenums]
+----
+oc -n {tutorial-namespace} delete services.serving.knative.dev event-greeter
+oc -n {tutorial-namespace} delete \
+ containersource.sources.eventing.knative.dev heartbeat-event-source
+oc -n {tutorial-namespace} delete triggers.eventing.knative.dev event-greeter-trigger
+oc label namespace {tutorial-namespace} knative-eventing-injection-
+oc -n {tutorial-namespace} delete brokers.eventing.knative.dev default
+oc -n {tutorial-namespace} delete \
+ clusterchannelprovisioners.eventing.knative.dev in-memory 
+oc -n {tutorial-namespace} delete \
+ clusterchannelprovisioners.eventing.knative.dev in-memory-channel
+----
+copyToClipboard::eventing-run-oc-trigger-broker-cleanup[]
+--
+====
+
+NOTE: You can also delete xref:ROOT:{build-repo}/build.adoc#build-apply-prereq-resources[pre-req resources] that were created if you don't need them anymore.
