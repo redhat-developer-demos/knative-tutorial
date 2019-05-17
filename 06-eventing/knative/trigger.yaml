@@ -5,7 +5,7 @@ metadata:
 spec:
   filter:
     sourceAndType:
-      type: dev.knative.source.heartbeats
+      type: dev.knative.eventing.samples.heartbeat
   subscriber:
     ref:
       apiVersion: serving.knative.dev/v1alpha1

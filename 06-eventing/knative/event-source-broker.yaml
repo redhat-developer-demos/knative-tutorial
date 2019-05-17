@@ -3,10 +3,19 @@ kind: ContainerSource
 metadata:
   name: heartbeat-event-source
 spec:
-  image: docker.io/matzew/kube-heartbeat
+  image: quay.io/openshift-knative/knative-eventing-sources-heartbeats:v0.5.0
   args:
     - '--label="Thanks for doing Knative Tutorial"'
-    - '--period=1000'
+    - '--period=1'
+  env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
   sink:
     apiVersion: eventing.knative.dev/v1alpha1
     kind: Broker

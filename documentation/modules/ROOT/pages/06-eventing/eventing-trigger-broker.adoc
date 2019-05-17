@@ -181,18 +181,27 @@ kind: ContainerSource #<1>
 metadata:
   name: heartbeat-event-source
 spec:
-  image: docker.io/matzew/kube-heartbeat  #<2>
-  args: #<3>                                            
-    - '--label="Thanks for doing Knative Tutorial"' 
-    - '--period=1000'
-  sink: #<4>                                             
+  image: quay.io/openshift-knative/knative-eventing-sources-heartbeats:v0.5.0 #<2>
+  args: #<3>
+    - '--label="Thanks for doing Knative Tutorial"'
+    - '--period=1'
+  env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+  sink: #<4>
     apiVersion: eventing.knative.dev/v1alpha1
     kind: Broker
     name: default
 ----
 
 <1> The type of event source. `ContainerSource` type is basically a container sending events.
-<2> The image to run with this `ContainerSource`.
+<2> The image to run with this `ContainerSource`. Source of the image is available link:https://github.com/knative/eventing-sources/blob/v0.5.0/cmd/heartbeats/main.go[here].
 <3> Arguments for the `ContainerSource` image. `label` in this particular case is what the image will be sending as event data and `period` is how often it will send events.
 <4> Sink here is the `default` broker created earlier. So, the `default` broker will receive the events sent by this event source.
 
@@ -216,7 +225,7 @@ metadata:
 spec:
   filter:
     sourceAndType:
-      type: dev.knative.source.heartbeats #<1>
+      type: dev.knative.eventing.samples.heartbeat #<1>
   subscriber: #<2>
     ref:
       apiVersion: serving.knative.dev/v1alpha1
@@ -224,7 +233,7 @@ spec:
       name: event-greeter #<4>
 ----
 
-<1> The event type to filter on. The event type `dev.knative.source.heartbeats` is the one used by the `ContainerSource` image we deployed earlier. 
+<1> The event type to filter on. The event type `dev.knative.eventing.samples.heartbeat` is the one used by the `ContainerSource` image we deployed earlier. 
 <2> Definition of the subscriber for the events that are matched by the filter of the trigger.
 <3> In this case, the subscriber is a service.
 <4> Subscriber service name. This trigger will make sure the events filtered will be sent to this service.
