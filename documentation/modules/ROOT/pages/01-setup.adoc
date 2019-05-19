@@ -46,7 +46,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 [#remote-docker-repository]
 == Remote Repository
-For some parts of the tutorial, you will be pushing and pulling container images to and from a remote image repository. You will need an account with publish rights. As of this writing, knative works best with https://hub.docker.com[Docker Hub].
+For some parts of the tutorial, you will be pushing and pulling container images to and from a remote image repository. You will need an account with publish rights. As of this writing, knative works best with https://quay.io[Quay].
 
 [#download-tutorial-sources]
 == Download Tutorial Sources

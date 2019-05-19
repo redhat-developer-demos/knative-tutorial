@@ -13,15 +13,7 @@ At the end of this chapter you will know and understand:
 == Prerequisite 
 include::partial$prereq-cli.adoc[]
 
-[#eventing-assumptions]
-== Assumptions
-
-You have completed the xref:ROOT:{build-repo}/build.adoc[Build] or xref:ROOT:{build-repo}/build-templates.adoc[Build Templates], as you will be using the container image `greeter:0.0.1` or `greeter:0.0.2`  in this chapter.
-
-[IMPORTANT,subs="marcos+,attributes+"]
-====
-Please ensure that you have set the needed environment variables as mentioned in xref:ROOT:{build-repo}/build.adoc#build-set-env[ Configure Environment Variables]
-====
+include::partial$set-env-vars.adoc[]
 
 [#eventing-watch-logs]
 == Watching Logs

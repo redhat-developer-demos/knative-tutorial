@@ -12,6 +12,9 @@ content:
       tags: []
       branches: release/*
       start_path: documentation
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-build.git
+      tags: []
+      branches: release/*
     - url: git@github.com:redhat-developer-docs/knative-tutorial-module-camelk.git
       tags: v*
 asciidoc:
@@ -19,6 +22,7 @@ asciidoc:
     tutorial-namespace: knativetutorial
   extensions:
     - ./lib/copy-to-clipboard.js
+    - ./lib/tab-block.js
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
