@@ -118,7 +118,7 @@ For this workshop you have been configured with OpenShift project **$WORKSHOP_US
 
 [source,bash,subs="+macros,+attributes"]
 ----
-oc login -u pass:[$WORKSHOP_USER] -password openshift {apiUrl}
+oc login --username pass:[$WORKSHOP_USER] --password openshift {apiUrl}
 oc project $WORKSHOP_USER-knativetutorial
 ----
 endif::[]
