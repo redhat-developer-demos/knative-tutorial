@@ -17,13 +17,8 @@ asciidoc:
     tutorial-namespace: $WORKSHOP_USER-knativetutorial
     title: Knative Workshop
     workshop: true
-    workshop-domain: guru.devx.red
+    workshop-domain: knative-workshop.devx.red
     workshop-version: release/0.4
-    workshop-chapters: 
-       - 02
-       - 03
-       - 04
-       - 07
   extensions:
     - ./lib/copy-to-clipboard.js
 ui:
