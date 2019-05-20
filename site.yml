@@ -16,6 +16,8 @@ asciidoc:
   attributes:
     tutorial-namespace: $WORKSHOP_USER-knativetutorial
     title: Knative Workshop
+    etherPad: http://etherpad-etherpad.apps.ws.ocp4dp.nosue.mobi
+    apiUrl: https://api.ws.ocp4dp.nosue.mobi:6443 
     workshop: true
     workshop-domain: knative-workshop.devx.red
     workshop-version: release/0.4

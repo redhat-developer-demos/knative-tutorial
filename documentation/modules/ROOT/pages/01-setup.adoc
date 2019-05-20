@@ -15,6 +15,10 @@ ifndef::workshop[]
 | `Minishift`
 2+| https://github.com/minishift/minishift/releases
 endif::[]
+| `oc`
+| https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.1.0-rc.4/
+| https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.1.0-rc.4/
+
 | `git`
 | https://git-scm.com/download/mac
 | `dnf install git`
@@ -100,10 +104,12 @@ export WORKSHOP_USER='PUT YOUR USERNAME HERE'
 # navigate to the source repo
 cd  knative-tutorial
 export TUTORIAL_HOME=pass:[`pwd`]
+export OPENSHIFT_API_SERVER_URL='PUT YOUR OPENSHIFT SERVER URL'
 
 #Windows users
 set WORKSHOP_USER='PUT YOUR USERNAME HERE'
 set TUTORIAL_HOME=%cd%
+set OPENSHIFT_API_SERVER_URL='PUT YOUR OPENSHIFT SERVER URL'
 ----
 copyToClipboard::setup-workshop-env[]
 endif::[]
@@ -114,6 +120,7 @@ For this workshop you have been configured with OpenShift project **$WORKSHOP_US
 
 [source,bash,subs="+macros,+attributes"]
 ----
+oc login -u pass:[$WORKSHOP_USER] -password openshift {apiUrl}
 oc project $WORKSHOP_USER-knativetutorial
 ----
 endif::[]
