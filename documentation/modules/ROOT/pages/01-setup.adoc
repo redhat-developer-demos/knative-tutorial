@@ -104,12 +104,10 @@ export WORKSHOP_USER='PUT YOUR USERNAME HERE'
 # navigate to the source repo
 cd  knative-tutorial
 export TUTORIAL_HOME=pass:[`pwd`]
-export OPENSHIFT_API_SERVER_URL='PUT YOUR OPENSHIFT SERVER URL'
 
 #Windows users
 set WORKSHOP_USER='PUT YOUR USERNAME HERE'
 set TUTORIAL_HOME=%cd%
-set OPENSHIFT_API_SERVER_URL='PUT YOUR OPENSHIFT SERVER URL'
 ----
 copyToClipboard::setup-workshop-env[]
 endif::[]
