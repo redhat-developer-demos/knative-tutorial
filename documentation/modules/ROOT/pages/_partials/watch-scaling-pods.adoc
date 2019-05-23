@@ -1,9 +1,0 @@
-[k8s-cli='']
-[doc-sec='']
-
-[#{doc-sec}-{k8s-cli}-watch-scale]
-[source,bash,subs="+macros,+attributes"]
-----
-watch '{k8s-cli} get pods -n {tutorial-namespace}'
-----
-copyToClipboard::{doc-sec}-{k8s-cli}-watch-scale[]

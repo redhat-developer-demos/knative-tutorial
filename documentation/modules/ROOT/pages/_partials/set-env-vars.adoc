@@ -1,4 +1,4 @@
-.Build Environment Variables
+.Environment Variables
 
 [cols="4*^,4*."]
 |===
@@ -19,23 +19,8 @@
 |https://index.docker.io
 |https://quay.io/v2
 
-|SOURCE_REPO_URL
-|The Source repository Git URL
-|https://github.com/redhat-developer-demos/knative-tutorial-event-greeter.git
-|
-
-|SOURCE_REVISION
-|The Source revision 
-|master
-|v1.0.0
-
-|CONTEXT_DIR
-|The Context directory within sources repository which will be used during build
-|java/quarkus
-|
-
 |DESTINATION_IMAGE_NAME
 |The fully qualified image name that will be built
 |
-| docker.io/foo/bar:v1.0
+| quay.io/foo/bar:v1.0
 |===

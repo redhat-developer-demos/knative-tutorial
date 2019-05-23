@@ -1,7 +1,4 @@
 name: knative-tutorial
 title: Knative Tutorial
 version: 0.5.0
-nav:
-  - modules/ROOT/nav.adoc
-
 start_page: ROOT:index.adoc
