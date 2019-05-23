@@ -10,13 +10,17 @@ content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
       tags: []
-      branches: release/*
+      branches: release/0.5
       start_path: documentation
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-basics.git
+      tags: []
+      branches: release/0.5
     - url: git@github.com:redhat-developer-demos/knative-tutorial-module-build.git
       tags: []
-      branches: release/*
+      branches: release/0.5
     - url: git@github.com:redhat-developer-docs/knative-tutorial-module-camelk.git
-      tags: v*
+      tags: []
+      branches: release/0.5
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial

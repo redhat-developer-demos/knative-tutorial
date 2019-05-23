@@ -1,12 +1,30 @@
-= Knative Tutorial
+= Welcome to Knative Tutorial
+:page-layout: home
+:!sectids:
 
-Serverless epitomizes the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of serverless frameworks out there, Knative is the first specifically designed for Kubernetes and OpenShift.
-
-> Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”
+Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”
 
 [.text-right]
 __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/ 
 
-This tutorial will act as a step-by-step guide in helping you understand Knative, starting with setup, fundamental concepts such as service, configuration, revision etc., and finally deploying some use cases which could help deploying serverless applications at enterprises.
+[.tiles.browse]
+== Browse Modules
 
-This content is brought to you by http://developers.redhat.com[Red Hat Developer Program] - Register today!
+[.tile]
+.xref:knative-tutorial-basics:ROOT:index.adoc[Basics]
+* xref:knative-tutorial-basics:ROOT:01-setup.adoc[Setup]
+* xref:knative-tutorial-basics:ROOT:02-basic-fundas.adoc[Serving]
+* xref:knative-tutorial-basics:ROOT:04-scaling.adoc[Auto Scaling]
+* xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Eventing]
+
+[.tile]
+.xref:knative-tutorial-build:ROOT:index.adoc[Build]
+* xref:knative-tutorial-build:ROOT:build.adoc[Build]
+* xref:knative-tutorial-build:ROOT:build-templates.adoc[Build Templates]
+
+[.tile]
+.xref:knative-tutorial-camelk:ROOT:index.adoc[Camel K]
+* xref:knative-tutorial-camelk:ROOT:setup.adoc[Setup]
+* xref:knative-tutorial-camelk:ROOT:getting-started.adoc[Message Filter]
+* xref:knative-tutorial-camelk:ROOT:poll-enrich.adoc[Poll Enrich]
+*  xref:knative-tutorial-camelk:ROOT:content-based-router.adoc[Content Based Router]
