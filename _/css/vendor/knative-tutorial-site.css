@@ -1,7 +1,119 @@
+:root {
+  /* primary */
+  --color-brand-black: #000;
+  --color-brand-red: #cc0000;
+  --color-brand-red-dark: #820000;
+  --color-brand-red-tint: #fcdedf;
+  --color-brand-white: #fff;
+  --color-brand-gray: #666;
+  --color-brand-light-blue: #00ace0;
+
+  --color-navbar-bg: var(--color-brand-black);
+  --color-navbar-text: var(--color-brand-white);
+  --color-footer-bg: var(--color-brand-black);
+  --color-footer-text: var(--color-brand-white);
+
+  --color-text: #333;
+  --z-index-footer: 2;
+  --weight-bold: 700;
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+
+  --width-main-gutter: 2.5rem;
+  --width-container: 80rem;
+  --width-container-gutter: 1.25rem;
+
+  --color-link: var(--color-brand-red-dark);
+}
+
+/** base overiders**/
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--color-text);
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  margin: 0;
+}
+
+a {
+  color: var(--color-link);
+  outline: none;
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+code,
+kbd,
+pre {
+  font-family: "Roboto Mono", monospace;
+}
+
+code {
+  color: var(--color-brand-black);
+  font-size: 0.9375em;
+  word-spacing: -0.125em;
+}
+
+html code {
+  hyphens: none;
+}
+
+b,
+strong {
+  font-weight: var(--weight-medium);
+}
+
+small {
+  font-size: 0.8em;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: var(--width-container);
+  padding: 0 var(--width-container-gutter);
+}
 .copybtn {
-  background-color: #cc0000;
+  background-color: var(--color-brand-red);
   border: none;
-  color: white;
+  color: var(--color-brand-white);
   padding: 10px 10px;
   font-size: 12px;
   cursor: pointer !important;
@@ -13,5 +125,220 @@
 
 /* Darker background on mouse-over */
 .copybtn:hover {
-  background-color: #820000;
+  background-color: var(--color-brand-red-dark);
+}
+
+/* TAB BLOCKS */
+.tabs ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 -0.25rem 0 0;
+  padding: 0;
+}
+
+.tabs li {
+  align-items: center;
+  border: 1px solid var(--color-brand-black);
+  border-bottom: 0;
+  cursor: pointer;
+  display: flex;
+  font-weight: bold;
+  height: 2.5rem;
+  line-height: 1;
+  margin-right: 0.25rem;
+  padding: 0 1.5rem;
+  position: relative;
+}
+
+.tabs.ulist li {
+  margin-bottom: 0;
+}
+
+.tabs li + li {
+  margin-top: 0;
+}
+
+.tabset.is-loading .tabs li:not(:first-child),
+.tabset:not(.is-loading) .tabs li:not(.is-active) {
+  background-color: var(--color-brand-black);
+  color: var(--color-brand-white);
+}
+
+.tabset.is-loading .tabs li:first-child::after,
+.tabs li.is-active::after {
+  background-color: var(--color-brand-white);
+  content: "";
+  display: block;
+  height: 3px; /* Chrome doesn't always paint the line accurately, so add a little extra */
+  position: absolute;
+  bottom: -1.5px;
+  left: 0;
+  right: 0;
+}
+
+.tabset > .content {
+  border: 1px solid var(--color-brand-gray);
+  padding: 1.25rem;
+}
+
+.tabset.is-loading .tab-pane:not(:first-child),
+.tabset:not(.is-loading) .tab-pane:not(.is-active) {
+  display: none;
+}
+
+.tab-pane > :first-child {
+  margin-top: 0;
+}
+
+/* doc */
+.doc h2 {
+  border: none !important;
+}
+
+/* Home styles */
+.home p {
+  margin: 0;
+}
+
+.home .paragraph {
+  margin-top: 1.25rem;
+}
+
+.home h1.page {
+  font-size: 2.375rem;
+  margin-top: 3.5rem;
+  text-align: center;
+}
+
+.home #preamble {
+  margin: 2rem 0 3rem;
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.home h1,
+.home h2,
+.home h3 {
+  line-height: 1.2;
+  margin: 0;
+}
+
+/*Tiles  */
+
+.home .tile .title a {
+  color: inherit;
+}
+
+.home .tile ul {
+  line-height: 1.25;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home .tile li {
+  padding: 0.25em 0;
+}
+
+.home .tile a {
+  text-decoration: none;
+  position: relative;
+}
+
+.home .tile a::before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: currentColor;
+  transform: scale3d(0, 0.9999, 0.9999);
+  transition-property: transform;
+  transition-duration: 0.3s;
+}
+
+.home .tile a:focus::before,
+.home .tile a:hover::before {
+  transform: scale3d(1, 0.9999, 0.9999);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+}
+
+.home .tiles {
+  font-size: 1.125rem;
+  margin-top: 2.5rem;
+}
+
+.home .tiles > h2 {
+  font-size: 2rem;
+  hyphens: auto;
+  padding-bottom: 3.125rem !important;
+  text-align: center;
+}
+
+.home .tiles > h2::after {
+  content: "";
+  display: block;
+  background-color: currentColor;
+  width: 5.625rem;
+  height: 1px;
+  margin: 0 auto;
+  margin-bottom: -1px;
+  position: relative;
+  top: 1.375rem;
+}
+
+.home .tiles > .sectionbody {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home .tile {
+  flex: 1;
+  margin-bottom: 0.75rem;
+  min-width: 0;
+  flex-basis: auto;
+  width: 50%;
+}
+
+.home .tile .title {
+  font-weight: var(--weight-bold);
+  margin-bottom: 0.25rem;
+}
+
+@media screen and (min-width: 769px) {
+  .home h1.page,
+  .home #preamble {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .home .tiles {
+    padding: 0 10%;
+  }
+
+  .home .tiles > .sectionbody {
+    margin: 0 -0.5rem;
+  }
+
+  .home .tile {
+    flex-basis: 0;
+    margin-bottom: 0;
+    padding: 0 0.5rem;
+  }
+}
+
+/**Footer Styles **/
+
+.home footer.footer {
+  background-color: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  padding: 2.5rem 0;
+  z-index: var(--z-index-footer);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

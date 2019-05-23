@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basics and Fundamentals :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/0.4.0/02-basic-fundas.html">
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.5.0/02-basic-fundas.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -22,6 +22,7 @@
         <span></span>
         <span></span>
       </button>
+
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
@@ -52,12 +53,13 @@
     </div>
   </nav>
 </header><div class="main-wrapper">
-<div class="navigation-container" data-component="knative-tutorial" data-version="0.4.0">
-  <aside class="navigation">
-    <div class="panels">
-<div class="navigation-menu is-active" data-panel="menu">
+    <div class="navigation-container"  data-component="knative-tutorial-basics"
+    data-version="0.5.0" >
+    <aside class="navigation">
+        <div class="panels">
+            <div class="navigation-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">Knative Tutorial</a></h3>
+    <h3 class="title"><a href="index.html">Introduction to Knative</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -72,49 +74,7 @@
     <a class="nav-link" href="01-setup.html#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
     <a class="nav-link" href="01-setup.html#kubernetes-cluster">Kubernetes Cluster</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="01-setup.html#install-knative-minikube">Install with Minikube</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#start-minikube">Configure and Start Minikube</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#install-knative-istio">Install Istio </a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#install-knative-serving">Install Knative Serving</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#install-knative-build">Install Knative Build</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#install-knative-eventing">Install Knative Eventing</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#set-knative-tutorial-ns">Configuring Kubernetes Namespace</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="01-setup.html#install-knative-openshift">Install with OpenShift</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#install-knative-ocp">Install on OCP</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#install-knative-minishift">Install on Minishift</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="01-setup.html#configure-openshift-project">Configure OpenShift Project</a>
-  </li>
-</ul>
-  </li>
-</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="01-setup.html#setup-work-folder">Work Folder</a>
@@ -246,193 +206,106 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="05-build/build.html">5. Build</a>
+    <a class="nav-link" href="05-eventing/eventing.html">5. Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="05-build/build.html#build-prerequisite">Prerequisites</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build.html#build-edit-cr-secret">Edit Container Registry Secret</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build.html#build-edit-build-spec">Edit Build Spec</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build.html#build-edit-knative-service">Edit Knative Service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build.html#build-apply-prereq-resources">Apply Resources</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-create-build">Create Build</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-watching-logs">Watching Logs</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-build-status">Build Status</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-deploy-service-build">Deploy Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build.html#build-build-cleanup">Cleanup</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="05-build/build-templates.html">6. Build Template</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="05-build/build-templates.html#build-template-prerequisite">Prerequisites</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build-templates.html#build-template-template">Build Template</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build-templates.html#build-template-edit-service">Edit Knative Service</a>
-  </li>
-</ul>
+    <a class="nav-link" href="05-eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="05-build/build-templates.html#build-template-apply-resources">Apply Resources</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html">Source to Service</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build-templates.html#build-template-create-template">Create Build Template</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-source">Event Source</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-build/build-templates.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build-templates.html#build-deploy-service-build-template">Deploy Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build-templates.html#build-template-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="05-build/build-templates.html#build-template-cleanup">Cleanup</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing.html">7. Eventing</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06-eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06-eventing/eventing.html#eventing-assumptions">Assumptions</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html">Source to Service</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-source">Event Source</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-create-event-source">Create Event Source</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-create-event-source">Create Event Source</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-verify-event-source">Verify</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-verify-event-source">Verify</a>
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-sink-service">Sink Service</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-sink-service">Sink Service</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-gen-sink-service">Generate Service</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-gen-sink-service">Generate Service</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-deploy-sink-service">Deploy Service</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-deploy-sink-service">Deploy Service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-svc.html#eventing-cleanup">Cleanup</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html">Source to Subscriber</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-channel">Channel</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-create-event-channel">Create Event Channel</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-verify-event-channel">Verify</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-source">Event Source</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-create-event-source">Create Event Source</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-verify-event-source">Verify</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-subscriber">Event Subscriber</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-create-subscriber">Create Event Subscriber</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-verify-subscriber">Verify</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-subscriber-service">Subscriber Service</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-gen-subscriber-service">Generate Service</a>
-  </li>
-  <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="06-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="06-eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html">Source to Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-subscriber-service">Subscriber Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-gen-subscriber-service">Generate Service</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="05-eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -444,49 +317,23 @@
 </ul>
   </nav>
 </div>
-<div class="navigation-explore" data-panel="explore">
-  <div class="context">
-    <span class="title">Knative Tutorial</span>
-    <span class="version">0.4.0</span>
-  </div>
-  <ul class="components">
-    <li class="component">
-      <span class="title">Eventing with Apache Camel</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../knative-tutorial-camelk/v1.0.0/index.html">v1.0.0</a>
-        </li>
-        <li class="version">
-          <a href="../../knative-tutorial-camelk/v1.0.0-SNAPSHOT/index.html">v1.0.0-SNAPSHOT</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <span class="title">Knative Tutorial</span>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="index.html">0.4.0</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+        </div>
+    </aside>
+    <div class="navigation-explore" data-panel="explore">
+    <div class="context">
+        <!-- Just a place holder to fill in  explorer for each context -->
     </div>
-  </aside>
-</div>
-  <main class="main">
-<div class="toolbar" role="navigation">
-  <button class="navigation-toggle"></button>
-  <a href="index.html" class="home-link"></a>
-<nav class="crumbs" aria-label="breadcrumbs">
+</div></div>    <main class="main">
+        <div class="toolbar" role="navigation">
+    <button class="navigation-toggle"></button>
+    <a href="../../knative-tutorial/0.5.0/index.html" class="home-link"></a>
+    <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
-    <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
+    <li class="crumb"><a href="index.html">Introduction to Knative</a></li>
     <li class="crumb"><a href="02-basic-fundas.html">2. Basics and Fundamentals</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/release/0.4/documentation/modules/ROOT/pages/02-basic-fundas.adoc">Edit this Page</a></div>
-</div>
-<article class="doc">
+</div>        <article class="doc">
 <h1>Basics and Fundamentals</h1>
 <div id="preamble">
 <div class="sectionbody">
@@ -517,10 +364,23 @@
 <div class="paragraph">
 <p>The following checks ensure that each chapter exercises are done with the right environment settings.</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_minikube"></a>Minikube</p>
+</li>
+<li>
+<p><a id="tabset1_minishift"></a>Minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_minikube">
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure you connect to the minikube or Minishift Docker daemon and use the right kubectl or OpenShift client.</p>
+<p>Set your local docker to use minikube docker daemon</p>
 </li>
 </ul>
 </div>
@@ -530,15 +390,6 @@
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div id="minishift-set-env" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -552,9 +403,21 @@
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div class="ulist">
+<ul>
+<li>
+<p>Set your local docker to use minishift docker daemon</p>
+</li>
+</ul>
+</div>
+<div id="minishift-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env)</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -564,14 +427,15 @@
 </div>
 <div id="oc-version" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift oc-env)
+oc version</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure to be on <code>knativetutorial</code> OpenShift project/Kubernetes namespace</p>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project</p>
 </li>
 </ul>
 </div>
@@ -582,7 +446,16 @@
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
+<p>If you are not on <code>knativetutorial</code> project, then run following command to change to <code>knativetutorial</code> project:</p>
+</div>
+<div id="change-to-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -712,39 +585,73 @@ spec:
 <div class="paragraph">
 <p>The service can be deployed using the following command:</p>
 </div>
-<div id="basics-run-svc-apply" class="listingblock">
+<div class="exampleblock">
+<div class="content">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset2_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div id="basics-rev1-deploy-kn-resources-apply" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-svc-apply"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-rev1-deploy-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div id="basics-run-oc-svc-apply" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset2_oc">
+<div id="basics-rev1-deploy-oc-kn-resources-apply" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-oc-svc-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-rev1-deploy-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>After successful deployment of the service we should see a Kubernetes Deployment named similar to <code>greeter-nsrbr-deployment</code> available:</p>
 </div>
-<div id="basics-run-svc-apply" class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset3_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div id="basics-run-get-deployments" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get deployments -n knativetutorial</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-svc-apply"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-get-deployments"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div id="basics-run-oc-svc-apply" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset3_oc">
+<div id="basics-run-oc-get-deployments" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get deployments -n knativetutorial</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-oc-svc-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-oc-get-deployments"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -768,35 +675,50 @@ spec:
 <div class="sect1">
 <h2 id="basics-invoke-service"><a class="anchor" href="#basics-invoke-service"></a>Invoke Service</h2>
 <div class="sectionbody">
-<div id="minikube-svc-gateway-env" class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_minikube"></a>Minikube</p>
+</li>
+<li>
+<p><a id="tabset4_minishift"></a>Minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_minikube">
+<div id="bis-kubectl-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
-<div id="minikube-svc-call" class="listingblock">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<div id="bis-kubectl-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-svc-call"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div id="minishift-svc-gateway-env" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset4_minishift">
+<div id="bis-oc-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
-<div id="minishift-svc-call" class="listingblock">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<div id="bis-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-svc-call"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p>The last http command should return a response containing a line similar to <strong>Hi  greeter &#8658; '6fee83923a9f' : 1</strong></p>
+<p>The <code>http</code> command should return a response containing a line similar to <strong>Hi  greeter &#8658; '6fee83923a9f' : 1</strong></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -820,57 +742,102 @@ Sometimes the response might not be returned immediately especially when the pod
 </div>
 <div class="sect2">
 <h3 id="basics-show-knative-services"><a class="anchor" href="#basics-show-knative-services"></a>service</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset5_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_kubectl">
 <div id="knative-services" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-services"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset5_oc">
 <div id="oc-knative-services" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial  get services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-services"><i class="fa fa-copy"></i></button><br/>
 </div>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="basics-show-knative-configs"><a class="anchor" href="#basics-show-knative-configs"></a>configuration</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset6_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div id="knative-configs" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get configurations.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-configs"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset6_oc">
 <div id="oc-knative-configs" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get configurations.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-configs"><i class="fa fa-copy"></i></button><br/>
 </div>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="basics-show-knative-routes"><a class="anchor" href="#basics-show-knative-routes"></a>routes</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset7_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset7_kubectl">
 <div id="knative-routes" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-routes"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset7_oc">
 <div id="oc-knative-routes" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-routes"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>When the service was invoked with <code>http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code>, you noticed that we added a <strong>Host</strong> header to the request with value <code>greeter.knativetutorial.example.com</code>. This FQDN is automatically assigned to your Knative service by the Knative Routes and uses the following format: <code><strong>&lt;service-name&gt;.&lt;namespace&gt;.&lt;domain-suffix&gt;</strong></code>.</p>
 </div>
@@ -894,22 +861,41 @@ Sometimes the response might not be returned immediately especially when the pod
 </div>
 </div>
 <div class="sect2">
-<h3 id="basics-show-knative-revisions"><a class="anchor" href="#basics-show-knative-revisions"></a>revisions</h3>
-<div id="knative-revisions" class="listingblock">
+<h3 id="rev1-basics-show-knative-revisions"><a class="anchor" href="#rev1-basics-show-knative-revisions"></a>revisions</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset8_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"</code></pre>
+<div class="tab-pane" aria-labelledby="tabset8_kubectl">
+<div id="rev1knative-revisions" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
+--label=serving.knative.dev/service=greeter \
+--sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-revisions"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
-<div id="oc-knative-revisions" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset8_oc">
+<div id="rev1-oc-knative-revisions" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get rev \
+ --label=serving.knative.dev/service=greeter \
+ --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-revisions"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -972,47 +958,82 @@ spec:
 <div class="paragraph">
 <p>Let us deploy the new revision using the command:</p>
 </div>
-<div id="basics-run-service-env" class="listingblock">
+<div class="exampleblock">
+<div class="content">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset9_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_kubectl">
+<div id="basics-rev2-deploy-kn-resources-apply" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service-env.yaml">service-env.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-service-env"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-rev2-deploy-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div id="oc-basics-run-service-env" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset9_oc">
+<div id="basics-rev2-deploy-oc-kn-resources-apply" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service-env.yaml">service-env.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-basics-run-service-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-rev2-deploy-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-cqgcf-deployment</code>.</p>
 </div>
 <div class="paragraph">
-<p>Now if you list revisions</p>
+<p>Now if you list revisions, you will see two of them, named similar to <code>greeter-cqgcf</code> and <code>greeter-nsrbr</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="basics-show-knative-revisions"><a class="anchor" href="#basics-show-knative-revisions"></a>revisions</h3>
-<div id="knative-revisions" class="listingblock">
+<h3 id="rev2-basics-show-knative-revisions"><a class="anchor" href="#rev2-basics-show-knative-revisions"></a>revisions</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset10_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset10_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"</code></pre>
+<div class="tab-pane" aria-labelledby="tabset10_kubectl">
+<div id="rev2knative-revisions" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
+--label=serving.knative.dev/service=greeter \
+--sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-revisions"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
-<div id="oc-knative-revisions" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset10_oc">
+<div id="rev2-oc-knative-revisions" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get rev -l serving.knative.dev/service=greeter --sort-by="{.metadata.creationTimestamp}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get rev \
+ --label=serving.knative.dev/service=greeter \
+ --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-revisions"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p>, you will see two of them, named similar to <code>greeter-cqgcf</code> and <code>greeter-nsrbr</code>.</p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p><a href="#basics-invoke-service">Invoking Service</a> will now show an output like <strong>Namaste  greeter &#8658; '6fee83923a9f' : 1</strong>, where <em>Namaste</em> is the value we configured via environment variable in the Knative service resource file.</p>
@@ -1037,7 +1058,7 @@ spec:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can use the <a href="#basics-show-knative-revisions">show Knative service revisions</a> command to find the available revisions for the greeter service.</p>
+<p>You can use the <a href="#rev1-basics-show-knative-revisions">show Knative service revisions</a> command to find the available revisions for the greeter service.</p>
 </div>
 </td>
 </tr>
@@ -1097,6 +1118,19 @@ spec:
 <div class="paragraph">
 <p>Let us redeploy the greeter service by pinning it to the first revision that was created:</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset11_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset11_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset11_kubectl">
 <div id="run-pinned-revision" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">PIN_REVISION=`kubectl get rev -n knativetutorial -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` &amp;&amp; \
@@ -1104,9 +1138,8 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kub
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-pinned-revision"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset11_oc">
 <div id="run-oc-pinned-revision" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">PIN_REVISION=`oc get rev -n knativetutorial -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` &amp;&amp; \
@@ -1114,6 +1147,9 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-oc-pinned-revision"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p><a href="#basics-invoke-service">Invoking Service</a> will produce output similar to <strong>Hi  greeter &#8658; '6fee83923a9f' : 1</strong></p>
 </div>
@@ -1123,15 +1159,27 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
 <div class="sect1">
 <h2 id="basics-cleanup"><a class="anchor" href="#basics-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset12_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset12_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset12_kubectl">
 <div id="basics-run-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-cleanup"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset12_oc">
 <div id="basics-run-oc-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
@@ -1140,16 +1188,19 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#basics-run-oc-cleanup"><i class="fa fa-copy"></i></button><br/>
 </div>
 </div>
-</article>
-  </main>
 </div>
-<footer class="footer">
-  <p>This content is brought to you by <a href="http://developers.redhat.com">Red Hat Developer</a> - Register today!.</p>
-</footer>
-<script src="../../_/js/site.js"></script>
+</div>
+</div>
+</article>
+    </main>
+</div><footer class="footer">
+  <p>This content is brought to you by <a href="http://developers.redhat.com">Red Hat Developer</a> - Register
+    today!.
+</footer><script src="../../_/js/site.js"></script>
 <script src="../../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
 <script src="../../_/js/vendor/clipboard.min.js"></script>
+<script src="../../_/js/vendor/behavior.js"></script>
 <script>
     var clipboard = new ClipboardJS('.copybtn');
 

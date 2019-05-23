@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-build/0.5.0/build-templates.html</loc>
+<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-build/0.5.0/build.html</loc>
+<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-build/0.5.0/index.html</loc>
+<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+</url>
+</urlset>
