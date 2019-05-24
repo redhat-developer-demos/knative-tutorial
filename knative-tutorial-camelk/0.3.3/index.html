@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventing with Apache Camel :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/index.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../_/css/vendor/knative-tutorial-site.css">  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Project</div>
+          <div class="navbar-dropdown">
+            <div class="navbar-item"><strong>GitHub</strong></div>
+            <a class="navbar-item" href="https://github.com/redhat-developer-demos/knative-tutorial">Knative Tutorial
+              Repository</a>
+            <a class="navbar-item" href="https://github.com/redhat-developer-demos/knative-tutorial/issues">Knative
+              Tutorial Issue Tracker</a>
+            <a class="navbar-item" href="https://github.com/openshift-cloud-functions/Documentation">OpenShift Cloud
+              Functions
+            </a>
+          </div>
+        </div>
+        <a class="navbar-item" href="https://twitter.com/rhdevelopers">
+          <span class="icon">
+            <svg aria-hidden="true" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512">
+              <path fill="#57aaee"
+                d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+              </path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header><div class="main-wrapper">
+    <div class="navigation-container"  data-component="knative-tutorial-camelk"
+    data-version="0.3.3" >
+    <aside class="navigation">
+        <div class="panels">
+            <div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Eventing with Apache Camel</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="setup.html">1.Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html#camelk-prerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html#camelk-download-sources">Download Demo Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="setup.html#camelk-install-minio-s3">Install minio s3 Server</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="setup.html#minio-aws-cli-configure">Configure AWS cli</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html#configure-local-registry">2.Configure Local Container Registry</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-prereqs.html">2.Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="getting-started.html">3.Message Filter</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="getting-started.html#gs-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="getting-started.html#gs-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="getting-started.html#gs-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="getting-started.html#gs-make-s3-top-bucket">Create top s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="getting-started.html#gs-cartoon-messages-mover">Deploy Camel Route</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="getting-started.html#gs-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="getting-started.html#gs-test-cartoon-messages-mover">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="getting-started.html#gs-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="getting-started.html#gs-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="getting-started.html#gs-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html">4.Poll Enrich</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html#pe-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-make-s3-top-bucket">Create top s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-cartoon-messages-downloader">Deploy Camel Route</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="poll-enrich.html#pe-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="poll-enrich.html#pe-test-cartoon-messages-downloader">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="poll-enrich.html#pe-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="poll-enrich.html#pe-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html">5.Content Based Router</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="content-based-router.html#cbr-overview">Demo Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-deployment">Deployment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-make-s3-data-bucket">Create data s3 bucket</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-create-channels">Create Knative  Channels</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-deploy-routes">Deploy Routes</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-comedy-genre-handler">Comedy Genre Handler</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-others-genre-handler">Others Genre Handler</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="content-based-router.html#cbr-cartoon-genre-router">Cartoon Genre Router</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="content-based-router.html#cbr-see-what-you-have-deployed">See what you have deployed </a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="content-based-router.html#cbr-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="content-based-router.html#cbr-test-cartoon-genre-router">Testing Route</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-test-data">Upload Test Data</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="content-based-router.html#cbr-invoke-service">Invoke service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="content-based-router.html#cbr-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+        </div>
+    </aside>
+    <div class="navigation-explore" data-panel="explore">
+    <div class="context">
+        <!-- Just a place holder to fill in  explorer for each context -->
+    </div>
+</div></div>    <main class="main">
+        <div class="toolbar" role="navigation">
+    <button class="navigation-toggle"></button>
+    <a href="../../knative-tutorial/0.5.0/index.html" class="home-link"></a>
+    <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Eventing with Apache Camel</a></li>
+  </ul>
+</nav>
+</div>        <article class="doc">
+<h1>Eventing with Apache Camel</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial will show how to do <strong>Eventing with Apache Camel and Knative </strong> using the Camel-k framework, one or more of the following Enterprise Integration Patterns(EIP) or concepts will be used in this chapter&#8217;s exercises.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/IntegrationStylesIntro.html">Integration Styles</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html">File Transfer</a></p>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Messaging.html">Messaging</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc">Poll Enricher</a></p>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageRoutingIntro.html">Message Routing</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Filter.html">Message Filter</a></p>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html">Content Based Router</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Sequencer.html">Splitter</a></p>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Aggregator.html">Aggregator</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="camelk-tutorial-prerequisite"><a class="anchor" href="#camelk-tutorial-prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As pre-requisite to this tutorial, its highly recommended that you have completed <a href="../../knative-tutorial/0.5.0/index.html" class="page">Knative Tutorial Basics</a> completed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_camel_k"><a class="anchor" href="#_what_is_camel_k"></a>What is Camel-k ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/apache/camel-k">Apache Camel K (a.k.a. Kamel)</a> is a lightweight integration framework built from <a href="https://camel.apache.org">Apache Camel</a> that runs natively on Kubernetes and is specifically designed for serverless and microservice architectures.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_camel_k_and_knative_serving"><a class="anchor" href="#_camel_k_and_knative_serving"></a>Camel-K and Knative Serving</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With camel-k we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_camel_k_and_knative_eventing"><a class="anchor" href="#_camel_k_and_knative_eventing"></a>Camel-K and Knative Eventing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With camel-k we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into <a href="https://cloudevents.io"> Cloud Events</a> format and exchanged with other consumers.</p>
+</div>
+</div>
+</div>
+</article>
+    </main>
+</div><footer class="footer">
+  <p>This content is brought to you by <a href="http://developers.redhat.com">Red Hat Developer</a> - Register
+    today!.
+</footer><script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+<script src="../../_/js/vendor/clipboard.min.js"></script>
+<script src="../../_/js/vendor/behavior.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.copybtn');
+
+    clipboard.on('success', function (e) {
+        //console.info('Text:', e);
+        //e.clearSelection();        
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+</script>  </body>
+</html>

@@ -1205,7 +1205,7 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
     var clipboard = new ClipboardJS('.copybtn');
 
     clipboard.on('success', function (e) {
-        console.info('Text:', e);
+        //console.info('Text:', e);
         //e.clearSelection();        
     });
 

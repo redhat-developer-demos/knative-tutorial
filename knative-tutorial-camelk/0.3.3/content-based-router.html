@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Content Based Routing :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/content-based-router.html">
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/content-based-router.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -54,7 +54,7 @@
   </nav>
 </header><div class="main-wrapper">
     <div class="navigation-container"  data-component="knative-tutorial-camelk"
-    data-version="v1.0.0-SNAPSHOT" >
+    data-version="0.3.3" >
     <aside class="navigation">
         <div class="panels">
             <div class="navigation-menu is-active" data-panel="menu">
@@ -86,17 +86,17 @@
     <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup.html#configure-local-registry">Configure Local Container Registry</a>
+    <a class="nav-link" href="setup.html#configure-local-registry">2.Configure Local Container Registry</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="getting-started.html">2.Message Filter</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="getting-started.html#gs-prereq">Prerequisite</a>
+    <a class="nav-link" href="common-prereqs.html">2.Prerequisite</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="getting-started.html">3.Message Filter</a>
+<ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="getting-started.html#gs-overview">Demo Overview</a>
   </li>
@@ -137,11 +137,8 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="poll-enrich.html">3.Poll Enrich</a>
+    <a class="nav-link" href="poll-enrich.html">4.Poll Enrich</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
   </li>
@@ -182,11 +179,8 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="content-based-router.html">4.Content Based Router</a>
+    <a class="nav-link" href="content-based-router.html">5.Content Based Router</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#cbr-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#cbr-overview">Demo Overview</a>
   </li>
@@ -258,7 +252,7 @@
     <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Eventing with Apache Camel</a></li>
-    <li class="crumb"><a href="content-based-router.html">4.Content Based Router</a></li>
+    <li class="crumb"><a href="content-based-router.html">5.Content Based Router</a></li>
   </ul>
 </nav>
 </div>        <article class="doc">
@@ -267,209 +261,6 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>In this chapter we will use Knative + Camel-k to deploy a route that will parse the content of the xml file that was added to an s3 bucket and routes the message to different endpoints based on the content.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="cbr-prereq"><a class="anchor" href="#cbr-prereq"></a>Prerequisite</h2>
-<div class="sectionbody">
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This tutorial assumes that you have prior knowledge of:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://camel.apache.org">Apache Camel</a></p>
-</li>
-<li>
-<p><a href="https://www.enterpriseintegrationpatterns.com">Enterprise Integration Patterns</a></p>
-</li>
-<li>
-<p><a href="https://cloud.google.com/knative/">Knative</a></p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure the <strong>minikube</strong> clock is set to right timezone; this is required when using API&#8217;s that are time sensitive e.g. AWS s3 cli API that we will use in this tutorial demos</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift stop
-minishift start --timezone 'Asia/Kolkata' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set it to your local timezone</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you are a mac user then the following setup might help:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">brew install sleepwatcher
-brew services start sleepwatcher
-echo "PATH=$PATH:/usr/local/bin \n
-minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s" &gt; ~/.wakeup
-chmod +x ~/.wakeup</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure to be connected to minikube or minishift docker daemon and using right openshift client.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure right Kubernetes or OpenShift client are used.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># kubernetes v1.12+
-kubectl version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># oc v3.11.0+0cbc58b kubernetes v1.11.0+d4cacc0
-oc version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure right <code>kamel</code> version, preferred is v0.3.0 or above</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Camel K Client 0.3.0
-kamel version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure AWS CLI is installed and has the right version</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># aws-cli/1.16.50 Python/3.7.1 Darwin/18.2.0 botocore/1.12.40
-$ aws --version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure right maven version is used (only for Java exercises)</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># right maven version Apache Maven 3.5.x or above
-./mvnw --version</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure to be on <code>knativetutorial</code> OpenShift project/kubernetes namespace</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># verify to return knativetutorial
-oc project -q</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you are not on <code>knativetutorial</code> project, use the command <code>oc project knativetutorial</code> to change to <code>knativetutorial</code> project</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you are on minikube then <strong>kubens</strong> utility can be used to switch to kubenretes namespace like:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubens knativetutorial</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div id="cbr-overview" class="sidebarblock">
 <div class="content">
@@ -530,35 +321,54 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 </div>
 <div class="sect2">
 <h3 id="cbr-make-s3-data-bucket"><a class="anchor" href="#cbr-make-s3-data-bucket"></a>Make s3 <strong>data</strong> bucket</h3>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_minikube"></a>minikube</p>
+</li>
+<li>
+<p><a id="tabset1_minishift"></a>minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_minikube">
+<div id="minio-s3url-mkb-kubectl" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-mkb-kubectl"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div id="minio-s3url-mkb-oc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-mkb-oc"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="paragraph">
 <p>For this demo we will be using a s3 bucket called <code>data</code>, run the following command to create the bucket in s3:</p>
 </div>
-<div class="listingblock">
+<div id="mkb-aws-s3-set-eip" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#mkb-aws-s3-set-eip"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Verify the created bucket by listing the s3 storage, running the following command:</p>
 </div>
-<div class="listingblock">
+<div id="lsdata-aws-s3-ls" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lsdata-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>For more information on how to use aws cli with minio server is available <a href="https://docs.minio.io/docs/aws-cli-with-minio.html">here</a>.</p>
 </div>
@@ -580,42 +390,42 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <div class="sect2">
 <h3 id="cbr-create-channels"><a class="anchor" href="#cbr-create-channels"></a>Create Knative Channels</h3>
 <div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
+<p>Navigate to camel-k demo sources folder:</p>
 </div>
-<div class="listingblock">
+<div id="camelk-nav-to-quickstart-1" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/01-camel-k/knative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k/quickstart</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart-1"><i class="fa fa-copy"></i></button><br/>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset2_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/01-camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div id="camelk-cbe-create-channel" class="listingblock">
 <div class="content">
-<pre>oc -n {tutorial-namespace} apply -f channels.yaml</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/0.5/advanced/camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-create-channel"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Checking the channels created:</p>
 </div>
-<div class="listingblock">
+<div id="camelk-cbe-check-created-channel" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc -n {tutorial-namespace} get channels.eventing.knative.dev</pre>
-</div>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-check-created-channel"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Running the above commands should produce output as shown:</p>
 </div>
@@ -627,35 +437,59 @@ genre-others   True</code></pre>
 </div>
 </div>
 </div>
+<div class="tab-pane" aria-labelledby="tabset2_oc">
+<div id="camelk-cbe-oc-create-channel" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/0.5/advanced/camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-oc-create-channel"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p>Checking the channels created:</p>
+</div>
+<div id="camelk-cbe-oc-check-created-channel" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc  -n knativetutorial get channels.eventing.knative.dev</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-oc-check-created-channel"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p>Running the above commands should produce output as shown:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           READY   REASON
+genre-comedy   True
+genre-others   True</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="cbr-deploy-routes"><a class="anchor" href="#cbr-deploy-routes"></a>Deploy Routes</h3>
 <div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>work</code> folder:</p>
+<p>Navigate to the <code>quickstart</code> folder:</p>
 </div>
-<div class="listingblock">
+<div id="camelk-nav-to-quickstart-2" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camelk/quickstart</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k/quickstart</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart-2"><i class="fa fa-copy"></i></button><br/>
 <div class="sect3">
 <h4 id="cbr-comedy-genre-handler"><a class="anchor" href="#cbr-comedy-genre-handler"></a>Deploy Comedy Genre Handler</h4>
-<div class="listingblock">
+<div id="camelk-kamel-deploy-int" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run \
   --property 's3EndpointUrl=http://minio-server' \
   --property 'minioAccessKey=demoaccesskey' \
   --property 'minioSecretKey=demosecretkey' \
- <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/ComedyGenreHandler.java">src/main/java/ComedyGenreHandler.java</a></code></pre>
+ <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/src/main/java/ComedyGenreHandler.java">src/main/java/ComedyGenreHandler.java</a></code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
-</tr>
-</table>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-kamel-deploy-int"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -668,17 +502,34 @@ Note the first build usually takes time, you can watch the status with commands
 </tr>
 </table>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset3_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div id="camelk-comedy-genre-handler-kubectl-get-int-status" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-comedy-genre-handler-kubectl-get-int-status"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset3_oc">
+<div id="camelk-comedy-genre-handler-oc-get-int-status" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-comedy-genre-handler-oc-get-int-status"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -695,23 +546,16 @@ comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
 </div>
 <div class="sect3">
 <h4 id="cbr-others-genre-handler"><a class="anchor" href="#cbr-others-genre-handler"></a>Deploy Others Genre Handler</h4>
-<div class="listingblock">
+<div id="camelk-deploy-others-genre-it" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run \
   --property 's3EndpointUrl=http://minio-server' \
   --property 'minioAccessKey=demoaccesskey' \
   --property 'minioSecretKey=demosecretkey' \
- <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/OthersGenreHandler.java">src/main/java/OthersGenreHandler.java</a></code></pre>
+ <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/src/main/java/OthersGenreHandler.java">src/main/java/OthersGenreHandler.java</a></code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
-</tr>
-</table>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-deploy-others-genre-it"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -724,17 +568,34 @@ Note the first build usually takes time, you can watch the status with commands
 </tr>
 </table>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset4_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_kubectl">
+<div id="camelk-others-genre-handler-kubectl-get-int-status" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-others-genre-handler-kubectl-get-int-status"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset4_oc">
+<div id="camelk-others-genre-handler-oc-get-int-status" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-others-genre-handler-oc-get-int-status"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -752,23 +613,16 @@ comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
 </div>
 <div class="sect3">
 <h4 id="cbr-cartoon-genre-router"><a class="anchor" href="#cbr-cartoon-genre-router"></a>Deploy Cartoon Genre Router</h4>
-<div class="listingblock">
+<div id="camelk-deploy-cartoon-genre-it" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run --dependency='camel-aws'\<i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel run \
   --property 's3EndpointUrl=http://minio-server' \
   --property 'minioAccessKey=demoaccesskey' \
   --property 'minioSecretKey=demosecretkey' \
- <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/src/main/java/CartoonGenreRouter.java">src/main/java/CartoonGenreRouter.java</a></code></pre>
+ <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/src/main/java/CartoonGenreRouter.java">src/main/java/CartoonGenreRouter.java</a></code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Because of an existing <a href="https://github.com/apache/camel-k/issues/527">bug</a>, you  need to add the dependency <code>camel-aws</code>, this will be removed in future.</td>
-</tr>
-</table>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-deploy-cartoon-genre-it"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -781,17 +635,34 @@ Note the first build usually takes time, you can watch the status with command:
 </tr>
 </table>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset5_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_kubectl">
+<div id="camelk-cartooon-genre-router-kubectl-get-int-status" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cartooon-genre-router-kubectl-get-int-status"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset5_oc">
+<div id="camelk-cartooon-genre-router-oc-get-int-status" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cartooon-genre-router-oc-get-int-status"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -828,17 +699,34 @@ Some of the columns has removed from the above output for brevity
 </div>
 <div class="sect3">
 <h4 id="_services"><a class="anchor" href="#_services"></a>Services</h4>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset6_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace}  get svc</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset6_kubectl">
+<div id="camelk-get-k8s-svc" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace}  get get svc</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get svc</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-svc"><i class="fa fa-copy"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_oc">
+<div id="camelk-oc-get-k8s-svc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get svc</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-svc"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -861,17 +749,34 @@ others-genre-handler-jnwsd-service   ClusterIP      10.111.172.10    &lt;none&gt
 </div>
 <div class="sect3">
 <h4 id="_integration_contexts"><a class="anchor" href="#_integration_contexts"></a>Integration Contexts</h4>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset7_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace}  get integrations.camel.apache.org</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset7_kubectl">
+<div id="camelk-get-k8s-int" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace}  get get integrations.camel.apache.org</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get integrations.camel.apache.org</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-int"><i class="fa fa-copy"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_oc">
+<div id="camelk-oc-get-k8s-int" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get integrations.camel.apache.org</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-int"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="listingblock">
@@ -885,17 +790,34 @@ others-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_deployments"><a class="anchor" href="#_deployments"></a>Deployments</h4>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset8_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n {tutorial-namespace}  get deployments</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset8_kubectl">
+<div id="camelk-get-k8s-dc" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n {tutorial-namespace}  get get deployments</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get deployments</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-dc"><i class="fa fa-copy"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset8_oc">
+<div id="camelk-oc-get-k8s-dc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get deployments</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-dc"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="listingblock">
@@ -927,22 +849,22 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset1_kubectl"></a>kubectl</p>
+<p><a id="tabset9_kubectl"></a>kubectl</p>
 </li>
 <li>
-<p><a id="tabset1_oc"></a>oc</p>
+<p><a id="tabset9_oc"></a>oc</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset1_kubectl">
+<div class="tab-pane" aria-labelledby="tabset9_kubectl">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset1_oc">
+<div class="tab-pane" aria-labelledby="tabset9_oc">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
@@ -987,22 +909,22 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset2_kubectl"></a>kubectl</p>
+<p><a id="tabset10_kubectl"></a>kubectl</p>
 </li>
 <li>
-<p><a id="tabset2_oc"></a>oc</p>
+<p><a id="tabset10_oc"></a>oc</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div class="tab-pane" aria-labelledby="tabset10_kubectl">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset2_oc">
+<div class="tab-pane" aria-labelledby="tabset10_oc">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
@@ -1047,22 +969,22 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset3_kubectl"></a>kubectl</p>
+<p><a id="tabset11_kubectl"></a>kubectl</p>
 </li>
 <li>
-<p><a id="tabset3_oc"></a>oc</p>
+<p><a id="tabset11_oc"></a>oc</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div class="tab-pane" aria-labelledby="tabset11_kubectl">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset3_oc">
+<div class="tab-pane" aria-labelledby="tabset11_oc">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n knativetutorial -f &lt;pod-name&gt; -c user-container</code></pre>
@@ -1103,98 +1025,144 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="paragraph">
 <p>Navigate to the <code>quickstart</code> folder:</p>
 </div>
-<div class="listingblock">
+<div id="camelk-nav-to-quickstart" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work/knative-tutorial-camel-k/quickstart</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k/quickstart</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart"><i class="fa fa-copy"></i></button><br/>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset12_minikube"></a>minikube</p>
+</li>
+<li>
+<p><a id="tabset12_minishift"></a>minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset12_minikube">
+<div id="minio-s3url-testupdata-kubectl" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-testupdata-kubectl"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset12_minishift">
+<div id="minio-s3url-testupdata-oc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-testupdata-oc"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 <div class="paragraph">
 <p>Upload XML file called <code>message1.xml</code> to s3 bucket called <code>data</code>,</p>
 </div>
-<div class="listingblock">
+<div id="upmsgxml-aws-s3-upload-file" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message1.xml">data/message1.xml</a>  s3://data</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/data/message1.xml">data/message1.xml</a>  s3://data</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#upmsgxml-aws-s3-upload-file"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Upload XML file called <code>message2.xml</code> to s3 bucket called <code>data</code>,</p>
 </div>
-<div class="listingblock">
+<div id="upmsgxml2-aws-s3-upload-file" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/master/quickstart/data/message2.xml">data/message2.xml</a>  s3://data</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/data/message2.xml">data/message2.xml</a>  s3://data</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#upmsgxml2-aws-s3-upload-file"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Verify if the XML files were uploaded to the  s3 bucket:</p>
 </div>
-<div class="listingblock">
+<div id="lsdata2-aws-s3-ls" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lsdata2-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
 </div>
 <div class="sect3">
 <h4 id="cbr-invoke-service"><a class="anchor" href="#cbr-invoke-service"></a>Invoke service</h4>
 <div class="paragraph">
 <p>Invoke the service by passing a header <code>fileName</code> with value <code>message1.xml</code>, this <code>fileName</code> header value will be used by Camel route to process the body content of the file to move them to <code>genre-comedy</code> or <code>genre-others</code> content buckets in s3.</p>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset13_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset13_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset13_kubectl">
 <div id="cbr-is-kubectl-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cbr-is-kubectl-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
 </div>
+<div class="tab-pane" aria-labelledby="tabset13_oc">
 <div id="cbr-is-oc-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cbr-is-oc-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>We need to know the knative service <code>cartoon-genre-router</code> domain name that needs to be passed as <strong>Host</strong> header, we will query and and set that value in an environment variable called <code>SVC_URL</code>:</p>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset14_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset14_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset14_kubectl">
+<div id="camelk-msg1invoke-svc-by-k8s" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-msg1invoke-svc-by-k8s"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset14_oc">
+<div id="camelk-msg1invoke-svc-by-oc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-msg1invoke-svc-by-oc"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
+<div id="camelk-message1" class="listingblock xml-call-svc">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message1.xml' $IP_ADDRESS</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message1.xml'</code></pre>
-</div>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-message1.xml-call-svc"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1212,35 +1180,30 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="paragraph">
 <p>On success which is usually HTTP 200, you can list the out <code>genre-comedy</code> bucket to see the file <code>tomandjerry.xml</code>. You can list the bucket using the command:</p>
 </div>
-<div class="listingblock">
+<div id="lstop2-aws-s3-ls" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://genre-comedy</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lstop2-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Lets try to upload non <code>comedy</code> genre to see the file getting uploaded to <code>genre-others</code>,</p>
 </div>
-<div class="listingblock">
+<div id="camelk-message2" class="listingblock xml-call-svc">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message2.xml' $IP_ADDRESS</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS "Host:${SVC_URL}" 'fileName: message2.xml'</code></pre>
-</div>
-</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-message2.xml-call-svc"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Like before on success which is usually HTTP 200, you can list the out <code>genre-others</code> bucket to see the file <code>theadventuresoftenaliraman.xml</code>. You can list the bucket using the command:</p>
 </div>
-<div class="listingblock">
+<div id="lstop3-aws-s3-ls" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://genre-others</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lstop3-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1265,27 +1228,45 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <div class="sect1">
 <h2 id="cbr-cleanup"><a class="anchor" href="#cbr-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
-<div class="listingblock">
+<div id="camelk-cleanup-1" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete comedy-genre-handler -n knativetutorial
-kamel delete others-genre-handler -n knativetutorial
-kamel delete cartoon-genre-router -n knativetutorial
-cd $TUTORIAL_HOME/01-camel-k/knative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete comedy-genre-handler -n knativetutorial &amp;&amp; \
+kamel delete others-genre-handler -n knativetutorial &amp;&amp; \
+kamel delete cartoon-genre-router -n knativetutorial &amp;&amp; \
+cd $TUTORIAL_HOME/advanced/camel-k/knative</code></pre>
 </div>
 </div>
-<div class="listingblock">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cleanup-1"><i class="fa fa-copy"></i></button><br/>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset15_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset15_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f channels.yaml -n knativetutorial
+<div class="tab-pane" aria-labelledby="tabset15_kubectl">
+<div id="camelk-cleanup-2" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f channels.yaml -n knativetutorial &amp;&amp; \
 cd $TUTORIAL_HOME</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cleanup-2"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset15_oc">
+<div id="camelk-oc-cleanup-2" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -f channels.yaml -n knativetutorial
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete -f channels.yaml -n knativetutorial &amp;&amp; \
 cd $TUTORIAL_HOME</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-cleanup-2"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 </div>
@@ -1304,7 +1285,7 @@ cd $TUTORIAL_HOME</code></pre>
     var clipboard = new ClipboardJS('.copybtn');
 
     clipboard.on('success', function (e) {
-        console.info('Text:', e);
+        //console.info('Text:', e);
         //e.clearSelection();        
     });
 

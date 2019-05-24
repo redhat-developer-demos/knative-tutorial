@@ -509,8 +509,10 @@ minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p><strong>Install Istio</strong></p>
+</div>
 <div id="run-install-istio" class="listingblock">
-<div class="title"><strong>Install Istio</strong></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.5.2/istio-crds.yaml &amp;&amp; \
 kubectl apply --filename https://github.com/knative/serving/releases/download/v0.5.2/istio.yaml</code></pre>
@@ -561,8 +563,10 @@ istio-sidecar-injector-6977b5cf5b-9wsjw    1/1     Running     0          6h35m
 istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>Install Knative Serving</strong></p>
+</div>
 <div id="run-install-knative-serving" class="listingblock">
-<div class="title"><strong>Install Knative Serving</strong></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.5.2/serving.yaml</code></pre>
 </div>
@@ -603,8 +607,10 @@ controller-66cd7d99df-6lt2t   1/1     Running   0          6h33m
 webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>Install Knative Build</strong></p>
+</div>
 <div id="run-install-knative-build" class="listingblock">
-<div class="title"><strong>Install Knative Build</strong></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.5.0/build.yaml</code></pre>
 </div>
@@ -643,8 +649,10 @@ build-controller-658d64d9bd-4m7l9   1/1     Running   0          6h32m
 build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>Install Knative Eventing</strong></p>
+</div>
 <div id="run-install-knative-eventing" class="listingblock">
-<div class="title"><strong>Install Knative Eventing</strong></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.5.0/release.yaml &amp;&amp; \
 kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.5.0/eventing-sources.yaml &amp;&amp; \
@@ -669,8 +677,10 @@ kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serv
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-sources-pods"><i class="fa fa-copy"></i></button><br/>
+<div class="paragraph">
+<p><strong>Eventing</strong></p>
+</div>
 <div id="setup-watch-knative-eventing-pods" class="listingblock">
-<div class="title">Eventing</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-eventing get pods -w</code></pre>
 </div>
@@ -703,8 +713,10 @@ webhook-5fbb8dbcc7-gk6cx                        1/1     Running   0          6h3
 controller-manager-0   1/1     Running   0          6h35m</code></pre>
 </div>
 </div>
-<div id="set-knative-tutorial-ns" class="paragraph">
-<div class="title"><strong>Configuring Kubernetes namespace</strong></div>
+<div class="paragraph">
+<p><strong>Configuring Kubernetes namespace</strong></p>
+</div>
+<div class="paragraph">
 <p>We will use a non default Kubernetes namespace called <code>knativetutorial</code> for all the tutorial exercises.</p>
 </div>
 <div id="setup-knative-tutorial-ns" class="listingblock">
@@ -736,7 +748,9 @@ controller-manager-0   1/1     Running   0          6h35m</code></pre>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_minishift">
 <div id="install-knative-openshift" class="paragraph">
-<div class="title"><strong>OpenShift</strong></div>
+<p><strong>OpenShift</strong></p>
+</div>
+<div class="paragraph">
 <p>For OpenShift Knative installations we will use the OpenShift Cloud Function&#8217;s <a href="https://github.com/openshift-cloud-functions/knative-operators">Knative Operators</a>.</p>
 </div>
 <div class="paragraph">
@@ -750,8 +764,10 @@ cd knative-operators</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-ocp-kn-operator"><i class="fa fa-copy"></i></button><br/>
-<div id="install-knative-ocp" class="paragraph">
-<div class="title"><strong>OCP</strong></div>
+<div class="paragraph">
+<p><strong>OCP</strong></p>
+</div>
+<div class="paragraph">
 <p>If you have an existing OpenShift cluster then run the following commands:</p>
 </div>
 <div id="run-ocp-kn-operator" class="listingblock">
@@ -763,8 +779,10 @@ cd knative-operators</code></pre>
 <div class="paragraph">
 <p>If you need more details about the installation or customizations refer <a href="https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md">Knative with OpenShift</a>.</p>
 </div>
-<div id="install-knative-minishift" class="paragraph">
-<div class="title"><strong>minishift</strong></div>
+<div class="paragraph">
+<p><strong>minishift</strong></p>
+</div>
+<div class="paragraph">
 <p>Download Minishift from <a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a> and add it your path.</p>
 </div>
 <div class="paragraph">
@@ -784,8 +802,10 @@ cd knative-operators</code></pre>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p><strong>Configuring OpenShift project for Knative applications</strong></p>
+</div>
 <div id="run-ocp-project-config" class="listingblock">
-<div class="title"><strong>Configuring OpenShift project for Knative applications</strong></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-project knativetutorial
 oc adm policy add-scc-to-user privileged -z default <i class="conum" data-value="1"></i><b>(1)</b>
@@ -828,7 +848,7 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
     var clipboard = new ClipboardJS('.copybtn');
 
     clipboard.on('success', function (e) {
-        console.info('Text:', e);
+        //console.info('Text:', e);
         //e.clearSelection();        
     });
 

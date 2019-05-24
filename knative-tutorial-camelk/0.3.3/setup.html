@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setup :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/setup.html">
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/setup.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -54,7 +54,7 @@
   </nav>
 </header><div class="main-wrapper">
     <div class="navigation-container"  data-component="knative-tutorial-camelk"
-    data-version="v1.0.0-SNAPSHOT" >
+    data-version="0.3.3" >
     <aside class="navigation">
         <div class="panels">
             <div class="navigation-menu is-active" data-panel="menu">
@@ -86,17 +86,17 @@
     <a class="nav-link" href="#install-camel-k">Install Camel-K </a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#configure-local-registry">Configure Local Container Registry</a>
+    <a class="nav-link" href="#configure-local-registry">2.Configure Local Container Registry</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="getting-started.html">2.Message Filter</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="getting-started.html#gs-prereq">Prerequisite</a>
+    <a class="nav-link" href="common-prereqs.html">2.Prerequisite</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="getting-started.html">3.Message Filter</a>
+<ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="getting-started.html#gs-overview">Demo Overview</a>
   </li>
@@ -137,11 +137,8 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="poll-enrich.html">3.Poll Enrich</a>
+    <a class="nav-link" href="poll-enrich.html">4.Poll Enrich</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
   </li>
@@ -182,11 +179,8 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="content-based-router.html">4.Content Based Router</a>
+    <a class="nav-link" href="content-based-router.html">5.Content Based Router</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="content-based-router.html#cbr-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="content-based-router.html#cbr-overview">Demo Overview</a>
   </li>
@@ -267,7 +261,7 @@
 <h2 id="camelk-prerequisite"><a class="anchor" href="#camelk-prerequisite"></a>Prerequisite CLI tools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Apart from the tools you have <a href="#">knative-tutorial:ROOT:01-setup.adoc#prerequisite</a>, you might need few more for camelk sections of the tutorial.</p>
+<p>Apart from the tools you have <a href="../../knative-tutorial-basics/0.5.0/01-setup.html#prerequisite" class="page">installed</a>, you might need few more for camelk sections of the tutorial.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -296,50 +290,112 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="camelk-download-sources"><a class="anchor" href="#camelk-download-sources"></a>Download Demo Sources</h2>
+<h2 id="camelk-download-sources"><a class="anchor" href="#camelk-download-sources"></a>Demo Sources</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Download and clone the camel-k demo sources</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>All the demo sources that will be used in the chapters of this module are available under <code>$TUTORIAL_HOME/advanced/camel-k</code> folder.</p>
 </div>
-<div class="listingblock">
+<div id="camelk-download-sources-path-copy" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># We will call this cloned directory as $TUTORIAL_HOME
-git clone https://github.com/redhat-developer-docs/knative-tutorial-module-camelk
-
-cd $TUTORIAL_HOME/work
-
-git clone https://github.com/redhat-developer-demos/knative-tutorial-camelk</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp $TUTORIAL_HOME/advanced/camel-k</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-download-sources-path-copy"><i class="fa fa-copy"></i></button><br/>
 </div>
 </div>
 <div class="sect1">
-<h2 id="camelk-install-minio-s3"><a class="anchor" href="#camelk-install-minio-s3"></a>Install minio s3 Object Storage Server</h2>
+<h2 id="_install_applications"><a class="anchor" href="#_install_applications"></a>Install Applications</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Navigate to the apps folder:</p>
+</div>
+<div id="camelk-install-nav-to-apps-folder" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-install-nav-to-apps-folder"><i class="fa fa-copy"></i></button><br/>
+<div class="sect2">
+<h3 id="camelk-install-minio-s3"><a class="anchor" href="#camelk-install-minio-s3"></a>Install minio s3 Object Storage Server</h3>
 <div class="paragraph">
 <p>We will use s3 Object storage for all <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html">File Transfer</a> integration style exercises and demos. The following section shows how to setup <a href="https://www.minio.io/">minio</a> a light weight AWS s3 compatible object storage server.</p>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset1_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/minio-s3-server
-kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/minio-s3-server/skaffold.yaml">skaffold.yaml</a></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
-</div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset1_kubectl">
+<div id="camelk-install-k8s-minio" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/minio-s3-server
-oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/minio-s3-server/skaffold.yaml">skaffold.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --namespace knativetutorial \
+ --filename <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/0.5/apps/minio-s3-server/skaffold.yaml">minio-s3-server/skaffold.yaml</a></code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-install-k8s-minio"><i class="fa fa-copy"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_oc">
+<div id="camelk-install-oc-minio" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply --namespace knativetutorial \
+ --filename <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/0.5/apps/minio-s3-server/skaffold.yaml">minio-s3-server/skaffold.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-install-oc-minio"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>includepartial$wait-for-pods.adoc[tag=wait-with-kubectl]</p>
+<p>It may take few minutes for pods to come up, you can watch the status of the pods as shown below.
+You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset2_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div id="camelk-wait-using-kubectl" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods -w</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-wait-using-kubectl"><i class="fa fa-copy"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_oc">
+<div id="camelk-wait-using-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n  knativetutorial get pods -w</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-wait-using-oc"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>A successful deployment of the minio server will show the following pods:</p>
@@ -354,21 +410,38 @@ minio-server-66449f64bf-dtkch   1/1     Running   0          1m</code></pre>
 <div class="paragraph">
 <p>The mino server exposes a web interface for managing the storage objects. To know the url of the web interface, run the following command:</p>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_minikube"></a>minikube</p>
+</li>
+<li>
+<p><a id="tabset3_minishift"></a>minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_minikube">
+<div id="camelk-minio-minikube-svc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube service list -n {tutorial-namespace}</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-minio-minikube-svc"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset3_minishift">
+<div id="camelk-minio-minishift-svc" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift openshift service list -n knativetutorial</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-minio-minishift-svc"><i class="fa fa-copy"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p>The above command produces an output like:</p>
+<p>Executing the command above shows an output like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -411,10 +484,41 @@ minio-server-66449f64bf-dtkch   1/1     Running   0          1m</code></pre>
 <div class="paragraph">
 <p>The official minio documentation is available <a href="https://docs.minio.io/">here</a>.</p>
 </div>
+</div>
 <div class="sect2">
 <h3 id="minio-aws-cli-configure"><a class="anchor" href="#minio-aws-cli-configure"></a>Configure s3 aws cli for minio</h3>
-<div class="paragraph">
-<p>includepartial$minio-and-s3.adoc[tag=minio-aws-config]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws configure
+# AWS Access Key ID [None]: demoaccesskey <i class="conum" data-value="1"></i><b>(1)</b>
+# AWS Secret Access Key [None]: demosecretkey <i class="conum" data-value="2"></i><b>(2)</b>
+# Default region name [None]:
+# Default output format [None]:
+
+aws configure set default.s3.signature_version s3v4 <i class="conum" data-value="3"></i><b>(3)</b>
+
+aws configure list <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Using default user access key <strong>demoaccesskey</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Using default user secret key <strong>demosecretkey</strong></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Enable <strong>AWS Signature Version '4'</strong> for minio server</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>List the configuration</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -423,23 +527,29 @@ minio-server-66449f64bf-dtkch   1/1     Running   0          1m</code></pre>
 <h2 id="install-camel-k"><a class="anchor" href="#install-camel-k"></a>Install Camel-k</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Download the camel-k release from <a href="https://github.com/apache/camel-k/releases/latest">here</a>. Extract the content and add the binary <code>kamel</code> to the PATH.</p>
+<p>Download the latest camel-k release from <a href="https://github.com/apache/camel-k/releases/latest">here</a>. Extract the content and add the binary <code>kamel</code> to the PATH.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As of building this tutorial the latest <strong>kamel</strong> version was <code>0.3.3</code></p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Run the following commands to install the camel-k operator in the Kubernetes/OpenShift cluster:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install -n knativetutorial --runtime-version='0.3.1-SNAPSHOT' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install -n knativetutorial</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Due to a existing <a href="https://github.com/apache/camel-k/issues/506">bug</a> which will be fixed as part of 0.3.1 runtime release, we need to use the 0.3.1-SNAPSHOT of the runtime. This constraint will be removed once 0.3.1 runtime is released.</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>includepartial$wait-for-pods.adoc[tag=wait-with-kubectl]</p>
@@ -487,13 +597,13 @@ camel-k-spring-boot                                        0/1     Completed   0
 <div class="paragraph">
 <p>e.g. assuming you have nexus repository manager and is available at <code><a href="http://192.168.64.1:8081/nexus/content/groups/public" class="bare">http://192.168.64.1:8081/nexus/content/groups/public</a></code></p>
 </div>
-<div class="listingblock">
+<div id="camelk-kamel-maven-repo" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install -n knativetutorial \
-  --runtime-version="0.3.1-SNAPSHOT" \
   --repository="http://192.168.64.1:8081/nexus/content/groups/public@id=public@snapshots"</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-kamel-maven-repo"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
 <p>Check <a href="https://github.com/apache/camel-k#configure-additional-maven-repositories">here</a> for more details on using maven repositories with camel-k.</p>
 </div>
@@ -509,29 +619,42 @@ camel-k-spring-boot                                        0/1     Completed   0
 <div class="paragraph">
 <p>When camel-k builds the images, it pushes built container image to the local registry of the kubernetes cluster. Knative by default resolves all the tags of the container image to digests(SHA256), to be able to do this we need to have images pushed to real time container registry and repository, for these demos we will be using the local container registry that will be part of the minikube or minishift setup. Run the following commands to make Knative skip tag to digest resolution for local images from local registry.</p>
 </div>
-<div class="listingblock">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset4_oc"></a>oc</p>
+</li>
+</ul>
+</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`kubectl get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
-
-val="ko.local,dev.local,${K8S_LOCAL_REGISTRY}"
-
+<div class="tab-pane" aria-labelledby="tabset4_kubectl">
+<div id="knative-kubectl-untag-repo" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`kubectl get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'` &amp;&amp; \
+val="${K8S_LOCAL_REGISTRY}" &amp;&amp; \
 kubectl -n knative-serving get cm config-controller -oyaml \
   | yq w - data.registriesSkippingTagResolving $val \
   | kubectl apply -f -</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>(OR)</strong></p>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-kubectl-untag-repo"><i class="fa fa-copy"></i></button><br/>
 </div>
-<div class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset4_oc">
+<div id="knative-oc-untag-repo" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`oc get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'`
-
-val="ko.local,dev.local,${K8S_LOCAL_REGISTRY}"
-
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">K8S_LOCAL_REGISTRY=`oc get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'` &amp;&amp; \
+val="${K8S_LOCAL_REGISTRY}" &amp;&amp; \
 oc -n knative-serving get cm config-controller -oyaml \
   | yq w - data.registriesSkippingTagResolving $val \
-  | kubectl apply -f -</code></pre>
+  | oc apply -f -</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-oc-untag-repo"><i class="fa fa-copy"></i></button><br/>
+</div>
 </div>
 </div>
 </div>
@@ -550,7 +673,7 @@ oc -n knative-serving get cm config-controller -oyaml \
     var clipboard = new ClipboardJS('.copybtn');
 
     clipboard.on('success', function (e) {
-        console.info('Text:', e);
+        //console.info('Text:', e);
         //e.clearSelection();        
     });
 

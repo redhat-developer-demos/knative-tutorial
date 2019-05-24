@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/content-based-router.html</loc>
-<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/common-prereqs.html</loc>
+<lastmod>2019-05-24T08:40:05.967Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/getting-started.html</loc>
-<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/content-based-router.html</loc>
+<lastmod>2019-05-24T08:40:05.967Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/index.html</loc>
-<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/getting-started.html</loc>
+<lastmod>2019-05-24T08:40:05.967Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/poll-enrich.html</loc>
-<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/index.html</loc>
+<lastmod>2019-05-24T08:40:05.967Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/setup.html</loc>
-<lastmod>2019-05-23T17:19:40.888Z</lastmod>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/poll-enrich.html</loc>
+<lastmod>2019-05-24T08:40:05.967Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/setup.html</loc>
+<lastmod>2019-05-24T08:40:05.967Z</lastmod>
 </url>
 </urlset>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventing with Apache Camel :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/v1.0.0-SNAPSHOT/index.html">
+    <title>Prerequisite :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/0.3.3/common-prereqs.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -54,7 +54,7 @@
   </nav>
 </header><div class="main-wrapper">
     <div class="navigation-container"  data-component="knative-tutorial-camelk"
-    data-version="v1.0.0-SNAPSHOT" >
+    data-version="0.3.3" >
     <aside class="navigation">
         <div class="panels">
             <div class="navigation-menu is-active" data-panel="menu">
@@ -86,17 +86,17 @@
     <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup.html#configure-local-registry">Configure Local Container Registry</a>
+    <a class="nav-link" href="setup.html#configure-local-registry">2.Configure Local Container Registry</a>
   </li>
 </ul>
   </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="common-prereqs.html">2.Prerequisite</a>
+  </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="getting-started.html">2.Message Filter</a>
+    <a class="nav-link" href="getting-started.html">3.Message Filter</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="getting-started.html#gs-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="getting-started.html#gs-overview">Demo Overview</a>
   </li>
@@ -137,11 +137,8 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="poll-enrich.html">3.Poll Enrich</a>
+    <a class="nav-link" href="poll-enrich.html">4.Poll Enrich</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="poll-enrich.html#pe-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="poll-enrich.html#pe-overview">Demo Overview</a>
   </li>
@@ -182,11 +179,8 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="content-based-router.html">4.Content Based Router</a>
+    <a class="nav-link" href="content-based-router.html">5.Content Based Router</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="content-based-router.html#cbr-prereq">Prerequisite</a>
-  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="content-based-router.html#cbr-overview">Demo Overview</a>
   </li>
@@ -258,88 +252,249 @@
     <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Eventing with Apache Camel</a></li>
+    <li class="crumb"><a href="common-prereqs.html">2.Prerequisite</a></li>
   </ul>
 </nav>
 </div>        <article class="doc">
-<h1>Eventing with Apache Camel</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1>Prerequisite</h1>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>This tutorial will show how to do <strong>Eventing with Apache Camel and Knative </strong> using the Camel-k framework, one or more of the following Enterprise Integration Patterns(EIP) or concepts will be used in this chapter&#8217;s exercises.</p>
+<p>This tutorial assumes that you have prior knowledge of:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/IntegrationStylesIntro.html">Integration Styles</a></p>
+<p><a href="https://camel.apache.org">Apache Camel</a></p>
+</li>
+<li>
+<p><a href="https://www.enterpriseintegrationpatterns.com">Enterprise Integration Patterns</a></p>
+</li>
+<li>
+<p><a href="https://cloud.google.com/knative/">Knative</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following checks ensures that each chapter exercises are done with right environment settings.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html">File Transfer</a></p>
-</li>
-<li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Messaging.html">Messaging</a></p>
+<p>Make sure the <strong>minikube</strong> clock is set to right timezone; this is required when using API&#8217;s that are time sensitive e.g. AWS s3 cli API that we will use in this tutorial demos</p>
 </li>
 </ul>
 </div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_minikube"></a>minikube</p>
 </li>
 <li>
-<p><a href="https://github.com/apache/camel/blob/master/core/camel-core/src/main/docs/eips/pollEnrich-eip.adoc">Poll Enricher</a></p>
+<p><a id="tabset1_minishift"></a>minishift</p>
 </li>
-<li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageRoutingIntro.html">Message Routing</a></p>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_minikube">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are a mac user then the following setup might help:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">brew install sleepwatcher
+brew services start sleepwatcher
+echo "PATH=$PATH:/usr/local/bin \n
+minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s" &gt; ~/.wakeup
+chmod +x ~/.wakeup</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Filter.html">Message Filter</a></p>
-</li>
-<li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html">Content Based Router</a></p>
+<p>Make sure to be connected to minikube docker daemon</p>
 </li>
 </ul>
 </div>
-</li>
+<div class="listingblock">
+<div class="content">
+<pre>eval $(minikube docker-env)</pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-set-k8s-docker-env"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
 <li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Sequencer.html">Splitter</a></p>
-</li>
-<li>
-<p><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Aggregator.html">Aggregator</a></p>
+<p>Make sure right Kubernetes is used, it should be v1.12+</p>
 </li>
 </ul>
 </div>
+<div id="camelk-set-k8s-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="camelk-tutorial-prerequisite"><a class="anchor" href="#camelk-tutorial-prerequisite"></a>Prerequisite</h2>
-<div class="sectionbody">
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-set-k8s-version"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> namespace or use you night need to use <code>--namespace knativetutorial</code> in all commands</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>As pre-requisite to this tutorial, its highly recommended that you have completed <a href="../../knative-tutorial/0.5.0/index.html" class="page">Knative Tutorial Basics</a> completed.</p>
+<p>If you are on minikube then <strong>kubens</strong> utility can be used to switch to kubernetes namespace like:</p>
+</div>
+<div id="camelk-set-k8s-ns" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubens knativetutorial</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-set-k8s-ns"><i class="fa fa-copy"></i></button><br/>
+</td>
+</tr>
+</table>
 </div>
-<div class="sect1">
-<h2 id="_what_is_camel_k"><a class="anchor" href="#_what_is_camel_k"></a>What is Camel-k ?</h2>
-<div class="sectionbody">
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div id="camelk-minishift-set-tz" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minishift stop &amp;&amp; \
+minishift start --timezone 'Asia/Kolkata' <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-minishift-set-tz"><i class="fa fa-copy"></i></button><br/>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set it to your local timezone
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be connected to minishift docker daemon</p>
+</li>
+</ul>
+</div></td>
+</tr>
+</table>
+</div>
+<div id="camelk-minishift-docker-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env) &amp;&amp; eval $(minishift oc-env)</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-minishift-docker-oc"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right OpenShift client is used, it should be <code>v3.11+ kubernetes v1.11.0+</code> or above</p>
+</li>
+</ul>
+</div>
+<div id="camelk-which-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-which-oc"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project</p>
+</li>
+</ul>
+</div>
+<div id="camelk-which-oc-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-which-oc-project"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p><a href="https://github.com/apache/camel-k">Apache Camel K (a.k.a. Kamel)</a> is a lightweight integration framework built from <a href="https://camel.apache.org">Apache Camel</a> that runs natively on Kubernetes and is specifically designed for serverless and microservice architectures.</p>
+<p>If you are not on <code>knativetutorial</code> project, use the following command  to change to <code>knativetutorial</code> project</p>
+</div>
+<div id="camelk-change-oc-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-change-oc-project"><i class="fa fa-copy"></i></button><br/>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_camel_k_and_knative_serving"><a class="anchor" href="#_camel_k_and_knative_serving"></a>Camel-K and Knative Serving</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With camel-k we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right <code>kamel</code> version, preferred is <code>0.3.3</code> or above</p>
+</li>
+</ul>
+</div>
+<div id="camelk-kamel-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel version</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-kamel-version"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure AWS CLI is installed and has the right version, at the time of doing this tutorial it was <code>aws-cli/1.16.50 Python/3.7.1 Darwin/18.2.0 botocore/1.12.40</code></p>
+</li>
+</ul>
 </div>
-<div class="sect1">
-<h2 id="_camel_k_and_knative_eventing"><a class="anchor" href="#_camel_k_and_knative_eventing"></a>Camel-K and Knative Eventing</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With camel-k we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into <a href="https://cloudevents.io"> Cloud Events</a> format and exchanged with other consumers.</p>
+<div id="camelk-aws-cli-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ aws --version</code></pre>
 </div>
 </div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-aws-cli-version"><i class="fa fa-copy"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure right maven version is used (only for Java exercises), recommended maven version is <code>3.6.0+</code></p>
+</li>
+</ul>
 </div>
+<div id="camelk-maven-version" class="listingblock">
+<div class="content">
+<pre>./mvnw --version</pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-maven-version"><i class="fa fa-copy"></i></button><br/>
 </article>
     </main>
 </div><footer class="footer">
@@ -354,7 +509,7 @@
     var clipboard = new ClipboardJS('.copybtn');
 
     clipboard.on('success', function (e) {
-        console.info('Text:', e);
+        //console.info('Text:', e);
         //e.clearSelection();        
     });
 
