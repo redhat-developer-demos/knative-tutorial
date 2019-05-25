@@ -50,9 +50,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../01-setup.html#kubernetes-cluster">Kubernetes Cluster</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../01-setup.html#setup-work-folder">Work Folder</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -271,10 +268,37 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
 </ul>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="eventing-trigger-broker.html">Triggers and Brokers</a>
+<ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -324,14 +348,14 @@
 </div>
 <div id="eventing-navigate-to-folder" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-eventing/knative</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-eventing/knative</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
 <div class="sect2">
 <h3 id="eventing-create-event-source"><a class="anchor" href="#eventing-create-event-source"></a>Create Event Source</h3>
-<div class="listingblock text-center">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></div>
+<div class="listingblock">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
 kind: CronJobSource <i class="conum" data-value="1"></i><b>(1)</b>
@@ -370,7 +394,7 @@ spec:
 spec.  In the above example it defines <strong>schedule</strong>(the the cron expression) and <strong>data</strong> that will be sent as part of the event.</p>
 </div>
 <div class="paragraph">
-<p>When you <a href="#">06-eventing/eventing.adoc#eventing-watch-logs</a>, you will notice this data being delivered to the service.</p>
+<p>When you <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a>, you will notice this data being delivered to the service.</p>
 </div>
 </td>
 </tr>
@@ -396,7 +420,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div id="event-src-svc-kn-resources-apply" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#event-src-svc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
@@ -404,7 +428,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the the cron ex
 <div class="tab-pane" aria-labelledby="tabset1_oc">
 <div id="event-src-svc-oc-kn-resources-apply" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#event-src-svc-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
@@ -514,7 +538,7 @@ cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running 
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#eventing-run-gen-sink-service"><i class="fa fa-copy"></i></button><br/>
-<div class="listingblock text-center">
+<div class="listingblock">
 <div class="title">service.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
@@ -542,7 +566,7 @@ spec:
 </table>
 </div>
 <div class="paragraph">
-<p>Refer to <a href="#">ROOT:05-build/build.adoc#build-set-env</a></p>
+<p>Refer to <a href="../../../knative-tutorial-build/0.5.0/build.html#build-set-env" class="page">Build Environment Variables</a></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -552,7 +576,7 @@ spec:
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you have skipped the <a href="#">ROOT:05-build/build.adoc</a> or <a href="#">ROOT:05-build/build-templates.adoc</a> and dont have the container image of <code>event-greeter</code>; then you can update the Knative serving service to use the pre-built event-greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-greeter:0.0.1</code></p>
+<p>If you have skipped the <a href="../../../knative-tutorial-build/0.5.0/build.html" class="page">Build</a> or <a href="../../../knative-tutorial-build/0.5.0/build-templates.html" class="page">Build Templates</a> and dont have the container image of <code>greeter</code>; then you can update the Knative serving service to use the pre-built greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-greeter:quarkus</code></p>
 </div>
 </td>
 </tr>
@@ -581,7 +605,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div id="deploy-sink-service-kn-resources-apply" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/service.yaml">service.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#deploy-sink-service-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
@@ -589,7 +613,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset4_oc">
 <div id="deploy-sink-service-oc-kn-resources-apply" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-eventing/knative/service.yaml">service.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#deploy-sink-service-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
@@ -599,7 +623,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>You can <a href="#">06-eventing/eventing.adoc#eventing-watch-logs</a> to see the cron job source sending an event every 1 minute.</p>
+<p>You can <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a> to see the cron job source sending an event every 1 minute.</p>
 </div>
 </div>
 <div class="sect2">
@@ -718,7 +742,7 @@ oc -n knativetutorial delete \
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can also delete <a href="#">ROOT:05-build/build.adoc#build-apply-prereq-resources</a> that were created if you don&#8217;t need them anymore.
+You can also delete <a href="../../../knative-tutorial-build/0.5.0/build.html#build-apply-prereq-resources" class="page">pre-req resources</a> that were created if you don&#8217;t need them anymore.
 </td>
 </tr>
 </table>

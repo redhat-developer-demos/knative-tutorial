@@ -50,9 +50,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../01-setup.html#kubernetes-cluster">Kubernetes Cluster</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../01-setup.html#setup-work-folder">Work Folder</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -271,10 +268,37 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
 </ul>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="eventing-trigger-broker.html">Triggers and Brokers</a>
+<ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -320,19 +344,25 @@
 <div class="ulist">
 <ul>
 <li>
-<p>What is an event source ?</p>
+<p>What is an event source?</p>
 </li>
 <li>
-<p>What is a channel ?</p>
+<p>What is a channel?</p>
 </li>
 <li>
-<p>What is a subscriber ?</p>
+<p>What is a subscriber?</p>
 </li>
 <li>
-<p>How to make a Knative serving service receive an event ?</p>
+<p>What is a trigger?</p>
 </li>
 <li>
-<p>How to make a service a subscriber of an event ?</p>
+<p>What is a broker?</p>
+</li>
+<li>
+<p>How to make a Knative serving service receive an event?</p>
+</li>
+<li>
+<p>How to make a service a subscriber of an event?</p>
 </li>
 </ul>
 </div>
@@ -486,7 +516,7 @@ oc version</code></pre>
 <h2 id="eventing-watch-logs"><a class="anchor" href="#eventing-watch-logs"></a>Watching Logs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since a Cron job source is used in this section of the tutorial, it would emit events every minute. We can watch the logs of the service to see the messages delivered.</p>
+<p>In the eventing related subsections of this tutorial, event sources are configured to emit events every minute with a <code>CronJobSource</code> or with a <code>ContainerSource</code>.</p>
 </div>
 <div class="paragraph">
 <p>The logs could be watched using the command:</p>
@@ -555,7 +585,7 @@ event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:50:
 event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }</code></pre>
 </div>
 </div>
-<div class="paragraph text-center">
+<div class="paragraph">
 <p>(OR)</p>
 </div>
 <div class="listingblock">

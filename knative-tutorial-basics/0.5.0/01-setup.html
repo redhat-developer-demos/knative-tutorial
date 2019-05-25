@@ -50,9 +50,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#kubernetes-cluster">Kubernetes Cluster</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#setup-work-folder">Work Folder</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -271,10 +268,37 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
 </ul>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html">Triggers and Brokers</a>
+<ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -380,7 +404,21 @@
 <h2 id="remote-docker-repository"><a class="anchor" href="#remote-docker-repository"></a>Remote Repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For some parts of the tutorial, you will be pushing and pulling container images to and from a remote image repository. You will need an account with publish rights. As of this writing, knative works best with <a href="https://quay.io">Quay</a>.</p>
+<p>For some parts of the tutorial, you will be pushing and pulling container images to and from a remote image repository. You will need an account with publish rights.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Knative works best with any container registry that support <code>v2_2</code> schema e.g. <a href="https://gcr.io">Google Container Registry</a>, <a href="https://hub.docker.com">Docker Hub</a>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -396,9 +434,6 @@
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-copy"></i></button><br/>
-<div class="paragraph">
-<p>The <code>work</code> folder in <code>$TUTORIAL_HOME</code> can be used to download the demo application resources and refer to them during the exercises. The <code>work</code> folder has a README with instructions on the source code repo and git commands to clone the sources.</p>
-</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -735,14 +770,14 @@ controller-manager-0   1/1     Running   0          6h35m</code></pre>
 </div>
 <div id="setup-ocp-kn-operator" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME \
 git clone <a href="https://github.com/openshift-cloud-functions/knative-operators" class="bare">https://github.com/openshift-cloud-functions/knative-operators</a> \
 cd knative-operators</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#setup-ocp-kn-operator"><i class="fa fa-copy"></i></button><br/>
 <div class="paragraph">
-<p><strong>OCP</strong></p>
+<p><strong>OpenShift Container Platform</strong></p>
 </div>
 <div class="paragraph">
 <p>If you have an existing OpenShift cluster then run the following commands:</p>
@@ -800,14 +835,6 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="setup-work-folder"><a class="anchor" href="#setup-work-folder"></a>Work folder</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The work folder i.e <code>$TUTORIAL_HOME/work</code> can be used as a work directory during the build. The README in the work folder has the GitHub repository links of the applications <code>greeter</code> and <code>event-greeter</code> that will be used in various exercises.</p>
 </div>
 </div>
 </div>

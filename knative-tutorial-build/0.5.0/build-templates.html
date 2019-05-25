@@ -304,7 +304,7 @@ oc version</code></pre>
 <div class="paragraph">
 <p>For this chapter&#8217;s build template demos, we will be using the following Knative build template that will use maven to build the Java application. The build template leverages <a href="https://buildah.io">buildah</a> to build and push the container image based on the Java application built using maven.</p>
 </div>
-<div class="listingblock text-center">
+<div class="listingblock">
 <div class="title">maven-build-template.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: build.knative.dev/v1alpha1
@@ -383,7 +383,7 @@ yq w -i service-with-build-template.yaml 'spec.runLatest.configuration.revisionT
 <div class="paragraph">
 <p>Running the above command will result in the following knative service file:</p>
 </div>
-<div class="listingblock text-center">
+<div class="listingblock">
 <div class="title">service-with-build-template.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1

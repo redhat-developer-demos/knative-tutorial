@@ -50,9 +50,6 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="01-setup.html#kubernetes-cluster">Kubernetes Cluster</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="01-setup.html#setup-work-folder">Work Folder</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -271,10 +268,37 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
 </ul>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html">Triggers and Brokers</a>
+<ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -450,29 +474,16 @@ oc version</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>Navigate to work folder</p>
+<p>Navigate to <code>greeter</code> app folder in $TUTORIAL_HOME</p>
 </li>
 </ul>
 </div>
-<div id="navigate-to-work-folder" class="listingblock">
+<div id="navigate-to-greeter-app-folder" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/work</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-to-work-folder"><i class="fa fa-copy"></i></button><br/>
-<div class="ulist">
-<ul>
-<li>
-<p>Clone the application source code</p>
-</li>
-</ul>
-</div>
-<div id="clone-greeter-sources" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone <a href="https://github.com/redhat-developer-demos/knative-tutorial-greeter.git" class="bare">https://github.com/redhat-developer-demos/knative-tutorial-greeter.git</a></code></pre>
-</div>
-</div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#clone-greeter-sources"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-to-greeter-app-folder"><i class="fa fa-copy"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -482,8 +493,8 @@ oc version</code></pre>
 </div>
 <div id="build-greeter" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd knative-tutorial-greeter/java/quarkus
-./mvnw clean package
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd java/quarkus &amp;&amp; \
+./mvnw clean package &amp;&amp; \
 docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code></pre>
 </div>
 </div>
@@ -529,10 +540,10 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_1"><a class="anchor" href="#_deploy_configuration_revision_1"></a>Deploy Configuration revision 1</h3>
 <div class="paragraph">
-<p>The following snippet shows how a Knative configuration resource YAML looks like:</p>
+<p>The following snippet shows how a Knative configuration resource YAML looks like:
+.<a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev1.yaml">configuration-rev1.yaml</a></p>
 </div>
-<div class="listingblock text-center">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev1.yaml">configuration-rev1.yaml</a></div>
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
@@ -653,10 +664,10 @@ spec:
 <h2 id="crtd-deploy-route"><a class="anchor" href="#crtd-deploy-route"></a>Deploy Route</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.</p>
+<p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.
+.<a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route_default.yaml</a></p>
 </div>
-<div class="listingblock text-center">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route_default.yaml</a></div>
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Route
@@ -913,7 +924,7 @@ Sometimes the response might not be returned immediately especially when the pod
 </div>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_2"><a class="anchor" href="#_deploy_configuration_revision_2"></a>Deploy configuration revision 2</h3>
-<div class="listingblock text-center">
+<div class="listingblock">
 <div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev2.yaml">configuration-rev2.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
