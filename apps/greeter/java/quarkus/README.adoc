@@ -1,0 +1,5 @@
+=  Quarkus Greeter
+
+The Greeter application  based on https://quarkus.io[QuarkusIO], that can be deployed as Knative service.
+
+Please check the https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/0.4.0/05-build/build.html[Knative Tutorial] on how to build and deploy the application
