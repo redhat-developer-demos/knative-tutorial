@@ -29,8 +29,7 @@ asciidoc:
     - ./lib/tab-block.js
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
+    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.2/ui-bundle.zip
   supplemental_files: ./supplemental-ui
 output:
   dir: ./gh-pages
