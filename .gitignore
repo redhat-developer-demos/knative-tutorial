@@ -42,3 +42,4 @@ dev-site.yml
 .firebaserc
 firebase.json
 .firebase
+openshift-cloud-functions

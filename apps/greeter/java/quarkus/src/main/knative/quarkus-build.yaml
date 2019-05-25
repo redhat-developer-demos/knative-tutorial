@@ -1,0 +1,39 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: quarkus-build
+spec:
+  serviceAccountName: build-bot
+  source:
+    git:
+      revision: "${git.source.revision}"
+      url: "${git.source.repo.url}"
+  steps:
+    - args:
+        - '/usr/local/bin/buildah.sh'
+      env:
+        - name: WORK_DIR
+          value: /workspace/java/quarkus
+        - name: DESTINATION_NAME
+          value: ${app.container.image}
+      image: quay.io/rhdevelopers/quarkus-java-builder
+      name: docker-push
+      # needed for buildah builds to be running as containers
+      securityContext:
+        capabilities:
+          add: ['SYS_ADMIN']
+      volumeMounts:
+        - mountPath: /root/.m2
+          name: m2-cache
+        # needed for buildah to store its built containers
+        - mountPath: /var/lib/containers
+          name: buildah-cache
+      workingDir: /workspace/java/quarkus
+  timeout: 60m
+  volumes:
+    - name: m2-cache
+      persistentVolumeClaim:
+        claimName: m2-cache
+    - name: buildah-cache
+      persistentVolumeClaim:
+        claimName: buildah-cache
