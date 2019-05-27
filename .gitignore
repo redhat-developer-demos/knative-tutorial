@@ -22,17 +22,12 @@ buildNumber.properties
 .classpath
 docs/output/*
 /hello.txt
-.idea/
+.idea
 work/**/*
 !work/README.md
 #
 **/setenv.sh
 
-src/**
-pom.xml
-mvnw
-mvnw.cmd
-.mvn
 gh-pages
 node_modules
 package.json
