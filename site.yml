@@ -24,6 +24,7 @@ content:
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
+    title: Welcome to Knative Tutorial
   extensions:
     - ./lib/copy-to-clipboard.js
     - ./lib/tab-block.js
