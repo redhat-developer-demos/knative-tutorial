@@ -1,0 +1,35 @@
+runtime:
+  cache_dir: ./.cache/antora
+
+site:
+  title: Knative Tutorial
+  url: https://redhat-developer-demos.github.io/knative-tutorial
+  start_page: knative-tutorial::index.adoc
+
+content:
+  sources:
+    - url: git@github.com:redhat-developer-demos/knative-tutorial.git
+      tags: []
+      branches: release/0.5
+      start_path: documentation
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-basics.git
+      tags: []
+      branches: release/0.5
+asciidoc:
+  attributes:
+    tutorial-namespace: knativetutorial
+    workshop: yes
+    title: Welcome to Knative Workshop
+    workshop-domain: guru.devx.red
+    workshop-version: release/0.5
+    openshift-console-url: http://example.com
+    etherpad-url: http://example.com
+  extensions:
+    - ./lib/copy-to-clipboard.js
+    - ./lib/tab-block.js
+ui:
+  bundle:
+    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.3/ui-bundle.zip
+  supplemental_files: ./supplemental-ui
+output:
+  dir: ./gh-pages
