@@ -192,7 +192,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -205,7 +205,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_minishift">
 <div class="ulist">
@@ -220,7 +220,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -234,7 +234,7 @@
 oc version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -247,7 +247,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, then run following command to change to <code>knativetutorial</code> project:</p>
 </div>
@@ -256,7 +256,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -288,7 +288,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/05-build/knative</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-navigate-to-folder"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 <div class="sect1">
@@ -299,7 +299,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cp <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/setenv.sh.example">setenv.sh.example</a> setenv.sh</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#copy-set-env-sh"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#copy-set-env-sh"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Update the following environment variables as per your needs and customizations.</p>
 </div>
@@ -369,7 +369,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source $TUTORIAL_HOME/05-build/knative/setenv.sh</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#source-set-env-sh"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#source-set-env-sh"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 <div class="sect1">
@@ -385,7 +385,7 @@ yq w -i container-registry-secret.yaml stringData.username $REGISTRY_USERNAME &a
 yq w -i container-registry-secret.yaml stringData.password $REGISTRY_PASSWORD</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-cr-secret"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-edit-cr-secret"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The above command will generate a Kubernetes secret as shown below:</p>
 </div>
@@ -436,7 +436,7 @@ yq w -i event-greeter-build.yaml 'spec.source.git.revision' $SOURCE_REVISION &am
 yq w -i event-greeter-build.yaml 'spec.steps[0].env[1].value' $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-build-spec"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-edit-build-spec"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The above command will generate a knative build specification as shown below:</p>
 </div>
@@ -512,7 +512,7 @@ The above yaml has dummy values for --context, --destination etc., the actual va
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">yq w -i service.yaml 'spec.runLatest.configuration.revisionTemplate.spec.container.image' $DESTINATION_IMAGE_NAME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-edit-knative-service"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-edit-knative-service"><i class="fa fa-clipboard"></i></button><br/>
 <div class="listingblock">
 <div class="title">service.yaml</div>
 <div class="content">
@@ -573,7 +573,7 @@ kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer
 kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-apply-prereq-resources"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-apply-prereq-resources"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_oc">
 <div id="build-run-oc-apply-prereq-resources" class="listingblock">
@@ -584,7 +584,7 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/container-storage-pvc.yaml">container-storage-pvc.yaml</a> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-apply-prereq-resources"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-oc-apply-prereq-resources"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -634,7 +634,7 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/event-greeter-build.yaml">event-greeter-build.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#create-build-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#create-build-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_oc">
 <div id="create-build-oc-kn-resources-apply" class="listingblock">
@@ -642,7 +642,7 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/event-greeter-build.yaml">event-greeter-build.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#create-build-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#create-build-oc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -673,7 +673,7 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#knative-build"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#knative-build"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset4_oc">
 <div id="oc-knative-build" class="listingblock">
@@ -681,7 +681,7 @@ oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demo
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-knative-build"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-knative-build"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -881,7 +881,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-check-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-check-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset8_oc">
 <div id="build-oc-check-status" class="listingblock">
@@ -889,7 +889,7 @@ oc apply -n knativetutorial -f event-greeter-build.yamll</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get pods</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-oc-check-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-oc-check-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -933,7 +933,7 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-deploy-svc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-deploy-svc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset9_oc">
 <div id="build-deploy-svc-oc-kn-resources-apply" class="listingblock">
@@ -941,7 +941,7 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-build/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-deploy-svc-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-deploy-svc-oc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -973,7 +973,7 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-is-kubectl-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-is-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset10_oc">
 <div id="build-is-oc-svc-gateway-env" class="listingblock">
@@ -981,7 +981,7 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-is-oc-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-is-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -992,7 +992,7 @@ event-greeter-build-pod-cf0174   0/1       Completed   0          10m</code></pr
    message="test message"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-service-call"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-service-call"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The above command should return an response like:</p>
 </div>
@@ -1044,7 +1044,7 @@ the actual response&#8217;s host and time properties will be based on your envir
 kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-cleanup"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-cleanup"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset11_oc">
 <div id="build-run-oc-cleanup" class="listingblock">
@@ -1053,7 +1053,7 @@ kubectl -n knativetutorial delete builds.build.knative.dev event-greeter-build</
 oc -n knativetutorial delete builds.build.knative.dev event-greeter-build</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-run-oc-cleanup"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-run-oc-cleanup"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1078,27 +1078,25 @@ You can also delete <a href="#">knative-tutorial-build:ROOT:05-build/build.adoc#
   <div class="region region-rhd-footer">
     <div id="block-rhdfooter" class="rhd-footer">
       <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
-        <ul class="rhd-menu">
-          <li class="menu-item menu-item--expanded">
-            <h3 class="section-toggle">GitHub</h3>
-            <ul class="rhd-menu">
-              <li class="menu-item">
-                <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
-                  Tutorial</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
-                  Tracker</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://github.com/openshift-cloud-functions/Documentation"
-                  title="OpenShift Cloud Functions">OpenShift Cloud Functions</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <div class="rhd-footer-sidebar">
+  <ul class="rhd-menu">
+    <li class="menu-item menu-item--expanded">
+      <h3 class="section-toggle">GitHub</h3>
+      <ul class="rhd-menu">
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
+            Tutorial</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
+            Tracker</a>
+        </li>
+         <li class="menu-item">
+          <a href="https://github.com/openshift-cloud-functions/Documentation" title="Issue Tracker">OpenShift Cloud Functions</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>      <div class="rhd-footer-sidebar">
         <p class="rhd-footer-sidebar-title">Red Hat Developer</p>
         <p class="rhd-footer-sidebar-subtitle">Build here. Go anywhere.</p>
         <p class="rhd-footer-sidebar-content">

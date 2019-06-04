@@ -316,7 +316,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-mkb-kubectl"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minio-s3url-mkb-kubectl"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_minishift">
 <div id="minio-s3url-mkb-oc" class="listingblock">
@@ -324,7 +324,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-mkb-oc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minio-s3url-mkb-oc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -336,7 +336,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 mb s3://data</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#mkb-aws-s3-set-eip"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#mkb-aws-s3-set-eip"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Verify the created bucket by listing the s3 storage, running the following command:</p>
 </div>
@@ -345,7 +345,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lsdata-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#lsdata-aws-s3-ls"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>For more information on how to use aws cli with minio server is available <a href="https://docs.minio.io/docs/aws-cli-with-minio.html">here</a>.</p>
 </div>
@@ -374,7 +374,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k/quickstart</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart-1"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart-1"><i class="fa fa-clipboard"></i></button><br/>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -393,7 +393,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/0.5/advanced/camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-create-channel"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-create-channel"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Checking the channels created:</p>
 </div>
@@ -402,7 +402,7 @@ You can skip this step and move to <a href="#cbr-create-channels">create knative
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl  -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-check-created-channel"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-check-created-channel"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Running the above commands should produce output as shown:</p>
 </div>
@@ -420,7 +420,7 @@ genre-others   True</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc  -n knativetutorial apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/0.5/advanced/camel-k/knative/channels.yaml">channels.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-oc-create-channel"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-oc-create-channel"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Checking the channels created:</p>
 </div>
@@ -429,7 +429,7 @@ genre-others   True</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc  -n knativetutorial get channels.eventing.knative.dev</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-oc-check-created-channel"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cbe-oc-check-created-channel"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Running the above commands should produce output as shown:</p>
 </div>
@@ -454,7 +454,7 @@ genre-others   True</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k/quickstart</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart-2"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart-2"><i class="fa fa-clipboard"></i></button><br/>
 <div class="sect3">
 <h4 id="cbr-comedy-genre-handler"><a class="anchor" href="#cbr-comedy-genre-handler"></a>Deploy Comedy Genre Handler</h4>
 <div id="camelk-kamel-deploy-int" class="listingblock">
@@ -466,7 +466,7 @@ genre-others   True</code></pre>
  <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/src/main/java/ComedyGenreHandler.java">src/main/java/ComedyGenreHandler.java</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-kamel-deploy-int"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-kamel-deploy-int"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -497,7 +497,7 @@ Note the first build usually takes time, you can watch the status with commands
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-comedy-genre-handler-kubectl-get-int-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-comedy-genre-handler-kubectl-get-int-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_oc">
 <div id="camelk-comedy-genre-handler-oc-get-int-status" class="listingblock">
@@ -505,7 +505,7 @@ Note the first build usually takes time, you can watch the status with commands
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org comedy-genre-handler</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-comedy-genre-handler-oc-get-int-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-comedy-genre-handler-oc-get-int-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -532,7 +532,7 @@ comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
  <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/src/main/java/OthersGenreHandler.java">src/main/java/OthersGenreHandler.java</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-deploy-others-genre-it"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-deploy-others-genre-it"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -563,7 +563,7 @@ Note the first build usually takes time, you can watch the status with commands
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-others-genre-handler-kubectl-get-int-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-others-genre-handler-kubectl-get-int-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset4_oc">
 <div id="camelk-others-genre-handler-oc-get-int-status" class="listingblock">
@@ -571,7 +571,7 @@ Note the first build usually takes time, you can watch the status with commands
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org others-genre-handler</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-others-genre-handler-oc-get-int-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-others-genre-handler-oc-get-int-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -599,7 +599,7 @@ comedy-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
  <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/src/main/java/CartoonGenreRouter.java">src/main/java/CartoonGenreRouter.java</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-deploy-cartoon-genre-it"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-deploy-cartoon-genre-it"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -630,7 +630,7 @@ Note the first build usually takes time, you can watch the status with command:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cartooon-genre-router-kubectl-get-int-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cartooon-genre-router-kubectl-get-int-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset5_oc">
 <div id="camelk-cartooon-genre-router-oc-get-int-status" class="listingblock">
@@ -638,7 +638,7 @@ Note the first build usually takes time, you can watch the status with command:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get integrations.camel.apache.org cartooon-genre-router</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cartooon-genre-router-oc-get-int-status"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cartooon-genre-router-oc-get-int-status"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -694,7 +694,7 @@ Some of the columns has removed from the above output for brevity
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get svc</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-svc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-svc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset6_oc">
 <div id="camelk-oc-get-k8s-svc" class="listingblock">
@@ -702,7 +702,7 @@ Some of the columns has removed from the above output for brevity
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get svc</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-svc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-svc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -744,7 +744,7 @@ others-genre-handler-jnwsd-service   ClusterIP      10.111.172.10    &lt;none&gt
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get integrations.camel.apache.org</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-int"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-int"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset7_oc">
 <div id="camelk-oc-get-k8s-int" class="listingblock">
@@ -752,7 +752,7 @@ others-genre-handler-jnwsd-service   ClusterIP      10.111.172.10    &lt;none&gt
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get integrations.camel.apache.org</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-int"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-int"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -785,7 +785,7 @@ others-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial  get deployments</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-dc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-get-k8s-dc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset8_oc">
 <div id="camelk-oc-get-k8s-dc" class="listingblock">
@@ -793,7 +793,7 @@ others-genre-handler    Running ctx-bi0h1ur6a8efvn05oqbg</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  get get deployments</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-dc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-oc-get-k8s-dc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1007,7 +1007,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k/quickstart</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-nav-to-quickstart"><i class="fa fa-clipboard"></i></button><br/>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -1026,7 +1026,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minikube service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-testupdata-kubectl"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minio-s3url-testupdata-kubectl"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset12_minishift">
 <div id="minio-s3url-testupdata-oc" class="listingblock">
@@ -1034,7 +1034,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">S3_URL=$(minishift service -n knativetutorial minio-server --url)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minio-s3url-testupdata-oc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minio-s3url-testupdata-oc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1046,7 +1046,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/data/message1.xml">data/message1.xml</a>  s3://data</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#upmsgxml-aws-s3-upload-file"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#upmsgxml-aws-s3-upload-file"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Upload XML file called <code>message2.xml</code> to s3 bucket called <code>data</code>,</p>
 </div>
@@ -1055,7 +1055,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 cp <a href="https://github.com/redhat-developer-demos/knative-tutorial-camelk/blob/release/0.5/quickstart/data/message2.xml">data/message2.xml</a>  s3://data</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#upmsgxml2-aws-s3-upload-file"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#upmsgxml2-aws-s3-upload-file"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Verify if the XML files were uploaded to the  s3 bucket:</p>
 </div>
@@ -1064,7 +1064,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://data</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lsdata2-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#lsdata2-aws-s3-ls"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="sect3">
 <h4 id="cbr-invoke-service"><a class="anchor" href="#cbr-invoke-service"></a>Invoke service</h4>
@@ -1089,7 +1089,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cbr-is-kubectl-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cbr-is-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset13_oc">
 <div id="cbr-is-oc-svc-gateway-env" class="listingblock">
@@ -1097,7 +1097,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#cbr-is-oc-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cbr-is-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1122,7 +1122,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`kubectl -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-msg1invoke-svc-by-k8s"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-msg1invoke-svc-by-k8s"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset14_oc">
 <div id="camelk-msg1invoke-svc-by-oc" class="listingblock">
@@ -1130,7 +1130,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=`oc  -n knativetutorial get ksvc cartoon-genre-router -ojsonpath='{.status.domain}'`</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-msg1invoke-svc-by-oc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-msg1invoke-svc-by-oc"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1139,7 +1139,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message1.xml' $IP_ADDRESS</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-message1.xml-call-svc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-message1.xml-call-svc"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1162,7 +1162,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://genre-comedy</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lstop2-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#lstop2-aws-s3-ls"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Lets try to upload non <code>comedy</code> genre to see the file getting uploaded to <code>genre-others</code>,</p>
 </div>
@@ -1171,7 +1171,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -v -H "Host:${SVC_URL}" -H 'fileName: message2.xml' $IP_ADDRESS</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-message2.xml-call-svc"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-message2.xml-call-svc"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>Like before on success which is usually HTTP 200, you can list the out <code>genre-others</code> bucket to see the file <code>theadventuresoftenaliraman.xml</code>. You can list the bucket using the command:</p>
 </div>
@@ -1180,7 +1180,7 @@ others-genre-handler-jnwsd-deployment   0         0         0            0      
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">aws --endpoint-url $S3_URL s3 ls s3://genre-others</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#lstop3-aws-s3-ls"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#lstop3-aws-s3-ls"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1213,7 +1213,7 @@ kamel delete cartoon-genre-router -n knativetutorial &amp;&amp; \
 cd $TUTORIAL_HOME/advanced/camel-k/knative</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cleanup-1"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cleanup-1"><i class="fa fa-clipboard"></i></button><br/>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -1233,7 +1233,7 @@ cd $TUTORIAL_HOME/advanced/camel-k/knative</code></pre>
 cd $TUTORIAL_HOME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-cleanup-2"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cleanup-2"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset15_oc">
 <div id="camelk-oc-cleanup-2" class="listingblock">
@@ -1242,7 +1242,7 @@ cd $TUTORIAL_HOME</code></pre>
 cd $TUTORIAL_HOME</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#camelk-oc-cleanup-2"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-oc-cleanup-2"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1255,27 +1255,25 @@ cd $TUTORIAL_HOME</code></pre>
   <div class="region region-rhd-footer">
     <div id="block-rhdfooter" class="rhd-footer">
       <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
-        <ul class="rhd-menu">
-          <li class="menu-item menu-item--expanded">
-            <h3 class="section-toggle">GitHub</h3>
-            <ul class="rhd-menu">
-              <li class="menu-item">
-                <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
-                  Tutorial</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
-                  Tracker</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://github.com/openshift-cloud-functions/Documentation"
-                  title="OpenShift Cloud Functions">OpenShift Cloud Functions</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <div class="rhd-footer-sidebar">
+  <ul class="rhd-menu">
+    <li class="menu-item menu-item--expanded">
+      <h3 class="section-toggle">GitHub</h3>
+      <ul class="rhd-menu">
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
+            Tutorial</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
+            Tracker</a>
+        </li>
+         <li class="menu-item">
+          <a href="https://github.com/openshift-cloud-functions/Documentation" title="Issue Tracker">OpenShift Cloud Functions</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>      <div class="rhd-footer-sidebar">
         <p class="rhd-footer-sidebar-title">Red Hat Developer</p>
         <p class="rhd-footer-sidebar-subtitle">Build here. Go anywhere.</p>
         <p class="rhd-footer-sidebar-content">

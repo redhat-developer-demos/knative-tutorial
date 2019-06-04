@@ -396,7 +396,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -409,7 +409,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_minishift">
 <div class="ulist">
@@ -424,7 +424,7 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env)</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -438,7 +438,7 @@
 oc version</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -451,7 +451,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>If you are not on <code>knativetutorial</code> project, then run following command to change to <code>knativetutorial</code> project:</p>
 </div>
@@ -460,7 +460,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -495,7 +495,7 @@ oc version</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#navigate-to-greeter-app-folder"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#navigate-to-greeter-app-folder"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -510,7 +510,7 @@ oc version</code></pre>
 docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#build-greeter"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-greeter"><i class="fa fa-clipboard"></i></button><br/>
 <div class="ulist">
 <ul>
 <li>
@@ -523,7 +523,7 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker images | grep dev.local</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#check-greeter-images"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-greeter-images"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The above command should return something like as shown below:</p>
 </div>
@@ -562,7 +562,7 @@ data:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-scaling/knative</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-to-folder"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-to-folder"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The service can be deployed using the command:</p>
 </div>
@@ -584,7 +584,7 @@ data:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knative-serving -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/autoscaling-configmap.yaml">autoscaling-configmap.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-apply-cm"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-apply-cm"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_oc">
 <div id="scaling-run-oc-apply-cm" class="listingblock">
@@ -592,7 +592,7 @@ data:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knative-serving -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/autoscaling-configmap.yaml">autoscaling-configmap.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-apply-cm"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-apply-cm"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -640,7 +640,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/02-basics/knative</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-to-basics"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-to-basics"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The service can be deployed using the command:</p>
 </div>
@@ -664,7 +664,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-rev1-apply-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#crtd-rev1-apply-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_oc">
 <div id="crtd-rev1-apply-oc-kn-resources-apply" class="listingblock">
@@ -672,7 +672,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service.yaml">service.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#crtd-rev1-apply-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#crtd-rev1-apply-oc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -704,20 +704,20 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 <div id="scaling-is-kubectl-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-call"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 <div id="scaling-is-kubectl-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
 http $IP_ADDRESS $SVC_URL</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-call"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset4_minishift">
 <div id="scaling-is-oc-svc-gateway-env" class="listingblock">
@@ -725,20 +725,20 @@ http $IP_ADDRESS $SVC_URL</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 <div id="scaling-is-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-call"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 <div id="scaling-is-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
 http $IP_ADDRESS $SVC_URL</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-call"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -788,7 +788,7 @@ SCALE_TO_ZERO_GRACE_PERIOD=`kubectl -n knative-serving get configmaps config-aut
  yq r - data.scale-to-zero-grace-period`</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-set-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-set-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset5_oc">
 <div id="scaling-oc-set-env" class="listingblock">
@@ -799,7 +799,7 @@ SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscal
  yq r - data.scale-to-zero-grace-period`</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-oc-set-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-oc-set-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -851,7 +851,7 @@ SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscal
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'kubectl get pods -n knativetutorial'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#obs-scale-down-kubectl-watch-scale"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#obs-scale-down-kubectl-watch-scale"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset6_oc">
 <div id="obs-scale-down-oc-watch-scale" class="listingblock">
@@ -859,7 +859,7 @@ SCALE_TO_ZERO_GRACE_PERIOD=`oc -n knative-serving get configmaps config-autoscal
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get pods -n knativetutorial'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#obs-scale-down-oc-watch-scale"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#obs-scale-down-oc-watch-scale"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -886,7 +886,7 @@ echo $STABLE_WINDOW
 echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-env-values-check"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-env-values-check"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in <code>1 min 30 secs</code>(<a href="#scale-to-zero-formulae">Compute scale-to-zero grace period</a>).</p>
 </div>
@@ -904,7 +904,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-scaling/knative</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-back"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-back"><i class="fa fa-clipboard"></i></button><br/>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -923,7 +923,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/configure-scaling-to-1m.yaml">configure-scaling-to-1m.yaml</a> | kubectl apply -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-scale-to-zero-1m"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-scale-to-zero-1m"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset7_oc">
 <div id="scaling-run-oc-scale-to-zero-1m" class="listingblock">
@@ -931,7 +931,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/configure-scaling-to-1m.yaml">configure-scaling-to-1m.yaml</a> | oc apply -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-scale-to-zero-1m"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-scale-to-zero-1m"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -957,7 +957,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
  | yq r - data.scale-to-zero-grace-period</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-verify-scale-to-zero-1m"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-verify-scale-to-zero-1m"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset8_oc">
 <div id="scaling-run-oc-verify-scale-to-zero-1m" class="listingblock">
@@ -966,7 +966,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
   | yq r - data.scale-to-zero-grace-period</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-verify-scale-to-zero-1m"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-verify-scale-to-zero-1m"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -997,7 +997,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/configure-scaling-to-30s.yaml">configure-scaling-to-30s.yaml</a> | kubectl apply -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-reset-scale-to-zero"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-reset-scale-to-zero"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset9_oc">
 <div id="scaling-run-oc-reset-scale-to-zero" class="listingblock">
@@ -1005,7 +1005,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knative-serving get cm config-autoscaler -o yaml | yq w - -s <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/configure-scaling-to-30s.yaml">configure-scaling-to-30s.yaml</a> | oc apply -f -</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-reset-scale-to-zero"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-oc-reset-scale-to-zero"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1031,7 +1031,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
  | yq r - data.scale-to-zero-grace-period</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-verify-scale-to-zero-defaults"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-verify-scale-to-zero-defaults"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset10_oc">
 <div id="run-oc-verify-scale-to-zero-defaults" class="listingblock">
@@ -1040,7 +1040,7 @@ echo $SCALE_TO_ZERO_GRACE_PERIOD</code></pre>
   | yq r - data.scale-to-zero-grace-period</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-oc-verify-scale-to-zero-defaults"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-oc-verify-scale-to-zero-defaults"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1117,7 +1117,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/service-10.yaml">service-10.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-autoscale-10-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-autoscale-10-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset11_oc">
 <div id="scaling-run-autoscale-10-oc-kn-resources-apply" class="listingblock">
@@ -1125,7 +1125,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/service-10.yaml">service-10.yaml</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-autoscale-10-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-autoscale-10-oc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1152,7 +1152,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-auto-is-kubectl-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-auto-is-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset12_oc">
 <div id="scaling-auto-is-oc-svc-gateway-env" class="listingblock">
@@ -1160,7 +1160,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-auto-is-oc-svc-gateway-env"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-auto-is-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1185,7 +1185,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'kubectl get pods -n knativetutorial'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#autoscale-kubectl-watch-scale"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#autoscale-kubectl-watch-scale"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset13_oc">
 <div id="autoscale-oc-watch-scale" class="listingblock">
@@ -1193,7 +1193,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get pods -n knativetutorial'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#autoscale-oc-watch-scale"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#autoscale-oc-watch-scale"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1210,7 +1210,7 @@ spec:
   "http://${IP_ADDRESS}"</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-siege"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-siege"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>After you&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically.</p>
 </div>
@@ -1302,7 +1302,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/service-min-scale">service-min-scale</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-min-scale-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-min-scale-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset14_oc">
 <div id="scaling-run-min-scale-oc-kn-resources-apply" class="listingblock">
@@ -1310,7 +1310,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/04-scaling/knative/service-min-scale">service-min-scale</a></code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#scaling-run-min-scale-oc-kn-resources-apply"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-min-scale-oc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1340,7 +1340,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'kubectl get pods -n knativetutorial'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#min-scale-kubectl-watch-scale"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#min-scale-kubectl-watch-scale"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset15_oc">
 <div id="min-scale-oc-watch-scale" class="listingblock">
@@ -1348,7 +1348,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get pods -n knativetutorial'</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#min-scale-oc-watch-scale"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#min-scale-oc-watch-scale"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1382,7 +1382,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-scaling-cleanup"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-scaling-cleanup"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset16_oc">
 <div id="run-oc-scaling-cleanup" class="listingblock">
@@ -1390,7 +1390,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
-<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#run-oc-scaling-cleanup"><i class="fa fa-copy"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-oc-scaling-cleanup"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1403,27 +1403,25 @@ spec:
   <div class="region region-rhd-footer">
     <div id="block-rhdfooter" class="rhd-footer">
       <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
-        <ul class="rhd-menu">
-          <li class="menu-item menu-item--expanded">
-            <h3 class="section-toggle">GitHub</h3>
-            <ul class="rhd-menu">
-              <li class="menu-item">
-                <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
-                  Tutorial</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
-                  Tracker</a>
-              </li>
-              <li class="menu-item">
-                <a href="https://github.com/openshift-cloud-functions/Documentation"
-                  title="OpenShift Cloud Functions">OpenShift Cloud Functions</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <div class="rhd-footer-sidebar">
+  <ul class="rhd-menu">
+    <li class="menu-item menu-item--expanded">
+      <h3 class="section-toggle">GitHub</h3>
+      <ul class="rhd-menu">
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
+            Tutorial</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
+            Tracker</a>
+        </li>
+         <li class="menu-item">
+          <a href="https://github.com/openshift-cloud-functions/Documentation" title="Issue Tracker">OpenShift Cloud Functions</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>      <div class="rhd-footer-sidebar">
         <p class="rhd-footer-sidebar-title">Red Hat Developer</p>
         <p class="rhd-footer-sidebar-subtitle">Build here. Go anywhere.</p>
         <p class="rhd-footer-sidebar-content">
