@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurations and Routes :: Knative Tutorial</title>
+    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.5.0/03-configs-and-routes.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -335,7 +335,7 @@
 </nav>
 </div>
 <article class="doc">
-<h1>Configurations and Routes</h1>
+<h1>Welcome to Knative Tutorial</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -354,7 +354,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="crtd-prerequisite"><a class="anchor" href="#crtd-prerequisite"></a>Prerequisite</h2>
+<h2 id="basics-prerequisite"><a class="anchor" href="#basics-prerequisite"></a>Prerequisite</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following checks ensure that each chapter exercises are done with the right environment settings.</p>
@@ -455,7 +455,7 @@ oc version</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="ctrd-build-containers"><a class="anchor" href="#ctrd-build-containers"></a>Build Containers</h2>
+<h2 id="basics-build-containers"><a class="anchor" href="#basics-build-containers"></a>Build Containers</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -540,10 +540,10 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code>
 <div class="sect2">
 <h3 id="_deploy_configuration_revision_1"><a class="anchor" href="#_deploy_configuration_revision_1"></a>Deploy Configuration revision 1</h3>
 <div class="paragraph">
-<p>The following snippet shows how a Knative configuration resource YAML looks like:
-.<a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev1.yaml">configuration-rev1.yaml</a></p>
+<p>The following snippet shows how a Knative configuration resource YAML looks like:</p>
 </div>
 <div class="listingblock">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/config/configuration-rev1.yaml">configuration-rev1.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Configuration
@@ -556,7 +556,7 @@ spec:
         app: greeter
     spec:
       container:
-        image: dev.local/rhdevelopers/greeter:0.0.1 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+        image: dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;1&amp;gt;</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -638,6 +638,13 @@ spec:
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-call"><i class="fa fa-copy"></i></button><br/>
+<div id="ctrd-is-kubectl-svc-call" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
+http $IP_ADDRESS $SVC_URL</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-call"><i class="fa fa-copy"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_minishift">
 <div id="ctrd-is-oc-svc-gateway-env" class="listingblock">
@@ -649,6 +656,13 @@ spec:
 <div id="ctrd-is-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
+</div>
+</div>
+<button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-call"><i class="fa fa-copy"></i></button><br/>
+<div id="ctrd-is-oc-svc-call" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
+http $IP_ADDRESS $SVC_URL</code></pre>
 </div>
 </div>
 <button class="copybtn" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-call"><i class="fa fa-copy"></i></button><br/>
@@ -664,10 +678,10 @@ spec:
 <h2 id="crtd-deploy-route"><a class="anchor" href="#crtd-deploy-route"></a>Deploy Route</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.
-.<a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route_default.yaml</a></p>
+<p>Let us now deploy a route that will route all the traffic to the configuration we just deployed.</p>
 </div>
 <div class="listingblock">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route_default.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Route
@@ -938,7 +952,7 @@ spec:
         app: greeter
     spec:
       container:
-        image: dev.local/rhdevelopers/greeter:0.0.1
+        image:dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;1&amp;gt;
         env: <i class="conum" data-value="1"></i><b>(1)</b>
           - name: MESSAGE_PREFIX
             value: Namaste</code></pre>
