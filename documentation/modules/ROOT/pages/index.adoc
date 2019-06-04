@@ -1,7 +1,4 @@
-= Welcome to Knative Tutorial
-:page-layout: home
-:!sectids:
-
+= {title}
 :page-layout: home
 :!sectids:
 
@@ -22,6 +19,7 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 * xref:knative-tutorial-basics:ROOT:04-scaling.adoc[Auto Scaling]
 * xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Eventing]
 
+ifndef::workshop[]
 [.tile]
 .xref:knative-tutorial-build:ROOT:index.adoc[Build and Pipelines]
 * xref:knative-tutorial-build:ROOT:build.adoc[Build]
@@ -33,3 +31,4 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 * xref:knative-tutorial-camelk:ROOT:getting-started.adoc[Message Filter]
 * xref:knative-tutorial-camelk:ROOT:poll-enrich.adoc[Poll Enrich]
 *  xref:knative-tutorial-camelk:ROOT:content-based-router.adoc[Content Based Router]
+endif::[]

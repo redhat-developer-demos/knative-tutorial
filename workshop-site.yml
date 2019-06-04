@@ -15,22 +15,21 @@ content:
     - url: git@github.com:redhat-developer-demos/knative-tutorial-module-basics.git
       tags: []
       branches: release/0.5
-    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-build.git
-      tags: []
-      branches: release/0.5
-    - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
-      tags: []
-      branches: release/0.5
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
-    title: Welcome to Knative Tutorial
+    workshop: yes
+    title: Welcome to Knative Workshop
+    workshop-domain: guru.devx.red
+    workshop-version: release/0.5
+    openshift-console-url: http://example.com
+    etherpad-url: http://example.com
   extensions:
     - ./lib/copy-to-clipboard.js
     - ./lib/tab-block.js
 ui:
   bundle:
-    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.2/ui-bundle.zip
+    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.3/ui-bundle.zip
   supplemental_files: ./supplemental-ui
 output:
   dir: ./gh-pages
