@@ -38,3 +38,5 @@ dev-site.yml
 firebase.json
 .firebase
 openshift-cloud-functions
+workshop-attributes.yaml
+workshop-site.yaml
