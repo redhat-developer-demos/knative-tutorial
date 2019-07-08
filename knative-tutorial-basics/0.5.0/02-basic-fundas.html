@@ -534,11 +534,12 @@ docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code>
 <div class="paragraph">
 <p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
 </div>
-<div class="listingblock">
+<div id="basics-nav-folder" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/02-basics/knative</code></pre>
 </div>
 </div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#basics-nav-folder"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
 <p>The following snippet shows what a Knative service YAML looks like:</p>
 </div>
@@ -555,7 +556,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;2&amp;gt;</code></pre>
+            image: dev.local/rhdevelopers/greeter:0.0.1</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -563,10 +564,6 @@ spec:
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
 <td>Makes Knative always run the latest revision of the deployment</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>It is very important that the image is a fully qualified docker image name with tag. For more details on this, see <a href="faq.html#faq-q2" class="page">Question 2 of FAQ</a></td>
 </tr>
 </table>
 </div>
@@ -688,13 +685,6 @@ spec:
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
-<div id="bis-kubectl-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
-http $IP_ADDRESS $SVC_URL</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset4_minishift">
 <div id="bis-oc-svc-gateway-env" class="listingblock">
@@ -706,13 +696,6 @@ http $IP_ADDRESS $SVC_URL</code></pre>
 <div id="bis-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
-<div id="bis-oc-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
-http $IP_ADDRESS $SVC_URL</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
@@ -880,21 +863,21 @@ Sometimes the response might not be returned immediately especially when the pod
 <div id="rev1knative-revisions" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
---label=serving.knative.dev/service=greeter \
+--selector=serving.knative.dev/service=greeter \
 --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset8_oc">
 <div id="rev1-oc-knative-revisions" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get rev \
- --label=serving.knative.dev/service=greeter \
+ --selector=serving.knative.dev/service=greeter \
  --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-oc-knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -943,7 +926,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;2&amp;gt;
+            image: dev.local/rhdevelopers/greeter:0.0.1
             env:
              - name: MESSAGE_PREFIX <i class="conum" data-value="1"></i><b>(1)</b>
                value: Namaste</code></pre>
@@ -1019,21 +1002,21 @@ spec:
 <div id="rev2knative-revisions" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
---label=serving.knative.dev/service=greeter \
+--selector=serving.knative.dev/service=greeter \
 --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev2knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset10_oc">
 <div id="rev2-oc-knative-revisions" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get rev \
- --label=serving.knative.dev/service=greeter \
+ --selector=serving.knative.dev/service=greeter \
  --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev2-oc-knative-revisions"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1083,7 +1066,7 @@ spec:
     revisionTemplate:
       spec:
         container:
-          image: dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;2&amp;gt;
+          image: dev.local/rhdevelopers/greeter:0.0.1
           env:
             - name: MESSAGE_PREFIX
               value: Namaste

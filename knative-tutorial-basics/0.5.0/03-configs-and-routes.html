@@ -556,16 +556,8 @@ spec:
         app: greeter
     spec:
       container:
-        image: dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;1&amp;gt;</code></pre>
+        image: dev.local/rhdevelopers/greeter:0.0.1</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It is very important that the image is a fully qualified docker image name, including a  tag. For more details on this <a href="faq.html#faq-q2" class="page">Question 2 of FAQ</a>.</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>The service is then deployed using:</p>
@@ -611,70 +603,6 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="crtd-invoke-service"><a class="anchor" href="#crtd-invoke-service"></a>Invoke Service</h2>
-<div class="sectionbody">
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset3_minikube"></a>Minikube</p>
-</li>
-<li>
-<p><a id="tabset3_minishift"></a>Minishift</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset3_minikube">
-<div id="ctrd-is-kubectl-svc-gateway-env" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
-<div id="ctrd-is-kubectl-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
-<div id="ctrd-is-kubectl-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
-http $IP_ADDRESS $SVC_URL</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
-</div>
-<div class="tab-pane" aria-labelledby="tabset3_minishift">
-<div id="ctrd-is-oc-svc-gateway-env" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
-<div id="ctrd-is-oc-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
-<div id="ctrd-is-oc-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get ksvc greeter -o jsonpath='{.status.domain}'` &amp;&amp; \
-http $IP_ADDRESS $SVC_URL</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The command will return <code>HTTP 404</code> as there are no routes deployed yet. Let us now deploy a route.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="crtd-deploy-route"><a class="anchor" href="#crtd-deploy-route"></a>Deploy Route</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -699,15 +627,15 @@ spec:
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset4_kubectl"></a>kubectl</p>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
 </li>
 <li>
-<p><a id="tabset4_oc"></a>oc</p>
+<p><a id="tabset3_oc"></a>oc</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset4_kubectl">
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div id="crtd-route-default-apply-kn-resources-apply" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
@@ -715,7 +643,7 @@ spec:
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#crtd-route-default-apply-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
 </div>
-<div class="tab-pane" aria-labelledby="tabset4_oc">
+<div class="tab-pane" aria-labelledby="tabset3_oc">
 <div id="crtd-route-default-apply-oc-kn-resources-apply" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_default.yaml">route/route_default.yaml</a></code></pre>
@@ -727,8 +655,55 @@ spec:
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="crtd-invoke-service"><a class="anchor" href="#crtd-invoke-service"></a>Invoke Service</h2>
+<div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_minikube"></a>Minikube</p>
+</li>
+<li>
+<p><a id="tabset4_minishift"></a>Minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_minikube">
+<div id="ctrd-is-kubectl-svc-gateway-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
+<div id="ctrd-is-kubectl-svc-call" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_minishift">
+<div id="ctrd-is-oc-svc-gateway-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
+<div id="ctrd-is-oc-svc-call" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#ctrd-is-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p><a href="#crtd-invoke-service">Invoking Service</a> now should return a response like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong></p>
+<p>It now should return a response like <strong>Hi  greeter &#8658; '9be9ccd9a2e3' : 1</strong></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -952,7 +927,7 @@ spec:
         app: greeter
     spec:
       container:
-        image:dev.local/rhdevelopers/greeter:0.0.1 #&amp;lt;1&amp;gt;
+        image:dev.local/rhdevelopers/greeter:0.0.1
         env: <i class="conum" data-value="1"></i><b>(1)</b>
           - name: MESSAGE_PREFIX
             value: Namaste</code></pre>
@@ -1111,7 +1086,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div class="tab-pane" aria-labelledby="tabset11_kubectl">
 <div id="all-rev1-ctrd-run-all-to-rev" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1</a> |\
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a> |\
  yq w - 'spec.traffic[0].revisionName' $REVISION_1 | kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
@@ -1120,7 +1095,7 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div class="tab-pane" aria-labelledby="tabset11_oc">
 <div id="all-rev1-ctrd-run-oc-all-to-rev" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1</a> |\
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_all_rev1.yaml">route/route_all_rev1.yaml</a> |\
  yq w - 'spec.traffic[0].revisionName' $REVISION_1 | oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
@@ -1196,7 +1171,9 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div id="rev1-50-rev2-50-ctrd-run-all-to-rev" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a> |\
- yq w - 'spec.traffic[0].revisionName' $REVISION_1 | kubectl apply -n knativetutorial -f -</code></pre>
+ yq w - 'spec.traffic[0].revisionName' $REVISION_1 |\
+ yq w - 'spec.traffic[1].revisionName' $REVISION_2 |\
+ kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-50-rev2-50-ctrd-run-all-to-rev"><i class="fa fa-clipboard"></i></button><br/>
@@ -1205,7 +1182,9 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div id="rev1-50-rev2-50-ctrd-run-oc-all-to-rev" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-50_rev2-50.yaml">route/route_rev1-50_rev2-50.yaml</a> |\
- yq w - 'spec.traffic[0].revisionName' $REVISION_1 | oc apply -n knativetutorial -f -</code></pre>
+ yq w - 'spec.traffic[0].revisionName' $REVISION_1 |\
+ yq w - 'spec.traffic[1].revisionName' $REVISION_2 |\
+ oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-50-rev2-50-ctrd-run-oc-all-to-rev"><i class="fa fa-clipboard"></i></button><br/>
@@ -1238,7 +1217,9 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div id="rev1-75-rev2-25-ctrd-run-all-to-rev" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a> |\
- yq w - 'spec.traffic[0].revisionName' $REVISION_1 | kubectl apply -n knativetutorial -f -</code></pre>
+ yq w - 'spec.traffic[0].revisionName' $REVISION_1 |\
+ yq w - 'spec.traffic[1].revisionName' $REVISION_2 |\
+ kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-75-rev2-25-ctrd-run-all-to-rev"><i class="fa fa-clipboard"></i></button><br/>
@@ -1247,7 +1228,9 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div id="rev1-75-rev2-25-ctrd-run-oc-all-to-rev" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-75_rev2-25.yaml">route/route_rev1-75_rev2-25.yaml</a> |\
- yq w - 'spec.traffic[0].revisionName' $REVISION_1 | oc apply -n knativetutorial -f -</code></pre>
+ yq w - 'spec.traffic[0].revisionName' $REVISION_1 |\
+ yq w - 'spec.traffic[1].revisionName' $REVISION_2 |\
+ oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-75-rev2-25-ctrd-run-oc-all-to-rev"><i class="fa fa-clipboard"></i></button><br/>
@@ -1280,7 +1263,9 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div id="rev1-rev2-10-90-ctrd-run-all-to-rev" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a> |\
- yq w - 'spec.traffic[0].revisionName' $REVISION_1 | kubectl apply -n knativetutorial -f -</code></pre>
+ yq w - 'spec.traffic[0].revisionName' $REVISION_1 |\
+ yq w - 'spec.traffic[1].revisionName' $REVISION_2 |\
+ kubectl apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-rev2-10-90-ctrd-run-all-to-rev"><i class="fa fa-clipboard"></i></button><br/>
@@ -1289,7 +1274,9 @@ REVISION_2=`oc -n knativetutorial get rev -l serving.knative.dev/configuration=g
 <div id="rev1-rev2-10-90-ctrd-run-oc-all-to-rev" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/03-configs-and-routes/route/route_rev1-10_rev2-90.yaml">route/route_rev1-10_rev2-90.yaml</a> |\
- yq w - 'spec.traffic[0].revisionName' $REVISION_1 | oc apply -n knativetutorial -f -</code></pre>
+ yq w - 'spec.traffic[0].revisionName' $REVISION_1 |\
+ yq w - 'spec.traffic[1].revisionName' $REVISION_2 |\
+ oc apply -n knativetutorial -f -</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#rev1-rev2-10-90-ctrd-run-oc-all-to-rev"><i class="fa fa-clipboard"></i></button><br/>

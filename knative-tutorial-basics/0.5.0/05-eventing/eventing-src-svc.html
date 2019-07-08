@@ -554,33 +554,8 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.1 &amp;lt;1&amp;gt;</code></pre>
+            image: docker.io/demo/event-greeter:0.0.1</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set from <code>${DESTINATION_IMAGE_NAME}</code> environment variable&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="../../../knative-tutorial-build/0.5.0/build.html#build-set-env" class="page">Build Environment Variables</a></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you have skipped the <a href="../../../knative-tutorial-build/0.5.0/build.html" class="page">Build</a> or <a href="../../../knative-tutorial-build/0.5.0/build-templates.html" class="page">Build Templates</a> and dont have the container image of <code>greeter</code>; then you can update the Knative serving service to use the pre-built greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-greeter:quarkus</code></p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">

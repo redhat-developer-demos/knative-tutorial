@@ -422,7 +422,7 @@
 <div class="tab-pane" aria-labelledby="tabset2_oc">
 <div id="eventing-trigger-broker-oc-see-broker" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc label namespace knativetutorial get brokers.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get brokers.eventing.knative.dev</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-trigger-broker-oc-see-broker"><i class="fa fa-clipboard"></i></button><br/>
@@ -464,7 +464,7 @@ default   True                default-broker.knativetutorial.svc.cluster.local  
 <div class="tab-pane" aria-labelledby="tabset3_oc">
 <div id="eventing-trigger-broker-oc-see-broker-pods" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc label namespace knativetutorial get pods</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial get pods</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-trigger-broker-oc-see-broker-pods"><i class="fa fa-clipboard"></i></button><br/>
@@ -513,33 +513,8 @@ spec:
             app: event-greeter
         spec:
           container:
-            image: docker.io/demo/event-greeter:0.0.1 &amp;lt;1&amp;gt;</code></pre>
+            image: docker.io/demo/event-greeter:0.0.1</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set from <code>${DESTINATION_IMAGE_NAME}</code> environment variable&#8201;&#8212;&#8201; the fully qualified container image that will be pushed to the registry as part of the build&#8201;&#8212;&#8201;</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="../../../knative-tutorial-build/0.5.0/build.html#build-set-env" class="page">Build Environment Variables</a></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you have skipped the <a href="../../../knative-tutorial-build/0.5.0/build.html" class="page">Build</a> or <a href="../../../knative-tutorial-build/0.5.0/build-templates.html" class="page">Build Templates</a> and dont have the container image of <code>greeter</code>; then you can update the Knative serving service to use the pre-built greeter image available at <code>quay.io/rhdevelopers/knative-tutorial-greeter:quarkus</code></p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -900,12 +875,7 @@ oc --namespace knativetutorial  get services.serving.knative.dev event-greeter</
 kubectl -n knativetutorial delete \
  containersource.sources.eventing.knative.dev heartbeat-event-source
 kubectl -n knativetutorial delete triggers.eventing.knative.dev event-greeter-trigger
-kubectl label namespace knativetutorial knative-eventing-injection-
-kubectl -n knativetutorial delete brokers.eventing.knative.dev default
-kubectl -n knativetutorial delete \
- clusterchannelprovisioners.eventing.knative.dev in-memory
-kubectl -n knativetutorial delete \
- clusterchannelprovisioners.eventing.knative.dev in-memory-channel</code></pre>
+kubectl -n knativetutorial delete brokers.eventing.knative.dev default</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-run-trigger-broker-cleanup"><i class="fa fa-clipboard"></i></button><br/>
@@ -917,12 +887,7 @@ kubectl -n knativetutorial delete \
 oc -n knativetutorial delete \
  containersource.sources.eventing.knative.dev heartbeat-event-source
 oc -n knativetutorial delete triggers.eventing.knative.dev event-greeter-trigger
-oc label namespace knativetutorial knative-eventing-injection-
-oc -n knativetutorial delete brokers.eventing.knative.dev default
-oc -n knativetutorial delete \
- clusterchannelprovisioners.eventing.knative.dev in-memory
-oc -n knativetutorial delete \
- clusterchannelprovisioners.eventing.knative.dev in-memory-channel</code></pre>
+oc -n knativetutorial delete brokers.eventing.knative.dev default</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-trigger-broker-cleanup"><i class="fa fa-clipboard"></i></button><br/>
