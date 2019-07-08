@@ -8,6 +8,8 @@ spec:
       revisionTemplate:
         metadata:
           annotations:
+            # disable istio-proxy injection
+            sidecar.istio.io/inject: "false"
             autoscaling.knative.dev/minScale: "2"
             # Target 10 in-flight-requests per pod.
             autoscaling.knative.dev/target: "10"
