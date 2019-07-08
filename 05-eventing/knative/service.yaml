@@ -7,6 +7,9 @@ spec:
     configuration:
       revisionTemplate:
         metadata:
+          annotations:
+            # disable istio-proxy injection
+            sidecar.istio.io/inject: "false"
           labels:
             app: event-greeter
         spec:

@@ -6,6 +6,10 @@ spec:
   runLatest:
     configuration:
       revisionTemplate:
+        metadata:
+          annotations:
+            # disable istio-proxy injection
+            sidecar.istio.io/inject: "false"
         spec:
           container:
             image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
