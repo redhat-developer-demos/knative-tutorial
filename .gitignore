@@ -40,3 +40,4 @@ firebase.json
 openshift-cloud-functions
 workshop-attributes.yaml
 workshop-site.yaml
+**/.factorypath
