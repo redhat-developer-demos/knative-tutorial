@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.5.0/01-setup.html">
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/01-setup.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -28,7 +28,7 @@
 </header>
 <div class="main-wrapper">
 <div class="navigation-container"  data-component="knative-tutorial-basics"
-  data-version="0.5.0" >
+  data-version="0.7.x" >
   <aside class="navigation">
     <div class="panels">
       <div class="navigation-menu is-active" data-panel="menu">
@@ -48,7 +48,7 @@
     <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#kubernetes-cluster">Kubernetes Cluster</a>
+    <a class="nav-link" href="#kubernetes-cluster">Choose your Kubernetes Cluster</a>
   </li>
 </ul>
   </li>
@@ -79,39 +79,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="02-basic-fundas.html#basics-cleanup">Cleanup</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="03-configs-and-routes.html">3. Configurations and Routes</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-prerequisite">Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#ctrd-build-containers">Build Containers</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-deploy-configuration">Deploy Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-deploy-route">Deploy Route</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-deploying-new-revision">Deploy a New Revision of a Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-distributing-traffic">Distributing Traffic</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#ctrd-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -326,7 +293,7 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="../../knative-tutorial/0.5.0/index.html" class="home-link"></a>
+  <a href="../../knative-tutorial/0.7.x/index.html" class="home-link"></a>
   <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Introduction to Knative</a></li>
@@ -447,16 +414,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Knative <code>v0.5.0</code></p>
+<p>Knative <code>v0.7.1</code></p>
 </li>
 <li>
-<p>Minikube <code>v1.0.0</code></p>
+<p>Minikube <code>v1.0.1</code></p>
 </li>
 <li>
-<p>OpenShift <code>v3.11</code></p>
-</li>
-<li>
-<p>Minishift <code>v1.30.0+186b034</code></p>
+<p>OpenShift <code>v4.1+</code></p>
 </li>
 </ul>
 </div>
@@ -467,33 +431,36 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-cluster"><a class="anchor" href="#kubernetes-cluster"></a>Kubernetes Cluster</h2>
+<h2 id="kubernetes-cluster"><a class="anchor" href="#kubernetes-cluster"></a>Choose your Kubernetes Cluster</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Knative can be installed only on Kubernetes cluster. The following section shows how to install Knative on vanilla <a href="https://kubernetes.io">Kubernetes</a> or on Red Hat <a href="https://www.openshift.com">Openshift</a>&#8201;&#8212;&#8201;an enterprise grade Kubernetes platform&#8201;&#8212;&#8201;</p>
+</div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset1_minikube"></a>Minikube</p>
+<p><a id="tabset1_kubernetes"></a>Kubernetes</p>
 </li>
 <li>
-<p><a id="tabset1_minishift"></a>Minishift</p>
+<p><a id="tabset1_openshift"></a>OpenShift</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset1_minikube">
+<div class="tab-pane" aria-labelledby="tabset1_kubernetes">
 <div id="start-minikube" class="paragraph">
 <div class="title"><strong>Configure and Start Minikube</strong></div>
 <p>Before installing Knative and its components, we need to create a Minikube virtual machine and deploy Kubernetes into it.</p>
 </div>
 <div class="paragraph">
-<p>Download minikube from <a href="https://kubernetes.io/docs/setup/minikube" class="bare">https://kubernetes.io/docs/setup/minikube</a> and add it to your path.</p>
+<p>Download <a href="https://kubernetes.io/docs/setup/minikube">minikube</a> and add it to your path.</p>
 </div>
 <div id="setup-minikube-start" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube profile knative <i class="conum" data-value="1"></i><b>(1)</b>
 
-minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2"></i><b>(2)</b>
+minikube start -p knative --memory=8192 --cpus=6 \<i class="conum" data-value="2"></i><b>(2)</b>
   --kubernetes-version=v1.12.0 \<i class="conum" data-value="3"></i><b>(3)</b>
   --vm-driver=hyperkit \<i class="conum" data-value="4"></i><b>(4)</b>
   --disk-size=50g \
@@ -526,8 +493,8 @@ minikube start -p knative --memory=8192 --cpus=4 \<i class="conum" data-value="2
 </div>
 <div id="run-install-istio" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.5.2/istio-crds.yaml &amp;&amp; \
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.5.2/istio.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serving/v0.7.1/third_party/istio-1.1.7/istio-crds.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.7.1/third_party/istio-1.1.7/istio-crds.yaml</a> &amp;&amp; \
+kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serving/v0.7.1/third_party/istio-1.1.7/istio-lean.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.7.1/third_party/istio-1.1.7/istio-lean.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-istio"><i class="fa fa-clipboard"></i></button><br/>
@@ -538,8 +505,15 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/v0
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
+<p>As Knative need only Istio Ingress Gateway and Pilot, we will use Knative Istio lean install, which just installs the required component</p>
+</li>
+<li>
 <p>Installation of Istio components will take some time and it is highly recommended that you start Knative components installation only after you have verified that all Istio component pods are running. The Istio pods can be watched using the command:</p>
+</li>
+</ul>
 </div>
 <div id="setup-watch-istio-pods" class="listingblock">
 <div class="content">
@@ -559,28 +533,54 @@ kubectl apply --filename https://github.com/knative/serving/releases/download/v0
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                       READY   STATUS      RESTARTS   AGE
-cluster-local-gateway-547467ccf6-857mx     1/1     Running     0          6h35m
-istio-citadel-7d64db8bcf-xgdh7             1/1     Running     0          6h35m
-istio-cleanup-secrets-7mjbl                0/1     Completed   0          6h35m
-istio-egressgateway-6ddf4c8bd6-sglg6       1/1     Running     0          6h35m
-istio-galley-7dd996474-4jhr4               1/1     Running     0          6h35m
-istio-ingressgateway-84b89d647f-f9n4h      1/1     Running     0          6h35m
-istio-pilot-86bb4fcbbd-ptz7n               2/2     Running     0          6h35m
-istio-pilot-86bb4fcbbd-s9qxl               2/2     Running     0          6h34m
-istio-pilot-86bb4fcbbd-xd887               2/2     Running     0          6h34m
-istio-policy-5c4d9ff96b-tzkbw              2/2     Running     0          6h35m
-istio-security-post-install-xdxc7          0/1     Completed   0          6h35m
-istio-sidecar-injector-6977b5cf5b-9wsjw    1/1     Running     0          6h35m
-istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                     READY   STATUS      RESTARTS   AGE
+cluster-local-gateway-579cfd9fdd-9hb7p   0/1     Running     0          62s
+istio-ingressgateway-776c54f7c4-m9qz2    1/2     Running     0          62s
+istio-init-crd-10-mc7h5                  0/1     Completed   0          68s
+istio-init-crd-11-86lsf                  0/1     Completed   0          68s
+istio-pilot-75b876b994-w8x7t             0/1     Running     0          62s
+istio-pilot-75b876b994-w8x7t             1/1     Running     0          67s
+istio-ingressgateway-776c54f7c4-m9qz2    2/2     Running     0          69s</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>Install Custom Resource Definitions</strong></p>
+</div>
+<div id="run-knative-crd-install" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --selector knative.dev/crd-install=true \
+  --filename https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml \
+  --filename https://github.com/knative/eventing/releases/download/v0.7.1/release.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-knative-crd-install"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>First time when you run the above command will show some warnings and error as shown below, you can either safely ignore them or re-running the above command will cause the errors to disappear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">unable to recognize "https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml": no matches for kind "Image" in version "caching.internal.knative.dev/v1alpha1"
+unable to recognize "https://github.com/knative/eventing/releases/download/v0.7.1/release.yaml": no matches for kind "ClusterChannelProvisioner" in version "eventing.knative.dev/v1alpha1"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><strong>Install Knative Serving</strong></p>
 </div>
 <div id="run-install-knative-serving" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/serving/releases/download/v0.5.2/serving.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --selector networking.knative.dev/certificate-provider!=cert-manager \
+  --filename https://github.com/knative/serving/releases/download/v0.7.1/serving.yaml</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-knative-serving"><i class="fa fa-clipboard"></i></button><br/>
@@ -612,53 +612,12 @@ istio-telemetry-7676df547f-55p6c           2/2     Running     0          6h35m<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                          READY   STATUS    RESTARTS   AGE
-activator-69b8474d6b-fhnwq    2/2     Running   0          6h33m
-autoscaler-6579b57774-lcjd2   2/2     Running   0          6h33m
-controller-66cd7d99df-6lt2t   1/1     Running   0          6h33m
-webhook-6d9568d-htxlt         1/1     Running   0          6h33m</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Install Knative Build</strong></p>
-</div>
-<div id="run-install-knative-build" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/build/releases/download/v0.5.0/build.yaml</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-knative-build"><i class="fa fa-clipboard"></i></button><br/>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>As the Knative build components are getting installed, you can watch their status using the following command:</p>
-</div>
-<div id="setup-watch-knative-build-pods" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-build get pods -w</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-build-pods"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p>You can use <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>A successful Knative build installation will have its pods running in the <code>knative-build</code> namespace as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                READY   STATUS    RESTARTS   AGE
-build-controller-658d64d9bd-4m7l9   1/1     Running   0          6h32m
-build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></pre>
+activator-bc968b649-r6l82           1/1     Running   0          36s
+autoscaler-66f5cd8774-kjs9k         1/1     Running   0          36s
+controller-68977d579c-phltz         1/1     Running   0          36s
+networking-istio-5d8d9d574d-5lfsl   1/1     Running   0          36s
+webhook-894c8cb4d-7hl97             1/1     Running   0          36s</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -666,9 +625,8 @@ build-webhook-6bb747665f-trjxg      1/1     Running   0          6h32m</code></p
 </div>
 <div id="run-install-knative-eventing" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename https://github.com/knative/eventing/releases/download/v0.5.0/release.yaml &amp;&amp; \
-kubectl apply --filename https://github.com/knative/eventing-sources/releases/download/v0.5.0/eventing-sources.yaml &amp;&amp; \
-kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serving/v0.5.2/third_party/config/build/clusterrole.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.5.2/third_party/config/build/clusterrole.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --selector networking.knative.dev/certificate-provider!=cert-manager \
+  --filename https://github.com/knative/eventing/releases/download/v0.7.1/release.yaml</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-knative-eventing"><i class="fa fa-clipboard"></i></button><br/>
@@ -681,16 +639,6 @@ kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serv
 <td class="content">
 <div class="paragraph">
 <p>As the Knative eventing components are getting installed, you can watch their status using the following commands:</p>
-</div>
-<div id="setup-watch-knative-sources-pods" class="listingblock">
-<div class="title">Event Sources</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knative-sources get pods -w</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-watch-knative-sources-pods"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p><strong>Eventing</strong></p>
 </div>
 <div id="setup-watch-knative-eventing-pods" class="listingblock">
 <div class="content">
@@ -706,23 +654,19 @@ kubectl apply --filename <a href="https://raw.githubusercontent.com/knative/serv
 </table>
 </div>
 <div class="paragraph">
-<p>A successful Knative eventing installation will have the following pods running in the <code>knative-eventing</code> and <code>knative-sources</code> namespaces:</p>
+<p>A successful Knative eventing installation will have the following pods running in the <code>knative-eventing</code> namespace:</p>
 </div>
 <div class="listingblock">
 <div class="title">knative-eventing namespace</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                            READY   STATUS    RESTARTS   AGE
-eventing-controller-cfbb757bd-lg5zk             1/1     Running   0          6h35m
-in-memory-channel-controller-75d6cc4b77-f8bfl   1/1     Running   0          6h35m
-in-memory-channel-dispatcher-c89db8bb8-ktr26    2/2     Running   1          6h35m
-webhook-5fbb8dbcc7-gk6cx                        1/1     Running   0          6h35m</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">knative-sources namespace</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                   READY   STATUS    RESTARTS   AGE
-controller-manager-0   1/1     Running   0          6h35m</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                           READY   STATUS    RESTARTS   AGE
+eventing-controller-5c5f664ddb-9bmq9           1/1     Running   0          3m40s
+eventing-webhook-7ccb674dc6-qjtwp              1/1     Running   0          3m40s
+imc-controller-9bcf67784-j7m2h                 1/1     Running   0          3m40s
+imc-dispatcher-7c6c7d798c-kvzf7                1/1     Running   0          3m40s
+in-memory-channel-controller-8dfd9c8df-cpsph   1/1     Running   0          3m40s
+in-memory-channel-dispatcher-8776cb68f-wntmb   1/1     Running   0          3m39s
+sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40s</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -758,61 +702,115 @@ controller-manager-0   1/1     Running   0          6h35m</code></pre>
 </table>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div class="tab-pane" aria-labelledby="tabset1_openshift">
 <div id="install-knative-openshift" class="paragraph">
 <p><strong>OpenShift</strong></p>
 </div>
 <div class="paragraph">
-<p>For OpenShift Knative installations we will use the OpenShift Cloud Function&#8217;s <a href="https://github.com/openshift-cloud-functions/knative-operators">Knative Operators</a>.</p>
+<p>Knative Serving and Eventing install needs OpenShift v4.x, you need to have one provisioned using <a href="https://try.openshift.com">try.openshift.com</a>or can use any existing OpenShift4 cluster.</p>
 </div>
 <div class="paragraph">
-<p>Clone the Knative Operator sources locally:</p>
-</div>
-<div id="setup-ocp-kn-operator" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME \
-git clone <a href="https://github.com/openshift-cloud-functions/knative-operators" class="bare">https://github.com/openshift-cloud-functions/knative-operators</a> \
-cd knative-operators</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-ocp-kn-operator"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p><strong>OpenShift Container Platform</strong></p>
+<p>Once you have your cluster, you can download the latest OpenShift client(oc) from <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/">here</a> and add to your path.</p>
 </div>
 <div class="paragraph">
-<p>If you have an existing OpenShift cluster then run the following commands:</p>
+<p>We will be using <a href="https://coreos.com/operators/">Kubernetes Operators</a> to install Knative serving and eventing components on OpenShift. OpenShift is integrated with <a href="https://operatorhub.io/">OperatorHub</a> that allows you to install the components(using Kubernetes operators) from within OpenShift web console.</p>
 </div>
-<div id="run-ocp-kn-operator" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install.sh</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-ocp-kn-operator"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p>If you need more details about the installation or customizations refer <a href="https://github.com/openshift-cloud-functions/Documentation/blob/master/knative-OCP.md">Knative with OpenShift</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>minishift</strong></p>
-</div>
-<div class="paragraph">
-<p>Download Minishift from <a href="https://github.com/minishift/minishift/releases" class="bare">https://github.com/minishift/minishift/releases</a> and add it your path.</p>
-</div>
-<div class="paragraph">
-<p>Run the following commands to configure Knative with minishift:</p>
-</div>
-<div id="run-ocp-kn-operator-minishift" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./etc/scripts/install-on-minishift.sh <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-ocp-kn-operator-minishift"><i class="fa fa-clipboard"></i></button><br/>
-<div class="colist arabic">
+<div class="admonitionblock important">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It will create a minishift profile and install Knative. It also assumes that you already have minishift and your computer has 10GB or more of memory.</td>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Knative components are right now available as community components and is currently not supported by Red Hat.</p>
+</div>
+</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Login to OpenShift console using the cluster admin credentials.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select Knative Operators via OperatorHub</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/select_knative_operators.png" alt="select knative operators">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select and Install Knative Serving</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/select_kn_serving.png" alt="select kn serving">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/install_knative_serving.png" alt="install knative serving">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Subscribe Knative Serving</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/create_knative_serving_sub.png" alt="create knative serving sub">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/subscribed_knative_serving.png" alt="subscribed knative serving">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select and Install Knative Eventing</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/select_kn_eventing.png" alt="select kn eventing">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/install_knative_eventing.png" alt="install knative eventing">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Subscribe Knative Eventing</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/create_knative_eventing_sub.png" alt="create knative eventing sub">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/subscribed_knative_eventing.png" alt="subscribed knative eventing">
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Configuring OpenShift project for Knative applications</strong></p>
@@ -829,7 +827,7 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>oc adm policy</code> adds the <strong>privileged</strong> <a href="https://docs.okd.io/3.10/admin_guide/manage_scc.html">Security Context Constraints (SCCs)</a> to the <strong>default</strong> Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in Kubernetes.</td>
+<td>The <code>oc adm policy</code> adds the <strong>privileged</strong> <a href="https://docs.openshift.com/container-platform/4.1/authentication/managing-security-context-constraints.html">Security Context Constraints (SCCs)</a> to the <strong>default</strong> Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in Kubernetes.</td>
 </tr>
 </table>
 </div>

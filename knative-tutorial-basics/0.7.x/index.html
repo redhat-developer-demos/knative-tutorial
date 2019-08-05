@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-build/0.5.0/index.html">
+    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/index.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -27,93 +27,255 @@
   </nav>
 </header>
 <div class="main-wrapper">
-<div class="navigation-container"  data-component="knative-tutorial-build"
-  data-version="0.5.0" >
+<div class="navigation-container"  data-component="knative-tutorial-basics"
+  data-version="0.7.x" >
   <aside class="navigation">
     <div class="panels">
       <div class="navigation-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">Kuberntes Native Build</a></h3>
+    <h3 class="title"><a href="index.html">Introduction to Knative</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="build.html#build-prerequisite">1.Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="build.html">2. Build</a>
+    <a class="nav-link" href="01-setup.html">1. Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-edit-cr-secret">Edit Container Registry Secret</a>
+    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-edit-build-spec">Edit Build Spec</a>
+    <a class="nav-link" href="01-setup.html#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-edit-knative-service">Edit Knative Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="build.html#build-apply-prereq-resources">Apply Resources</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-create-build">Create Build</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-build-status">Check Build Status</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-deploy-service-build">Deploy Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html#build-build-cleanup">Cleanup</a>
+    <a class="nav-link" href="01-setup.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="build-templates.html">3. Build Template</a>
+    <a class="nav-link" href="02-basic-fundas.html">2. Basics and Fundamentals</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build-templates.html#build-template-template">Build Template</a>
+    <a class="nav-link" href="02-basic-fundas.html#basics-prerequisite">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build-templates.html#build-template-edit-service">Edit Knative Service</a>
+    <a class="nav-link" href="02-basic-fundas.html#basics-build-containers">Build Containers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="build-templates.html#build-template-apply-resources">Apply Resources</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build-templates.html#build-template-create-template">Create Build Template</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="build-templates.html#build-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-</ul>
+    <a class="nav-link" href="02-basic-fundas.html#basics-deploy-service">Deploy Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build-templates.html#build-deploy-service-build-template">Deploy Service</a>
+    <a class="nav-link" href="02-basic-fundas.html#basics-invoke-service">Invoke Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build-templates.html#build-template-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="02-basic-fundas.html#basics-see-what-you-have-deployed">See What You Have Deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build-templates.html#build-template-cleanup">Cleanup</a>
+    <a class="nav-link" href="02-basic-fundas.html#deploying-new-revision">Deploy a New Revision of a Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-basic-fundas.html#basics-pinning-revision">Pinning Service to a Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-basic-fundas.html#basics-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="build.html#build-watching-logs">4.Watching Logs</a>
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="04-scaling.html">4. Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-scaling.html#scaling-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-scaling.html#scaling-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-scaling.html#scaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-scaling.html#scaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="04-scaling.html#scaling-scale-to-zero">Scale to Zero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-observer-scale-to-zero">Observing Default Scale Down</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-observer-scale-to-zero-1m">Change Scale-to-Zero Time</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="04-scaling.html#scaling-auto-scaling">Auto Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-load-service">Load Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="04-scaling.html#scaling-min-scale">Minimum Scale</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-scaling.html#scaling-deploy-service-minscale">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-scaling.html#scaling-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing.html">5. Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="05-eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html">Source to Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-verify-event-source">Verify</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-sink-service">Sink Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-gen-sink-service">Generate Service</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-deploy-sink-service">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-svc.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html">Source to Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-subscriber-service">Subscriber Service</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-gen-subscriber-service">Generate Service</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-deploy-subscriber-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="05-eventing/eventing-src-sub.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html">Triggers and Brokers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="05-eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="05-eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="faq.html">8. Frequently Asked Questions</a>
   </li>
 </ul>
   </li>
@@ -131,11 +293,16 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="../../knative-tutorial/0.5.0/index.html" class="home-link"></a>
+  <a href="../../knative-tutorial/0.7.x/index.html" class="home-link"></a>
   <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Introduction to Knative</a></li>
+    <li class="crumb"><a href="index.html">Welcome to Knative Tutorial</a></li>
+  </ul>
 </nav>
 </div>
 <article class="doc">
+<h1>Welcome to Knative Tutorial</h1>
 
 </article>
   </main>

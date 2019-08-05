@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.5.0/02-basic-fundas.html">
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/02-basic-fundas.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -28,7 +28,7 @@
 </header>
 <div class="main-wrapper">
 <div class="navigation-container"  data-component="knative-tutorial-basics"
-  data-version="0.5.0" >
+  data-version="0.7.x" >
   <aside class="navigation">
     <div class="panels">
       <div class="navigation-menu is-active" data-panel="menu">
@@ -48,7 +48,7 @@
     <a class="nav-link" href="01-setup.html#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="01-setup.html#kubernetes-cluster">Kubernetes Cluster</a>
+    <a class="nav-link" href="01-setup.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
   </li>
 </ul>
   </li>
@@ -79,39 +79,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#basics-cleanup">Cleanup</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="03-configs-and-routes.html">3. Configurations and Routes</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-prerequisite">Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#ctrd-build-containers">Build Containers</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-deploy-configuration">Deploy Configuration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-deploy-route">Deploy Route</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-see-what-you-have-deployed">See What You Have Deployed</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-deploying-new-revision">Deploy a New Revision of a Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#crtd-distributing-traffic">Distributing Traffic</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-configs-and-routes.html#ctrd-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -326,7 +293,7 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="../../knative-tutorial/0.5.0/index.html" class="home-link"></a>
+  <a href="../../knative-tutorial/0.7.x/index.html" class="home-link"></a>
   <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Introduction to Knative</a></li>
@@ -350,10 +317,7 @@
 <p>Deploy multiple revisions of a service.</p>
 </li>
 <li>
-<p>Choose between different service deployment strategies.</p>
-</li>
-<li>
-<p>Run different revisions of a service.</p>
+<p>Run different revisions of a service via traffic definition.</p>
 </li>
 </ul>
 </div>
@@ -369,15 +333,15 @@
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset1_minikube"></a>Minikube</p>
+<p><a id="tabset1_kubernetes"></a>Kubernetes</p>
 </li>
 <li>
-<p><a id="tabset1_minishift"></a>Minishift</p>
+<p><a id="tabset1_openshift"></a>OpenShift</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset1_minikube">
+<div class="tab-pane" aria-labelledby="tabset1_kubernetes">
 <div class="ulist">
 <ul>
 <li>
@@ -405,31 +369,17 @@
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-clipboard"></i></button><br/>
 </div>
-<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div class="tab-pane" aria-labelledby="tabset1_openshift">
 <div class="ulist">
 <ul>
 <li>
-<p>Set your local docker to use minishift docker daemon</p>
-</li>
-</ul>
-</div>
-<div id="minishift-set-env" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env)</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-clipboard"></i></button><br/>
-<div class="ulist">
-<ul>
-<li>
-<p>OpenShift CLI should be v3.11.0+</p>
+<p>OpenShift CLI should be v4.1+</p>
 </li>
 </ul>
 </div>
 <div id="oc-version" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift oc-env)
-oc version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-clipboard"></i></button><br/>
@@ -461,74 +411,6 @@ oc version</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-build-containers"><a class="anchor" href="#basics-build-containers"></a>Build Containers</h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you have already cloned the repo and built the <code>greeter</code> service you can skip this step.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Navigate to <code>greeter</code> app folder in $TUTORIAL_HOME</p>
-</li>
-</ul>
-</div>
-<div id="navigate-to-greeter-app-folder" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/greeter</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#navigate-to-greeter-app-folder"><i class="fa fa-clipboard"></i></button><br/>
-<div class="ulist">
-<ul>
-<li>
-<p>Build the application and container image</p>
-</li>
-</ul>
-</div>
-<div id="build-greeter" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd java/quarkus &amp;&amp; \
-./mvnw clean package &amp;&amp; \
-docker build -t dev.local/rhdevelopers/greeter:0.0.1  -f Dockerfile.all .</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#build-greeter"><i class="fa fa-clipboard"></i></button><br/>
-<div class="ulist">
-<ul>
-<li>
-<p>Check if images are built and available:</p>
-</li>
-</ul>
-</div>
-<div id="check-greeter-images" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker images | grep dev.local</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-greeter-images"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p>The above command should return something like as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">dev.local/rhdevelopers/greeter   0.0.1               6aa8771da8dd        2 hours ago         456MB</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="basics-deploy-service"><a class="anchor" href="#basics-deploy-service"></a>Deploy Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -551,21 +433,22 @@ kind: Service
 metadata:
   name: greeter
 spec:
-  runLatest: <i class="conum" data-value="1"></i><b>(1)</b>
-    configuration:
-      revisionTemplate:
-        spec:
-          container:
-            image: dev.local/rhdevelopers/greeter:0.0.1</code></pre>
+  template:
+    metadata:
+      name: greeter-v1
+      annotations:
+        # disable istio-proxy injection
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        livenessProbe:
+          httpGet:
+            path: /healthz
+        readinessProbe:
+          httpGet:
+            path: /healthz</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Makes Knative always run the latest revision of the deployment</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>The service can be deployed using the following command:</p>
@@ -664,15 +547,15 @@ spec:
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset4_minikube"></a>Minikube</p>
+<p><a id="tabset4_kubernetes"></a>Kubernetes</p>
 </li>
 <li>
-<p><a id="tabset4_minishift"></a>Minishift</p>
+<p><a id="tabset4_openshift"></a>OpenShift</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset4_minikube">
+<div class="tab-pane" aria-labelledby="tabset4_kubernetes">
 <div id="bis-kubectl-svc-gateway-env" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
@@ -686,16 +569,11 @@ spec:
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
-<div class="tab-pane" aria-labelledby="tabset4_minishift">
-<div id="bis-oc-svc-gateway-env" class="listingblock">
+<div class="tab-pane" aria-labelledby="tabset4_openshift">
+<div id="bisopenshift-oc-svc-call" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minishift ip):$(oc get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
-<div id="bis-oc-svc-call" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
+http $SVC_URL</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
@@ -921,24 +799,28 @@ kind: Service
 metadata:
   name: greeter
 spec:
-  runLatest:
-    configuration:
-      revisionTemplate:
-        spec:
-          container:
-            image: dev.local/rhdevelopers/greeter:0.0.1
-            env:
-             - name: MESSAGE_PREFIX <i class="conum" data-value="1"></i><b>(1)</b>
-               value: Namaste</code></pre>
+  template:
+    metadata:
+      name: greeter-v2
+      annotations:
+        # disable istio-proxy injection
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        env:
+        - name: MESSAGE_PREFIX
+          value: Namaste
+        livenessProbe:
+          httpGet:
+            path: /healthz
+        readinessProbe:
+          httpGet:
+            path: /healthz</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Adding an environment variable that will be used as the message prefix</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Adding an environment variable that will be used as the message prefix</p>
 </div>
 <div class="paragraph">
 <p>Let us deploy the new revision using the command:</p>
@@ -978,10 +860,10 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-cqgcf-deployment</code>.</p>
+<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-v2-deployment</code>.</p>
 </div>
 <div class="paragraph">
-<p>Now if you list revisions, you will see two of them, named similar to <code>greeter-cqgcf</code> and <code>greeter-nsrbr</code>.</p>
+<p>Now if you list revisions, you will see two of them, named similar to <code>greeter-v1</code> and <code>greeter-v2</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1030,10 +912,10 @@ spec:
 <h2 id="basics-pinning-revision"><a class="anchor" href="#basics-pinning-revision"></a>Pinning Service to a Revision</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As you noticed, Knative service always routes traffic to the <strong>latest</strong> revision of the service deployment, due to the <strong>runLatest</strong> attribute in the <a href="#basics-service-rev2">service resource file</a>.</p>
+<p>As you noticed, Knative service always routes traffic to the <strong>latest</strong> revision of the service deployment. It is possible to split the traffic amongst the available revisions.</p>
 </div>
 <div class="paragraph">
-<p>Let us now make the greeter service use the first revision created, the one using the default <code>MESSAGE_PREFIX</code>.</p>
+<p>As we already know the at got two revisions namely <code>greeter-v1</code> and <code>greeter-v2</code>. The <code>traffic</code> block in the Knative <code>service</code> specification helps in pinning a service to a particular revision or split traffic among multiple revisions.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1059,49 +941,54 @@ kind: Service
 metadata:
   name: greeter
 spec:
-  release: <i class="conum" data-value="1"></i><b>(1)</b>
-    revisions:
-    - greeter-nsrbr
-  configuration:
-    revisionTemplate:
-      spec:
-        container:
-          image: dev.local/rhdevelopers/greeter:0.0.1
-          env:
-            - name: MESSAGE_PREFIX
-              value: Namaste
-          livenessProbe:
-            httpGet:
-              path: /healthz
-          readinessProbe:
-            httpGet:
-              path: /healthz</code></pre>
+  template:
+    metadata:
+      name: greeter-v2
+      annotations:
+        # disable istio-proxy injection
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        env:
+        - name: MESSAGE_PREFIX
+          value: Namaste
+        livenessProbe:
+          httpGet:
+            path: /healthz
+        readinessProbe:
+          httpGet:
+            path: /healthz
+  traffic:
+  - tag: current
+    revisionName: greeter-v1
+    percent: 100
+  - tag: prev
+    revisionName: greeter-v2
+    percent: 0
+  - tag: latest
+    latestRevision: true
+    percent: 0</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <strong>release</strong> attribute in the service resource file will make Knative use the revision specified in the <strong>revisions</strong> attribute.</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The names of revisions may be different in your setup</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>Let us redeploy the greeter service by pinning it to the first revision that was created:</p>
+<p>The above service definition creates three sub-routes(named after traffic <strong>tags</strong>) to existing <code>greeter</code> route.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>current</strong> - The revision is going to have all 100% traffic distribution</p>
+</li>
+<li>
+<p><strong>prev</strong> - The previously active revision, which will now have zero traffic</p>
+</li>
+<li>
+<p><strong>latest</strong> - The route pointing to any latest service deployment, by setting to zero we are making sure the latest revision is not picked up automatically.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let us redeploy the greeter service by pinning it to the <code>greeter-v1</code>:</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -1118,8 +1005,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset11_kubectl">
 <div id="run-pinned-revision" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">PIN_REVISION=`kubectl get rev -n knativetutorial -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` &amp;&amp; \
-cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kubectl -n knativetutorial apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial apply -f service-pinned.yaml</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-pinned-revision"><i class="fa fa-clipboard"></i></button><br/>
@@ -1127,8 +1013,7 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | kub
 <div class="tab-pane" aria-labelledby="tabset11_oc">
 <div id="run-oc-pinned-revision" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">PIN_REVISION=`oc get rev -n knativetutorial -l serving.knative.dev/service=greeter -l serving.knative.dev/configurationGeneration=1 | awk 'NR==2{print $1}'` &amp;&amp; \
-cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc -n knativetutorial  apply -f -</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial  apply -f service-pinned.yaml</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-oc-pinned-revision"><i class="fa fa-clipboard"></i></button><br/>
@@ -1136,14 +1021,8 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
 </div>
 </div>
 <div class="paragraph">
-<p><a href="#basics-invoke-service">Invoking Service</a> will produce output similar to <strong>Hi  greeter &#8658; '6fee83923a9f' : 1</strong></p>
+<p>Let us list the available sub-routes:</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="basics-cleanup"><a class="anchor" href="#basics-cleanup"></a>Cleanup</h2>
-<div class="sectionbody">
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -1157,6 +1036,97 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset12_kubectl">
+<div id="run-traffic-sub-routes" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get ksvc greeter -oyaml \
+ | yq r - 'status.traffic[*].url'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-traffic-sub-routes"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset12_oc">
+<div id="run-oc-traffic-sub-routes" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get ksvc greeter -oyaml \
+  | yq r - 'status.traffic[*].url'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-oc-traffic-sub-routes"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should return you three sub-routes for the main <code>greeter</code> route:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">- <a href="http://current-greeter.knativetutorial.example.com" class="bare">http://current-greeter.knativetutorial.example.com</a> <i class="conum" data-value="1"></i><b>(1)</b>
+- <a href="http://prev-greeter.knativetutorial.example.com" class="bare">http://prev-greeter.knativetutorial.example.com</a> <i class="conum" data-value="2"></i><b>(2)</b>
+- <a href="http://latest-greeter.knativetutorial.example.com" class="bare">http://latest-greeter.knativetutorial.example.com</a> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>the sub route for the traffic tag <code>current</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>the sub route for the traffic tag <code>prev</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>the sub route for the traffic tag <code>latest</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="#basics-invoke-service">Invoking Service</a> will produce output similar to <strong>Hi  greeter &#8658; '6fee83923a9f' : 1</strong></p>
+</div>
+<div class="paragraph">
+<p>As per the current traffic distribution, the <code>greeter</code> route will always return response from revision <code>greeter-v1</code> (traffic tag <code>current</code>)</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If you are in vanilla Kubernetes cluster you can also try the using the above urls in the <code>Host</code> header of the http command to see them scaling the respective deployments to get the result.</p>
+</li>
+<li>
+<p>If you are on OpenShift then you can directly invoke the urls</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="basics-cleanup"><a class="anchor" href="#basics-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset13_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset13_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset13_kubectl">
 <div id="basics-run-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
@@ -1164,7 +1134,7 @@ cat service-pinned.yaml | yq w - "spec.release.revisions[+]" $PIN_REVISION | oc 
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#basics-run-cleanup"><i class="fa fa-clipboard"></i></button><br/>
 </div>
-<div class="tab-pane" aria-labelledby="tabset12_oc">
+<div class="tab-pane" aria-labelledby="tabset13_oc">
 <div id="basics-run-oc-cleanup" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
