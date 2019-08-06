@@ -16,6 +16,7 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 .xref:knative-tutorial-basics:ROOT:index.adoc[Basics and Fundamentals]
 * xref:knative-tutorial-basics:ROOT:01-setup.adoc[Setup]
 * xref:knative-tutorial-basics:ROOT:02-basic-fundas.adoc[Serving]
+* xref:knative-tutorial-basics:ROOT:03-knative-client.adoc[Knative Client]
 * xref:knative-tutorial-basics:ROOT:04-scaling.adoc[Auto Scaling]
 * xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Eventing]
 
