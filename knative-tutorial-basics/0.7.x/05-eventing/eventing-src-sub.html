@@ -84,6 +84,60 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03-knative-client.html">3. Knative Client</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../03-knative-client.html#kn-install">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03-knative-client.html#kn-ksvc">Knative Service Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-create-ksvc">Create Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-list-services">List Knative Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-update-ksvc">Update Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03-knative-client.html#kn-revisons">Knative Revision Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-revisions-list">Knative Revision List</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="../03-knative-client.html#kn-routes">Knative Route Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../03-knative-client.html#kn-route-list">Knative Revision List</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
     <a class="nav-link" href="../04-scaling.html">4. Scaling</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -326,17 +380,15 @@ spec:
     name: in-memory</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The channel provisioner which is responsible for provisioning this channel. Various messaging implementations provide their own channel(s) via <em>ClusterChannelProvisioner</em>.</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p>The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)</p>
+</li>
+<li>
+<p>The channel provisioner which is responsible for provisioning this channel. Various messaging implementations provide their own channel(s) via <em>ClusterChannelProvisioner</em>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
@@ -453,17 +505,15 @@ spec:
     name: ch-event-greeter</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The channel(sink) where the event data will be drained</td>
-</tr>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</p>
+</li>
+<li>
+<p>The channel(sink) where the event data will be drained</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>

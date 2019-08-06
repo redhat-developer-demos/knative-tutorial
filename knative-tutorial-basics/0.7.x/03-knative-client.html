@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/index.html">
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/03-knative-client.html">
     <meta name="generator" content="Antora 2.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -82,55 +82,55 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="03-knative-client.html">3. Knative Client</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-knative-client.html#kn-install">Install</a>
+    <a class="nav-link" href="#kn-install">Install</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="03-knative-client.html#kn-ksvc">Knative Service Commands</a>
+    <a class="nav-link" href="#kn-ksvc">Knative Service Commands</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-create-ksvc">Create Knative Service</a>
+    <a class="nav-link" href="#kn-create-ksvc">Create Knative Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-list-services">List Knative Services</a>
+    <a class="nav-link" href="#kn-list-services">List Knative Services</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-update-ksvc">Update Knative Service</a>
+    <a class="nav-link" href="#kn-update-ksvc">Update Knative Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
+    <a class="nav-link" href="#kn-desc-ksvc">Describe Knative Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
+    <a class="nav-link" href="#kn-delete-ksvc">Delete Knative Service</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="03-knative-client.html#kn-revisons">Knative Revision Commands</a>
+    <a class="nav-link" href="#kn-revisons">Knative Revision Commands</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-revisions-list">Knative Revision List</a>
+    <a class="nav-link" href="#kn-revisions-list">Knative Revision List</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
+    <a class="nav-link" href="#kn-revisions-desc">Knative Revision Describe</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
+    <a class="nav-link" href="#kn-revisions-delete">Knative Revision Delete</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="03-knative-client.html#kn-routes">Knative Route Commands</a>
+    <a class="nav-link" href="#kn-routes">Knative Route Commands</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-knative-client.html#kn-route-list">Knative Revision List</a>
+    <a class="nav-link" href="#kn-route-list">Knative Revision List</a>
   </li>
 </ul>
   </li>
@@ -351,13 +351,479 @@
   <nav class="crumbs" aria-label="breadcrumbs">
   <ul>
     <li class="crumb"><a href="index.html">Introduction to Knative</a></li>
-    <li class="crumb"><a href="index.html">Welcome to Knative Tutorial</a></li>
+    <li class="crumb"><a href="03-knative-client.html">3. Knative Client</a></li>
   </ul>
 </nav>
 </div>
 <article class="doc">
 <h1>Welcome to Knative Tutorial</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/knative/client">Knative Client</a> is the command line utility aimed at enhancing the developer experience when doing Knative Serving and Eventing tasks.</p>
+</div>
+<div class="paragraph">
+<p>At the end of this chapter you will be able to :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Install Knative client</p>
+</li>
+<li>
+<p>Create, update, list and delete knative service</p>
+</li>
+<li>
+<p>Create, update, list and delete knative service revisions</p>
+</li>
+<li>
+<p>List knative service routes</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Knative Client (<code>kn</code>) is still under aggressive development, so commands and options might change rapidly.</p>
+</li>
+<li>
+<p>As of writing the tutorial v0.2.0 was the latest version of the knative client</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-install"><a class="anchor" href="#kn-install"></a>Install</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Download the <a href="https://github.com/knative/client/releases/tag/v0.2.0">latest</a> Knative Client and add to your <code>PATH</code>.</p>
+</div>
+<div class="paragraph">
+<p>Verify installation by running the command:</p>
+</div>
+<div id="kn-verify-install" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kn-verify-install"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The above command will return a response like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Version:      v0.2.0
+Build Date:   2019-07-10 20:57:03
+Git Revision: e1614f9
+Dependencies:
+- serving:    v0.6.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-ksvc"><a class="anchor" href="#kn-ksvc"></a>Knative Service Commands</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the  <a href="02-basic-fundas.html" class="page">previous chapter</a> you created, updated and deleted the Knative service using the YAML and kubectl/oc command line tools.</p>
+</div>
+<div class="paragraph">
+<p>We will perform the same operations in this chapter but with <code>kn</code>:</p>
+</div>
+<div class="sect2">
+<h3 id="kn-create-ksvc"><a class="anchor" href="#kn-create-ksvc"></a>Create Service</h3>
+<div class="paragraph">
+<p>To create the <code>greeter</code> service using <code>kn</code> run the following command:</p>
+</div>
+<div id="kn-create-ksvc-greeter" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create greeter --namespace knativetutorial --image quay.io/rhdevelopers/knative-tutorial-greeter:quarkus</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kn-create-ksvc-greeter"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful create of the <code>greeter</code> service should show a response like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Service 'greeter' successfully created in namespace 'knativetutorial'.
+Waiting for service 'greeter' to become ready ... OK
 
+Service URL:
+http://greeter.knativetutorial.example.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-list-services"><a class="anchor" href="#kn-list-services"></a>List Knative Services</h3>
+<div class="paragraph">
+<p>You can list the created services using the command:</p>
+</div>
+<div id="kn-list-ksvc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service list --namespace knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kn-list-ksvc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="sect2">
+<h3 id="kn-invoke-service"><a class="anchor" href="#kn-invoke-service"></a>Invoke Service</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset1_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_kubernetes">
+<div id="bis-kubectl-svc-gateway-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-gateway-env"><i class="fa fa-clipboard"></i></button><br/>
+<div id="bis-kubectl-svc-call" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_openshift">
+<div id="bisopenshift-oc-svc-call" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
+http $SVC_URL</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can <a href="02-basic-fundas.html#basics-see-what-you-have-deployed" class="page">verify</a> what you the kn client has deployed, to make sure its inline with what you have see in previous chapter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-update-ksvc"><a class="anchor" href="#kn-update-ksvc"></a>Update Knative Service</h3>
+<div class="paragraph">
+<p>To create a new revision using <code>kn</code> is as easy as running another command.</p>
+</div>
+<div class="paragraph">
+<p>In previous chapter we deployed a new revision of Knative service by adding an environment variable. Lets try do the same thing with <code>kn</code> to trigger a new deployment:</p>
+</div>
+<div id="run-kn-update-ksvc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update greeter --env "MESSAGE_PREFIX=Namaste"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-update-ksvc"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Now <a href="#kn-invoke-service">Invoking the service</a> will return me a response like <strong>Namaste  greeter &#8658; '9861675f8845' : 1</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-desc-ksvc"><a class="anchor" href="#kn-desc-ksvc"></a>Describe Knative Service</h3>
+<div class="paragraph">
+<p>Sometime you wish you get the YAML of the Knative service to build a new service or to compare with with another service. <code>kn</code> makes it super easy for you to get the YAML:</p>
+</div>
+<div id="run-kn-desc-ksvc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe greeter</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-desc-ksvc"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The describe should show you an exhaustive YAML like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  annotations:
+    serving.knative.dev/creator: minikube-user
+    serving.knative.dev/lastModifier: minikube-user
+  creationTimestamp: "2019-08-05T12:51:40Z"
+  generation: 2
+  name: greeter
+  namespace: knativetutorial
+  resourceVersion: "35193"
+  selfLink: /apis/serving.knative.dev/v1alpha1/namespaces/knativetutorial/services/greeter
+  uid: c4ee1f47-b77f-11e9-96b1-22e0f431a3ed
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - env:
+        - name: MESSAGE_PREFIX
+          value: '''Namaste'''
+        image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        name: user-container
+        resources: {}
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
+status:
+  address:
+    url: http://greeter.knativetutorial.svc.cluster.local
+  conditions:
+  - lastTransitionTime: "2019-08-05T13:03:33Z"
+    status: "True"
+    type: ConfigurationsReady
+  - lastTransitionTime: "2019-08-05T13:03:33Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2019-08-05T13:03:33Z"
+    status: "True"
+    type: RoutesReady
+  latestCreatedRevisionName: greeter-578mv
+  latestReadyRevisionName: greeter-578mv
+  observedGeneration: 2
+  traffic:
+  - latestRevision: true
+    percent: 100
+    revisionName: greeter-578mv
+  url: http://greeter.knativetutorial.example.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-delete-ksvc"><a class="anchor" href="#kn-delete-ksvc"></a>Delete Knative Service</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are going to work with other <code>kn</code> commands <a href="#kn-revisions">Revisions</a> and <a href="#kn-routes">Routes</a>, then run these exercises after those commands</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can also use <code>kn</code> to delete the service that were created, to delete the service named <code>greeter</code> run the following command:</p>
+</div>
+<div id="run-kn-delete-ksvc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete greeter</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-delete-ksvc"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful delete should show an output like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Service 'greeter' successfully deleted in namespace 'knativetutorial'.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#kn-list-services">Listing services</a> you will notice that the <code>greeter</code> service no longer exists.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-revisions"><a class="anchor" href="#kn-revisions"></a>Knative Revision Commands</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>kn</code> revision commands are used to interact with revision(s) of knative service.</p>
+</div>
+<div class="sect2">
+<h3 id="kn-revisions-list"><a class="anchor" href="#kn-revisions-list"></a>List Revisions</h3>
+<div class="paragraph">
+<p>You can list the available revisions of a knative service using:</p>
+</div>
+<div id="run-kn-list-rev" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-list-rev"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command should show a list of revisions like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            SERVICE   AGE   CONDITIONS   READY   REASON
+greeter-7cqzq   greeter   11s   4 OK / 4     True
+greeter-qctxv   greeter   56s   4 OK / 4     True</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-revisions-desc"><a class="anchor" href="#kn-revisions-desc"></a>Describe Revision</h3>
+<div class="paragraph">
+<p>To get the details about a specific revision you can use the command:</p>
+</div>
+<div id="run-kn-desc-rev" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision describe greeter-7cqzq</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-desc-rev"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command should return a YAML like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
+kind: Revision
+metadata:
+  annotations:
+    serving.knative.dev/lastPinned: "1565062128"
+  creationTimestamp: "2019-08-06T03:28:42Z"
+  generateName: greeter-
+  generation: 1
+  labels:
+    serving.knative.dev/configuration: greeter
+    serving.knative.dev/configurationGeneration: "2"
+    serving.knative.dev/service: greeter
+  name: greeter-7cqzq
+  namespace: knativetutorial
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Configuration
+    name: greeter
+    uid: 2f89f930-b7fa-11e9-96b1-22e0f431a3ed
+  resourceVersion: "40312"
+  selfLink: /apis/serving.knative.dev/v1alpha1/namespaces/knativetutorial/revisions/greeter-7cqzq
+  uid: 49e30221-b7fa-11e9-96b1-22e0f431a3ed
+spec:
+  containers:
+  - env:
+    - name: MESSAGE_PREFIX
+      value: Namaste
+    image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+    name: user-container
+    resources: {}
+  timeoutSeconds: 300
+status:
+  conditions:
+  - lastTransitionTime: "2019-08-06T03:29:51Z"
+    message: The target is not receiving traffic.
+    reason: NoTraffic
+    severity: Info
+    status: "False"
+    type: Active
+  - lastTransitionTime: "2019-08-06T03:28:48Z"
+    status: "True"
+    type: ContainerHealthy
+  - lastTransitionTime: "2019-08-06T03:28:48Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2019-08-06T03:28:48Z"
+    status: "True"
+    type: ResourcesAvailable
+  imageDigest: quay.io/rhdevelopers/knative-tutorial-greeter@sha256:767e2f4b37d29de3949c8c695d3285739829c348df1dd703479bbae6dc86aa5a
+  logUrl: http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.knative-dev%2FrevisionUID:(query:'49e30221-b7fa-11e9-96b1-22e0f431a3ed',type:phrase))))
+  observedGeneration: 1
+  serviceName: greeter-7cqzq</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-revisions-delete"><a class="anchor" href="#kn-revisions-delete"></a>Delete Revision</h3>
+<div class="paragraph">
+<p>To delete a specific revision you can use the command:</p>
+</div>
+<div id="run-kn-del-rev" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision delete greeter-7cqzq</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-del-rev"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command should return an output like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Revision 'greeter-7cqzq' successfully deleted in namespace 'knativetutorial'.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now <a href="#kn-invoke-service">invoking service</a> will return the response from revision <code>greeter-6m45j</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-routes"><a class="anchor" href="#kn-routes"></a>Knative Route Commands</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>kn</code> revision commands are used to interact with route(s) of knative service.</p>
+</div>
+<div class="sect2">
+<h3 id="kn-routes-list"><a class="anchor" href="#kn-routes-list"></a>List Routes</h3>
+<div id="run-kn-rt-list" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn route list</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-rt-list"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command should return an output like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME      URL                                          AGE   CONDITIONS   TRAFFIC
+greeter   http://greeter.knativetutorial.example.com   10m   3 OK / 3     100% -&gt; greeter-zd7jk</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As an exercise you can run the exercises of <a href="02-basic-fundas.html" class="page">previous chapter</a> and try listing the routes using <code>kn</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-cleanup"><a class="anchor" href="#kn-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div id="cleanup-kn-delete-ksvc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete greeter</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cleanup-kn-delete-ksvc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
 </article>
   </main>
 </div>

@@ -82,6 +82,60 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-knative-client.html">3. Knative Client</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-knative-client.html#kn-install">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-knative-client.html#kn-ksvc">Knative Service Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-create-ksvc">Create Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-list-services">List Knative Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-update-ksvc">Update Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-knative-client.html#kn-revisons">Knative Revision Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-revisions-list">Knative Revision List</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-knative-client.html#kn-routes">Knative Route Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-knative-client.html#kn-route-list">Knative Revision List</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="04-scaling.html">4. Scaling</a>
@@ -724,13 +778,13 @@ spec:
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-siege"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset6_openshift">
-<div id="scaling-run-siege" class="listingblock">
+<div id="oc-scaling-run-siege" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">siege -r 1 -c 50 -t 30S \
   "${SVC_URL}/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-run-siege"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-scaling-run-siege"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
