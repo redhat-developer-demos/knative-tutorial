@@ -477,7 +477,7 @@
 <h2 id="scaling-deploy-service"><a class="anchor" href="#scaling-deploy-service"></a>Deploy Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following snippet shows how a Knative service YAML will look like:</p>
+<p>The following snippet shows what a Knative service YAML will look like:</p>
 </div>
 <div class="listingblock">
 <div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/02-basics/knative/service.yaml">service.yaml</a></div>
@@ -551,7 +551,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After the deployment was successful of the service we should see a Kubernetes deployment like <code>greeter-v1-deployment</code>.</p>
+<p>After the deployment of the service was successful we should see a Kubernetes deployment like <code>greeter-v1-deployment</code>.</p>
 </div>
 </div>
 </div>
@@ -616,7 +616,7 @@ http $SVC_URL</code></pre>
 <p>If another request tries to get to this revision, the activator will get it, instruct the autoscaler to create new pods for the revision as quickly as possible and buffer the request until those new pods are created.</p>
 </div>
 <div class="paragraph">
-<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in approx <code>110 secs</code>.</p>
+<p>By default the <strong>scale-to-zero-grace-period</strong> is <code>30s</code>, and the <strong>stable-window</strong> is <code>60s</code>. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in approx <code>110 secs</code>. There are at least 20 seconds after the pod starts to terminate and before it&#8217;s completely terminated. This gives Istio enough time to leave out the pod from its own networking configuration.</p>
 </div>
 <div class="paragraph">
 <p>For better clarity and understanding let us <a href="#scaling-cleanup">clean up</a> the deployed Knative resources before going to next section.</p>
@@ -800,7 +800,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>With this current setting of <strong>concurrencyTarget=10</strong>(<code>containerConcurrency: "10"</code>) and <strong>inflightRequests=50</strong> , you will see Knative automatically scales the greeter services to  <code><strong>50/10 = 5 pods</strong></code>.</p>
+<p>With this current setting of <strong>concurrencyTarget=10</strong> and <strong>inflightRequests=50</strong> , you will see Knative automatically scales the greeter services to  <code><strong>50/10 = 5 pods</strong></code>.</p>
 </div>
 <div class="paragraph">
 <p>For more clarity and understanding let us <a href="#scaling-cleanup">clean up</a> existing deployments before proceeding to next section.</p>
