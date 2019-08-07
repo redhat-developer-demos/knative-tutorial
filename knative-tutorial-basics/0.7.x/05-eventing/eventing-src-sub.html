@@ -362,7 +362,7 @@
 <h2 id="eventing-channel"><a class="anchor" href="#eventing-channel"></a>Channel(Sink)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel">channel or sink</a> is an interface between the <a href="#eventing-source">event source</a> and the <a href="#eventing-subscriber">subscriber</a>.The channels are built in to store the incoming events and distribute the event data to the subscribers. When forwarding event to subscribers the channel transforms the event data as per <a href="http://cloudevents.io">CloudEvent</a> specification.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel">channel or sink</a> is an interface between the <a href="#eventing-source">event source</a> and the <a href="#eventing-subscriber">subscriber</a>. The channels are built in to store the incoming events and distribute the event data to the subscribers. When forwarding event to subscribers the channel transforms the event data as per <a href="http://cloudevents.io">CloudEvent</a> specification.</p>
 </div>
 <div class="sect2">
 <h3 id="eventing-create-event-channel"><a class="anchor" href="#eventing-create-event-channel"></a>Create Event Channel</h3>
@@ -372,23 +372,25 @@
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: eventing.knative.dev/v1alpha1
 kind: Channel
 metadata:
-  name: ch-event-greeter
+  name: ch-event-greeter <i class="conum" data-value="1"></i><b>(1)</b>
 spec:
-  provisioner:
+  provisioner: <i class="conum" data-value="2"></i><b>(2)</b>
     apiVersion: eventing.knative.dev/v1alpha1
     kind: ClusterChannelProvisioner
     name: in-memory</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)</p>
-</li>
-<li>
-<p>The channel provisioner which is responsible for provisioning this channel. Various messaging implementations provide their own channel(s) via <em>ClusterChannelProvisioner</em>.</p>
-</li>
-</ul>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The channel provisioner which is responsible for provisioning this channel. Various messaging implementations provide their own channel(s) via <em>ClusterChannelProvisioner</em>.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
@@ -493,27 +495,29 @@ ch-event-greeter   39s</code></pre>
 <div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source.yaml">event-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
-kind: CronJobSource
+kind: CronJobSource <i class="conum" data-value="1"></i><b>(1)</b>
 metadata:
   name: event-greeter-cronjob-source
 spec:
   schedule: "* * * * *"
   data: '{"message": "Thanks for doing Knative Tutorial"}'
-  sink:
+  sink: <i class="conum" data-value="2"></i><b>(2)</b>
     apiVersion: eventing.knative.dev/v1alpha1
     kind: Channel
     name: ch-event-greeter</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</p>
-</li>
-<li>
-<p>The channel(sink) where the event data will be drained</p>
-</li>
-</ul>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The channel(sink) where the event data will be drained</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -524,7 +528,7 @@ spec:
 <td class="content">
 <div class="paragraph">
 <p>Event Source can define the attributes that it wishes to receive via the
-spec.  In the above example it defines <strong>schedule</strong>(the the cron expression) and <strong>data</strong> that will be sent as part of the event.</p>
+spec. In the above example it defines <strong>schedule</strong>(the cron expression) and <strong>data</strong> that will be sent as part of the event.</p>
 </div>
 <div class="paragraph">
 <p>When you <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a>, you will notice this data being delivered to the service.</p>
@@ -886,7 +890,7 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 <div class="sect2">
 <h3 id="eventing-gen-subscriber-service"><a class="anchor" href="#eventing-gen-subscriber-service"></a>Generate Subscriber Service</h3>
 <div class="paragraph">
-<p>Run the following command to create the knative service that will be used as the subscriber for the cron events:</p>
+<p>Run the following command to create the Knative service that will be used as the subscriber for the cron events:</p>
 </div>
 <div class="listingblock">
 <div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/service.yaml">service.yaml</a></div>

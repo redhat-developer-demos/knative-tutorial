@@ -379,27 +379,29 @@
 <div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/05-eventing/knative/event-source-svc.yaml">event-source-svc.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
-kind: CronJobSource
+kind: CronJobSource <i class="conum" data-value="1"></i><b>(1)</b>
 metadata:
   name: event-greeter-cronjob-source
 spec:
   schedule: "* * * * *"
   data: '{"message": "Thanks for doing Knative Tutorial"}'
-  sink:
+  sink: <i class="conum" data-value="2"></i><b>(2)</b>
     apiVersion: serving.knative.dev/v1alpha1
     kind: Service
     name: event-greeter</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</p>
-</li>
-<li>
-<p>The service(sink) where the event data will be sent</p>
-</li>
-</ul>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The service(sink) where the event data will be sent</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -410,7 +412,7 @@ spec:
 <td class="content">
 <div class="paragraph">
 <p>Event Source can define the attributes that it wishes to receive via the
-spec.  In the above example it defines <strong>schedule</strong>(the the cron expression) and <strong>data</strong> that will be sent as part of the event.</p>
+spec.  In the above example it defines <strong>schedule</strong>(the cron expression) and <strong>data</strong> that will be sent as part of the event.</p>
 </div>
 <div class="paragraph">
 <p>When you <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a>, you will notice this data being delivered to the service.</p>
