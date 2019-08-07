@@ -30,9 +30,6 @@ work/**/*
 
 gh-pages
 node_modules
-package.json
-package-lock.json
-dev-site.yml
 
 .firebaserc
 firebase.json
