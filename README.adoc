@@ -16,3 +16,7 @@ This content is brought to you by http://developers.redhat.com[Red Hat Developer
 == Tutorial documentation
 
 * HTML https://redhat-developer-demos.github.io/knative-tutorial
+
+== Contributing
+
+Please refer to the [./CONTRIBUTING.adoc] on how you can contribute to the tutorial

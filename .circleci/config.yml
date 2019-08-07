@@ -49,4 +49,4 @@ workflows:
             - antora
           filters:
             branches:
-              only: release/0.5
+              only: release/0.7.x

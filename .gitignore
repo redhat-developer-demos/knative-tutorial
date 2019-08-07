@@ -30,9 +30,6 @@ work/**/*
 
 gh-pages
 node_modules
-package.json
-package-lock.json
-dev-site.yml
 
 .firebaserc
 firebase.json
@@ -40,3 +37,4 @@ firebase.json
 openshift-cloud-functions
 workshop-attributes.yaml
 workshop-site.yaml
+**/.factorypath

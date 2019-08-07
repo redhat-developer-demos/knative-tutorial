@@ -3,22 +3,21 @@ kind: Service
 metadata:
   name: greeter
 spec:
-  runLatest:
-    configuration:
-      revisionTemplate:
-        metadata:
-          annotations:
-            # disable istio-proxy injection
-            sidecar.istio.io/inject: "false"
-        spec:
-          container:
-            image: dev.local/rhdevelopers/greeter:0.0.1
-            env:
-              - name: MESSAGE_PREFIX
-                value: Namaste
-            livenessProbe:
-              httpGet:
-                path: /healthz
-            readinessProbe:
-              httpGet:
-                path: /healthz
+  template:
+    metadata:
+      name: greeter-v2
+      annotations:
+        # disable istio-proxy injection
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        env:
+        - name: MESSAGE_PREFIX
+          value: Namaste
+        livenessProbe:
+          httpGet:
+            path: /healthz
+        readinessProbe:
+          httpGet:
+            path: /healthz

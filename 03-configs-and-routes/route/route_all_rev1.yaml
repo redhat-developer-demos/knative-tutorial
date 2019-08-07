@@ -1,8 +1,0 @@
-apiVersion: serving.knative.dev/v1alpha1
-kind: Route
-metadata:
-  name: greeter
-spec:
-  traffic:
-    - revisionName: $revision
-      percent: 100
