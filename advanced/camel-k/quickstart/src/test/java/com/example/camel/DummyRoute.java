@@ -1,8 +1,7 @@
 package com.example.camel;
 
-import org.apache.camel.Body;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.language.XPath;
+import org.apache.camel.language.xpath.XPath;
 import org.apache.camel.test.AvailablePortFinder;
 
 public class DummyRoute extends RouteBuilder {

@@ -5,16 +5,10 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.amqp.AMQPComponent;
 import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.model.dataformat.JsonLibrary;
-import org.apache.camel.processor.aggregate.AggregationStrategy;
-import org.apache.camel.util.toolbox.AggregationStrategies;
 import org.apache.qpid.jms.JmsConnectionFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class SortAndUpperCase extends RouteBuilder {
 
