@@ -13,7 +13,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Component;
 import org.apache.camel.component.aws.s3.S3Constants;
 import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.processor.idempotent.MemoryIdempotentRepository;
+import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.util.FileUtil;
 

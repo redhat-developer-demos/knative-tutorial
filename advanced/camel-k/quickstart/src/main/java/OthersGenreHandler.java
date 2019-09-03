@@ -12,7 +12,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Component;
 import org.apache.camel.component.aws.s3.S3Constants;
 import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.language.XPath;
+import org.apache.camel.language.xpath.XPath;
 
 /**
  * The Camel route that handles messages from Knative Channel &quot;genre-others&quot; and uploads them to the s3 bucket

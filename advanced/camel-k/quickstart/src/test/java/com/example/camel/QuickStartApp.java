@@ -1,7 +1,7 @@
 package com.example.camel;
 
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.SimpleRegistry;
+import org.apache.camel.support.SimpleRegistry;
 
 /**
  * A Camel Application
