@@ -23,6 +23,10 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 * xref:knative-tutorial-basics:ROOT:03-knative-client.adoc[Knative Client]
 
 [.tile]
+.xref:knative-tutorial-tekton:ROOT:index.adoc[Tekton Pipelines]
+* xref:knative-tutorial-tekton:ROOT:01-setup.adoc[Setup]
+
+[.tile]
 .xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Eventing]
 *** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-src-svc.adoc[Source to Service]
 *** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-src-sub.adoc[Source to Subscriber]

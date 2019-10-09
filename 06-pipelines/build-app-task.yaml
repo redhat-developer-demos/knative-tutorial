@@ -1,0 +1,67 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-app
+spec:
+  inputs:
+   resources:
+    - name: source
+      type: git
+   params:
+   - name: contextDir
+     description: Parameter Description
+     default: .
+   - name: mavenMirrorUrl
+     description: Parameter Description
+     default: http://repo1.maven.apache.org/maven2
+   - name: destinationImage
+     description: Parameter Description
+     default: "$(outputs.resources.builtImage.url)"
+   - name: dockerFile
+     description: Parameter Description
+     default: src/main/docker/Dockerfile.jvm
+  outputs:
+   resources:
+    - name: builtImage
+      type: image
+  stepTemplate:
+     resources:
+       limits:
+         cpu: 4
+         memory: 4Gi
+       requests:
+         cpu: 2
+         memory: 2Gi
+     securityContext:
+       privileged: true
+  steps:
+   - name: build-sources
+     image: quay.io/rhdevelopers/quarkus-java-builder:graal-19.1.1
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     args:
+      - '/usr/local/bin/maven-run.sh'
+     env:
+     - name: MAVEN_MIRROR_URL
+       value: "$(inputs.params.mavenMirrorUrl)"
+     - name: MAVEN_CMD_ARGS
+       value: "-DskipTests clean install"
+     - name: WORK_DIR
+       value: "/workspace/source/$(inputs.params.contextDir)"
+   - name: build-image
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ['buildah', 'bud', '--tls-verify=false', '--layers','-f', '$(inputs.params.dockerFile)', '-t', '$(inputs.params.destinationImage)', '.']
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+   - name: build-push
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ["buildah","push", "--tls-verify=false","$(inputs.params.destinationImage)","docker://$(inputs.params.destinationImage)"]
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+  volumes:
+  - name: varlibc
+    emptyDir: {}
+      

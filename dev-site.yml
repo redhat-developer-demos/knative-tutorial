@@ -17,6 +17,8 @@ content:
       branches: HEAD
     - url: ../knative-tutorial-module-camelk
       branches: HEAD
+    - url: ../knative-tutorial-module-tekton
+      branches: HEAD
 asciidoc:
   attributes:
     tutorial-namespace:  knativetutorial
