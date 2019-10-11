@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/03-tasks.html">
+    <meta name="generator" content="Antora 2.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container"  data-component="knative-tutorial-tekton"
+  data-version="0.7.x" >
+  <aside class="navigation">
+    <div class="panels">
+      <div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Tekton Pipelines</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="01-setup.html">1. Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#tekton-prerequisites">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#deploy-tekton">Deploy Tekton</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#install-tekton-cli">Install Tekton CLI</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="02-pipeline-resources.html">2. Pipeline Resources</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tekton-res-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tekton-res-create">Create Pipeline Resource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tekton-res-deploy">Deploy Pipeline Resource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-tasks.html">3. Tasks</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tekton-task-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tekton-task-create">Create a task</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tekton-task-deploy">Deploy task</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tkn-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#tekton-task-run">TaskRun</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tekton-task-run-create">Create TaskRun</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tekton-task-run-run">Run the Task</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tekton-test-task-output">Test Task output</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tekton-task-cleanup">Clean</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="04-pipelines.html">4. Pipelines</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01-setup.html#watching-logs">5.Watching Logs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+  <div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <!-- Just a place holder to fill in  explorer for each context -->
+  </div>
+</div>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../../knative-tutorial/0.7.x/index.html" class="home-link"></a>
+  <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Tekton Pipelines</a></li>
+    <li class="crumb"><a href="03-tasks.html">3. Tasks</a></li>
+  </ul>
+</nav>
+</div>
+<article class="doc">
+<h1>Welcome to Knative Tutorial</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the end of this chapter you will be able to :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Understand what is a <a href="https://github.com/tektoncd/pipeline/blob/master/docs/tasks.md">Task</a> ?</p>
+</li>
+<li>
+<p>Create a Task</p>
+</li>
+<li>
+<p>Create a TaskRun</p>
+</li>
+<li>
+<p>Use the pipeline resource with TaskRun</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tekton-task-prerequisite"><a class="anchor" href="#tekton-task-prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following checks ensure that each chapter exercises are done with the right environment settings.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset1_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_kubernetes">
+<div class="ulist">
+<ul>
+<li>
+<p>Set your local docker to use minikube docker daemon</p>
+</li>
+</ul>
+</div>
+<div id="minikube-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-clipboard"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes should be v1.12+</p>
+</li>
+</ul>
+</div>
+<div id="kubectl-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_openshift">
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift CLI should be v4.1+</p>
+</li>
+</ul>
+</div>
+<div id="oc-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-clipboard"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project</p>
+</li>
+</ul>
+</div>
+<div id="right-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, then run following command to change to <code>knativetutorial</code> project:</p>
+</div>
+<div id="change-to-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure Tekton piplines is deployed and the API is available for use</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset2_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_kubernetes">
+<div id="tekton-api-kind-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='tekton.dev'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-api-kind-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_openshift">
+<div id="tekton-api-kind-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc api-resources --api-group='tekton.dev'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-api-kind-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The command show an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                SHORTNAMES   APIGROUP     NAMESPACED   KIND
+clustertasks                     tekton.dev   false        ClusterTask
+conditions                       tekton.dev   true         Condition
+pipelineresources                tekton.dev   true         PipelineResource
+pipelineruns        pr,prs       tekton.dev   true         PipelineRun
+pipelines                        tekton.dev   true         Pipeline
+taskruns            tr,trs       tekton.dev   true         TaskRun
+tasks                            tekton.dev   true         Task</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify the Tekton cli</p>
+</div>
+<div id="tekton-install-cli" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-install-cli"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command should show a result like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client version: 0.4.0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tekton-task-create"><a class="anchor" href="#tekton-task-create"></a>Create a Task</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are not in tutorial chapter folder, then navigate to the folder:</p>
+</div>
+<div id="tekton-res-nav-folder" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/06-pipelines</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-res-nav-folder"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The following snippet shows what a Tekton Task YAML looks like:</p>
+</div>
+<div class="listingblock">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/build-app-task.yaml">build-app-task.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-app
+spec:
+  inputs:
+   resources:
+    - name: source
+      type: git
+   params:
+   - name: contextDir
+     description: Parameter Description
+     default: .
+   - name: mavenMirrorUrl
+     description: Parameter Description
+     default: <a href="http://repo1.maven.apache.org/maven2" class="bare">http://repo1.maven.apache.org/maven2</a>
+   - name: destinationImage
+     description: Parameter Description
+     default: "$(outputs.resources.builtImage.url)"
+   - name: dockerFile
+     description: Parameter Description
+     default: Dockerfile.jvm
+  outputs:
+   resources:
+    - name: builtImage
+      type: image
+  stepTemplate:
+    resources:
+      limits:
+        cpu: 4
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    securityContext:
+       allowPrivilegeEscalation: false
+       privileged: false
+       # the default underprivileged user to be used
+       runAsUser: 10001
+  steps:
+   - name: build-sources
+     image: quay.io/rhdevelopers/tutorial-tools:0.0.2
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     args:
+      - mvn
+      - -DskipTests
+      - clean
+      - package
+     env:
+     - name: MAVEN_MIRROR_URL
+       value: "$(inputs.params.mavenMirrorUrl)"
+   - name: build-image
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ['buildah', 'bud', '--tls-verify=false', '--layers','-f', '$(inputs.params.dockerFile)', '-t', '$(inputs.params.destinationImage)', '.']
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+     # override security context as container image build need to run as root
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
+   - name: build-push
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ["buildah","push", "--tls-verify=false","$(inputs.params.destinationImage)","docker://$(inputs.params.destinationImage)"]
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+     # override security context as container image build need to run as root
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
+  volumes:
+  - name: varlibc
+    emptyDir: {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each Task has the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>name</strong> - the unique name using which the task will will be referred</p>
+</li>
+<li>
+<p><strong>inputs</strong> - the inputs to the task</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>resources</strong> - the pipeline resources that will be used in the task e.g. git-source</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>name</strong> - the name of the input resource using which it can be referenced and bound via <a href="#tekton-task-run">TaskRun</a></p>
+</li>
+<li>
+<p><strong>type</strong> - the type of the input resource, typically the pipeline resource type</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>params</strong> - the parameters that will be used in the task steps. Each parameter has</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>name</strong> - the name of the parameter</p>
+</li>
+<li>
+<p><strong>description</strong> - the description of the parameter</p>
+</li>
+<li>
+<p><strong>default</strong> - the default value of parameter</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <a href="#tekton-task-run">TaskRun</a> could override the parameter values, if no parameter value is passed then the <strong>default</strong> value will be used.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>outputs</strong> the pipeline resource that will end artifact of the task. In the above example the build will produce a container image artifact.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>resources</strong> - the pipeline resources that will be used in the task e.g. builtImage</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>name</strong> - the name of the input resource using which it can be referenced and bound via <a href="#tekton-task-run">TaskRun</a></p>
+</li>
+<li>
+<p><strong>type</strong> - the type of the input resource, typically the pipeline resource type</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>steps</strong> - One or more sub-tasks that will be executed in the defined order. The step has all the attributes like a <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#pod-v1-core">Pod spec</a></p>
+</li>
+<li>
+<p><strong>stepTemplate</strong> - when there is a need to have similar container configuration across all steps of a the task, we can have them defined in the stepTemplate, the task steps will inherit them implicitly in all steps. In the example above we define the resources and securityContext for all the steps</p>
+</li>
+<li>
+<p><strong>volumes</strong> - the task can also mount external volumes using the <strong>volumes</strong> attribute.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The parameters that were part of the <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">inputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">params</b></span> can be used in the steps using the notation <code>$(&lt;variable-name&gt;)</code>.</p>
+</div>
+<div class="paragraph">
+<p>The task <code>build-app</code> is used to build the <a href="https://github.com/redhat-developer-demos/knative-tutorial/tree/master/apps/greeter/java/quarkus">Java application</a> that is part of the tutorial. As a step one(<code>build-sources</code>) the application will be built using <a href="https://apache.maven.org">Apache Maven</a>, then the step two (<code>build-image</code>) the application artifacts a <strong>jar</strong> in this case will be used to built the linux container image using <a href="https://buildah.io">buildah</a>, the <a href="https://github.com/redhat-developer-demos/knative-tutorial/tree/master/apps/greeter/java/quarkus/Dockerfile.jvm">Dockerfile</a> in the sources will be used as base to build the linux container image and as part of the last step(<code>build-push</code>) the built linux container image will be pushed to the container registry.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you plan to do the build Task multiple times then its better to have a maven repository manager like Nexus to cache the maven artifacts for faster builds. You can deploy nexus using:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset3_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_kubernetes">
+<div id="tekton-nexus-deploy-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -n knativetutorial \
+  -f $TUTORIAL_HOME/apps/nexus/<a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/nexus/skaffold.yaml">skaffold.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-nexus-deploy-k8s"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It might take few minutes for nexus to be deployed, you can watch the status using the command <code>kubectl get pods -n knativetutorial -w</code>.</p>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_openshift">
+<div id="tekton-nexus-deploy-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -n knativetutorial \
+  -f $TUTORIAL_HOME/apps/nexus/<a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/apps/nexus/skaffold.yaml">skaffold.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-nexus-deploy-oc"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It might take few minutes for nexus to be deployed, you can watch the status using the command <code>oc get pods -n knativetutorial -w</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tekton-task-deploy"><a class="anchor" href="#tekton-task-deploy"></a>Deploy a task</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The application build task could be created using the command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset4_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_kubernetes">
+<div id="tekton-task-deploy-to-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/build-app-task.yaml">build-app-task.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-task-deploy-to-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_openshift">
+<div id="tekton-task-deploy-to-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/build-app-task.yaml">build-app-task.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-task-deploy-to-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tkn-see-what-you-have-deployed"><a class="anchor" href="#tkn-see-what-you-have-deployed"></a>See what you have deployed</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We will use the Tekton cli to inspect the created resources</p>
+</div>
+<div id="tekton-inspect-task" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn task ls</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-inspect-task"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The above command should list one Task as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME        AGE
+build-app   12 seconds ago</code></pre>
+</div>
+</div>
+<div id="tekton-inspect-taskrun" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn taskrun ls</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-inspect-taskrun"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The above command should list one TaskRun as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              STARTED   DURATION   STATUS
+NAME              STARTED        DURATION   STATUS
+build-app-skgpq   1 minute ago   ---        Running(Pending)</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few seconds for the TaskRun to show status as <code>Running</code> as it needs to download the container images.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Use the command <strong>help</strong> via <code>tkn taskrun --help</code> or <code>tkn task --help</code></p>
+</li>
+<li>
+<p>Use <code>tr</code> as shorcut for taskrun commands e.g to list taskruns run the command <code>tkn tr ls</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you see the TaskRun status as <code>Failed</code> or <code>Error</code> use the following command to check the reason for error:</p>
+</div>
+<div id="tekton-desc-taskrun" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn taskrun describe &lt;taskrun-name&gt;</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-desc-taskrun"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tekton-task-run"><a class="anchor" href="#tekton-task-run"></a>TaskRun</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://github.com/tektoncd/pipeline/blob/master/docs/taskruns.md">TaskRun</a> is used to run a specific task independently. In the following section we will run the <code>build-app</code> task created in the previous step</p>
+</div>
+<div class="sect2">
+<h3 id="tekton-task-run-create"><a class="anchor" href="#tekton-task-run-create"></a>Create TaskRun</h3>
+<div class="paragraph">
+<p>The following snippet shows what a Tekton TaskRun YAML looks like:</p>
+</div>
+<div class="listingblock">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/build-app-task-run.yaml">build-app-task-run.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  generateName: build-app-
+spec:
+  serviceAccount: pipeline
+  taskRef:
+    name:  build-app
+  inputs:
+   resources:
+    - name: source
+      resourceRef:
+        name: git-source
+   params:
+    - name: contextDir
+      value: apps/greeter/java/quarkus
+    # Enable if you have maven mirrors to use
+    # - name: mavenMirrorUrl
+    #   value: <a href="http://nexus:8081/nexus/content/groups/public" class="bare">http://nexus:8081/nexus/content/groups/public</a>
+  outputs:
+   resources:
+    - name: builtImage
+      resourceRef:
+        name: knative-tutorial-greeter-image</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>generateName</strong> - since the TaskRun can be run many times, in order to have unqiue name across the TaskRun ( helpful when checking the TaskRun history) we use this <strong>generateName</strong> instead of <strong>name</strong>. When Kubernetes sees <strong>generateName</strong> it will generate unquie set of characters and suffix the same to <code>build-app-</code>, similar to how pod names are generated</p>
+</li>
+<li>
+<p><strong>serviceAccount</strong> - it is always recommended to have a service account associated with TaskRun, which can then be used to define fine grained roles.</p>
+</li>
+<li>
+<p><strong>taskRef</strong> - this is used to refer to the Task by its name that will be run as part of this TaskRun. In this example we use <strong>build-app</strong> Task.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As described in the earlier section that the Task inputs and outputs could be overridden via TaskRun. When executing TaskRun the <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">inputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">resources</b></span> and <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">outputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">resources</b></span> can refer to the <a href="02-pipeline-resources.html#tkn-see-what-you-have-deployed" class="page">pipeline resources</a> that already defined in the same namespace.</p>
+</div>
+<div class="paragraph">
+<p>In this example we make the Task&#8217;s <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">inputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">resources</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">source</b></span> to refer to pipeline resource <code>git-source</code> via the <strong>resourceRef</strong>. Similarly <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">outputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">resources</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">builtImage</b></span> to refer to pipeline resource <code>knative-tutorial-greeter-image</code> via the <strong>resourceRef</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">inputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">resources</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">source</b></span> and <span class="menuseq"><b class="menu">spec</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">outputs</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">resources</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">builtImage</b></span> were defined as part of the <a href="#tekton-task-create">Task</a> specification.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tekton-task-run-run"><a class="anchor" href="#tekton-task-run-run"></a>Run Task</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before we run the Task using TaskRun let us create the Kubernetes service account and attach the needed permissions to the service account, the following Kubernetes resource defines a service account called <code>pipeline</code> in namespace <code>knativetutorial</code> who will have administrative role within the <code>knativetutorial</code> namespace.</p>
+</div>
+<div class="listingblock">
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/pipeline-sa-role.yaml">pipeline-sa-role.yaml</a></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pipeline
+  namespace: knativetutorial
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pipeline-role
+  namespace: knativetutorial
+rules:
+- apiGroups: ["serving.knative.dev"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: ["eventing.knative.dev"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: ["sources.eventing.knative.dev"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - endpoints
+  - configmaps
+  - secrets
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - '*'
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pipeline-role-binding
+  namespace: knativetutorial
+roleRef:
+  kind: Role
+  name: pipeline-role
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: pipeline
+  namespace: knativetutorial</code></pre>
+</div>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset5_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_kubernetes">
+<div id="tekton-taskrun-sa-to-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/pipeline-sa-role.yaml">pipeline-sa-role.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-taskrun-sa-to-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_openshift">
+<div id="tekton-taskrun-sa-to-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/pipeline-sa-role.yaml">pipeline-sa-role.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-taskrun-sa-to-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The application build task(<code>build-app</code>) could be run using the command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset6_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset6_kubernetes">
+<div id="tekton-taskrun-run-to-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/build-app-task-run.yaml">build-app-task-run.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-taskrun-run-to-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_openshift">
+<div id="tekton-taskrun-run-to-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/06-pipelines/build-app-task-run.yaml">build-app-task-run.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-taskrun-run-to-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can check the created <a href="#tekton-inspect-taskrun">TaskRun</a> and the TaskRun usually takes time to complete, to check the status of the TaskRun use the <code>logs</code> command of taskrun like:</p>
+</div>
+<div id="tekton-taskrun-logs" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#list running using the command tkn tr ls
+tkn tr ls
+# use one task run for which you need the log from list above
+tkn tr logs -f -a &lt;task-run-name&gt; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>-f</code> or <code>-a</code> allows to tail the logs from all the containers of the task. For more options run <code>tkn tr --help</code></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Each task step will be run within a container of its own.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="tekton-test-task-output"><a class="anchor" href="#tekton-test-task-output"></a>Test Task output</h3>
+<div class="paragraph">
+<p>Lets try running the image build using the <code>build-app</code> task:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset7_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset7_kubernetes">
+<div id="tekton-app-run-to-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl run demo-greeter -n knativetutorial \
+ --generator='run-pod/v1' \
+ --image='localhost:5000/rhdevelopers/knative-tutorial-greeter' &amp;&amp; \
+kubectl expose pod demo-greeter -n knativetutorial --port 8080 --type=NodePort</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-app-run-to-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_openshift">
+<div id="tekton-app-run-to-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc run demo-greeter -n knativetutorial --generator='run-pod/v1' --image='localhost:5000/rhdevelopers/knative-tutorial-greeter' &amp;&amp; \
+oc expose pod demo-greeter -n knativetutorial --port 8080 --type=NodePort &amp;&amp; \
+oc expose svc -n knativetutorial demo-greeter</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-app-run-to-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Lets try checking the application:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset8_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset8_kubernetes">
+<div id="tekton-invoke-app-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=$(minikube ip):$(kubectl get svc -n knativetutorial demo-greeter -o yaml | yq r - 'spec.ports[0].nodePort') &amp;&amp; \
+http --body $SVC_URL</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-invoke-app-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset8_openshift">
+<div id="tekton-invoke-app-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">SVC_URL=$(oc get routes -o yaml | yq r - 'spec.url.host' )
+http --body $SVC_URL</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-invoke-app-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should show an output like <strong>Hi  greeter &#8658; 'demo-greeter' : 1</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tekton-task-cleanup"><a class="anchor" href="#tekton-task-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset9_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_kubernetes">
+<div id="tekton-task-cleanup-k8s" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete pod -n knativetutorial demo-greeter &amp;&amp;\
+kubectl delete svc -n knativetutorial demo-greeter</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-task-cleanup-k8s"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset9_openshift">
+<div id="tekton-task-cleanup-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete pod -n knativetutorial demo-greeter &amp;&amp;\
+oc delete svc -n knativetutorial demo-greeter &amp;&amp;\
+oc delete route -n knativetutorial demo-greeter</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-task-cleanup-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </main>
+</div>
+<footer role="contentinfo">
+  <div class="region region-rhd-footer">
+    <div id="block-rhdfooter" class="rhd-footer">
+      <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
+  <ul class="rhd-menu">
+    <li class="menu-item menu-item--expanded">
+      <h3 class="section-toggle">GitHub</h3>
+      <ul class="rhd-menu">
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
+            Tutorial</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
+            Tracker</a>
+        </li>
+         <li class="menu-item">
+          <a href="https://github.com/openshift-cloud-functions/Documentation" title="Issue Tracker">OpenShift Cloud Functions</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>      <div class="rhd-footer-sidebar">
+        <p class="rhd-footer-sidebar-title">Red Hat Developer</p>
+        <p class="rhd-footer-sidebar-subtitle">Build here. Go anywhere.</p>
+        <p class="rhd-footer-sidebar-content">
+          We serve the builders. The problem solvers who create careers with
+          code.<br /><br /><a href="https://developer.redhat.com/register">Join us</a>
+          if you’re a developer, software engineer, web designer, front-end
+          designer, UX designer, computer scientist, architect, tester,
+          product manager, project manager or team lead.
+        </p>
+        <ul class="rhd-footer-sidebar-social">
+          <li>
+            <a href="https://www.youtube.com/channel/UC7noUdfWp-ukXUlAsJnSm-Q" target="_blank"
+              rel="noopener noreferrer"><svg class="svg-inline--fa fa-youtube fa-w-18" aria-hidden="true"
+                data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 576 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+                </path>
+              </svg><!-- <i class="fab fa-youtube"></i> --></a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/RedHatDeveloperProgram" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-facebook fa-w-14" aria-hidden="true" data-prefix="fab" data-icon="facebook"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z">
+                </path>
+              </svg><!-- <i class="fab fa-facebook"> </i> --></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/rhdevelopers" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                </path>
+              </svg><!-- <i class="fab fa-twitter"> </i> --></a>
+          </li>
+          <li>
+            <a href="https://github.com/redhat-developer" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+                </path>
+              </svg><!-- <i class="fab fa-github"> </i> --></a>
+          </li>
+        </ul>
+        <a class="rhd-footer-sidebar-signup" href="https://developers.redhat.com/register">Sign me up ▸</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

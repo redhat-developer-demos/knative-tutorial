@@ -507,13 +507,13 @@ http://greeter.knativetutorial.example.com</code></pre>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_openshift">
-<div id="bisopenshift-oc-svc-call" class="listingblock">
+<div id="bis-openshift-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
 http $SVC_URL</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-openshift-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>

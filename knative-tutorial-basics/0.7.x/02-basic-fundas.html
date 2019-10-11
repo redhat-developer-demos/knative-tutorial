@@ -624,13 +624,13 @@ spec:
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset4_openshift">
-<div id="bisopenshift-oc-svc-call" class="listingblock">
+<div id="bis-openshift-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
 http $SVC_URL</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#bis-openshift-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -1154,7 +1154,7 @@ spec:
 <p>If you are in vanilla Kubernetes cluster you can also try the using the above urls in the <code>Host</code> header of the http command to see them scaling the respective deployments to get the result.</p>
 </li>
 <li>
-<p>If you are on OpenShift then you can directly invoke the urls</p>
+<p>If you are on OpenShift then you can directly invoke the urls to see the response of those respective revision</p>
 </li>
 </ul>
 </div>

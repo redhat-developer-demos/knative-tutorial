@@ -585,13 +585,13 @@ spec:
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-kubectl-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_openshift">
-<div id="scaling-isminishift-oc-svc-call" class="listingblock">
+<div id="scaling-is-minishift-oc-svc-call" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
 http $SVC_URL</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-is-minishift-oc-svc-call"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -632,15 +632,6 @@ http $SVC_URL</code></pre>
 <div class="paragraph">
 <p>For this exercise let us make our service handle only <strong>10</strong> concurrent requests. This will cause Knative autoscaler to scale to more pods as soon as we run more than 10 requests in parallel against the revision.</p>
 </div>
-<div class="paragraph">
-<p>Navigate to the tutorial chapter&#8217;s <code>knative</code> folder:</p>
-</div>
-<div id="scaling-navigate-back" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/04-scaling/knative</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#scaling-navigate-back"><i class="fa fa-clipboard"></i></button><br/>
 <div class="sect2">
 <h3 id="scaling-concurrency-10"><a class="anchor" href="#scaling-concurrency-10"></a>Service with concurrency of 10 requests</h3>
 <div class="listingblock">
@@ -753,7 +744,7 @@ spec:
 <div class="sect2">
 <h3 id="scaling-load-service"><a class="anchor" href="#scaling-load-service"></a>Load the service</h3>
 <div class="paragraph">
-<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 30s (<code>-t 30s</code>)</p>
+<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 30s</code>)</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -770,7 +761,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_kubernetes">
 <div id="scaling-run-siege" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">siege -r 1 -c 50 -t 30S \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -c 50 -z 10s \
   -H "Host:greeter.knativetutorial.example.com" \
   "http://${IP_ADDRESS}/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
 </div>
@@ -780,7 +771,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_openshift">
 <div id="oc-scaling-run-siege" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">siege -r 1 -c 50 -t 30S \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -c 50 -z 10s \
   "${SVC_URL}/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
 </div>
 </div>

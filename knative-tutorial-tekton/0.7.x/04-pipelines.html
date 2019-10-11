@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
-  <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/0.7.x/index.html">
-  <link rel="stylesheet" href="../../_/css/site.css">
-  <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/04-pipelines.html">
+    <meta name="generator" content="Antora 2.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-</head>
-
-<body class="home">
-  <header class="header" role="banner">
+  </head>
+  <body class="article">
+<header class="header" role="banner">
   <nav class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item">
@@ -27,96 +26,122 @@
     </div>
   </nav>
 </header>
-  <div class="body container">
-  <main class="home">
-    <h1 class="page">Welcome to Knative Tutorial</h1>
-    <div id="preamble">
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”</p>
-</div>
-<div class="paragraph small text-right">
-<p><em><strong>Source</strong></em>:  <a href="https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/" class="bare">https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1 tiles browse">
-<h2>Get started with your serverless journey</h2>
-<div class="sectionbody">
-<div class="ulist tile">
-<div class="title"><a href="../../knative-tutorial-basics/0.7.x/index.html" class="page">Basics and Fundamentals</a></div>
-<ul>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/01-setup.html" class="page">Setup</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/03-knative-client.html" class="page">Knative Client</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/02-basic-fundas.html" class="page">Serving</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/04-scaling.html" class="page">Auto Scaling</a></p>
-</li>
+<div class="main-wrapper">
+<div class="navigation-container"  data-component="knative-tutorial-tekton"
+  data-version="0.7.x" >
+  <aside class="navigation">
+    <div class="panels">
+      <div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Tekton Pipelines</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="01-setup.html">1. Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#tekton-prerequisites">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#deploy-tekton">Deploy Tekton</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-setup.html#install-tekton-cli">Install Tekton CLI</a>
+  </li>
 </ul>
-</div>
-<div class="ulist tile">
-<div class="title"><a href="../../knative-tutorial-tekton/0.7.x/index.html" class="page">Tekton Pipelines</a></div>
-<ul>
-<li>
-<p><a href="../../knative-tutorial-tekton/0.7.x/01-setup.html" class="page">Setup</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-tekton/0.7.x/02-pipeline-resources.html" class="page">Pipeline Resources</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-tekton/0.7.x/03-tasks.html" class="page">Task</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-tekton/0.7.x/04-pipelines.html" class="page">Pipelines</a></p>
-</li>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="02-pipeline-resources.html">2. Pipeline Resources</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tekton-res-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tekton-res-create">Create Pipeline Resource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tekton-res-deploy">Deploy Pipeline Resource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-pipeline-resources.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
 </ul>
-</div>
-<div class="ulist tile">
-<div class="title"><a href="../../knative-tutorial-basics/0.7.x/05-eventing/eventing.html" class="page">Eventing</a></div>
-<ul>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/05-eventing/eventing-src-svc.html" class="page">Source to Service</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/05-eventing/eventing-src-sub.html" class="page">Source to Subscriber</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-basics/0.7.x/05-eventing/eventing-trigger-broker.html#events-triggers-brokers" class="page">Events, Triggers and Brokers</a></p>
-</li>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-tasks.html">3. Tasks</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-tasks.html#tekton-task-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-tasks.html#tekton-task-create">Create a task</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-tasks.html#tekton-task-deploy">Deploy task</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-tasks.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="03-tasks.html#tekton-task-run">TaskRun</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-tasks.html#tekton-task-run-create">Create TaskRun</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-tasks.html#tekton-task-run-run">Run the Task</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-tasks.html#tekton-test-task-output">Test Task output</a>
+  </li>
 </ul>
-</div>
-<div class="ulist tile">
-<div class="title"><a href="../../knative-tutorial-camelk/0.3.3/index.html" class="page">Serverless Integration using Camel-K</a></div>
-<ul>
-<li>
-<p><a href="../../knative-tutorial-camelk/0.3.3/setup.html" class="page">Setup</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-camelk/0.3.3/getting-started.html" class="page">Message Filter</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-camelk/0.3.3/poll-enrich.html" class="page">Poll Enrich</a></p>
-</li>
-<li>
-<p><a href="../../knative-tutorial-camelk/0.3.3/content-based-router.html" class="page">Content Based Router</a></p>
-</li>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-tasks.html#tekton-task-cleanup">Clean</a>
+  </li>
 </ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="04-pipelines.html">4. Pipelines</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01-setup.html#watching-logs">5.Watching Logs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+  <div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <!-- Just a place holder to fill in  explorer for each context -->
+  </div>
 </div>
 </div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../../knative-tutorial/0.7.x/index.html" class="home-link"></a>
+  <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Tekton Pipelines</a></li>
+    <li class="crumb"><a href="04-pipelines.html">4. Pipelines</a></li>
+  </ul>
+</nav>
 </div>
+<article class="doc">
+
+</article>
   </main>
 </div>
-  <footer role="contentinfo">
+<footer role="contentinfo">
   <div class="region region-rhd-footer">
     <div id="block-rhdfooter" class="rhd-footer">
       <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
@@ -201,6 +226,5 @@
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-
+  </body>
 </html>
