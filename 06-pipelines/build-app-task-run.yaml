@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  generateName: build-app-
+spec:
+  serviceAccount: pipeline
+  taskRef:
+    name:  build-app
+  inputs:
+   resources:
+    - name: source
+      resourceRef:
+        name: git-source
+   params:
+    - name: contextDir
+      value: apps/greeter/java/quarkus
+    # Enable if you have maven mirrors to use
+    # - name: mavenMirrorUrl
+    #   value: http://192.168.64.1:8081/nexus/content/groups/public
+  outputs:
+   resources:
+    - name: builtImage
+      resourceRef:
+        name: knative-tutorial-greeter-image

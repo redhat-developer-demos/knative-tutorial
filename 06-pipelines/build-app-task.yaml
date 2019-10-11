@@ -19,34 +19,35 @@ spec:
      default: "$(outputs.resources.builtImage.url)"
    - name: dockerFile
      description: Parameter Description
-     default: src/main/docker/Dockerfile.jvm
+     default: Dockerfile.jvm
   outputs:
    resources:
     - name: builtImage
       type: image
   stepTemplate:
-     resources:
-       limits:
-         cpu: 4
-         memory: 4Gi
-       requests:
-         cpu: 2
-         memory: 2Gi
-     securityContext:
-       privileged: true
+    resources:
+      limits:
+        cpu: 4
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    securityContext:
+       allowPrivilegeEscalation: false
+       privileged: false
+       runAsUser: 10001
   steps:
    - name: build-sources
-     image: quay.io/rhdevelopers/quarkus-java-builder:graal-19.1.1
+     image: quay.io/rhdevelopers/tutorial-tools:0.0.2
      workingDir: "/workspace/source/$(inputs.params.contextDir)"
      args:
-      - '/usr/local/bin/maven-run.sh'
+      - mvn
+      - -DskipTests 
+      - clean 
+      - package
      env:
      - name: MAVEN_MIRROR_URL
        value: "$(inputs.params.mavenMirrorUrl)"
-     - name: MAVEN_CMD_ARGS
-       value: "-DskipTests clean install"
-     - name: WORK_DIR
-       value: "/workspace/source/$(inputs.params.contextDir)"
    - name: build-image
      image: quay.io/buildah/stable
      workingDir: "/workspace/source/$(inputs.params.contextDir)"
@@ -54,6 +55,10 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
    - name: build-push
      image: quay.io/buildah/stable
      workingDir: "/workspace/source/$(inputs.params.contextDir)"
@@ -61,7 +66,10 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
   volumes:
   - name: varlibc
     emptyDir: {}
-      

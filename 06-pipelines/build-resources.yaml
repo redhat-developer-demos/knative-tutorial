@@ -8,7 +8,7 @@ spec:
   - name: url
     value: https://github.com/redhat-developer-demos/knative-tutorial
   - name: revision
-    value: 0.7.x
+    value: release/0.7.x
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
