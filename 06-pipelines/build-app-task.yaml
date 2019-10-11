@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-app
+spec:
+  inputs:
+   resources:
+    - name: source
+      type: git
+   params:
+   - name: contextDir
+     description: Parameter Description
+     default: .
+   - name: mavenMirrorUrl
+     description: Parameter Description
+     default: http://repo1.maven.apache.org/maven2
+   - name: destinationImage
+     description: Parameter Description
+     default: "$(outputs.resources.builtImage.url)"
+   - name: dockerFile
+     description: Parameter Description
+     default: Dockerfile.jvm
+  outputs:
+   resources:
+    - name: builtImage
+      type: image
+  stepTemplate:
+    resources:
+      limits:
+        cpu: 4
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    securityContext:
+       allowPrivilegeEscalation: false
+       privileged: false
+       runAsUser: 10001
+  steps:
+   - name: build-sources
+     image: quay.io/rhdevelopers/tutorial-tools:0.0.2
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     args:
+      - mvn
+      - -DskipTests 
+      - clean 
+      - package
+     env:
+     - name: MAVEN_MIRROR_URL
+       value: "$(inputs.params.mavenMirrorUrl)"
+   - name: build-image
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ['buildah', 'bud', '--tls-verify=false', '--layers','-f', '$(inputs.params.dockerFile)', '-t', '$(inputs.params.destinationImage)', '.']
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
+   - name: build-push
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ["buildah","push", "--tls-verify=false","$(inputs.params.destinationImage)","docker://$(inputs.params.destinationImage)"]
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
+  volumes:
+  - name: varlibc
+    emptyDir: {}
