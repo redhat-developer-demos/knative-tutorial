@@ -12,17 +12,8 @@ spec:
      description: the context dir within source
      default: .
    - name: mavenMirrorUrl
-     description: the maven mirrror url
-     default: http://repo1.maven.apache.org/maven2
-   - name: destinationImage
-     description: the fully qualified image name
-     default: "$(outputs.resources.builtImage.url)"
-   - name: dockerFile
-     description: the docker file to used for building the application
-     default: .
-   - name: mavenMirrorUrl
-     description: Parameter Description
-     default: http://repo1.maven.apache.org/maven2
+     description: the maven mirror url
+     default: http://repo1.maven.apache.org/maven2   
    - name: destinationImage
      description: Parameter Description
      default: "$(outputs.resources.builtImage.url)"
