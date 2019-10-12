@@ -44,10 +44,7 @@ spec:
     securityContext:
        allowPrivilegeEscalation: false
        privileged: false
-<<<<<<< HEAD
        # the default underprivileged user to be used
-=======
->>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
        runAsUser: 10001
   steps:
    - name: build-sources
@@ -68,10 +65,7 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
-<<<<<<< HEAD
      # override security context as container image build need to run as root
-=======
->>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
      securityContext:
        allowPrivilegeEscalation: true
        runAsUser: 0
@@ -83,10 +77,7 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
-<<<<<<< HEAD
      # override security context as container image build need to run as root
-=======
->>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
      securityContext:
        allowPrivilegeEscalation: true
        runAsUser: 0
