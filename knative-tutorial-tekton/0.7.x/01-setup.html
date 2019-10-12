@@ -107,10 +107,34 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
     <a class="nav-link" href="04-pipelines.html">4. Pipelines</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-task-prerequisite">Prerequisites</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="#watching-logs">5.Watching Logs</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-add-tasks">Add Tasks from Catalog</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-create">Create Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-deploy">Deploy Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-run">Run Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-test-pipeline">Test Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-cleanup">Clean</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -245,25 +269,7 @@
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset2_kubernetes">
 <div class="paragraph">
-<p>Enable registry in minikube</p>
-</div>
-<div id="tekton-deploy-enable-registry" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube addons enable registry</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-deploy-enable-registry"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p>A successful enable of registry will show the following pods when running the command ` kubectl get pods -n kube-system | grep registry`</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">registry-8s8xt                              1/1     Running   0          4m29s
-registry-proxy-wq6xl                        1/1     Running   0          4m29s</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Once the registry is enabled, deploy the Tekton pipelines:</p>
+<p>To deploy the Tekton pipelines:</p>
 </div>
 <div id="tekton-deploy-pipelines" class="listingblock">
 <div class="content">

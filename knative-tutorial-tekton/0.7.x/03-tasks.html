@@ -107,10 +107,34 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
     <a class="nav-link" href="04-pipelines.html">4. Pipelines</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-task-prerequisite">Prerequisites</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="01-setup.html#watching-logs">5.Watching Logs</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-add-tasks">Add Tasks from Catalog</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-create">Create Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-deploy">Deploy Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-run">Run Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-test-pipeline">Test Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-pipelines.html#tekton-pipeline-cleanup">Clean</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -342,16 +366,16 @@ spec:
       type: git
    params:
    - name: contextDir
-     description: Parameter Description
+     description: the context dir within source
      default: .
    - name: mavenMirrorUrl
-     description: Parameter Description
+     description: the maven mirrror url
      default: <a href="http://repo1.maven.apache.org/maven2" class="bare">http://repo1.maven.apache.org/maven2</a>
    - name: destinationImage
-     description: Parameter Description
+     description: the fully qualified image name
      default: "$(outputs.resources.builtImage.url)"
    - name: dockerFile
-     description: Parameter Description
+     description: the docker file to used for building the application
      default: Dockerfile.jvm
   outputs:
    resources:
@@ -417,7 +441,7 @@ spec:
 <div class="ulist">
 <ul>
 <li>
-<p><strong>name</strong> - the unique name using which the task will will be referred</p>
+<p><strong>name</strong> - the unique name using which the task can be referred</p>
 </li>
 <li>
 <p><strong>inputs</strong> - the inputs to the task</p>
@@ -606,6 +630,8 @@ The <a href="#tekton-task-run">TaskRun</a> could override the parameter values, 
 <div class="paragraph">
 <p>We will use the Tekton cli to inspect the created resources</p>
 </div>
+<div class="sect2">
+<h3 id="tkn-res-tasks"><a class="anchor" href="#tkn-res-tasks"></a>Task</h3>
 <div id="tekton-inspect-task" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn task ls</code></pre>
@@ -621,6 +647,9 @@ The <a href="#tekton-task-run">TaskRun</a> could override the parameter values, 
 build-app   12 seconds ago</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="tkn-res-task-runs"><a class="anchor" href="#tkn-res-task-runs"></a>TaskRun</h3>
 <div id="tekton-inspect-taskrun" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn taskrun ls</code></pre>
@@ -681,6 +710,7 @@ It will take few seconds for the TaskRun to show status as <code>Running</code> 
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-desc-taskrun"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="tekton-task-run"><a class="anchor" href="#tekton-task-run"></a>TaskRun</h2>
 <div class="sectionbody">
@@ -713,7 +743,7 @@ spec:
       value: apps/greeter/java/quarkus
     # Enable if you have maven mirrors to use
     # - name: mavenMirrorUrl
-    #   value: <a href="http://nexus:8081/nexus/content/groups/public" class="bare">http://nexus:8081/nexus/content/groups/public</a>
+    #   value: <a href="http://192.168.99.1:8081/nexus/content/groups/public" class="bare">http://192.168.99.1:8081/nexus/content/groups/public</a>
   outputs:
    resources:
     - name: builtImage
@@ -908,6 +938,7 @@ tkn tr ls
 tkn tr logs -f -a &lt;task-run-name&gt; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-taskrun-logs"><i class="fa fa-clipboard"></i></button><br/>
 <div class="colist arabic">
 <table>
 <tr>
