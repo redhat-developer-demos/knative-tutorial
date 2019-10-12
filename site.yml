@@ -15,6 +15,9 @@ content:
     - url: git@github.com:redhat-developer-demos/knative-tutorial-module-basics.git
       tags: []
       branches: release/0.7.x
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-tekton.git
+      tags: []
+      branches: release/0.7.x
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
       tags: []
       branches: release/0.5

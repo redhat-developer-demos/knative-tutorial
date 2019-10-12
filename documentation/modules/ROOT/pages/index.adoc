@@ -15,12 +15,16 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 [.tile]
 .xref:knative-tutorial-basics:ROOT:index.adoc[Basics and Fundamentals]
 * xref:knative-tutorial-basics:ROOT:01-setup.adoc[Setup]
+* xref:knative-tutorial-basics:ROOT:03-knative-client.adoc[Knative Client]
 * xref:knative-tutorial-basics:ROOT:02-basic-fundas.adoc[Serving]
 * xref:knative-tutorial-basics:ROOT:04-scaling.adoc[Auto Scaling]
 
 [.tile]
-.xref:knative-tutorial-basics:ROOT:index.adoc[Developer Tools]
-* xref:knative-tutorial-basics:ROOT:03-knative-client.adoc[Knative Client]
+.xref:knative-tutorial-tekton:ROOT:index.adoc[Tekton Pipelines]
+* xref:knative-tutorial-tekton:ROOT:01-setup.adoc[Setup]
+* xref:knative-tutorial-tekton:ROOT:02-pipeline-resources.adoc[Pipeline Resources]
+* xref:knative-tutorial-tekton:ROOT:03-tasks.adoc[Task]
+* xref:knative-tutorial-tekton:ROOT:04-pipelines.adoc[Pipelines]
 
 [.tile]
 .xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Eventing]

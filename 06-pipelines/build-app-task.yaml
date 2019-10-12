@@ -1,0 +1,96 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-app
+spec:
+  inputs:
+   resources:
+    - name: source
+      type: git
+   params:
+   - name: contextDir
+     description: the context dir within source
+     default: .
+   - name: mavenMirrorUrl
+     description: the maven mirrror url
+     default: http://repo1.maven.apache.org/maven2
+   - name: destinationImage
+     description: the fully qualified image name
+     default: "$(outputs.resources.builtImage.url)"
+   - name: dockerFile
+     description: the docker file to used for building the application
+     default: .
+   - name: mavenMirrorUrl
+     description: Parameter Description
+     default: http://repo1.maven.apache.org/maven2
+   - name: destinationImage
+     description: Parameter Description
+     default: "$(outputs.resources.builtImage.url)"
+   - name: dockerFile
+     description: Parameter Description
+     default: Dockerfile.jvm
+  outputs:
+   resources:
+    - name: builtImage
+      type: image
+  stepTemplate:
+    resources:
+      limits:
+        cpu: 4
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    securityContext:
+       allowPrivilegeEscalation: false
+       privileged: false
+<<<<<<< HEAD
+       # the default underprivileged user to be used
+=======
+>>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
+       runAsUser: 10001
+  steps:
+   - name: build-sources
+     image: quay.io/rhdevelopers/tutorial-tools:0.0.2
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     args:
+      - mvn
+      - -DskipTests 
+      - clean 
+      - package
+     env:
+     - name: MAVEN_MIRROR_URL
+       value: "$(inputs.params.mavenMirrorUrl)"
+   - name: build-image
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ['buildah', 'bud', '--tls-verify=false', '--layers','-f', '$(inputs.params.dockerFile)', '-t', '$(inputs.params.destinationImage)', '.']
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+<<<<<<< HEAD
+     # override security context as container image build need to run as root
+=======
+>>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
+   - name: build-push
+     image: quay.io/buildah/stable
+     workingDir: "/workspace/source/$(inputs.params.contextDir)"
+     command: ["buildah","push", "--tls-verify=false","$(inputs.params.destinationImage)","docker://$(inputs.params.destinationImage)"]
+     volumeMounts:
+     - name: varlibc
+       mountPath: /var/lib/containers
+<<<<<<< HEAD
+     # override security context as container image build need to run as root
+=======
+>>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
+     securityContext:
+       allowPrivilegeEscalation: true
+       runAsUser: 0
+       privileged: true
+  volumes:
+  - name: varlibc
+    emptyDir: {}
