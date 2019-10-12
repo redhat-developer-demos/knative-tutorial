@@ -18,6 +18,6 @@ spec:
   type: image
   params: 
   - name: url
-    value: "registry.kube-system:80/rhdevelopers/knative-tutorial-greeter"
+    value: "dev.local/rhdevelopers/knative-tutorial-greeter"
     # if you are on OpenShift uncomment the line below
     #value: "image-registry.openshift-image-registry.svc:5000/tutorial/helloworld"

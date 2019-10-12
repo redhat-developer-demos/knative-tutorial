@@ -23,7 +23,7 @@ asciidoc:
   attributes:
     tutorial-namespace:  knativetutorial
     #workshop: true
-    title: Welcome to Knative Tutorial
+    title: Knative Tutorial
     workshop-domain: guru.devx.red
     workshop-version: release/0.7.x
     openshift-console-url: https://console-openshift-console.apps.example.com

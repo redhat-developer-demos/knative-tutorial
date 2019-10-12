@@ -9,16 +9,16 @@ spec:
       type: git
    params:
    - name: contextDir
-     description: Parameter Description
+     description: the context dir within source
      default: .
    - name: mavenMirrorUrl
-     description: Parameter Description
+     description: the maven mirrror url
      default: http://repo1.maven.apache.org/maven2
    - name: destinationImage
-     description: Parameter Description
+     description: the fully qualified image name
      default: "$(outputs.resources.builtImage.url)"
    - name: dockerFile
-     description: Parameter Description
+     description: the docker file to used for building the application
      default: Dockerfile.jvm
   outputs:
    resources:
@@ -35,6 +35,7 @@ spec:
     securityContext:
        allowPrivilegeEscalation: false
        privileged: false
+       # the default underprivileged user to be used
        runAsUser: 10001
   steps:
    - name: build-sources
@@ -55,6 +56,7 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
+     # override security context as container image build need to run as root
      securityContext:
        allowPrivilegeEscalation: true
        runAsUser: 0
@@ -66,6 +68,7 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
+     # override security context as container image build need to run as root
      securityContext:
        allowPrivilegeEscalation: true
        runAsUser: 0
