@@ -19,6 +19,15 @@ spec:
      default: "$(outputs.resources.builtImage.url)"
    - name: dockerFile
      description: the docker file to used for building the application
+     default: .
+   - name: mavenMirrorUrl
+     description: Parameter Description
+     default: http://repo1.maven.apache.org/maven2
+   - name: destinationImage
+     description: Parameter Description
+     default: "$(outputs.resources.builtImage.url)"
+   - name: dockerFile
+     description: Parameter Description
      default: Dockerfile.jvm
   outputs:
    resources:
@@ -35,7 +44,10 @@ spec:
     securityContext:
        allowPrivilegeEscalation: false
        privileged: false
+<<<<<<< HEAD
        # the default underprivileged user to be used
+=======
+>>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
        runAsUser: 10001
   steps:
    - name: build-sources
@@ -56,7 +68,10 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
+<<<<<<< HEAD
      # override security context as container image build need to run as root
+=======
+>>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
      securityContext:
        allowPrivilegeEscalation: true
        runAsUser: 0
@@ -68,7 +83,10 @@ spec:
      volumeMounts:
      - name: varlibc
        mountPath: /var/lib/containers
+<<<<<<< HEAD
      # override security context as container image build need to run as root
+=======
+>>>>>>> 1a0ae2c194dea97bd0d3e0cbe0016e8ec037aa9a
      securityContext:
        allowPrivilegeEscalation: true
        runAsUser: 0
