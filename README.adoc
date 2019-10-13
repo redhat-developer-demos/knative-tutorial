@@ -1,5 +1,10 @@
 = Knative Tutorial - Introduction to Knative
 
+== Documentation 
+
+* HTML https://redhat-developer-demos.github.io/knative-tutorial
+
+== Overview 
 image:https://circleci.com/gh/redhat-developer-demos/knative-tutorial.svg?style=svg["CircleCI", link="https://circleci.com/gh/redhat-developer-demos/knative-tutorial"]
 
 Serverless epitomize the very benefits of what cloud platforms promise: offload the management of infrastructure while taking advantage of a consumption model for the actual utilization of services. While there are a number of server frameworks out there, Knative is the first serverless platform specifically designed for Kubernetes and OpenShift. 
@@ -12,10 +17,6 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 This tutorial will act as step-by-step guide in helping you to understand Knative starting with setup, understanding fundamentals concepts such as service, configuration, revision etc., and finally deploying some use cases which could help deploying serverless applications.
 
 This content is brought to you by http://developers.redhat.com[Red Hat Developer Program] - Register today!
-
-== Tutorial documentation
-
-* HTML https://redhat-developer-demos.github.io/knative-tutorial
 
 == Contributing
 

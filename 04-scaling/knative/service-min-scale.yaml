@@ -1,11 +1,11 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: greeter
+  name: prime-generator
 spec:
   template:
     metadata:
-      name: greeter-v2
+      name: prime-generator-v2
       annotations:
         # disable istio-proxy injection
         sidecar.istio.io/inject: "false"

@@ -25,7 +25,7 @@ asciidoc:
     #workshop: true
     title: Knative Tutorial
     workshop-domain: guru.devx.red
-    workshop-version: release/0.7.x
+    release-version: release/0.7.x
     openshift-console-url: https://console-openshift-console.apps.example.com
     etherpad-url: http://example.com
   extensions:

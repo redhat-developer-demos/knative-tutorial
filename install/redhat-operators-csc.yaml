@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1
+kind: CatalogSourceConfig
+metadata:
+  name: redhat-operators-packages
+  namespace: openshift-marketplace
+spec:
+  targetNamespace: openshift-operators
+  packages: serverless-operator,servicemeshoperator,kiali-ossm,jaeger-product,elasticsearch-operator
+  source: redhat-operators
