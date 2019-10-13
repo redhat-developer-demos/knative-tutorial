@@ -42,6 +42,9 @@
     <a class="nav-link" href="01-setup.html">1. Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#kubernetes-cluster">Choose your Kubernetes Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -50,9 +53,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#tutorial-prerequisite">CLI Tools</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
 </ul>
   </li>
@@ -363,8 +363,19 @@
 </div>
 <article class="doc">
 <h1>Knative Tutorial</h1>
-<div id="preamble">
+<div class="sect1">
+<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
+</div>
+<div id="cloneRepo" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone -b release/0.7.x <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a> &amp;&amp;\
+export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -488,13 +499,7 @@ registry-proxy-cj6dj                       1/1     Running   0          29m</cod
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Deploy Registry Helper</strong></p>
-</div>
-<div class="paragraph">
-<p>As part of some exercises in the tutorial, we need to push and pull images to local internal registry. To make push and pull smoother we will have a helper deployed so that we can use some common names like <code>dev.local</code>, <code>example.com</code> as registry aliases for internal registry</p>
-</div>
-<div class="paragraph">
-<p>Navigate to registry helper folder:</p>
+<p><strong>Navigate to registry helper folder:</strong></p>
 </div>
 <div id="minikube-registry-helper-nav" class="listingblock">
 <div class="content">
@@ -502,6 +507,12 @@ registry-proxy-cj6dj                       1/1     Running   0          29m</cod
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-registry-helper-nav"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p><strong>Deploy Registry Helper</strong></p>
+</div>
+<div class="paragraph">
+<p>As part of some exercises in the tutorial, we need to push and pull images to local internal registry. To make push and pull smoother we will have a helper deployed so that we can use some common names like <code>dev.local</code>, <code>example.com</code> as registry aliases for internal registry</p>
+</div>
 <div class="paragraph">
 <p><strong>Add entries to minikube host file</strong></p>
 </div>
@@ -531,22 +542,10 @@ kubectl apply -n kube-system -f node-etc-hosts-update.yaml</code></pre>
 </div>
 <div id="minikube-check-host-entry" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat /etc/node-hosts</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube ssh -- sudo cat /etc/hosts</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-host-entry"><i class="fa fa-clipboard"></i></button><br/>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-the node&#8217;s <code>/etc/host</code> is mounted has <code>/etc/node-hosts</code> within the <code>tutorial-tools</code> pod
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
 <p>A successful daemonset run will show the minikube node <code>/etc/hosts</code> file with the following entries:</p>
 </div>
@@ -577,6 +576,12 @@ the node&#8217;s <code>/etc/host</code> is mounted has <code>/etc/node-hosts</co
 </td>
 </tr>
 </table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE
+registry   ClusterIP   10.111.151.121   &lt;none&gt;        80/TCP                  178m</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Update CoreDNS</strong></p>
@@ -827,7 +832,7 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The kubens utility installed as part of <a href="https://github.com/ahmetb/kubectx">kubectx</a> allows for easy switching between Kubernetes namespaces.</p>
+<p>The <a href="https://github.com/ahmetb/kubens">kubens</a> utility installed as part of <a href="https://github.com/ahmetb/kubectx">kubectx</a> allows for easy switching between Kubernetes namespaces.</p>
 </div>
 <div id="setup-knative-tutorial-kubens" class="listingblock">
 <div class="content">
@@ -860,112 +865,113 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>The Knative components are right now available as community components and is currently not supported by Red Hat.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The Knative Eventing components are right now available as community components and is currently not supported by Red Hat.</p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Login to OpenShift console using the cluster admin credentials.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Select Knative Operators via OperatorHub</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/select_knative_operators.png" alt="select knative operators">
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Select and Install Knative Serving</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/select_kn_serving.png" alt="select kn serving">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/install_knative_serving.png" alt="install knative serving">
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Subscribe Knative Serving</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/create_knative_serving_sub.png" alt="create knative serving sub">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/subscribed_knative_serving.png" alt="subscribed knative serving">
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Select and Install Knative Eventing</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/select_kn_eventing.png" alt="select kn eventing">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/install_knative_eventing.png" alt="install knative eventing">
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Subscribe Knative Eventing</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/create_knative_eventing_sub.png" alt="create knative eventing sub">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/subscribed_knative_eventing.png" alt="subscribed knative eventing">
-</div>
+<p><strong>Login as admin</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>Configuring OpenShift project for Knative applications</strong></p>
+<p>Login to OpenShift console using the cluster admin credentials.</p>
 </div>
-<div id="run-ocp-project-config" class="listingblock">
+<div class="paragraph">
+<p><strong>Install catalog sources</strong></p>
+</div>
+<div id="install-csc" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-project knativetutorial
-oc adm policy add-scc-to-user privileged -z default <i class="conum" data-value="1"></i><b>(1)</b>
-oc adm policy add-scc-to-user anyuid -z default</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/redhat-operators-csc.yaml" \
+  -f "$TUTORIAL_HOME/install/community-operators-csc.yaml"</code></pre>
 </div>
 </div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-ocp-project-config"><i class="fa fa-clipboard"></i></button><br/>
-<div class="colist arabic">
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-csc"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for the operators to be installed and reconciled, you can watch the status using the command:</p>
+</div>
+<div id="check-operators-status" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get csv -n openshift-operators'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-operators-status"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
 <table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>oc adm policy</code> adds the <strong>privileged</strong> <a href="https://docs.openshift.com/container-platform/4.1/authentication/managing-security-context-constraints.html">Security Context Constraints (SCCs)</a> to the <strong>default</strong> Service Account. The SCCs are the precursor to the PSP (Pod Security Policy) mechanism in Kubernetes.</td>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Install Knative Serving</strong></p>
+</div>
+<div id="install-knative-serving" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/knative-serving/subscription.yaml"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-knative-serving"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for the Knative serving components to be installed, you can watch the status using:</p>
+</div>
+<div id="check-knative-serving" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n knative-serving -w</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-knative-serving"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Install Knative Eventing</strong></p>
+</div>
+<div id="install-knative-eventing" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/knative-eventing/subscription.yaml"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-knative-eventing"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for the Knative eventing components to be installed, you can watch the status using:</p>
+</div>
+<div id="check-knative-eventing" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n knative-eventing -w</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-knative-eventing"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>
+</td>
 </tr>
 </table>
 </div>
@@ -975,23 +981,10 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
+<h2 id="tutorial-dev-env"><a class="anchor" href="#tutorial-dev-env"></a>Development tutorial</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
-</div>
-<div id="cloneRepo" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone -b release/0.7.x <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a> &amp;&amp;\
-export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-clipboard"></i></button><br/>
-</div>
-</div>
-<div class="sect1">
-<h2 id="tutorial-prerequisite"><a class="anchor" href="#tutorial-prerequisite"></a>CLI tools</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="tutorial-prerequisite"><a class="anchor" href="#tutorial-prerequisite"></a>CLI tools</h3>
 <div class="paragraph">
 <p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
 </div>
@@ -1067,6 +1060,7 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </article>
