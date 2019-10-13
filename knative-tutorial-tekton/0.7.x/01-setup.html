@@ -308,7 +308,34 @@ tekton-pipelines-webhook-6fc9d4d9b6-kpkp7    1/1     Running   0          2m33s<
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_openshift">
 <div class="paragraph">
-<p>== OpenShift</p>
+<p>To deploy the Tekton pipelines:</p>
+</div>
+<div id="install-pipelines" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/pipelines/subscription.yaml"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-pipelines"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for the Knative eventing components to be installed, you can watch the status using:</p>
+</div>
+<div id="check-pipelines" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n openshift-pipelines -w</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-pipelines"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
