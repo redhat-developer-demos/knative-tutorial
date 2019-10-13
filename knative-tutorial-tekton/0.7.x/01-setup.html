@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
+    <title>Knative Tutorial :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/01-setup.html">
     <meta name="generator" content="Antora 2.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -84,9 +84,6 @@
     <a class="nav-link" href="03-tasks.html#tekton-task-deploy">Deploy task</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-tasks.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="03-tasks.html#tekton-task-run">TaskRun</a>
 <ul class="nav-list">
@@ -121,9 +118,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="04-pipelines.html#tekton-pipeline-deploy">Deploy Pipeline</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="04-pipelines.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="04-pipelines.html#tekton-pipeline-run">Run Pipeline</a>
@@ -161,7 +155,7 @@
 </nav>
 </div>
 <article class="doc">
-<h1>Welcome to Knative Tutorial</h1>
+<h1>Knative Tutorial</h1>
 <div class="sect1">
 <h2 id="tekton-prerequisites"><a class="anchor" href="#tekton-prerequisites"></a>Pre-requisites</h2>
 <div class="sectionbody">
@@ -274,7 +268,7 @@
 <div id="tekton-deploy-pipelines" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --filename \
-  <a href="https://storage.googleapis.com/tekton-releases/latest/release.yaml" class="bare">https://storage.googleapis.com/tekton-releases/latest/release.yaml</a></code></pre>
+  <a href="https://storage.googleapis.com/tekton-releases/previous/v0.7.0/release.yaml" class="bare">https://storage.googleapis.com/tekton-releases/previous/v0.7.0/release.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-deploy-pipelines"><i class="fa fa-clipboard"></i></button><br/>
@@ -360,12 +354,6 @@ tekton-pipelines-webhook-6fc9d4d9b6-kpkp7    1/1     Running   0          2m33s<
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client version: 0.4.0</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="watching-logs"><a class="anchor" href="#watching-logs"></a>Watching Logs</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 </article>

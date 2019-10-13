@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
+    <title>Knative Tutorial :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/04-scaling.html">
     <meta name="generator" content="Antora 2.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -42,13 +42,19 @@
     <a class="nav-link" href="01-setup.html">1. Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="01-setup.html#prerequisite">Prerequisites</a>
+    <a class="nav-link" href="01-setup.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="01-setup.html#tutorial-dev-env">Development Environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="01-setup.html#tutorial-prerequisite">CLI Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="01-setup.html#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="01-setup.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
+</ul>
   </li>
 </ul>
   </li>
@@ -356,7 +362,7 @@
 </nav>
 </div>
 <article class="doc">
-<h1>Welcome to Knative Tutorial</h1>
+<h1>Knative Tutorial</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -640,11 +646,11 @@ http $SVC_URL</code></pre>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: greeter
+  name: prime-generator
 spec:
   template:
     metadata:
-      name: greeter-v1
+      name: prime-generator-v1
       annotations:
         # disable istio-proxy injection
         sidecar.istio.io/inject: "false"
@@ -762,7 +768,7 @@ spec:
 <div id="scaling-run-siege" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -c 50 -z 10s \
-  -H "Host:greeter.knativetutorial.example.com" \
+  -H "Host:prime-generator.knativetutorial.example.com" \
   "http://${IP_ADDRESS}/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
 </div>
 </div>
@@ -816,11 +822,11 @@ spec:
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: greeter
+  name: prime-generator
 spec:
   template:
     metadata:
-      name: greeter-v2
+      name: prime-generator-v2
       annotations:
         # disable istio-proxy injection
         sidecar.istio.io/inject: "false"
@@ -884,7 +890,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>After the deployment was successful we should see a Kubernetes Deployment called <code>greeter-v2-deployment</code> with <strong>two</strong> pods available.</p>
+<p>After the deployment was successful we should see a Kubernetes Deployment called <code>prime-generator-v2-deployment</code> with <strong>two</strong> pods available.</p>
 </div>
 <div class="paragraph">
 <p>Open a new terminal and run the following command :</p>
@@ -946,7 +952,8 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset9_kubectl">
 <div id="run-scaling-cleanup" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter  &amp;&amp;\
+kubectl -n knativetutorial delete services.serving.knative.dev prime-generator</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-scaling-cleanup"><i class="fa fa-clipboard"></i></button><br/>
@@ -954,7 +961,8 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset9_oc">
 <div id="run-oc-scaling-cleanup" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial delete services.serving.knative.dev greeter &amp;&amp;\
+oc -n knativetutorial delete services.serving.knative.dev prime-generator</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-oc-scaling-cleanup"><i class="fa fa-clipboard"></i></button><br/>

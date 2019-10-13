@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
+    <title>Knative Tutorial :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/04-pipelines.html">
     <meta name="generator" content="Antora 2.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -84,9 +84,6 @@
     <a class="nav-link" href="03-tasks.html#tekton-task-deploy">Deploy task</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-tasks.html#tkn-see-what-you-have-deployed">See what you have deployed</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
     <a class="nav-link" href="03-tasks.html#tekton-task-run">TaskRun</a>
 <ul class="nav-list">
@@ -121,9 +118,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#tekton-pipeline-deploy">Deploy Pipeline</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#tkn-see-what-you-have-deployed">See what you have deployed</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#tekton-pipeline-run">Run Pipeline</a>
@@ -161,7 +155,7 @@
 </nav>
 </div>
 <article class="doc">
-<h1>Welcome to Knative Tutorial</h1>
+<h1>Knative Tutorial</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -597,7 +591,7 @@ spec:
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Only resources of same type can be bound
+Only pipeline resources of same type can be bound. e.g. resource of type <code>git</code> with <code>git</code> or <code>image</code> with <code>image</code>
 </td>
 </tr>
 </table>
@@ -640,16 +634,9 @@ Only resources of same type can be bound
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="tkn-see-what-you-have-deployed"><a class="anchor" href="#tkn-see-what-you-have-deployed"></a>See what you have deployed</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>We will use the Tekton cli to inspect the created resources</p>
 </div>
-<div class="sect2">
-<h3 id="tkn-res-pipelines"><a class="anchor" href="#tkn-res-pipelines"></a>Pipelines</h3>
 <div id="tekton-inspect-pipeline" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn pipeline ls</code></pre>
@@ -665,36 +652,6 @@ Only resources of same type can be bound
 kn-svc-deploy   4 seconds ago   ---        ---       ---        ---</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="tkn-res-pipeline-runs"><a class="anchor" href="#tkn-res-pipeline-runs"></a>PipelineRun</h3>
-<div id="tekton-inspect-pipelinerun" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn pipelinerun ls</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-inspect-pipelinerun"><i class="fa fa-clipboard"></i></button><br/>
-<div class="paragraph">
-<p>The above command should list one PipelineRun as shown below:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                      STARTED          DURATION    STATUS
-kn-svc-deploy-run-4896t   4 seconds ago    ---         Running</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-It will take few seconds for the PipelineRun to show status as <code>Running</code> as it needs to download the container images.
-</td>
-</tr>
-</table>
-</div>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -702,29 +659,12 @@ It will take few seconds for the PipelineRun to show status as <code>Running</co
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Use the command <strong>help</strong> via <code>tkn pipelinerun --help</code> or <code>tkn pipeline --help</code></p>
-</li>
-<li>
-<p>Use <code>pr</code> as shorcut for pipelinerun commands e.g to list pipelinerun run the command <code>tkn pr ls</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Use the command <strong>help</strong> via <code>tkn pipeline --help</code> to see more options</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>If you see the PipelineRun status as <code>Failed</code> or <code>Error</code> use the following command to check the reason for error:</p>
-</div>
-<div id="tekton-desc-pipelinerun" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn pipelinerun describe &lt;pipelinerun-name&gt;</code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-desc-pipelinerun"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
@@ -784,7 +724,58 @@ It will take few seconds for the PipelineRun to show status as <code>Running</co
 </table>
 </div>
 <div class="paragraph">
-<p>You can check the created <a href="#pipelinerun">PipelineRun</a> and the PipelineRun usually takes time to complete, to check the status of the PipelineRun use the <code>logs</code> command of pipelinerun like:</p>
+<p>We will use the Tekton cli to inspect the created resources:</p>
+</div>
+<div id="tekton-inspect-pipelinerun" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn pipelinerun ls</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-inspect-pipelinerun"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The above command should list one PipelineRun as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                      STARTED          DURATION    STATUS
+kn-svc-deploy-run-4896t   4 seconds ago    ---         Running</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few seconds for the PipelineRun to show status as <code>Running</code> as it needs to download the container images.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Use the command <strong>help</strong> via <code>tkn pipelinerun --help</code></p>
+</li>
+<li>
+<p>Use <code>pr</code> as shorcut for pipelinerun commands e.g to list pipelinerun run the command <code>tkn pr ls</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To check the status of the PipelineRun use the <code>logs</code> command of pipelinerun like:</p>
 </div>
 <div id="tekton-pipelinerun-logs" class="listingblock">
 <div class="content">
@@ -803,6 +794,15 @@ tkn pr logs -f -a &lt;pipeline-run-name&gt; <i class="conum" data-value="1"></i>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>If you see the PipelineRun status as <code>Failed</code> or <code>Error</code> use the following command to check the reason for error:</p>
+</div>
+<div id="tekton-desc-pipelinerun" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn pipelinerun describe &lt;pipelinerun-name&gt;</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#tekton-desc-pipelinerun"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 <div class="sect1">

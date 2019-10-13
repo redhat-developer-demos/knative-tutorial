@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Knative Tutorial :: Knative Tutorial</title>
+    <title>Knative Tutorial :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-basics/0.7.x/01-setup.html">
     <meta name="generator" content="Antora 2.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -42,13 +42,19 @@
     <a class="nav-link" href="01-setup.html">1. Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#prerequisite">Prerequisites</a>
+    <a class="nav-link" href="#kubernetes-cluster">Choose your Kubernetes Cluster</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#tutorial-dev-env">Development Environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tutorial-prerequisite">CLI Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#kubernetes-cluster">Choose your Kubernetes Cluster</a>
+</ul>
   </li>
 </ul>
   </li>
@@ -356,105 +362,9 @@
 </nav>
 </div>
 <article class="doc">
-<h1>Welcome to Knative Tutorial</h1>
-<div class="sect1">
-<h2 id="prerequisite"><a class="anchor" href="#prerequisite"></a>Prerequisite CLI tools</h2>
+<h1>Knative Tutorial</h1>
+<div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
-<th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
-<th class="tableblock halign-center valign-top"><strong>Fedora</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>git</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/mac" class="bare">https://git-scm.com/download/mac</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install git</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Docker</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-mac/install" class="bare">https://docs.docker.com/docker-for-mac/install</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>sudo curl --output /usr/local/bin/stern -L <a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64" class="bare">https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64</a> &amp;&amp; sudo chmod +x /usr/local/bin/stern</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install yq</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/latest" class="bare">https://github.com/mikefarah/yq/releases/latest</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/JoeDog/siege">siege</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install siege</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install siege</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install procps-ng</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">kubectx and kubens</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install kubectx</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/ahmetb/kubectx" class="bare">https://github.com/ahmetb/kubectx</a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="remote-docker-repository"><a class="anchor" href="#remote-docker-repository"></a>Remote Repository</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For some parts of the tutorial, you will be pushing and pulling container images to and from a remote image repository. You will need an account with publish rights.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Knative works best with any container registry that support <code>v2_2</code> schema e.g. <a href="https://gcr.io">Google Container Registry</a>, <a href="https://hub.docker.com">Docker Hub</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
-</div>
-<div id="cloneRepo" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a></code></pre>
-</div>
-</div>
-<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-clipboard"></i></button><br/>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -471,7 +381,7 @@
 <p>Knative <code>v0.7.1</code></p>
 </li>
 <li>
-<p>Minikube <code>v1.0.1</code></p>
+<p>Minikube <code>v1.4.0</code></p>
 </li>
 <li>
 <p>OpenShift <code>v4.1+</code></p>
@@ -504,7 +414,9 @@
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_kubernetes">
 <div id="start-minikube" class="paragraph">
-<div class="title"><strong>Configure and Start Minikube</strong></div>
+<p><strong>Configure and Start Minikube</strong></p>
+</div>
+<div class="paragraph">
 <p>Before installing Knative and its components, we need to create a Minikube virtual machine and deploy Kubernetes into it.</p>
 </div>
 <div class="paragraph">
@@ -512,13 +424,14 @@
 </div>
 <div id="setup-minikube-start" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube profile knative <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube profile knativetutorial <i class="conum" data-value="1"></i><b>(1)</b>
 
-minikube start -p knative --memory=8192 --cpus=6 \<i class="conum" data-value="2"></i><b>(2)</b>
-  --kubernetes-version=v1.12.0 \<i class="conum" data-value="3"></i><b>(3)</b>
-  --vm-driver=hyperkit \<i class="conum" data-value="4"></i><b>(4)</b>
+minikube start -p knativetutorial --memory=8192 --cpus=6 \<i class="conum" data-value="1"></i><b>(1)</b>
+  --kubernetes-version=v1.14.0 \
+  --vm-driver=hyperkit \<i class="conum" data-value="2"></i><b>(2)</b>
   --disk-size=50g \
-  --extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"</code></pre>
+  --extra-config='apiserver.enable-admission-plugins=LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook' \
+  --insecure-registry='10.0.0.0/24' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-minikube-start"><i class="fa fa-clipboard"></i></button><br/>
@@ -530,17 +443,188 @@ minikube start -p knative --memory=8192 --cpus=6 \<i class="conum" data-value="2
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Starting a profile named <strong>knative</strong></td>
+<td>On macOS/windows. On Linux, please use <code>--vm-driver=kvm2</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Minimum Kubernetes version needs to be 1.12, refer to issue <a href="https://github.com/knative/serving/issues/3067" class="bare">https://github.com/knative/serving/issues/3067</a> for more details.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>On macOS. On Linux, please use <code>--vm-driver=kvm2</code></td>
+<td>Make the internal registry to be insecure registry</td>
 </tr>
 </table>
+</div>
+<div id="minikube-enable-registry" class="paragraph">
+<p><strong>Enable Internal Registry</strong></p>
+</div>
+<div id="minikube-enable-registry-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube addons enable registry</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-enable-registry-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few mins for the registry to be enabled, you can watch the status using <code>kubectl get pods -n kube-system -w  | grep registry</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful enable of <a href="#minikube-enable-registry">registry</a> will show the following pods when running the command:</p>
+</div>
+<div id="minikube-check-registry" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pods -n kube-system | grep registry</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-registry"><i class="fa fa-clipboard"></i></button><br/>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">registry-7c5hg                             1/1     Running   0          29m
+registry-proxy-cj6dj                       1/1     Running   0          29m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Deploy Registry Helper</strong></p>
+</div>
+<div class="paragraph">
+<p>As part of some exercises in the tutorial, we need to push and pull images to local internal registry. To make push and pull smoother we will have a helper deployed so that we can use some common names like <code>dev.local</code>, <code>example.com</code> as registry aliases for internal registry</p>
+</div>
+<div class="paragraph">
+<p>Navigate to registry helper folder:</p>
+</div>
+<div id="minikube-registry-helper-nav" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/minikube-registry-helper</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-registry-helper-nav"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p><strong>Add entries to minikube host file</strong></p>
+</div>
+<div id="minikube-add-entry-to-host" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n kube-system -f registry-aliases-config.yaml &amp;&amp;\
+kubectl apply -n kube-system -f node-etc-hosts-update.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-add-entry-to-host"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Wait for the Daemonset to be running before proceeding to next step, the status of the Daemonset can be viewed via <code>kubectl get pods -n kube-system -w</code>, you can do <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to end the watch.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Check if the entries are added to minikube node host file</p>
+</div>
+<div id="minikube-check-host-entry" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat /etc/node-hosts</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-host-entry"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+the node&#8217;s <code>/etc/host</code> is mounted has <code>/etc/node-hosts</code> within the <code>tutorial-tools</code> pod
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful daemonset run will show the minikube node <code>/etc/hosts</code> file with the following entries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">127.0.0.1       localhost
+127.0.1.1 demo
+10.111.151.121  dev.local
+10.111.151.121  example.com</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The IP for <code>dev.local</code> and <code>example.com</code> will match the <strong>CLUSTER-IP</strong> of the internal registry. To know the Cluster IP run the command:</p>
+</div>
+<div id="minikube-check-registry-ip" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get svc registry -n kube-system</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-registry-ip"><i class="fa fa-clipboard"></i></button><br/>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Update CoreDNS</strong></p>
+</div>
+<div id="minikube-update-coredns" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./patch-coredns.sh</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-update-coredns"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>To check successful patch  run the following command</p>
+</div>
+<div id="check-coredns-cm" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get cm -n kube-system coredns -o yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-coredns-cm"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful patch will have the coredns updated ConfigMap <code>coredns</code> in <code>kube-system</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+data:
+  Corefile: |-
+    .:53 {
+        errors
+        health
+        rewrite name dev.local registry.kube-system.svc.cluster.local
+        rewrite name example.com registry.kube-system.svc.cluster.local
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           upstream
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . /etc/resolv.conf
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+kind: ConfigMap
+metadata:
+  name: coredns</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Install Istio</strong></p>
@@ -888,6 +972,101 @@ oc adm policy add-scc-to-user anyuid -z default</code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
+</div>
+<div id="cloneRepo" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone -b release/0.7.x <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a> &amp;&amp;\
+export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial-prerequisite"><a class="anchor" href="#tutorial-prerequisite"></a>CLI tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
+<th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Fedora</strong></th>
+<th class="tableblock halign-center valign-top"><strong>windows</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Git</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/mac">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/win">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/linux">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-mac/install">Docker for Mac</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-windows/install">Docker for Windows</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>kubectl</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.11.0/stern_windows_amd64.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install yq</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/latest">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.0/yq_windows_amd64.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/doc#windows-etc" class="bare">https://httpie.org/doc#windows-etc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/rakyll/hey">hey</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/hey-release/hey_darwin_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/jblabs/dist/hey_linux_v0.1.2">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/jblabs/dist/hey_win_v0.1.2.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install procps-ng</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">kubectx and kubens</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install kubectx</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/ahmetb/kubectx" class="bare">https://github.com/ahmetb/kubectx</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>
