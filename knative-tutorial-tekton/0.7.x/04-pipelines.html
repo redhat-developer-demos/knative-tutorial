@@ -712,7 +712,7 @@ kn-svc-deploy   4 seconds ago   ---        ---       ---        ---</code></pre>
 <div id="tekton-trigger-pipelinerun-maven-mirror" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tkn pipeline start kn-svc-deploy \
- --param="mavenMirrorUrl=http://192.168.64.1:8081/nexus/content/groups/public" \
+ --param="mavenMirrorUrl=http://nexus:8081/nexus/content/groups/public" \
  --resource="appSource=git-source" \<i class="conum" data-value="1"></i><b>(1)</b>
  --resource="appImage=knative-tutorial-greeter-image" \<i class="conum" data-value="2"></i><b>(2)</b>
  --serviceaccount='pipeline' <i class="conum" data-value="3"></i><b>(3)</b></code></pre>

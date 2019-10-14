@@ -686,7 +686,7 @@ spec:
       value: apps/greeter/java/quarkus
     # Enable if you have maven mirrors to use
     # - name: mavenMirrorUrl
-    #   value: <a href="http://192.168.99.1:8081/nexus/content/groups/public" class="bare">http://192.168.99.1:8081/nexus/content/groups/public</a>
+    #   value: <a href="http://nexus:8081/nexus/content/groups/public" class="bare">http://nexus:8081/nexus/content/groups/public</a>
   outputs:
    resources:
     - name: builtImage
@@ -1004,7 +1004,7 @@ Each task step will be run within a container of its own.
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl run demo-greeter -n knativetutorial \
  --generator='run-pod/v1' \
- --image='localhost:5000/rhdevelopers/knative-tutorial-greeter' &amp;&amp; \
+ --image='dev.local/rhdevelopers/knative-tutorial-greeter' &amp;&amp; \
 kubectl expose pod demo-greeter -n knativetutorial --port 8080 --type=NodePort</code></pre>
 </div>
 </div>
@@ -1013,7 +1013,7 @@ kubectl expose pod demo-greeter -n knativetutorial --port 8080 --type=NodePort</
 <div class="tab-pane" aria-labelledby="tabset7_openshift">
 <div id="tekton-app-run-to-oc" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc run demo-greeter -n knativetutorial --generator='run-pod/v1' --image='localhost:5000/rhdevelopers/knative-tutorial-greeter' &amp;&amp; \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc run demo-greeter -n knativetutorial --generator='run-pod/v1' --image='dev.local/rhdevelopers/knative-tutorial-greeter' &amp;&amp; \
 oc expose pod demo-greeter -n knativetutorial --port 8080 --type=NodePort &amp;&amp; \
 oc expose svc -n knativetutorial demo-greeter</code></pre>
 </div>
