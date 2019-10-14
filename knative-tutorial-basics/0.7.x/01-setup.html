@@ -52,7 +52,10 @@
     <a class="nav-link" href="#tutorial-dev-env">Development Environment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#tutorial-prerequisite">CLI Tools</a>
+    <a class="nav-link" href="#tutorial-all-local">CLI Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dev-env-all-in-one">All in one Environment</a>
   </li>
 </ul>
   </li>
@@ -983,8 +986,21 @@ You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kb
 <div class="sect1">
 <h2 id="tutorial-dev-env"><a class="anchor" href="#tutorial-dev-env"></a>Development tutorial</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>You have two options to choose your development environment,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#tutorial-all-local">install everything locally</a></p>
+</li>
+<li>
+<p><a href="#dev-env-all-in-one">all in one</a></p>
+</li>
+</ul>
+</div>
 <div class="sect2">
-<h3 id="tutorial-prerequisite"><a class="anchor" href="#tutorial-prerequisite"></a>CLI tools</h3>
+<h3 id="tutorial-all-local"><a class="anchor" href="#tutorial-all-local"></a>CLI tools</h3>
 <div class="paragraph">
 <p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
 </div>
@@ -1060,6 +1076,274 @@ You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kb
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev-env-all-in-one"><a class="anchor" href="#dev-env-all-in-one"></a>All in one Environment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you don&#8217;t wish to install the aforementioned tools, you could get started with tutorial using the <strong>all-in-one-environment</strong> based on <a href="https://eclipse.org/che">Eclipse Che</a>&#8201;&#8212;&#8201;a browser based IDE --.</p>
+</div>
+<div class="sect2">
+<h3 id="dev-env-install-chectl"><a class="anchor" href="#dev-env-install-chectl"></a>Install chectl</h3>
+<div class="paragraph">
+<p>To get started in setting up this environment, we need to have <a href="https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/">chectl</a>. You can follow the <a href="https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/">instructions</a> to have it installed locally.</p>
+</div>
+<div class="paragraph">
+<p>You can verify the install using the command:</p>
+</div>
+<div id="chectl-env-verify" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#chectl-env-verify"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command above should return an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl/7.2.0 darwin-x64 node-v10.16.3</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above output is an example from macOS (darwin), the OS information in output may vary based on your OS
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Navigate to <code>$TUTORIAL_HOME</code>:</p>
+</div>
+<div id="nav-to-tutorial-home" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#nav-to-tutorial-home"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="sect2">
+<h3 id="dev-env-che-server"><a class="anchor" href="#dev-env-che-server"></a>Create Che server</h3>
+<div id="dev-env-che-server-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl server:start --platform minikube</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-che-server-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for Che server to be started, watch the output of <code>chectl</code> command for the status.</p>
+</div>
+<div class="paragraph">
+<p>A successful Che install should show an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl server:start --platform minikube
+  ✔ Verify Kubernetes API...OK
+  ✔ 👀  Looking for an already existing Che instance
+    ✔ Verify if Che is deployed into namespace "che"...it is not
+  ✔ ✈️  Minikube preflight checklist
+    ✔ Verify if kubectl is installed
+    ✔ Verify if minikube is installed
+    ✔ Verify if minikube is running
+    ↓ Start minikube [skipped]
+      → Minikube is already running.
+    ✔ Verify if minikube ingress addon is enabled
+    ↓ Enable minikube ingress addon [skipped]
+      → Ingress addon is already enabled.
+    ✔ Retrieving minikube IP and domain for ingress URLs...192.168.64.166.
+nip.io.
+  ✔ 🏃‍  Running Helm to install Che
+    ✔ Verify if helm is installed
+    ✔ Create Tiller Role Binding...done.
+    ✔ Create Tiller Service Account...done.
+    ✔ Create Tiller RBAC
+    ✔ Create Tiller Service...done.
+    ✔ Preparing Che Helm Chart...done.
+    ✔ Updating Helm Chart dependencies...done.
+    ✔ Deploying Che Helm Chart...done.
+  ✔ ✅  Post installation checklist
+    ✔ Devfile registry pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Plugin registry pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Che pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Retrieving Che Server URL...http://che-che.192.168.64.166.nip.io
+    ✔ Che status check
+Command server:start has completed successfully.</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Che server url will be matching to your minikube ip <code>minikube ip</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_che_server"><a class="anchor" href="#_configure_che_server"></a>Configure Che server</h3>
+<div class="paragraph">
+<p>The default Che server Kubernetes service account has limited privileges, for this tutorial we will use a different service account called <code>tutorial-tools</code> which is a cluster-admin within your Kubernetes cluster:</p>
+</div>
+<div class="paragraph">
+<p>Create the service account, tutorial-tools configmap:</p>
+</div>
+<div id="dev-env-k8s-resources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n che -f $TUTORIAL_HOME/install/tutorial-tools.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-k8s-resources"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Patch the Che configmap to use <code>tutorial-tools</code> service account</p>
+</div>
+<div id="dev-env-patch-che-cm" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl patch configmaps -n che che \
+  --patch '{"data": {"CHE_INFRA_KUBERNETES_SERVICE__ACCOUNT__NAME": "tutorial-tools"} }'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-patch-che-cm"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>We need to restart the <code>che</code> pod to make it pick up the new service account from the configmap:</p>
+</div>
+<div id="dev-env-bounce-che-pod" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n che pod che</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-bounce-che-pod"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It will take few mins for the new che pod to come up, you can watch the status using the command <code>kubectl get -n che pods -w</code>. Use <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dev-env-create-workspace"><a class="anchor" href="#dev-env-create-workspace"></a>Create workspace</h3>
+<div class="paragraph">
+<p>Create Che workspace and clone the knative tutorial sources in it:</p>
+</div>
+<div id="dev-env-create-workspace-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl workspace:start -f $TUTORIAL_HOME/devfile.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-create-workspace-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful workspace creation will show the following output</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl workspace:start -f devfile.yaml
+  ✔ Retrieving Che Server URL...http://che-che.192.168.64.166.nip.io
+  ✔ Verify if Che server is running...RUNNING (auth disabled)
+  ✔ Create workspace from Devfile devfile.yaml
+
+Workspace IDE URL:
+http://che-che.192.168.64.166.nip.io/dashboard/#/ide/che/knative-tutorial</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The IP used in the Che workspace url will be your minikube ip(<code>minikube ip</code>)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Open your environment using the <strong>Workspace IDE URL</strong> listed in the output to start the workspace.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few minutes for the workspace to be up and running.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dev-env-workspace-familiarize"><a class="anchor" href="#dev-env-workspace-familiarize"></a>Familiarize your workspace</h3>
+<div class="paragraph">
+<p>Opening your Che workspace using the <code>Workspace IDE URL</code> will show browser window like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/che_env_overview.png" alt="che env overview">
+</div>
+</div>
+<div class="paragraph">
+<p>You can open the <code>New Terminal</code> to start running the tutorial exercises.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The editor has been pre-configured with all common and popular vscode plugins:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Java</p>
+</li>
+<li>
+<p>Xml</p>
+</li>
+<li>
+<p>YAML</p>
+</li>
+<li>
+<p>Kubernetes</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
