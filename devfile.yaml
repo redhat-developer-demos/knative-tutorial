@@ -1,0 +1,95 @@
+apiVersion: 1.0.0
+metadata:
+  name: knative-tutorial
+projects:
+  - name: knative-tutorial
+    source:
+      type: git
+      location: 'https://github.com/redhat-developer-demos/knative-tutorial.git'
+      branch: "release/0.7.x"
+components:
+  - id: redhat/vscode-yaml/latest
+    type: chePlugin
+  - id: redhat/vscode-xml/latest
+    type: chePlugin
+  - id: redhat/java8/latest
+    type: chePlugin
+    preferences:
+      java.configuration.maven.userSettings: /opt/developer/.m2/settings.xml
+  - alias: tools
+    type: kubernetes
+    mountSources: true
+    referenceContent: |
+      apiVersion: v1
+      kind: List
+      items:
+      - apiVersion: v1
+        kind: Pod
+        metadata:
+          name: tutorial-tools
+          labels:
+            app: tools
+        spec:
+          serviceAccountName: tutorial-tools
+          initContainers:
+          - name: kubeconfiger
+            image: quay.io/rhdevelopers/tutorial-tools:0.0.2
+            imagePullPolicy: IfNotPresent
+            workingDir:  /workspace/kubeconfig   
+            volumeMounts:
+              - name: kubeconfig-tpl
+                mountPath: /tmp/kubeconfig
+              - name: kubeconfig
+                mountPath: /workspace/kubeconfig             
+            securityContext:
+              privileged: false
+              runAsUser: 10001
+            command:
+                - bash
+                - -ce
+                - |
+                  echo "Preparing Kube Config" 
+                  cp /tmp/kubeconfig/config config
+                  KUBE_API_SERVER_URL="$(kubectl cluster-info | awk 'NR==1{print $6}'|sed -r 's/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g')"
+                  echo "Using Kube API Server form $KUBE_API_SERVER_URL"
+                  kubectl config --kubeconfig=config set-cluster knativetutorial \
+                  --server=$KUBE_API_SERVER_URL \
+                  --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                  kubectl config --kubeconfig=config set-credentials tutorial-tools --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+                  kubectl config --kubeconfig=config set-context knativetutorial --cluster=knativetutorial --namespace=knativetutorial --user=tutorial-tools
+                  kubectl config --kubeconfig=config use-context knativetutorial
+                  echo "Done."
+          containers:
+          - name: tutorial-tools
+            image: quay.io/rhdevelopers/tutorial-tools:0.0.2
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: TUTORIAL_HOME
+                value: /projects/knative-tutorial
+              # - name: MAVEN_MIRROR_URL
+              #   value: 'http://nexus:8081/nexus/content/groups/public'
+            # Adjust this based on how much resource you have
+            # e.g. For Quarkus native builds increase this to 4Gi/4CPU
+            securityContext:
+              privileged: false
+              runAsUser: 10001
+            resources:
+              limits: 
+                cpu: "1000m"
+                memory: 1Gi
+              requests:
+                cpu: "512m"
+                memory: "512Mi"
+              workingDir: /opt/developer
+            volumeMounts:
+              - name: kubeconfig
+                mountPath: /opt/developer/.kube
+          volumes:
+            - name: kubeconfig
+              emptyDir: {}
+            - name: kubeconfig-tpl
+              configMap:
+                name: tutorial-tools-kubeconfig
+                items:
+                - key: config
+                  path: config
