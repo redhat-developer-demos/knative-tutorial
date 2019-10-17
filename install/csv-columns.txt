@@ -1,0 +1,2 @@
+NAME           VERSION         PHASE
+.metadata.name .spec.version   .status.phase
