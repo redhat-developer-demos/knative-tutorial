@@ -6,7 +6,7 @@ metadata:
 spec:
   istio:
     global:
-      multitenant: false
+      multitenant: true
       proxy:
         autoInject: disabled
         resources:
@@ -52,12 +52,12 @@ spec:
       autoscaleEnabled: false
       sidecar: false
       resources:
-        requests:
-          cpu: 100m
-          memory: 500m
-        limits:
-          cpu: 500m
-          memory: 1Gi
+          requests:
+            cpu: 250m
+            memory: 1Gi
+          limits:
+            cpu: 500m
+            memory: 2Gi
     kiali:
       enabled: false
     tracing:
