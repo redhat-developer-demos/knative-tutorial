@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/01-setup.html</loc>
-<lastmod>2019-10-14T09:06:20.169Z</lastmod>
+<lastmod>2019-10-17T10:47:25.071Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/02-pipeline-resources.html</loc>
-<lastmod>2019-10-14T09:06:20.169Z</lastmod>
+<lastmod>2019-10-17T10:47:25.071Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/03-tasks.html</loc>
-<lastmod>2019-10-14T09:06:20.169Z</lastmod>
+<lastmod>2019-10-17T10:47:25.071Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/04-pipelines.html</loc>
-<lastmod>2019-10-14T09:06:20.169Z</lastmod>
+<lastmod>2019-10-17T10:47:25.071Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-tekton/0.7.x/index.html</loc>
-<lastmod>2019-10-14T09:06:20.169Z</lastmod>
+<lastmod>2019-10-17T10:47:25.071Z</lastmod>
 </url>
 </urlset>

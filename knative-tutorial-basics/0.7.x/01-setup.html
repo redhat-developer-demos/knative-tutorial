@@ -853,13 +853,29 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 <p><strong>OpenShift</strong></p>
 </div>
 <div class="paragraph">
-<p>Knative Serving and Eventing install needs OpenShift v4.x, you need to have one provisioned using <a href="https://try.openshift.com">try.openshift.com</a>or can use any existing OpenShift4 cluster.</p>
+<p>Knative Serving and Eventing install needs OpenShift4, you need to have one provisioned using <a href="https://try.openshift.com">try.openshift.com</a> or can use any existing OpenShift4 cluster.</p>
 </div>
 <div class="paragraph">
 <p>Once you have your cluster, you can download the latest OpenShift client(oc) from <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/">here</a> and add to your path.</p>
 </div>
+<div id="oc-version-check" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version-check"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
-<p>We will be using <a href="https://coreos.com/operators/">Kubernetes Operators</a> to install Knative serving and eventing components on OpenShift. OpenShift is integrated with <a href="https://operatorhub.io/">OperatorHub</a> that allows you to install the components(using Kubernetes operators) from within OpenShift web console.</p>
+<p>The output should show oc version &gt;=4.1</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version
+Client Version: version.Info{Major:"4", Minor:"1+", GitVersion:"v4.1.0+b4261e0", GitCommit:"b4261e07ed", GitTreeState:"clean", BuildDate:"2019-07-06T03:16:01Z", GoVersion:"go1.12.6", Compiler:"gc", Platform:"darwin/amd64"}
+Server Version: version.Info{Major:"1", Minor:"14+", GitVersion:"v1.14.6+73b5d76", GitCommit:"73b5d76", GitTreeState:"clean", BuildDate:"2019-09-23T16:18:51Z", GoVersion:"go1.12.8", Compiler:"gc", Platform:"linux/amd64"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We will be using <a href="https://coreos.com/operators/">Kubernetes Operators</a> to install Serverless (Knative Serving) and Knative Eventing components on OpenShift.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -871,7 +887,10 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 <div class="ulist">
 <ul>
 <li>
-<p>The Knative Eventing components are right now available as community components and is currently not supported by Red Hat.</p>
+<p>The Knative Serving community component is deprecated on OpenShift and we will be using Red Hat serverless operator.</p>
+</li>
+<li>
+<p>The Knative Eventing components are right now available as <code>knative-eventing</code> community operator and is currently not supported by Red Hat.</p>
 </li>
 </ul>
 </div>
@@ -886,6 +905,32 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 <p>Login to OpenShift console using the cluster admin credentials.</p>
 </div>
 <div class="paragraph">
+<p><strong>Create projects</strong></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>OpenShift is integrated with <a href="https://operatorhub.io/">OperatorHub</a> that allows you to install the components(using Kubernetes operators) from within OpenShift web console. But for the installation we will be using the command line mode via <code>oc</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="create-projects" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc adm new-project istio-system &amp;&amp; \
+oc adm new-project knative-serving &amp;&amp; \
+oc adm new-project knative-eventing &amp;&amp; \
+oc adm new-project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#create-projects"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
 <p><strong>Install catalog sources</strong></p>
 </div>
 <div id="install-csc" class="listingblock">
@@ -896,11 +941,30 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-csc"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
-<p>It will take few minutes for the operators to be installed and reconciled, you can watch the status using the command:</p>
+<p>It will take few minutes for the operators to be installed and reconciled, check the status using the command:</p>
+</div>
+<div id="check-csc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n openshift-marketplace get csc</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-csc"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful reconciliation should show an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                           STATUS      MESSAGE                                       AGE
+community-operators-packages   Succeeded   The object has been successfully reconciled   62s
+redhat-operators-packages      Succeeded   The object has been successfully reconciled   62s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open a new terminal and start a watch on the command <code>oc get csv -n openshift-operators</code>. For further reference in the setup we will call this terminal as <strong>WATCH_WINDOW</strong>.</p>
 </div>
 <div id="check-operators-status" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get csv -n openshift-operators'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get csv -n openshift-operators -ocustom-columns-file=$TUTORIAL_HOME/install/csv-columns.txt'</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-operators-status"><i class="fa fa-clipboard"></i></button><br/>
@@ -919,11 +983,191 @@ sources-controller-6f4d494fb9-8wkj4            1/1     Running   0          3m40
 </table>
 </div>
 <div class="paragraph">
-<p><strong>Install Knative Serving</strong></p>
+<p><strong>Install Servicemesh</strong></p>
+</div>
+<div class="paragraph">
+<p>Subscribe to Servicemesh via <a href="https://operstorhub.io">OperatorHub</a></p>
+</div>
+<div id="subscribe-to-servicemesh" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/servicemesh/subscription.yaml"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#subscribe-to-servicemesh"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few minutes for the servicemesh and its dependent components to be installed. Watch the status in the WATCH_WINDOW
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful servicemesh subscription install should show the output in WATCH_WINDOW like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                         VERSION               PHASE
+elasticsearch-operator.4.1.20-201910102034   4.1.20-201910102034   Succeeded
+jaeger-operator.v1.13.1                      1.13.1                Succeeded
+kiali-operator.v1.0.6                        1.0.6                 Succeeded
+servicemeshoperator.v1.0.1                   1.0.1                 Succeeded</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The servicemesh operator needs to be copied to the <code>istio-system</code> project before we can create a <code>ServiceMeshControlPlane</code> and <code>ServiceMeshMemberRoll</code> custom resources, you can watch the status using the command:</p>
+</div>
+<div id="watch-istio-system-operator-copy" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get csv -n istio-system -ocustom-columns-file=$TUTORIAL_HOME/install/csv-columns.txt'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#watch-istio-system-operator-copy"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few seconds for the operator to be copied
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once you see the following status, you can terminate the watch using <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                         VERSION               PHASE
+elasticsearch-operator.4.1.20-201910102034   4.1.20-201910102034   Succeeded
+jaeger-operator.v1.13.1                      1.13.1                Succeeded
+kiali-operator.v1.0.6                        1.0.6                 Succeeded
+servicemeshoperator.v1.0.1                   1.0.1                 Succeeded</code></pre>
+</div>
+</div>
+<div id="create-scmp" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f "$TUTORIAL_HOME/install/servicemesh/smcp.yaml" &amp;&amp; \
+oc create -f "$TUTORIAL_HOME/install/servicemesh/smmr.yaml"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#create-scmp"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for the servicemesh components to be installed, you can watch the status using the command:</p>
+</div>
+<div id="watch-istio-system-status" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods -n istio-system -w</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#watch-istio-system-status"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful servicemesh install should show the following pods:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                     READY   STATUS    RESTARTS   AGE
+cluster-local-gateway-7795cc7956-mqmq7   1/1     Running   0          92s
+istio-citadel-f88bdd688-c52z8            1/1     Running   0          2m58s
+istio-galley-f8f96c6bf-x7f4k             1/1     Running   0          2m48s
+istio-ingressgateway-65bf84457c-7rh5t    1/1     Running   0          92s
+istio-pilot-7f57f8bb5b-cr2qr             1/1     Running   0          110s</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These are the minimal set of servicemesh components required for serverless.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Install Serverless</strong></p>
+</div>
+<div class="paragraph">
+<p>Subscribe to Serverless via <a href="https://operstorhub.io">OperatorHub</a></p>
+</div>
+<div id="subscribe-to-knative-serving" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/knative-serving/subscription.yaml"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#subscribe-to-knative-serving"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Wait for the subscription <strong>PHASE</strong> to be <strong>Installed</strong> before proceeding to next step. You can watch the status in the WATCH_WINDOW.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful knative serving subscription install should show the output in WATCH_WINDOW like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                         VERSION               PHASE
+elasticsearch-operator.4.1.20-201910102034   4.1.20-201910102034   Succeeded
+jaeger-operator.v1.13.1                      1.13.1                Succeeded
+kiali-operator.v1.0.6                        1.0.6                 Succeeded
+serverless-operator.v1.0.0                   1.0.0                 Succeeded
+servicemeshoperator.v1.0.1                   1.0.1                 Succeeded</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The serverless operator needs to be copied to the <code>knative-serving</code> project before we can create a <code>KnativeServing</code> custom resource, you can watch the status using the command:</p>
+</div>
+<div id="watch-knative-serving-operator-copy" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get csv -n knative-serving -ocustom-columns-file=$TUTORIAL_HOME/install/csv-columns.txt'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#watch-knative-serving-operator-copy"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few seconds for the operator to be copied
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once you see the following status, you can terminate the watch using <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                         VERSION               PHASE
+elasticsearch-operator.4.1.20-201910102034   4.1.20-201910102034   Succeeded
+jaeger-operator.v1.13.1                      1.13.1                Succeeded
+kiali-operator.v1.0.6                        1.0.6                 Succeeded
+serverless-operator.v1.0.0                   1.0.0                 Succeeded
+servicemeshoperator.v1.0.1                   1.0.1                 Succeeded</code></pre>
+</div>
 </div>
 <div id="install-knative-serving" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/knative-serving/subscription.yaml"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -f "$TUTORIAL_HOME/install/knative-serving/cr.yaml"</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-knative-serving"><i class="fa fa-clipboard"></i></button><br/>
@@ -949,6 +1193,20 @@ You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kb
 </table>
 </div>
 <div class="paragraph">
+<p>A successful serverless install will show the following pods in <code>knative-serving</code> namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                    READY   STATUS    RESTARTS   AGE
+activator-78464cc84-vq9wp               1/1     Running   1          103s
+autoscaler-57479674d6-hlvx7             1/1     Running   0          102s
+controller-6fcb5b4b78-flq8d             1/1     Running   0          97s
+networking-certmanager-8c6d68d4-cmf7x   1/1     Running   0          97s
+networking-istio-644984496f-db58w       1/1     Running   0          96s
+webhook-84b96fdc6f-vbpxm                1/1     Running   1          96s</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>Install Knative Eventing</strong></p>
 </div>
 <div id="install-knative-eventing" class="listingblock">
@@ -957,6 +1215,69 @@ You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kb
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#install-knative-eventing"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Wait for the subscription <strong>PHASE</strong> to be <strong>Installed</strong> before proceeding to next step. You can watch the status in the WATCH_WINDOW.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful knative eventing subscription install should show the output in WATCH_WINDOW like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                         VERSION               PHASE
+elasticsearch-operator.4.1.20-201910102034   4.1.20-201910102034   Succeeded
+jaeger-operator.v1.13.1                      1.13.1                Succeeded
+kiali-operator.v1.0.6                        1.0.6                 Succeeded
+knative-eventing-operator.v0.8.0             0.8.0                 Succeeded
+serverless-operator.v1.0.0                   1.0.0                 Succeeded
+servicemeshoperator.v1.0.1                   1.0.1                 Succeeded</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The knative-eventing operator needs to be copied to the <code>knative-eventing</code> project before we can create a <code>KnativeEventing</code> custom resource, you can watch the status using the command:</p>
+</div>
+<div id="watch-knative-eventing-operator-copy" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch 'oc get csv -n knative-eventing -ocustom-columns-file=$TUTORIAL_HOME/install/csv-columns.txt'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#watch-knative-eventing-operator-copy"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few seconds for the operator to be copied
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once you see the following status, you can terminate the watch using <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                         VERSION               PHASE
+elasticsearch-operator.4.1.20-201910102034   4.1.20-201910102034   Succeeded
+jaeger-operator.v1.13.1                      1.13.1                Succeeded
+kiali-operator.v1.0.6                        1.0.6                 Succeeded
+knative-eventing-operator.v0.8.0             0.8.0                 Succeeded
+serverless-operator.v1.0.0                   1.0.0                 Succeeded
+servicemeshoperator.v1.0.1                   1.0.1                 Succeeded</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>It will take few minutes for the Knative eventing components to be installed, you can watch the status using:</p>
 </div>
@@ -978,6 +1299,33 @@ You can terminate the watch using the command <span class="keyseq"><kbd>Ctrl</kb
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>A successful Knative Eventing install will show the following pods in Knative eventing namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                            READY   STATUS    RESTARTS   AGE
+eventing-controller-758d785bf7-jr7bh            1/1     Running   0          2m4s
+eventing-webhook-7ff46cd45f-w8d9v               1/1     Running   0          2m3s
+imc-controller-75d7f598df-4knn4                 1/1     Running   0          113s
+imc-dispatcher-77f565585c-z6d8x                 1/1     Running   0          113s
+in-memory-channel-controller-6b4967d97b-x2hcj   1/1     Running   0          2m
+in-memory-channel-dispatcher-8bbcd4f9-kxmcw     1/1     Running   0          118s
+sources-controller-788874d5fc-8jqrz             1/1     Running   0          2m4s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Congratulations! You have now installed all the required components to run the tutorial exercises. You can terminate the WATCH_WINDOW using <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Navigate to tutorial project</strong></p>
+</div>
+<div id="nav-to-tutorial-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#nav-to-tutorial-project"><i class="fa fa-clipboard"></i></button><br/>
 </div>
 </div>
 </div>
