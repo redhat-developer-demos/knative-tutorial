@@ -92,6 +92,6 @@ public class OthersGenreHandler extends RouteBuilder {
 	}
 
 	private static String propertyWithPlaceHolder(PropertiesComponent propertiesComponent, String key) {
-		return propertiesComponent.getPrefixToken() + key + propertiesComponent.getSuffixToken();
+		return PropertiesComponent.PREFIX_TOKEN + key + PropertiesComponent.SUFFIX_TOKEN;
 	}
 }

@@ -77,7 +77,7 @@ public class SortAndUpperCase extends RouteBuilder {
             if (System.getenv().containsKey(key)) {
                 return System.getenv().getOrDefault(key, defaultValue);
             } else {
-                return propertiesComponent.parseUri(propertiesComponent.getPrefixToken() + key + propertiesComponent.getSuffixToken());
+                return propertiesComponent.parseUri(PropertiesComponent.PREFIX_TOKEN + key + PropertiesComponent.SUFFIX_TOKEN);
             }
         } catch (IllegalArgumentException e) {
             return defaultValue;
