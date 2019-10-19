@@ -1,14 +1,14 @@
 package com.example.camel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.amqp.AMQPComponent;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.qpid.jms.JmsConnectionFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SortAndUpperCase extends RouteBuilder {
 

@@ -1,3 +1,10 @@
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws.s3.S3Component;
+import org.apache.camel.component.aws.s3.S3Constants;
+import org.apache.camel.component.properties.PropertiesComponent;
+
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -7,12 +14,6 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.apache.camel.Exchange;
-import org.apache.camel.Message;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.aws.s3.S3Component;
-import org.apache.camel.component.aws.s3.S3Constants;
-import org.apache.camel.component.properties.PropertiesComponent;
 
 /**
  * A Camel Java DSL Router that downloads the file from s3 and sends the content as response
