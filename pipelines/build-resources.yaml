@@ -4,11 +4,11 @@ metadata:
   name: git-source
 spec:
   type: git
-  params: 
-  - name: url
-    value: https://github.com/redhat-developer-demos/knative-tutorial
-  - name: revision
-    value: release/0.7.x
+  params:
+    - name: url
+      value: https://github.com/redhat-developer-demos/knative-tutorial
+    - name: revision
+      value: knative-cookbook
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
@@ -16,8 +16,8 @@ metadata:
   name: knative-tutorial-greeter-image
 spec:
   type: image
-  params: 
-  - name: url
-    value: "dev.local/rhdevelopers/knative-tutorial-greeter"
-    # if you are on OpenShift uncomment the line below
-    #value: "image-registry.openshift-image-registry.svc:5000/tutorial/helloworld"
+  params:
+    - name: url
+      value: "dev.local/rhdevelopers/knative-tutorial-greeter"
+      # if you are on OpenShift uncomment the line below
+      #value: "image-registry.openshift-image-registry.svc:5000/tutorial/helloworld"

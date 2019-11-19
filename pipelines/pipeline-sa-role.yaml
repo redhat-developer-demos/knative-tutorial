@@ -3,6 +3,12 @@ kind: ServiceAccount
 metadata:
   name: pipeline
   namespace: knativetutorial
+# uncomment the lines below when running the exercises using
+# remote container registry and building form private
+# git repository
+#secrets
+#- name: remote-registry-secret
+#- name: private-git-repo-secret
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -10,46 +16,46 @@ metadata:
   name: pipeline-role
   namespace: knativetutorial
 rules:
-- apiGroups: ["serving.knative.dev"]
-  resources: ["*"]
-  verbs: ["*"]
-- apiGroups: ["eventing.knative.dev"]
-  resources: ["*"]
-  verbs: ["*"]
-- apiGroups: ["sources.eventing.knative.dev"]
-  resources: ["*"]
-  verbs: ["*"]
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  - services
-  - endpoints
-  - configmaps
-  - secrets
-  verbs:
-  - '*'
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  - daemonsets
-  - replicasets
-  - statefulsets
-  verbs:
-  - '*'
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-- apiGroups:
-  - apps
-  resources:
-  - replicasets
-  verbs:
-  - get
+  - apiGroups: ["serving.knative.dev"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["eventing.knative.dev"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["sources.eventing.knative.dev"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - services
+      - endpoints
+      - configmaps
+      - secrets
+    verbs:
+      - "*"
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - daemonsets
+      - replicasets
+      - statefulsets
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+  - apiGroups:
+      - apps
+    resources:
+      - replicasets
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -61,6 +67,6 @@ roleRef:
   name: pipeline-role
   apiGroup: rbac.authorization.k8s.io
 subjects:
-- kind: ServiceAccount
-  name: pipeline
-  namespace: knativetutorial
+  - kind: ServiceAccount
+    name: pipeline
+    namespace: knativetutorial

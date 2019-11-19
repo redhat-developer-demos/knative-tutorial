@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  generateName: kn-svc-deploy-
+spec:
+  pipelineRef:
+    name: kn-svc-deploy
+  serviceAccount: "pipeline"
+  params:
+    - name: mavenMirrorUrl
+      value: http://nexus:8081/nexus/content/groups/public
+  resources:
+    - name: appSource
+      resourceRef:
+        name: git-source
+    - name: appImage
+      resourceRef:
+        name: knative-tutorial-greeter-image
