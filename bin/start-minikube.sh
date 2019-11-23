@@ -8,7 +8,7 @@ CPUS=${CPUS:-5}
 
 minikube profile $PROFILE_NAME
 
-minikube  --memory=$MEMORY --cpus=$CPUS \
+minikube start --memory=$MEMORY --cpus=$CPUS \
   --kubernetes-version=v1.14.0 \
   --vm-driver=$VM_DRIVER \
   --disk-size=50g \
