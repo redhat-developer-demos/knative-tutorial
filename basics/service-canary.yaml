@@ -1,0 +1,33 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: greeter
+spec:
+  template:
+    metadata:
+      name: greeter-v2
+      annotations:
+        # disable istio-proxy injection
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+          env:
+            - name: MESSAGE_PREFIX
+              value: Namaste
+          livenessProbe:
+            httpGet:
+              path: /healthz
+          readinessProbe:
+            httpGet:
+              path: /healthz
+  traffic:
+    - tag: v1
+      revisionName: greeter-v1
+      percent: 80
+    - tag: v2
+      revisionName: greeter-v2
+      percent: 20
+    - tag: latest
+      latestRevision: true
+      percent: 0
