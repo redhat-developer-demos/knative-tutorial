@@ -11,14 +11,16 @@ spec:
         sidecar.istio.io/inject: "false"
         # the minimum number of pods to scale down to
         autoscaling.knative.dev/minScale: "2"
+        # the maximum number of pods to scale up to
+        autoscaling.knative.dev/maxScale: "5"
         # Target 10 in-flight-requests per pod.
         autoscaling.knative.dev/target: "10"
     spec:
       containers:
-      - image: quay.io/rhdevelopers/prime-generator:v27-quarkus
-        livenessProbe:
-          httpGet:
-            path: /healthz
-        readinessProbe:
-          httpGet:
-            path: /healthz
+        - image: quay.io/rhdevelopers/prime-generator:v27-quarkus
+          livenessProbe:
+            httpGet:
+              path: /healthz
+          readinessProbe:
+            httpGet:
+              path: /healthz
