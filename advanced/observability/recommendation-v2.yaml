@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: recommendation
+  labels:
+    serving.knative.dev/visibility: "cluster-local"
+spec:
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/istio-tutorial-recommendation:v2
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health
