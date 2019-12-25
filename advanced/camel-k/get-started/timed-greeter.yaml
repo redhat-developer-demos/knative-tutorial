@@ -1,0 +1,14 @@
+- from:
+    uri: "timer:tick"
+    parameters:
+      period: "10s"
+    steps:
+      - set-body:
+          constant: "Welcome to Apache Camel K"
+      - set-header:
+          name: ContentType
+          simple: text/plain
+      - transform:
+          simple: "${body.toUpperCase()}"
+      - to:
+          uri: "log:info?multiline=true&showAll=true"

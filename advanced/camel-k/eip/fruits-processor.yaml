@@ -1,0 +1,63 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CamelSource
+metadata:
+  name: fruits-processor
+spec:
+  source:
+    integration:
+      dependencies:
+        - camel:log
+        - camel:kafka
+        - camel:jackson
+        - camel:bean
+    flow:
+      from:
+        uri: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"
+        steps:
+          - log:
+              message: "Received Body ${body}"
+          - unmarshal:
+              json: {}
+          - choice:
+              when:
+                - simple: "${body[nutritions][sugar]} <= 5"
+                  steps:
+                    - remove-headers: "*"
+                    - marshal:
+                        json: {}
+                    - set-header:
+                        name: ce-type
+                        constant: low-sugar
+                    - set-header:
+                        name: fruit-sugar-level
+                        constant: low
+                    - to: "log:low?showAll=true&multiline=true"
+                - simple: "${body[nutritions][sugar]} > 5 || ${body[nutritions][sugar]} <= 10"
+                  steps:
+                    - remove-headers: "*"
+                    - marshal:
+                        json: {}
+                    - set-header:
+                        name: ce-type
+                        constant: medium-sugar
+                    - set-header:
+                        name: fruit-sugar-level
+                        constant: medium
+                    - to: "log:medium?showAll=true&multiline=true"
+              otherwise:
+                steps:
+                  - remove-headers: "*"
+                  - marshal:
+                      json: {}
+                  - set-header:
+                      name: ce-type
+                      constant: high-sugar
+                  - set-header:
+                      name: fruit-sugar-level
+                      constant: high
+                  - to: "log:high?showAll=true&multiline=true"
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1alpha1
+      kind: Broker
+      name: default

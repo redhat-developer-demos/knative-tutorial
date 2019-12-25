@@ -1,0 +1,19 @@
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: sugary-fruits
+spec:
+  broker: default
+  filter:
+    attributes:
+      source: camel-source:knativetutorial/fruits-processor
+      type: low-sugar
+      #type: medium-sugar
+      #type: high-sugar
+      # uncomment this if you don't want event message filtering
+      #type: ""
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: fruit-events-display

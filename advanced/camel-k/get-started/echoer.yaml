@@ -1,0 +1,26 @@
+- from:
+    uri: "knative:endpoint/echoer"
+    steps:
+      - log:
+          message: "Got Message: ${body}"
+      - convert-body: "java.lang.String"
+      - choice:
+          when:
+            - simple: "${body} != null && ${body.length} > 0"
+              steps:
+                - set-body:
+                    simple: "${body.toUpperCase()}"
+                - set-header:
+                    name: ContentType
+                    simple: text/plain
+                - log:
+                    message: "${body}"
+          otherwise:
+            steps:
+              - set-body:
+                  constant: "no body received"
+              - set-header:
+                  name: ContentType
+                  simple: text/plain
+              - log:
+                  message: "Otherwise::${body}"
