@@ -1,3 +1,10 @@
+import org.apache.camel.LoggingLevel;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws.s3.S3Component;
+import org.apache.camel.component.aws.s3.S3Constants;
+import org.apache.camel.language.xpath.XPath;
+import org.apache.camel.spi.PropertiesComponent;
+
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -7,12 +14,6 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.apache.camel.LoggingLevel;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.aws.s3.S3Component;
-import org.apache.camel.component.aws.s3.S3Constants;
-import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.language.xpath.XPath;
 
 /**
  * The Camel route that handles messages from Knative Channel &quot;genre-others&quot; and uploads them to the s3 bucket
@@ -22,7 +23,7 @@ public class OthersGenreHandler extends RouteBuilder {
 
 	public void configure() {
 
-		PropertiesComponent pc = getContext().getComponent("properties", PropertiesComponent.class);
+		PropertiesComponent pc = getContext().getPropertiesComponent();
 
 		//no error handler for this route
 		errorHandler(noErrorHandler());

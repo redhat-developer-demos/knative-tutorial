@@ -2,8 +2,8 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.s3.S3Component;
 import org.apache.camel.component.aws.s3.S3Constants;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.language.xpath.XPath;
+import org.apache.camel.spi.PropertiesComponent;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
@@ -23,7 +23,7 @@ public class ComedyGenreHandler extends RouteBuilder {
 
 	public void configure() {
 
-		PropertiesComponent pc = getContext().getComponent("properties", PropertiesComponent.class);
+		PropertiesComponent pc = getContext().getPropertiesComponent();
 
 		//no error handler for this route
 		errorHandler(noErrorHandler());

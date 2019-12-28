@@ -1,3 +1,10 @@
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws.s3.S3Component;
+import org.apache.camel.component.aws.s3.S3Constants;
+import org.apache.camel.spi.IdempotentRepository;
+import org.apache.camel.spi.PropertiesComponent;
+import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
+
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -7,12 +14,6 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.aws.s3.S3Component;
-import org.apache.camel.component.aws.s3.S3Constants;
-import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
-import org.apache.camel.spi.IdempotentRepository;
 
 /**
  * A Camel Java DSL Router the uses &quot;Content Based Router EIP &quot; to route the messages based on the cartoon genre
@@ -21,7 +22,7 @@ public class CartoonGenreRouter extends RouteBuilder {
 
 	public void configure() {
 
-		PropertiesComponent pc = getContext().getComponent("properties", PropertiesComponent.class);
+		PropertiesComponent pc = getContext().getPropertiesComponent();
 
 		S3Component s3Component = getContext().getComponent("aws-s3", S3Component.class);
 		s3Component.getConfiguration().setAmazonS3Client(amazonS3Client(pc));
