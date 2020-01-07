@@ -2,7 +2,8 @@
 
 set -eu
 
-PROFILE_NAME=${PROFILE_NAME:-'knativetutorial'}
+PROFILE_NAME=${PROFILE_NAME:-knativetutorial}
+VM_DRIVER=${VM_DRIVER:-virtualbox}
 MEMORY=${MEMORY:-8192}
 CPUS=${CPUS:-6}
 
