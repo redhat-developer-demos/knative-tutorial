@@ -15,7 +15,7 @@ spec:
         - image: quay.io/rhdevelopers/istio-tutorial-preference:v1
           env:
             - name: COM_REDHAT_DEVELOPER_DEMOS_CUSTOMER_REST_RECOMMENDATIONSERVICE_MP_REST_URL
-              value: "http://recommendation.knativetutorial.svc.cluster.local"
+              value: "http://recommendation.chapter-6.svc.cluster.local"
           # livenessProbe:
           #   httpGet:
           #     path: /health
