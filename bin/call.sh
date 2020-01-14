@@ -7,47 +7,35 @@ KSVC_NAME=${1:-'greeter'}
 
 IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
-call_service(){
-  local curr_ns
-  curr_ns="$(current_namespace)"
+CURR_CTX=$(kubectl config current-context)
 
-  local host_header
-  host_header="Host:$KSVC_NAME.$curr_ns.example.com"
+CURR_NS="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${CURR_CTX}\")].context.namespace}")" \
+    || exit_err "error getting current namespace"
 
-  if [ $# -le 1 ]
-  then
-    curl -H "$host_header" $IP_ADDRESS
-  else
-    if [ -z "$2" ]
-    then 
-      curl -X POST -H "$host_header" $IP_ADDRESS
-    else 
-      curl -X POST -d "$2" -H "$host_header" $IP_ADDRESS
-    fi
+if [[ -z "${CURR_NS}" ]]; 
+then
+  CURR_NS='default'
+else
+  CURR_NS="${CURR_NS}"
+fi
+
+HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
+
+if [ $# -le 1 ]
+then
+  curl -H "$HOST_HEADER" $IP_ADDRESS
+else
+  if [ -z "$2" ]
+  then 
+    curl -X POST -H "$HOST_HEADER" $IP_ADDRESS
+  else 
+    curl -X POST -d "$2" -H "$HOST_HEADER" $IP_ADDRESS
   fi
-}
-
-# Find the current namespace
-current_namespace(){
-  local curr_ctx
-  local curr_ns
-
-  curr_ctx=$(kubectl config current-context)
-
-  curr_ns="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${curr_ctx}\")].context.namespace}")" \
-     || exit_err "error getting current namespace"
-
-  if [[ -z "${curr_ns}" ]]; 
-  then
-    echo "default"
-  else
-    echo "${curr_ns}"
-  fi
-}
+fi
 
 exit_err() {
    echo >&2 "${1}"
    exit 1
 }
 
-call_service
+exit 0

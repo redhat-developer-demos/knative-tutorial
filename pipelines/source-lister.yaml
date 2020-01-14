@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: source-lister
+spec:
+  inputs:
+    resources:
+      - name: source
+        type: git
+    params:
+      - name: contextDir
+        description: "The context directory within the repository for sources"
+        default: apps/greeter/java/quarkus
+  outputs: {}
+  steps:
+    - name: ls-build-sources
+      image: busybox
+      command: ['ls','-ltr', "/workspace/source/$(inputs.params.contextDir)"]

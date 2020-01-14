@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: build-using-maven-repo-manager
+spec:
+  inputs:
+    resources:
+      - name: source
+        type: git
+    params:
+      - name: contextDir
+        description: "The context directory within the repository for sources"
+        default: apps/greeter/java/quarkus
+      - name: mavenMirrorUrl
+        description: the maven mirror url
+        default: http://repo1.maven.apache.org/maven2
+  outputs: {}
+  stepTemplate:
+    resources:
+      limits:
+        cpu: 4
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    securityContext:
+      allowPrivilegeEscalation: false
+      privileged: false
+      # the default underprivileged user to be used
+      runAsUser: 10001
+  steps:
+    - name: maven-build
+      image: quay.io/rhdevelopers/tutorial-tools:0.0.3
+      workingDir: "/workspace/source/$(inputs.params.contextDir)"
+      args:
+        - mvn
+        - -DskipTests
+        - clean
+        - package
+      env:
+        - name: MAVEN_MIRROR_URL
+          value: "$(inputs.params.mavenMirrorUrl)" 
+    - name: ls-target
+      image: busybox
+      command: ['ls','-ltr', "/workspace/source/$(inputs.params.contextDir)/target"]
