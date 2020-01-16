@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: eventinghellob
+spec:
+  template:
+    metadata:
+      name: eventinghellob-v1
+      annotations:
+        # disable istio-proxy injection
+        sidecar.istio.io/inject: "false"
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+      - image: quay.io/burrsutter/eventinghello:0.0.1
+

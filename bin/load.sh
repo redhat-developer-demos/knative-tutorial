@@ -4,12 +4,19 @@ KSVC_NAME=${1:-'prime-generator'}
 
 IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
-load_service(){
+CURR_CTX=$(kubectl config current-context)
 
-local curr_ns
-curr_ns="$(current_namespace)"
+CURR_NS="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${CURR_CTX}\")].context.namespace}")" \
+    || exit_err "error getting current namespace"
 
-HOST_HEADER="$KSVC_NAME.$curr_ns.example.com"
+if [[ -z "${CURR_NS}" ]]; 
+then
+  CURR_NS="default"
+else
+  CURR_NS="${CURR_NS}"
+fi
+
+HOST_HEADER="$KSVC_NAME.$CURR_NS.example.com"
 
 # Call the Knative prime-generator service with a load of 50 concurrent requests
 # to find biggest prime with 10000
@@ -18,31 +25,11 @@ HOST_HEADER="$KSVC_NAME.$curr_ns.example.com"
 hey -c 50 -z 10s \
   -host "$HOST_HEADER" \
   "http://$IP_ADDRESS/?sleep=3&upto=10000&memload=100"
-}
 
 # Find the c#urrent namespace
-current_namespace(){
-  local curr_ctx
-  local curr_ns
-
-  curr_ctx=$(kubectl config current-context)
-
-  curr_ns="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${curr_ctx}\")].context.namespace}")" \
-     || exit_err "error getting current namespace"
-
-  if [[ -z "${curr_ns}" ]]; 
-  then
-    echo "default"
-  else
-    echo "${curr_ns}"
-  fi
-}
-
 exit_err() {
    echo >&2 "${1}"
    exit 1
 }
-
-load_service
 
 exit 0

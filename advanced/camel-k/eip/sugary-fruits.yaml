@@ -6,7 +6,6 @@ spec:
   broker: default
   filter:
     attributes:
-      source: camel-source:knativetutorial/fruits-processor
       type: low-sugar
       #type: medium-sugar
       #type: high-sugar

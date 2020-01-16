@@ -2,10 +2,10 @@
 
 set -eu
 
-PROFILE_NAME=${PROFILE_NAME:-knativetutorial}
+PROFILE_NAME=${PROFILE_NAME:-knativecookbook}
 VM_DRIVER=${VM_DRIVER:-virtualbox}
 MEMORY=${MEMORY:-8192}
-CPUS=${CPUS:-6}
+CPUS=${CPUS:-4}
 
 EXTRA_CONFIG="apiserver.enable-admission-plugins=\
 LimitRanger,\
@@ -16,6 +16,7 @@ ServiceAccount,\
 DefaultStorageClass,\
 MutatingAdmissionWebhook"
 
+minikube profile $PROFILE_NAME
 minikube start --memory=$MEMORY --cpus=$CPUS \
   --kubernetes-version=v1.14.0 \
   --vm-driver="$VM_DRIVER" \

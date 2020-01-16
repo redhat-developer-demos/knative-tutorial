@@ -1,0 +1,13 @@
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: hellobonjour
+spec:
+  filter:
+    attributes:
+      type: greeting
+  subscriber:
+    ref:
+     apiVersion: serving.knative.dev/v1alpha1
+     kind: Service
+     name: eventingbonjour
