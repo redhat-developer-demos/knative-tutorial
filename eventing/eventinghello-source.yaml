@@ -6,6 +6,7 @@ spec:
   schedule: "*/2 * * * *"
   data: '{"key": "every 2 mins"}'
   sink:
-    apiVersion: serving.knative.dev/v1alpha1
-    kind: Service
-    name: eventinghello
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service
+      name: eventinghello
