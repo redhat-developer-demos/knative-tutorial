@@ -7,8 +7,6 @@ spec:
     metadata:
       name: eventingaloha-v1
       annotations:
-        # disable istio-proxy injection
-        sidecar.istio.io/inject: "false"
         autoscaling.knative.dev/target: "1"
     spec:
       containers:

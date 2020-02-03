@@ -9,7 +9,6 @@ spec:
     metadata:
       annotations:
         autoscaling.knative.dev/target: "10"
-        sidecar.istio.io/inject: "false"
     spec:
       containers:
         - image: quay.io/rhdevelopers/istio-tutorial-preference:v1

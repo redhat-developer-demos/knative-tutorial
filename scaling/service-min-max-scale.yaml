@@ -7,8 +7,6 @@ spec:
     metadata:
       name: prime-generator-v2
       annotations:
-        # disable istio-proxy injection
-        sidecar.istio.io/inject: "false"
         # the minimum number of pods to scale down to
         autoscaling.knative.dev/minScale: "2"
         # the maximum number of pods to scale up to

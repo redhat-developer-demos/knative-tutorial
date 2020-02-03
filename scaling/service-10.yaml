@@ -7,8 +7,6 @@ spec:
     metadata:
       name: prime-generator-v1
       annotations:
-        # disable istio-proxy injection
-        sidecar.istio.io/inject: "false"
         # Target 10 in-flight-requests per pod.
         autoscaling.knative.dev/target: "10"
     spec:
