@@ -7,6 +7,7 @@ spec:
   bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092 
   topics: my-topic
   sink: 
+   ref:
     apiVersion: serving.knative.dev/v1alpha1
     kind: Service
     name: eventinghello

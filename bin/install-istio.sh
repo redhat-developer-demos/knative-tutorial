@@ -16,7 +16,7 @@ else
   reset=''
 fi
 
-istio_version=1.3.5
+istio_version=1.3.6
 
 function header_text {
   echo "$header$*$reset"

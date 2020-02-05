@@ -6,6 +6,7 @@ spec:
   schedule: "* * * * *"
   data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:
+   ref:
     apiVersion: eventing.knative.dev/v1alpha1
     kind: Channel
     name: ch-event-greeter

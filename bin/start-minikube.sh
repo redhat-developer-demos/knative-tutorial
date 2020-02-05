@@ -18,7 +18,7 @@ MutatingAdmissionWebhook"
 
 minikube profile $PROFILE_NAME
 minikube start --memory=$MEMORY --cpus=$CPUS \
-  --kubernetes-version=v1.14.0 \
+  --kubernetes-version=v1.15.0 \
   --vm-driver="$VM_DRIVER" \
   --disk-size=50g \
   --extra-config="$EXTRA_CONFIG" \
