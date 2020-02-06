@@ -12,7 +12,7 @@ spec:
         - image: quay.io/rhdevelopers/istio-tutorial-customer:v1
           env:
             - name: COM_REDHAT_DEVELOPER_DEMOS_CUSTOMER_REST_PREFERENCESERVICE_MP_REST_URL
-              value: "http://preference.chapter-6.svc.cluster.local"
+              value: "http://preference.chapter-5.svc.cluster.local"
           livenessProbe:
             httpGet:
               path: /health
