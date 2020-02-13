@@ -4,7 +4,7 @@ set -eu
 
 PROFILE_NAME=${PROFILE_NAME:-knativecookbook}
 MEMORY=${MEMORY:-8192}
-CPUS=${CPUS:-4}
+CPUS=${CPUS:-6}
 
 EXTRA_CONFIG="apiserver.enable-admission-plugins=\
 LimitRanger,\
