@@ -40,3 +40,4 @@ workshop-site.yaml
 **/.factorypath
 install/kafka
 install/knative-eventing/knative-kafka.yaml
+bin/kubectl

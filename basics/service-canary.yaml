@@ -4,8 +4,6 @@ metadata:
   name: greeter
 spec:
   template:
-    metadata:
-      name: greeter-v2
     spec:
       containers:
         - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus

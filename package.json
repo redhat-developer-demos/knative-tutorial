@@ -2,10 +2,14 @@
   "name": "knative-tutorial-site",
   "description": "Knative Tutorial Documentation Site",
   "homepage": "https://redhat-developer-demos.github.io/knative-tutorial",
-  "author": {"email": "kamesh.sampath@hotmail.com","name": "Kamesh Sampath","url": "https://twitter.com/@kamesh_sampath"},
+  "author": {
+    "email": "kamesh.sampath@hotmail.com",
+    "name": "Kamesh Sampath",
+    "url": "https://twitter.com/@kamesh_sampath"
+  },
   "dependencies": {
-    "@antora/cli": "2.0.0",
-    "@antora/site-generator-default": "2.0.0",
+    "@antora/cli": "2.2",
+    "@antora/site-generator-default": "2.2.0",
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/polyfill": "^7.4.4",

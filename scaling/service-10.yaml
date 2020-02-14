@@ -5,7 +5,6 @@ metadata:
 spec:
   template:
     metadata:
-      name: prime-generator-v1
       annotations:
         # Target 10 in-flight-requests per pod.
         autoscaling.knative.dev/target: "10"

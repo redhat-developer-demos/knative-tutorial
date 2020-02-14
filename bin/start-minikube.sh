@@ -2,7 +2,7 @@
 
 set -eu
 
-PROFILE_NAME=${PROFILE_NAME:-knativecookbook}
+PROFILE_NAME=${PROFILE_NAME:-knativetutorial}
 MEMORY=${MEMORY:-8192}
 CPUS=${CPUS:-6}
 
