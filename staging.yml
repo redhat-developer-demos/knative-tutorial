@@ -1,0 +1,29 @@
+runtime:
+  cache_dir: ./.cache/antora
+
+site:
+  title: Knative Tutorial
+  url: https://redhat-developer-docs.github.io/knative-tutorial
+  start_page: knative-tutorial::index.adoc
+
+content:
+  sources:
+    - url: git@github.com:redhat-developer-demos/knative-tutorial.git
+      tags: []
+      branches: master
+      start_path: documentation
+    - url: git@github.com:redhat-developer-docs/knative-tutorial-module-camelk.git
+      tags: []
+      branches: master
+asciidoc:
+  attributes:
+    tutorial-namespace: knativetutorial
+  extensions:
+    - ./lib/copy-to-clipboard.js
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+output:
+  dir: ./gh-pages
