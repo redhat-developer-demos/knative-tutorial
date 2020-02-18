@@ -1,14 +1,13 @@
-apiVersion: eventing.knative.dev/v1alpha1
-kind: Subscription
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
 metadata:
-  name: event-greeter-subscriber
+  name: eventinghelloa
 spec:
-  channel:
-    apiVersion: eventing.knative.dev/v1alpha1
-    kind: Channel
-    name: ch-event-greeter
-  subscriber:
-    ref:
-      apiVersion: serving.knative.dev/v1alpha1
-      kind: Service
-      name: event-greeter
+  template:
+    metadata:
+      name: eventinghelloa-v1
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/eventinghello:0.0.1

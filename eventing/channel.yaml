@@ -1,9 +1,4 @@
-apiVersion: eventing.knative.dev/v1alpha1
+apiVersion: messaging.knative.dev/v1alpha1
 kind: Channel
 metadata:
-  name: ch-event-greeter
-spec:
-  provisioner:
-    apiVersion: eventing.knative.dev/v1alpha1
-    kind: ClusterChannelProvisioner
-    name: in-memory
+  name: eventinghello-ch
