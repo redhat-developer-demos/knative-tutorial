@@ -24,10 +24,10 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 * xref:knative-tutorial-basics:ROOT:traffic-distribution.adoc[Traffic Distribution]
 
 [.tile]
-.xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Knative Eventing]
-*** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-src-svc.adoc[Source to Service]
-*** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-src-sub.adoc[Source to Subscriber]
-*** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-trigger-broker.adoc#events-triggers-brokers[Events, Triggers and Brokers]
+.xref:knative-tutorial-basics:ROOT:eventing/eventing.adoc[Knative Eventing]
+*** xref:knative-tutorial-basics:ROOT:eventing/eventing-src-to-sink.adoc.adoc[Source to Sink]
+*** xref:knative-tutorial-basics:ROOT:eventing/channel-and-subscribers.adoc[Channel and Subscribers]
+*** xref:knative-tutorial-basics:ROOT:eventing/eventing-trigger-broker.adoc[Brokers and Triggers]
 
 ifndef::workshop[]
 [.tile]
