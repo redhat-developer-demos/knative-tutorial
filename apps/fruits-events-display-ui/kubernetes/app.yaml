@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fruit-events-display
+spec:
+  selector:
+    app: fruit-events-display
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fruit-events-display
+spec:
+  selector:
+    matchLabels:
+      app: fruit-events-display
+  template:
+    metadata:
+      labels:
+        app: fruit-events-display
+    spec:
+      containers:
+      - name: fruit-events-display
+        image: update to your image name
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
