@@ -33,7 +33,7 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v2
        with:
-         repository: 'https://github.com/redhat-developer-docs/knative-tutorial-staging'
+         repository: 'redhat-developer-docs/knative-tutorial-staging'
          token: "${{ env.GITHUB_TOKEN }}"
      - name: Download generated site
        uses: actions/download-artifact@v1
