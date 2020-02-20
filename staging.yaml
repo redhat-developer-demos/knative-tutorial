@@ -3,18 +3,21 @@ runtime:
 
 site:
   title: Knative Tutorial(Staging)
-  url: https://knative-tutorial-staging.web.app
+  url: https://knative-tutorial.knative-tutorial-docs.github.io
   start_page: knative-tutorial::index.adoc
 
 content:
   sources:
-    - url: .
-      branches: HEAD
+    - url: git@github.com:redhat-developer-demos/knative-tutorial.git
+      tags: []
+      branches: master
       start_path: documentation
-    - url: ../knative-tutorial-module-basics
-      branches: HEAD
-    - url: ../knative-tutorial-module-camelk
-      branches: HEAD
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-basics.git
+      tags: []
+      branches: master
+    - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
+      tags: []
+      branches: master
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
@@ -30,6 +33,10 @@ asciidoc:
 ui:
   bundle:
     url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.4/ui-bundle.zip
-  supplemental_files: ./supplemental-ui
+  supplemental_files: 
+    - path: ./supplemental-ui
+    - path: ./.nojekyll
+    - path: ui.yml
+      contents: "static_files: [ .nojekyll ]"
 output:
-  dir: ./staging-gh-pages
+  dir: ./gh-pages
