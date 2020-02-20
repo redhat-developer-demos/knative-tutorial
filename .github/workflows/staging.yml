@@ -58,7 +58,8 @@ jobs:
        working-directory: "${{ github.workspace }}/knative-tutorial-staging"
        run: |
          npm -g install gh-pages@2.2.0
-         gh-pages -d gh-pages \
-         --repo "git@github.com:redhat-developer-docs/knative-tutorial-staging.git" \
-         --dotfiles true \
-         -m "Publish Staging Site, Build run: ${{github.run_number}} "
+         touch $SITE_DIR/.nojekyll
+         gh-pages --dist=gh-pages \
+         --repo="git@github.com:redhat-developer-docs/knative-tutorial-staging.git" \
+         --dotfiles='true' \
+         --message="Publish Staging Site, Build run: ${{github.run_number}} "
