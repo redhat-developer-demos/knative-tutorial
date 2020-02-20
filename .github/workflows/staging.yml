@@ -34,7 +34,6 @@ jobs:
        uses: actions/checkout@v2
        with:
          repository: redhat-developer-docs/knative-tutorial-staging
-         ref: 'gh-pages'
          path: knative-tutorial-staging
      - name: Install SSH Client
        uses: webfactory/ssh-agent@v0.2.0
@@ -59,7 +58,7 @@ jobs:
        run: |
          npm -g install gh-pages@2.2.0
          touch $SITE_DIR/.nojekyll
-         gh-pages --dist=gh-pages \
+         gh-pages --dist=$SITE_DIR \
          --repo="git@github.com:redhat-developer-docs/knative-tutorial-staging.git" \
          --dotfiles='true' \
          --message="Publish Staging Site, Build run: ${{github.run_number}} "
