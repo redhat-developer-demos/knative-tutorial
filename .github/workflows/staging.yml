@@ -44,10 +44,9 @@ jobs:
        with:
          name: site
          path: "${{ github.workspace }}/knative-tutorial-staging/${{ env.SITE_DIR }}"
-     - name: Deploy to GitHub Pages
-       uses: JamesIves/github-pages-deploy-action@3.2.1
-       with:
-        ACCESS_TOKEN: " ${{ secrets.GITHUB_PAT }}"
-        FOLDER: "knative-tutorial-staging/${{ env.SITE_DIR }}"
-        BRANCH: 'gh-pages'
-        COMMIT_MESSAGE: "[Staging] Publish Documentation for ${{ github.sha }}"
+     - name: Deploy to GitHub Pages       
+       working-directory: "${{ github.workspace }}/knative-tutorial-staging/${{ env.SITE_DIR }}"
+       run: |
+         git add .
+         git commit -m "[Staging] Publish Documentation for ${{ github.sha }}"
+         git push origin 'gh-pages'
