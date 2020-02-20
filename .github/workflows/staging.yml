@@ -36,6 +36,10 @@ jobs:
          repository: 'redhat-developer-docs/knative-tutorial-staging'
          token: "${{ secrets.KNATIVE_TUTORIAL_STAGING }}"
          ref: 'gh-pages'
+         path: knative-tutorial-staging
+     - name: "List folder"
+       run: |
+           ls -ltr $GITHUB_WORKSPACE/
      - name: Download generated site
        uses: actions/download-artifact@v1
        with:
