@@ -47,7 +47,7 @@ jobs:
      - name: Deploy to GitHub Pages
        uses: JamesIves/github-pages-deploy-action@3.2.1
        with:
-        GITHUB_TOKEN: " ${{ github.token }}"
-        FOLDER: "${{ env.SITE_DIR }}"
+        ACCESS_TOKEN: " ${{ secrets.GITHUB_PAT }}"
+        FOLDER: "knative-tutorial-staging/${{ env.SITE_DIR }}"
         BRANCH: 'gh-pages'
         COMMIT_MESSAGE: "[Staging] Publish Documentation for ${{ github.sha }}"
