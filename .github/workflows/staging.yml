@@ -34,7 +34,7 @@ jobs:
        uses: actions/checkout@v2
        with:
          repository: 'redhat-developer-docs/knative-tutorial-staging'
-         token: "${{ env.GITHUB_TOKEN }}"
+         token: "${{ secrets.KNATIVE_TUTORIAL_STAGING }}"
          ref: 'gh-pages'
      - name: Download generated site
        uses: actions/download-artifact@v1
