@@ -36,17 +36,29 @@ jobs:
          repository: redhat-developer-docs/knative-tutorial-staging
          ref: 'gh-pages'
          path: knative-tutorial-staging
-     - name: "List folder"
-       run: |
-           ls -ltr $GITHUB_WORKSPACE/
+     - name: Install SSH Client
+       uses: webfactory/ssh-agent@v0.2.0
+       with:
+        ssh-private-key: ${{ secrets.KNATIVE_TUTORIAL_STAGING }}
      - name: Download generated site
        uses: actions/download-artifact@v1
        with:
          name: site
          path: "${{ github.workspace }}/knative-tutorial-staging/${{ env.SITE_DIR }}"
      - name: Deploy to GitHub Pages       
-       working-directory: "${{ github.workspace }}/knative-tutorial-staging/${{ env.SITE_DIR }}"
+       working-directory: "${{ github.workspace }}/knative-tutorial-staging"
        run: |
-         git add .
-         git commit -m "[Staging] Publish Documentation for ${{ github.sha }}"
-         git push origin 'gh-pages'
+         git config --global user.email "kamesh.sampath@hotmail.com"
+         git config --global user.name "Kamesh Sampath"
+     - name: Setup Node.js for use with actions
+       uses: actions/setup-node@v1.1.0
+       with:        
+        version: "12.x"
+     - name: Deploy to GitHub Pages       
+       working-directory: "${{ github.workspace }}/knative-tutorial-staging"
+       run: |
+         npm -g install gh-pages@2.2.0
+         gh-pages -d gh-pages -x \
+         --repo "git@github.com/redhat-developer-docs/knative-tutorial-staging"
+         --dotfiles
+         -m "Staging Publish"
