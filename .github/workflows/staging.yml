@@ -17,9 +17,9 @@ jobs:
         uses: kameshsampath/antora-site-action@master
         with:
          antora_playbook: staging.yaml
-      - name: "List folder"
-        run: |
-           ls -ltr $GITHUB_WORKSPACE/
+#       - name: "List folder"
+#         run: |
+#            ls -ltr $GITHUB_WORKSPACE/
       - name: "Upload generated site"
         uses: actions/upload-artifact@v1.0.0
         with:
