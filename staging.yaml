@@ -3,7 +3,7 @@ runtime:
 
 site:
   title: Knative Tutorial(Staging)
-  url: https://knative-tutorial.knative-tutorial-docs.github.io
+  url: http://redhat-developer-docs.github.io/knative-tutorial/
   start_page: knative-tutorial::index.adoc
 
 content:
