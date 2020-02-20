@@ -34,7 +34,7 @@ jobs:
        uses: actions/checkout@v2
        with:
          repository: 'redhat-developer-docs/knative-tutorial-staging'
-         token: "${{ secrets.KNATIVE_TUTORIAL_STAGING }}"
+         token: "${{ secrets.GITHUB_PAT }}"
          ref: 'gh-pages'
          path: knative-tutorial-staging
      - name: "List folder"
@@ -48,7 +48,7 @@ jobs:
      - name: Deploy to GitHub Pages
        uses: JamesIves/github-pages-deploy-action@3.2.1
        with:
-        GITHUB_TOKEN: " ${{ secrets.KNATIVE_TUTORIAL_STAGING}}"
+        GITHUB_TOKEN: " ${{ secrets.GITHUB_PAT }}"
         FOLDER: "${{ env.SITE_DIR }}"
         BRANCH: 'gh-pages'
         COMMIT_MESSAGE: "[Staging] Publish Documentation for ${{ github.sha }}"
