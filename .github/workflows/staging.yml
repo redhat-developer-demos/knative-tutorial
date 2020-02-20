@@ -59,6 +59,6 @@ jobs:
        run: |
          npm -g install gh-pages@2.2.0
          gh-pages -d gh-pages \
-         --repo "git@github.com/redhat-developer-docs/knative-tutorial-staging" \
+         --repo "git@github.com:redhat-developer-docs/knative-tutorial-staging.git" \
          --dotfiles \
          -m "Staging Publish"
