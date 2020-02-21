@@ -18,6 +18,9 @@ content:
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
       tags: []
       branches: master
+    - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-advanced.git
+      tags: []
+      branches: master
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
