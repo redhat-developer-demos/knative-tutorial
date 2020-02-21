@@ -3,10 +3,9 @@
 :!sectids:
 
 ****
-Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”
+Deploying applications as Serverless services is becoming a popular architectural style. It seems like many organizations assume that _Functions as a Service (FaaS)_ is serverless. But we think it is more accurate to say that FaaS is one way to do serverless, not the only way. This raises a super critical question for enterprises that may have applications which could be monolith or a microservice: What is the easiest path to serverless application deployment?
 
-[.small.text-right]
-__**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/
+The answer is a platform that can run serverless workloads, while enabling you to have complete control how to configure, build, deploy and run. Ideally, the platform  that supports deploying the applications as linux containers. In this chapter we introduce you to one such platform -- https://knative.dev[Knative] --, that helps you to run the serverless workloads in a Kubernetes-native way.
 ****
 
 [.tiles.browse]
@@ -31,9 +30,9 @@ __**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towar
 
 ifndef::workshop[]
 [.tile]
-.xref:knative-tutorial-camelk:ROOT:index.adoc[Serverless Integration using Camel-K]
+.xref:knative-tutorial-camelk:ROOT:index.adoc[Apache Camel-K]
 * xref:knative-tutorial-camelk:ROOT:setup.adoc[Setup]
-* xref:knative-tutorial-camelk:ROOT:getting-started.adoc[Message Filter]
-* xref:knative-tutorial-camelk:ROOT:poll-enrich.adoc[Poll Enrich]
-*  xref:knative-tutorial-camelk:ROOT:content-based-router.adoc[Content Based Router]
+* xref:knative-tutorial-camelk:ROOT:camel-k-basics.adoc#deploy-camel-k-kn-integration[Camel-K with Knative Serving]
+* xref:knative-tutorial-camelk:ROOT:camel-k-eventing.adoc[Camel-K with Knative Eventing]
+*  xref:knative-tutorial-camelk:ROOT:camel-k-eventing.adoc#camel-k-es-sink[CamelSource to Sink]
 endif::[]
