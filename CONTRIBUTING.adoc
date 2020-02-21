@@ -5,11 +5,17 @@ The sources of this tutorial docs is split across multiple repositories:
 - The root repository which integrates all other module repositories to build the tutorial site:
  http://github.com/redhat-developer-demos/knative-tutorial.git
 
-- Basic and Fundamentals chapters:
- http://github.com/redhat-developer-demos/knative-tutorial-module-basics.git
+- Setup and Knative Serving:
+ http://github.com/redhat-developer-demos/knative-tutorial-module-serving.git
+
+- Knative Eventing:
+ http://github.com/redhat-developer-demos/knative-tutorial-module-eventing.git
 
 - Camel-K based Enterprise Integration chapters:
  http://github.com/redhat-developer-demos/knative-tutorial-module-camelk.git
+
+ - Advanced Integration:
+ http://github.com/redhat-developer-demos/knative-tutorial-module-advanced.git
 
 == Running site in development mode
 

@@ -12,7 +12,7 @@ content:
       tags: []
       branches: master
       start_path: documentation
-    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-basics.git
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-serving.git
       tags: []
       branches: master
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
