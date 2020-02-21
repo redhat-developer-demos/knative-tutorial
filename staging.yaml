@@ -14,6 +14,8 @@ content:
       start_path: documentation
     - url: git@github.com:redhat-developer-demos/knative-tutorial-module-serving.git
       tags: []
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-eventing.git
+      tags: []
       branches: master
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
       tags: []
