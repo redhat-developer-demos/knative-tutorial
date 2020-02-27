@@ -10,28 +10,32 @@ content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
       tags: []
-      branches: release/0.7.x
+      branches: release/v0.12.x
       start_path: documentation
     - url: git@github.com:redhat-developer-demos/knative-tutorial-module-serving.git
       tags: []
-      branches: release/0.7.x
+      branches: release/v0.12.x
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
       tags: []
-      branches: release/0.5
+      branches: release/v0.12.x
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-advanced.git
       tags: []
-      branches: master
+      branches: release/v0.12.x
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
     title: Knative Tutorial
-    release-version: release/0.7.x
+    release-version: master
   extensions:
     - ./lib/copy-to-clipboard.js
     - ./lib/tab-block.js
 ui:
   bundle:
     url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.4/ui-bundle.zip
-  supplemental_files: ./supplemental-ui
+  supplemental_files: 
+    - path: ./supplemental-ui
+    - path: .nojekyll
+    - path: ui.yml
+      contents: "static_files: [ .nojekyll ]"
 output:
   dir: ./gh-pages
