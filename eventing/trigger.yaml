@@ -8,6 +8,6 @@ spec:
       type: dev.knative.eventing.samples.heartbeat
   subscriber:
     ref:
-      apiVersion: serving.knative.dev/v1alpha1
+      apiVersion: serving.knative.dev/v1
       kind: Service
       name: event-greeter

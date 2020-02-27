@@ -40,7 +40,7 @@ ui:
     url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.4/ui-bundle.zip
   supplemental_files: 
     - path: ./supplemental-ui
-    - path: ./.nojekyll
+    - path: .nojekyll
     - path: ui.yml
       contents: "static_files: [ .nojekyll ]"
 output:

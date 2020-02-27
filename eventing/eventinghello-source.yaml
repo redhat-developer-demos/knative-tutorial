@@ -7,6 +7,6 @@ spec:
   data: '{"key": "every 2 mins"}'
   sink:
     ref:
-      apiVersion: serving.knative.dev/v1alpha1
+      apiVersion: serving.knative.dev/v1
       kind: Service
       name: eventinghello
