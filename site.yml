@@ -15,6 +15,9 @@ content:
     - url: git@github.com:redhat-developer-demos/knative-tutorial-module-serving.git
       tags: []
       branches: release/v0.12.x
+    - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-eventing.git
+      tags: []
+      branches: release/v0.12.x
     - url:  git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
       tags: []
       branches: release/v0.12.x
