@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knative Tutorial :: Knative Tutorial</title>
-    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-serving/index.html">
+    <title>Untitled :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-eventing/index.html">
     <meta name="generator" content="Antora 2.2.0">
     <link rel="stylesheet" href="../_/css/site.css">
 <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -27,35 +27,98 @@
   </nav>
 </header>
 <div class="main-wrapper">
-<div class="navigation-container"  data-component="knative-tutorial-serving"
+<div class="navigation-container"  data-component="knative-tutorial-eventing"
   data-version="master" >
   <aside class="navigation">
     <div class="panels">
       <div class="navigation-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">Knative Serving</a></h3>
+    <h3 class="title"><a href="index.html">Knative Eventing</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="setup.html">Setup</a>
+    <a class="nav-link" href="eventing-src-to-sink.html">Source to Sink</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-source">Event Source</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-verify-event-source">Verify</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="setup.html#tutorial-dev-env">Development Environment</a>
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-sink-service">Sink Service</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#tutorial-all-local">CLI Tools</a>
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-gen-sink-service">Generate Service</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="setup.html#dev-env-all-in-one">All in one Environment</a>
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-deploy-sink-service">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="eventing-src-to-sink.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="channel-and-subscribers.html">Channel and Subscribers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="channel-and-subscribers.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
@@ -63,162 +126,33 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-toggle"></button>
-    <a class="nav-link" href="basic-fundas.html">Serving</a>
+    <a class="nav-link" href="eventing-trigger-broker.html">Brokers and Triggers</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#basics-prerequisite">Prerequisites</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#basics-build-containers">Build Containers</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#broker">Broker</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#basics-deploy-service">Deploy Service</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-service">Service</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#basics-invoke-service">Invoke Service</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-event-source">Event Source</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#basics-see-what-you-have-deployed">See What You Have Deployed</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-trigger">Trigger</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#deploying-new-revision">Deploy a New Revision of a Service</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-trigger-verification">Verification</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basic-fundas.html#basics-cleanup">Cleanup</a>
+    <a class="nav-link" href="eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="knative-client.html">Knative Client</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="knative-client.html#kn-install">Install</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="knative-client.html#kn-ksvc">Knative Service Commands</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-create-ksvc">Create Knative Service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-list-services">List Knative Services</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-update-ksvc">Update Knative Service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="knative-client.html#kn-revisons">Knative Revision Commands</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-revisions-list">Knative Revision List</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="knative-client.html#kn-routes">Knative Route Commands</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="knative-client.html#kn-route-list">Knative Revision List</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="traffic-distribution.html">Traffic Distribution</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#blue-green">Blue-Green Deployment</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#canary-release">Canary Release</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#service-visibility">Service Visibility</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="scaling.html">Scaling</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling.html#scaling-prerequisite">Prerequisites</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling.html#scaling-deploy-service">Deploy Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling.html#scaling-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="scaling.html#scaling-scale-to-zero">Scale to Zero</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-observer-scale-to-zero">Observing Default Scale Down</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-observer-scale-to-zero-1m">Change Scale-to-Zero Time</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="scaling.html#scaling-auto-scaling">Auto Scaling</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-load-service">Load Service</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-toggle"></button>
-    <a class="nav-link" href="scaling.html#scaling-min-scale">Minimum Scale</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="scaling.html#scaling-deploy-service-minscale">Deploy Service</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling.html#scaling-cleanup">Cleanup</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
+    <a class="nav-link" href="eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -238,23 +172,69 @@
   <button class="navigation-toggle"></button>
   <a href="../knative-tutorial/index.html" class="home-link"></a>
   <nav class="crumbs" aria-label="breadcrumbs">
-  <ul>
-    <li class="crumb"><a href="index.html">Knative Serving</a></li>
-    <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
-  </ul>
 </nav>
 </div>
 <article class="doc">
-<h1>Knative Tutorial</h1>
 <div class="sect1">
-<h2 id="_knative_serving"><a class="anchor" href="#_knative_serving"></a>Knative Serving</h2>
+<h2 id="_knative_eventing"><a class="anchor" href="#_knative_eventing"></a>Knative Eventing</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<div class="title">CloudEvents</div>
+<div class="paragraph">
+<p><a href="https://cloudevents.io/">CloudEvents</a> is a specification for describing event data in a common way. An event might be produced by any number of sources (e.g. Kafka, S3, GCP PubSub, MQTT) and as a software developer, you want a common abstraction for all event inputs.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage-patterns"><a class="anchor" href="#usage-patterns"></a>Usage Patterns</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Knative Serving is ideal for running your application services inside Kubernetes by providing a more simplified deployment syntax with automated scale-to-zero and scale-out based on HTTP load. The Knative platform will manage your service’s deployments, revisions, networking and scaling.
-Knative Serving exposes your service via an HTTP URL and has a lot of sane defaults for its configurations. For many practical use cases you might need to tweak the defaults to your needs and might also need to adjust the traffic distribution amongst the service revisions. As the Knative Serving Service has the built in ability to automatically scale down to zero when not in use, it is apt to call it as “serverless service”.</p>
+<p>There are three primary usage patterns with Knative Eventing:</p>
 </div>
-<div class="paragraph">
-<p>In this chapter, we are going to deploy a Knative Serving service, see its use of Configuration and Revision, and practice a blue-green deployment and canary release.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Source to Sink</dt>
+<dd>
+<p>Source to Service provides the simplest getting started experience with Knative Eventing. It provides single <em>Sink</em>&#8201;&#8212;&#8201;that is, event receiving service --, with no queuing, backpressure, and filtering. The Source to Service does not support replies, which means the response from the <em>Sink</em> service is ignored. As shown in the Figure 4-1, the responsibility of the Event Source it just to deliver the message without waiting for the response from the Sink, hence I think it will be apt to compare Source to Sink to <em>fire and forget</em> messaging pattern.</p>
+</dd>
+</dl>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/source-sink.png" alt="Source to Sink">
+</div>
+<div class="title">Figure 1. Source to Sink</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Channel and Subscription</dt>
+<dd>
+<p>With the <em>Channel</em> and <em>Subscription</em>, the Knative Eventing system defines a <em>Channel</em>, which can connect to various backends such as In-Memory, Kafka and GCP PubSub for sourcing the events. Each Channel can have one more subscribers in the form of <em>Sink</em> services as shown in Figure 4-2, which can receive the event messages and process them as needed. Each message from the Channel is formatted as <em>CloudEvent</em> and sent further up in the chain to other Subscribers for further processing. The Channels and Subscription usage pattern does not have the ability to filter messages.</p>
+</dd>
+</dl>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/channels-subs.png" alt="Channels and Subscriptions">
+</div>
+<div class="title">Figure 2. Channels and Subscriptions</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Broker and Trigger</dt>
+<dd>
+<p>The <em>Broker</em> and <em>Trigger</em> are similar to Channel and Subscription, except that they support filtering of events. Event filtering is a method that allows the subscribers to show an interest on certain set of messages that flows into the Broker. For each Broker, Knative Eventing will implicitly create a Knative Eventing Channel. As shown in Figure 4-3, the Trigger gets itself subscribed to the Broker and applies the filter on the messages on its subscribed broker. The filters are applied on the on the Cloud Event attributes of the messages, before delivering it to the interested Sink Services(subscribers).</p>
+</dd>
+</dl>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/brokers-triggers.png" alt="Brokers and Triggers">
+</div>
+<div class="title">Figure 3. Brokers and Triggers</div>
 </div>
 </div>
 </div>
