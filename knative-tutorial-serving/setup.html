@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knative Tutorial :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-serving/setup.html">
+    <meta name="generator" content="Antora 2.2.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container"  data-component="knative-tutorial-serving"
+  data-version="master" >
+  <aside class="navigation">
+    <div class="panels">
+      <div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Knative Serving</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#kubernetes-cluster">Choose your Kubernetes Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="#tutorial-dev-env">Development Environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#tutorial-all-local">CLI Tools</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#dev-env-all-in-one">All in one Environment</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="basic-fundas.html">Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#basics-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#basics-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#basics-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#basics-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#basics-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#deploying-new-revision">Deploy a New Revision of a Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basic-fundas.html#basics-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="knative-client.html">Knative Client</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="knative-client.html#kn-install">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="knative-client.html#kn-ksvc">Knative Service Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-create-ksvc">Create Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-list-services">List Knative Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-update-ksvc">Update Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="knative-client.html#kn-revisons">Knative Revision Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-revisions-list">Knative Revision List</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="knative-client.html#kn-routes">Knative Route Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="knative-client.html#kn-route-list">Knative Revision List</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="traffic-distribution.html">Traffic Distribution</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#blue-green">Blue-Green Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#canary-release">Canary Release</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#service-visibility">Service Visibility</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="scaling.html">Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scaling.html#scaling-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scaling.html#scaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scaling.html#scaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="scaling.html#scaling-scale-to-zero">Scale to Zero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-observer-scale-to-zero">Observing Default Scale Down</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-observer-scale-to-zero-1m">Change Scale-to-Zero Time</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="scaling.html#scaling-auto-scaling">Auto Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-load-service">Load Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="scaling.html#scaling-min-scale">Minimum Scale</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scaling.html#scaling-deploy-service-minscale">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scaling.html#scaling-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+  <div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <!-- Just a place holder to fill in  explorer for each context -->
+  </div>
+</div>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../knative-tutorial/index.html" class="home-link"></a>
+  <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Knative Serving</a></li>
+    <li class="crumb"><a href="setup.html">Setup</a></li>
+  </ul>
+</nav>
+</div>
+<article class="doc">
+<h1>Knative Tutorial</h1>
+<div class="sect1">
+<h2 id="tutorial-all-local"><a class="anchor" href="#tutorial-all-local"></a>CLI tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
+<th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Fedora</strong></th>
+<th class="tableblock halign-center valign-top"><strong>windows</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Git</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/mac">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/win">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/linux">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-mac/install">Docker for Mac</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-windows/install">Docker for Windows</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>kubectl {kubernetes-version}</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/kubernetes-release/release/{kubernetes-version}/bin/darwin/amd64/kubectl">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/kubernetes-release/release/{kubernetes-version}/bin/linux/amd64/kubectl">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/kubernetes-release/release/{kubernetes-version}/bin/windows/amd64/kubectl.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.11.0/stern_windows_amd64.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq v2.4.1</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_darwin_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_linux_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_windows_amd64.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/doc#windows-etc" class="bare">https://httpie.org/doc#windows-etc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/rakyll/hey">hey</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/hey-release/hey_darwin_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/jblabs/dist/hey_linux_v0.1.2">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/jblabs/dist/hey_win_v0.1.2.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install procps-ng</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">kubectx and kubens</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install kubectx</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/ahmetb/kubectx" class="bare">https://github.com/ahmetb/kubectx</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
+</div>
+<div id="cloneRepo" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a> &amp;&amp;\
+export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#cloneRepo"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This tutorial was developed and tested with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Knative <code>v0.12.0</code></p>
+</li>
+<li>
+<p>Minikube <code>v1.7.2</code></p>
+</li>
+<li>
+<p>OpenShift <code>v4.1+</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kubernetes-cluster"><a class="anchor" href="#kubernetes-cluster"></a>Choose your Kubernetes Cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Knative can be installed only on Kubernetes cluster. The following section shows how to install Knative on vanilla <a href="https://kubernetes.io">Kubernetes</a> or on Red Hat <a href="https://www.openshift.com">Openshift</a>&#8201;&#8212;&#8201;an enterprise grade Kubernetes platform&#8201;&#8212;&#8201;</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_kubernetes"></a>Kubernetes</p>
+</li>
+<li>
+<p><a id="tabset1_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_kubernetes">
+<div id="start-minikube" class="paragraph">
+<p><strong>Configure and Start Minikube</strong></p>
+</div>
+<div class="paragraph">
+<p>Before installing Knative and its components, we need to create a Minikube virtual machine and deploy Kubernetes into it.</p>
+</div>
+<div class="paragraph">
+<p>Download <a href="https://kubernetes.io/docs/setup/minikube">minikube</a> and add it to your path.</p>
+</div>
+<div id="setup-minikube-start" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$TUTORIAL_HOME/bin/start-minikube.sh</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-minikube-start"><i class="fa fa-clipboard"></i></button><br/>
+<div class="listingblock">
+<div class="title">Minikube starting</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">❌  profile "knativetutorial" not found
+✅  Created a new profile : knativetutorial
+✅  minikube profile was successfully set to knativetutorial
+😄  [knativetutorial] minikube v1.6.2 on Darwin 10.15.2
+✨  Selecting 'virtualbox' driver from user configuration (alternates: [hyperkit])
+🔥  Creating virtualbox VM (CPUs=4, Memory=8192MB, Disk=50000MB) ...
+🐳  Preparing Kubernetes v1.14.0 on Docker '19.03.5' ...
+    ▪ apiserver.enable-admission-plugins=LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook
+🚜  Pulling images ...
+🚀  Launching Kubernetes ...
+⌛  Waiting for cluster to come online ...
+🏄  Done! kubectl is now configured to use "knativetutorial"</code></pre>
+</div>
+</div>
+<div id="minikube-enable-registry" class="paragraph">
+<p><strong>Enable Internal Registry</strong></p>
+</div>
+<div id="minikube-enable-registry-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube addons enable registry</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-enable-registry-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few mins for the registry to be enabled, you can watch the status using <code>kubectl get pods -n kube-system -w  | grep registry</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful enable of <a href="#minikube-enable-registry">registry</a> will show the following pods when running the command:</p>
+</div>
+<div id="minikube-check-registry" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pods -n kube-system | grep registry</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-registry"><i class="fa fa-clipboard"></i></button><br/>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">registry-7c5hg                             1/1     Running   0          29m
+registry-proxy-cj6dj                       1/1     Running   0          29m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Navigate to registry helper folder:</strong></p>
+</div>
+<div id="minikube-registry-helper-nav" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/apps/minikube-registry-helper</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-registry-helper-nav"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p><strong>Deploy Registry Helper</strong></p>
+</div>
+<div class="paragraph">
+<p>As part of some exercises in the tutorial, we need to push and pull images to local internal registry. To make push and pull smoother we will have a helper deployed so that we can use some common names like <code>dev.local</code>, <code>example.com</code> as registry aliases for internal registry</p>
+</div>
+<div class="paragraph">
+<p><strong>Add entries to minikube host file</strong></p>
+</div>
+<div id="minikube-add-entry-to-host" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n kube-system -f registry-aliases-config.yaml &amp;&amp;\
+kubectl apply -n kube-system -f node-etc-hosts-update.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-add-entry-to-host"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Wait for the Daemonset to be running before proceeding to next step, the status of the Daemonset can be viewed via <code>kubectl get pods -n kube-system -w</code>, you can do <span class="keyseq"><kbd>CTRL</kbd>+<kbd>c</kbd></span> to end the watch.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Check if the entries are added to minikube node host file</p>
+</div>
+<div id="minikube-check-host-entry" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch minikube ssh -- sudo cat /etc/hosts</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-host-entry"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful daemonset run will show the minikube node <code>/etc/hosts</code> file with the following entries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">127.0.0.1       localhost
+127.0.1.1 demo
+10.111.151.121  dev.local
+10.111.151.121  example.com</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The IP for <code>dev.local</code> and <code>example.com</code> will match the <strong>CLUSTER-IP</strong> of the internal registry. To know the Cluster IP run the command:</p>
+</div>
+<div id="minikube-check-registry-ip" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get svc registry -n kube-system</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-check-registry-ip"><i class="fa fa-clipboard"></i></button><br/>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE
+registry   ClusterIP   10.111.151.121   &lt;none&gt;        80/TCP                  178m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Update CoreDNS</strong></p>
+</div>
+<div id="minikube-update-coredns" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./patch-coredns.sh</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-update-coredns"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>To check successful patch  run the following command</p>
+</div>
+<div id="check-coredns-cm" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get cm -n kube-system coredns -o yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#check-coredns-cm"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful patch will have the coredns updated ConfigMap <code>coredns</code> in <code>kube-system</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+data:
+  Corefile: |-
+    .:53 {
+        errors
+        health
+        rewrite name dev.local registry.kube-system.svc.cluster.local
+        rewrite name example.com registry.kube-system.svc.cluster.local
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           upstream
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . /etc/resolv.conf
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+kind: ConfigMap
+metadata:
+  name: coredns</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Install Custom Resource Definitions</strong></p>
+</div>
+<div id="run-knative-crd-install" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply --selector knative.dev/crd-install=true \
+  --filename https://github.com/knative/serving/releases/download/v0.12.0/serving-crds.yaml \
+  --filename https://github.com/knative/eventing/releases/download/v0.12.0/eventing.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-knative-crd-install"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Now that you have installed the Knative Serving and Eventing CRDs, the following sections we will verify the CRDs by querying the <code>api-resources</code>.</p>
+</div>
+<div class="paragraph">
+<p>All <strong>Knative Serving</strong> resources will be under the API group called <code>serving.knative.dev</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">serving.knative.dev</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='serving.knative.dev'</strong>
+NAME             SHORTNAMES      APIGROUP              NAMESPACED   KIND
+configurations   config,cfg      serving.knative.dev   true         Configuration
+revisions        rev             serving.knative.dev   true         Revision
+routes           rt              serving.knative.dev   true         Route
+services         kservice,ksvc   serving.knative.dev   true         Service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All <strong>Knative Eventing</strong> resources will be under the one of following API groups:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>messaging.knative.dev</p>
+</li>
+<li>
+<p>eventing.knative.dev</p>
+</li>
+<li>
+<p>sources.eventing.knative.dev</p>
+</li>
+<li>
+<p>sources.knative.dev</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">messaging.knative.dev</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='messaging.knative.dev'</strong>
+NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
+channels           ch           messaging.knative.dev   true         Channel
+inmemorychannels   imc          messaging.knative.dev   true         InMemoryChannel
+parallels                       messaging.knative.dev   true         Parallel
+sequences                       messaging.knative.dev   true         Sequence
+subscriptions      sub          messaging.knative.dev   true         Subscription</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">eventing.knative.dev</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='eventing.knative.dev'</strong>
+NAME         SHORTNAMES   APIGROUP               NAMESPACED   KIND
+brokers                   eventing.knative.dev   true         Broker
+eventtypes                eventing.knative.dev   true         EventType
+triggers                  eventing.knative.dev   true         Trigger</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">sources.eventing.knative.dev</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='sources.eventing.knative.dev'</strong>
+NAME               SHORTNAMES   APIGROUP                       NAMESPACED   KIND
+apiserversources                sources.eventing.knative.dev   true         ApiServerSource
+containersources                sources.eventing.knative.dev   true         ContainerSource
+cronjobsources                  sources.eventing.knative.dev   true         CronJobSource
+sinkbindings                    sources.eventing.knative.dev   true         SinkBinding</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">sources.knative.dev</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='sources.knative.dev'</strong>
+NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
+apiserversources                sources.knative.dev   true         ApiServerSource
+sinkbindings                    sources.knative.dev   true         SinkBinding</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Knative has two main infrastructure components: <a href="https://kubernetes.io/docs/concepts/architecture/controller/">controller</a> and <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/">webhook</a> helps in translating the Knative CRDs which are usually written YAML files, into Kubernetes objects like Deployment and Service. Apart from the controller and webhook, the Knative Serving and Eventing also install their respective functional components which are listed in the upcoming sections.</p>
+</div>
+<div class="paragraph">
+<p><strong>Install Knative Serving</strong></p>
+</div>
+<div id="run-install-knative-serving" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
+  --filename \
+  https://github.com/knative/serving/releases/download/v0.12.0/serving-core.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-knative-serving"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>This process will take few minutes for the Knative Serving pods to be up and running, you can monitor the status of the Knative Serving installation by watching the pods in the <code>knative-serving</code> namespace, using the command:</p>
+</div>
+<div class="listingblock">
+<div class="title">Knative Serving pods</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n knative-serving</strong>
+NAME                               READY   STATUS    RESTARTS   AGE
+activator-5dd6dc95bc-k9lg9         1/1     Running   0          86s
+autoscaler-b56799cdf-55h5k         1/1     Running   0          86s
+autoscaler-hpa-6f5c5cf986-b8lvg    1/1     Running   0          86s
+controller-f8b98d964-qjxff         1/1     Running   0          85s
+networking-istio-bb44d8c87-s2lbg   1/1     Running   0          85s
+webhook-78dcbf4d94-dczd6           1/1     Running   0          85s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Install Kourier</strong></p>
+</div>
+<div id="run-install-kourier" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
+  --filename \
+    <a href="https://raw.githubusercontent.com/knative/serving/v0.12.0/third_party/kourier-latest/kourier.yaml" class="bare">https://raw.githubusercontent.com/knative/serving/v0.12.0/third_party/kourier-latest/kourier.yaml</a></code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-kourier"><i class="fa fa-clipboard"></i></button><br/>
+<div class="listingblock">
+<div class="title">Kourier pods</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n kourier-system</strong>
+NAME                                      READY   STATUS    RESTARTS   AGE
+3scale-kourier-control-77459dcc76-56pkc   1/1     Running   0          55s
+3scale-kourier-gateway-8645d88bf6-gvbf7   1/1     Running   0          56s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now configure Knative serving to use Kourier as the ingress:</p>
+</div>
+<div id="run-config-kn-kourier" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl patch configmap/config-network \
+  -n knative-serving \
+  --type merge \
+  -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-config-kn-kourier"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p><strong>Install Knative Eventing</strong></p>
+</div>
+<div id="run-install-knative-eventing" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
+  --selector \
+  networking.knative.dev/certificate-provider!=cert-manager \
+  --filename \
+  https://github.com/knative/eventing/releases/download/v0.12.0/eventing.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-install-knative-eventing"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Like Knative Serving deployment, Knative Eventing deployment will also take few minutes to complete. You can watch <code>knative-eventing</code> namespace pods for live status, using the command:</p>
+</div>
+<div class="listingblock">
+<div class="title">Knative eventing pods</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n knative-eventing</strong>
+NAME                                            READY   STATUS    RESTARTS   AGE
+eventing-controller-77b4f76d56-d4fzf            1/1     Running   0          2m39s
+eventing-webhook-f5d57b487-hbgps                1/1     Running   0          2m39s
+imc-controller-65bb5ddf-kld5l                   1/1     Running   0          2m39s
+imc-dispatcher-dd84879d7-qt2qn                  1/1     Running   0          2m39s
+in-memory-channel-controller-6f74d5c8c8-vm44b   1/1     Running   0          2m39s
+in-memory-channel-dispatcher-8db675949-mqmfk    1/1     Running   0          2m39s
+sources-controller-79c4bf8b86-lxbjf             1/1     Running   0          2m39s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Configuring Kubernetes namespace</strong></p>
+</div>
+<div class="paragraph">
+<p>All the tutorial exercises will be deployed in namespace called <code>knativetutorial</code>:</p>
+</div>
+<div id="setup-knative-tutorial-ns" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create namespace knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-knative-tutorial-ns"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <a href="https://github.com/ahmetb/kubens">kubens</a> utility installed as part of <a href="https://github.com/ahmetb/kubectx">kubectx</a> allows for easy switching between Kubernetes namespaces.</p>
+</div>
+<div id="setup-knative-tutorial-kubens" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubens knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#setup-knative-tutorial-kubens"><i class="fa fa-clipboard"></i></button><br/>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_openshift">
+<div id="install-knative-openshift" class="paragraph">
+<p><strong>OpenShift</strong></p>
+</div>
+<div class="paragraph">
+<p>Knative Serving and Eventing install needs OpenShift4, you need to have one provisioned using <a href="https://try.openshift.com">try.openshift.com</a> or can use any existing OpenShift4 cluster.</p>
+</div>
+<div class="paragraph">
+<p>Once you have your cluster, you can download the latest OpenShift client(oc) from <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/">here</a> and add to your path.</p>
+</div>
+<div id="oc-version-check" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version-check"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The output should show oc version &gt;=4.2</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version
+Client Version: openshift-clients-4.3.0-201910250623-88-g6a937dfe
+Kubernetes Version: v1.16.2</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please follow the <a href="https://docs.openshift.com/container-platform/4.3/serverless/installing-openshift-serverless.html">OpenShift</a> documentation, to have Knative components installed on your cluster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Navigate to tutorial project</strong></p>
+</div>
+<div id="nav-to-tutorial-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#nav-to-tutorial-project"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial-dev-env"><a class="anchor" href="#tutorial-dev-env"></a>Development tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You have two options to choose your development environment,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#tutorial-all-local">install everything locally</a></p>
+</li>
+<li>
+<p><a href="#dev-env-all-in-one">all in one</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev-env-all-in-one"><a class="anchor" href="#dev-env-all-in-one"></a>All in one Environment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you don&#8217;t wish to install the aforementioned tools, you could get started with tutorial using the <strong>all-in-one-environment</strong> based on <a href="https://eclipse.org/che">Eclipse Che</a>&#8201;&#8212;&#8201;a browser based IDE --.</p>
+</div>
+<div class="sect2">
+<h3 id="dev-env-install-chectl"><a class="anchor" href="#dev-env-install-chectl"></a>Install chectl</h3>
+<div class="paragraph">
+<p>To get started in setting up this environment, we need to have <a href="https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/">chectl</a>. You can follow the <a href="https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/">instructions</a> to have it installed locally.</p>
+</div>
+<div class="paragraph">
+<p>You can verify the install using the command:</p>
+</div>
+<div id="chectl-env-verify" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#chectl-env-verify"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>The command above should return an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl/7.9.0 darwin-x64 node-v10.19.0</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above output is an example from macOS (darwin), the OS information in output may vary based on your OS
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Navigate to <code>$TUTORIAL_HOME</code>:</p>
+</div>
+<div id="nav-to-tutorial-home" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#nav-to-tutorial-home"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="sect2">
+<h3 id="dev-env-che-server"><a class="anchor" href="#dev-env-che-server"></a>Create Che server</h3>
+<div id="dev-env-che-server-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl server:start --platform minikube</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-che-server-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>It will take few minutes for Che server to be started, watch the output of <code>chectl</code> command for the status.</p>
+</div>
+<div class="paragraph">
+<p>A successful Che install should show an output like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl server:start --platform minikube
+  ✔ Verify Kubernetes API...OK
+  ✔ 👀  Looking for an already existing Che instance
+    ✔ Verify if Che is deployed into namespace "che"...it is not
+  ✔ ✈️  Minikube preflight checklist
+    ✔ Verify if kubectl is installed
+    ✔ Verify if minikube is installed
+    ✔ Verify if minikube is running
+    ↓ Start minikube [skipped]
+      → Minikube is already running.
+    ✔ Verify if minikube ingress addon is enabled
+    ↓ Enable minikube ingress addon [skipped]
+      → Ingress addon is already enabled.
+    ✔ Retrieving minikube IP and domain for ingress URLs...192.168.64.166.
+nip.io.
+  ✔ 🏃‍  Running Helm to install Che
+    ✔ Verify if helm is installed
+    ✔ Create Tiller Role Binding...done.
+    ✔ Create Tiller Service Account...done.
+    ✔ Create Tiller RBAC
+    ✔ Create Tiller Service...done.
+    ✔ Preparing Che Helm Chart...done.
+    ✔ Updating Helm Chart dependencies...done.
+    ✔ Deploying Che Helm Chart...done.
+  ✔ ✅  Post installation checklist
+    ✔ Devfile registry pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Plugin registry pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Che pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Retrieving Che Server URL...http://che-che.192.168.64.166.nip.io
+    ✔ Che status check
+Command server:start has completed successfully.</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Che server url will be matching to your minikube ip <code>minikube ip</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_che_server"><a class="anchor" href="#_configure_che_server"></a>Configure Che server</h3>
+<div class="paragraph">
+<p>The default Che server Kubernetes service account has limited privileges, for this tutorial we will use a different service account called <code>tutorial-tools</code> which is a cluster-admin within your Kubernetes cluster:</p>
+</div>
+<div class="paragraph">
+<p>Create the service account, tutorial-tools configmap:</p>
+</div>
+<div id="dev-env-k8s-resources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n che -f $TUTORIAL_HOME/install/tutorial-tools.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-k8s-resources"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Patch the Che configmap to use <code>tutorial-tools</code> service account</p>
+</div>
+<div id="dev-env-patch-che-cm" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl patch configmaps -n che che \
+  --patch '{"data": {"CHE_INFRA_KUBERNETES_SERVICE__ACCOUNT__NAME": "tutorial-tools"} }'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-patch-che-cm"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>We need to restart the <code>che</code> pod to make it pick up the new service account from the configmap:</p>
+</div>
+<div id="dev-env-bounce-che-pod" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n che pod che</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-bounce-che-pod"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It will take few mins for the new che pod to come up, you can watch the status using the command <code>kubectl get -n che pods -w</code>. Use <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>c</kbd></span> to terminate the watch</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dev-env-create-workspace"><a class="anchor" href="#dev-env-create-workspace"></a>Create workspace</h3>
+<div class="paragraph">
+<p>Create Che workspace and clone the knative tutorial sources in it:</p>
+</div>
+<div id="dev-env-create-workspace-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl workspace:start -f $TUTORIAL_HOME/devfile.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dev-env-create-workspace-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>A successful workspace creation will show the following output</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chectl workspace:start -f devfile.yaml
+  ✔ Retrieving Che Server URL...http://che-che.192.168.64.166.nip.io
+  ✔ Verify if Che server is running...RUNNING (auth disabled)
+  ✔ Create workspace from Devfile devfile.yaml
+
+Workspace IDE URL:
+http://che-che.192.168.64.166.nip.io/dashboard/#/ide/che/knative-tutorial</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The IP used in the Che workspace url will be your minikube ip(<code>minikube ip</code>)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Open your environment using the <strong>Workspace IDE URL</strong> listed in the output to start the workspace.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It will take few minutes for the workspace to be up and running.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dev-env-workspace-familiarize"><a class="anchor" href="#dev-env-workspace-familiarize"></a>Familiarize your workspace</h3>
+<div class="paragraph">
+<p>Opening your Che workspace using the <code>Workspace IDE URL</code> will show browser window like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/che_env_overview.png" alt="che env overview">
+</div>
+</div>
+<div class="paragraph">
+<p>You can open the <code>New Terminal</code> to start running the tutorial exercises.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The editor has been pre-configured with all common and popular vscode plugins:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Java</p>
+</li>
+<li>
+<p>Xml</p>
+</li>
+<li>
+<p>YAML</p>
+</li>
+<li>
+<p>Kubernetes</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </main>
+</div>
+<footer role="contentinfo">
+  <div class="region region-rhd-footer">
+    <div id="block-rhdfooter" class="rhd-footer">
+      <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
+  <ul class="rhd-menu">
+    <li class="menu-item menu-item--expanded">
+      <h3 class="section-toggle">GitHub</h3>
+      <ul class="rhd-menu">
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
+            Tutorial</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
+            Tracker</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/openshift-cloud-functions/Documentation"
+            title="OpenShift Cloud Functions">OpenShift Cloud Functions</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <div class="rhd-footer-sidebar">
+        <p class="rhd-footer-sidebar-title">Red Hat Developer</p>
+        <p class="rhd-footer-sidebar-subtitle">Build here. Go anywhere.</p>
+        <p class="rhd-footer-sidebar-content">
+          We serve the builders. The problem solvers who create careers with
+          code.<br /><br /><a href="https://developer.redhat.com/register">Join us</a>
+          if you’re a developer, software engineer, web designer, front-end
+          designer, UX designer, computer scientist, architect, tester,
+          product manager, project manager or team lead.
+        </p>
+        <ul class="rhd-footer-sidebar-social">
+          <li>
+            <a href="https://www.youtube.com/channel/UC7noUdfWp-ukXUlAsJnSm-Q" target="_blank"
+              rel="noopener noreferrer"><svg class="svg-inline--fa fa-youtube fa-w-18" aria-hidden="true"
+                data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 576 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+                </path>
+              </svg><!-- <i class="fab fa-youtube"></i> --></a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/RedHatDeveloperProgram" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-facebook fa-w-14" aria-hidden="true" data-prefix="fab" data-icon="facebook"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z">
+                </path>
+              </svg><!-- <i class="fab fa-facebook"> </i> --></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/rhdevelopers" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                </path>
+              </svg><!-- <i class="fab fa-twitter"> </i> --></a>
+          </li>
+          <li>
+            <a href="https://github.com/redhat-developer" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+                </path>
+              </svg><!-- <i class="fab fa-github"> </i> --></a>
+          </li>
+        </ul>
+        <a class="rhd-footer-sidebar-signup" href="https://developers.redhat.com/register">Sign me up ▸</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="../_/js/site.js"></script>
+<script src="../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

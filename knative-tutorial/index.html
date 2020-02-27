@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found :: Knative Tutorial</title>
-    <link rel="stylesheet" href="/knative-tutorial/_/css/site.css">
-<link rel="icon" href="/knative-tutorial/_/img/favicon.ico" type="image/x-icon">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knative Tutorial :: Knative Tutorial</title>
+  <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/index.html">
+  <link rel="stylesheet" href="../_/css/site.css">
+  <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-  </head>
-  <body class="status-404">
-<header class="header" role="banner">
+</head>
+
+<body class="home">
+  <header class="header" role="banner">
   <nav class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item">
@@ -24,35 +27,101 @@
     </div>
   </nav>
 </header>
-<div class="main-wrapper">
-<div class="navigation-container" >
-  <aside class="navigation">
-    <div class="panels">
-          </div>
-  </aside>
-  <div class="navigation-explore is-active" data-panel="explore">
-</div>
-</div>
-  <main class="main">
-<div class="toolbar" role="navigation">
-  <button class="navigation-toggle"></button>
-  <a href="/knative-tutorial/index.html" class="home-link"></a>
-  <nav class="crumbs" aria-label="breadcrumbs">
-</nav>
-</div>
-<article class="doc">
-<h1>Page Not Found</h1>
+  <div class="body container">
+  <main class="home">
+    <h1 class="page">Knative Tutorial</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>The page you're looking for does not exist. It may have been moved.</p>
+<p>Deploying applications as Serverless services is becoming a popular architectural style. It seems like many organizations assume that <em>Functions as a Service (FaaS)</em> is serverless. But we think it is more accurate to say that FaaS is one way to do serverless, not the only way. This raises a super critical question for enterprises that may have applications which could be monolith or a microservice: What is the easiest path to serverless application deployment?</p>
 </div>
 <div class="paragraph">
-<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
-If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
+<p>The answer is a platform that can run serverless workloads, while enabling you to have complete control how to configure, build, deploy and run. Ideally, the platform  that supports deploying the applications as linux containers. In this chapter we introduce you to one such platform&#8201;&#8212;&#8201;<a href="https://knative.dev">Knative</a> --, that helps you to run the serverless workloads in a Kubernetes-native way.</p>
 </div>
-</article>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 tiles browse">
+<h2>Get started with your serverless journey</h2>
+<div class="sectionbody">
+<div class="ulist tile">
+<div class="title"><a href="../knative-tutorial-serving/index.html" class="page">Setup</a></div>
+<ul>
+<li>
+<p><a href="../knative-tutorial-serving/setup.html" class="page">Deploy</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-serving/knative-client.html" class="page">Knative Client</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist tile">
+<div class="title"><a href="../knative-tutorial-serving/index.html" class="page">Knative Serving</a></div>
+<ul>
+<li>
+<p><a href="../knative-tutorial-serving/basic-fundas.html" class="page">Serving</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-serving/scaling.html" class="page">Auto Scaling</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-serving/traffic-distribution.html" class="page">Traffic Distribution</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist tile">
+<div class="title"><a href="#knative-tutorial-eventing:ROOT:index.adoc" class="page unresolved">Knative Eventing</a></div>
+<ul>
+<li>
+<p><a href="#knative-tutorial-eventing:ROOT:eventing-src-to-sink.adoc.adoc" class="page unresolved">Source to Sink</a></p>
+</li>
+<li>
+<p><a href="#knative-tutorial-eventing:ROOT:channel-and-subscribers.adoc" class="page unresolved">Channel and Subscribers</a></p>
+</li>
+<li>
+<p><a href="#knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc" class="page unresolved">Brokers and Triggers</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist tile">
+<div class="title"><a href="../knative-tutorial-camelk/index.html" class="page">Apache Camel-K</a></div>
+<ul>
+<li>
+<p><a href="../knative-tutorial-camelk/setup.html" class="page">Setup</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-camelk/camel-k-basics.html#deploy-camel-k-kn-integration" class="page">Camel-K with Knative Serving</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-camelk/camel-k-eventing.html" class="page">Camel-K with Knative Eventing</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-camelk/camel-k-eventing.html#camel-k-es-sink" class="page">CamelSource to Sink</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist tile">
+<div class="title"><a href="../knative-tutorial-adv/index.html" class="page">Advanced</a></div>
+<ul>
+<li>
+<p><a href="../knative-tutorial-adv/deploy-apache-kafka.html" class="page">Deploy Apache Kafka</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-adv/eventing-with-kafka.html" class="page">Knative Eventing with Apache Kafka</a></p>
+</li>
+<li>
+<p><a href="../knative-tutorial-adv/camel-k-cbr.html" class="page">Content Based Routing with Camel-K</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
   </main>
 </div>
-<footer role="contentinfo">
+  <footer role="contentinfo">
   <div class="region region-rhd-footer">
     <div id="block-rhdfooter" class="rhd-footer">
       <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
@@ -130,8 +199,8 @@ If you typed the URL of this page manually, please double check that you entered
     </div>
   </div>
 </footer>
-<script src="/knative-tutorial/_/js/site.js"></script>
-<script src="/knative-tutorial/_/js/vendor/highlight.js"></script>
+<script src="../_/js/site.js"></script>
+<script src="../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -139,5 +208,6 @@ If you typed the URL of this page manually, please double check that you entered
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>

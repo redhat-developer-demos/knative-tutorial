@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knative Tutorial :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-adv/camel-k-cbr.html">
+    <meta name="generator" content="Antora 2.2.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container"  data-component="knative-tutorial-adv"
+  data-version="master" >
+  <aside class="navigation">
+    <div class="panels">
+      <div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Knative Tutorial Advanced</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <span class="nav-text">Knative Eventing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-apache-kafka.html">Deploy Apache Kafka</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#create-kafka-topic">Create Topic</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#kafka-producer">Run Producer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#kafka-consumer">Run Consumer</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="eventing-with-kafka.html">Knative Eventing with Apache Kafka</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-kafka-source">Deploy KafkaSource</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-adv-default-knative-channel">Kafka Knative Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-kafka-source-to-sink">Kafka Source to Sink</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-kafka-src-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <span class="nav-text">EIP with Apache Camel-K</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camel-k-cbr.html">Content Based Routing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#cbr-app-overview">Application Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#label-namespace-for-default-broker">Label Namespace</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#camel-k-cbr-data-producer">Deploy Data Producer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#camel-k-cbr-data-processor">Deploy Data Processor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#camel-k-cbr-event-subscriber">Deploy Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#camel-k-cbr-event-filter">Apply Knative Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#verify-e2e">Verify End to End</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#kamel-cbr-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+  <div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <!-- Just a place holder to fill in  explorer for each context -->
+  </div>
+</div>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../knative-tutorial/index.html" class="home-link"></a>
+  <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Knative Tutorial Advanced</a></li>
+    <li class="crumb">EIP with Apache Camel-K</li>
+    <li class="crumb"><a href="camel-k-cbr.html">Content Based Routing</a></li>
+  </ul>
+</nav>
+</div>
+<article class="doc">
+<h1>Knative Tutorial</h1>
+<div class="sect1">
+<h2 id="camel-k-cbr"><a class="anchor" href="#camel-k-cbr"></a>Applying Content Based Routing EIP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the end of this chapter you will be able to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How to run integrate Apache Kafka and Camel-K</p>
+</li>
+<li>
+<p>Apply Content Based Routing (CBR) Enterprise Integration Pattern(EIP)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Apache Camel supports numerous Enterprise Integration Patterns (EIPs) out-of-the-box, you can find the complete list of patterns on the Apache Camel <a href="https://camel.apache.org/manual/latest/enterprise-integration-patterns.html">website</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Content Based Router</div>
+<div class="paragraph">
+<p>The Content Based Router examines the message content and routes the message to a different channel based on the data contained in the message. The routing can be based on a number of criteria such as existence of fields, specific field values etc. When implementing a Content Based Router, special caution should be taken to make the routing function easy to maintain as the router can become a point of frequent maintenance. In more sophisticated integration scenarios, the Content Based Router can take on the form of a configurable rules engine that computes the destination channel based on a set of configurable rules. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cbr-app-overview"><a class="anchor" href="#cbr-app-overview"></a>Application Overview</h3>
+<div class="paragraph">
+<p>We will deploy a simple data streaming application that will use Camel-K and Knative to process the incoming data where that processed data is pushed out to to a reactive web application via <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">Server-Sent Events (SSE)</a> as shown below:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/cbr_app_overview.png" alt="cbr app overview">
+</div>
+<div class="title">Figure 1. Application Overview</div>
+</div>
+<div class="paragraph">
+<p>The application has following components,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data Producer</strong>: The Camel-K integration application, that will produce data simulating the streaming data by sending the data to <a href="https://kafka.apache.org">Apache Kafka</a></p>
+</li>
+<li>
+<p><strong>Data Processor</strong>: The Camel-K integration application, that will process the streaming data from Kafka and send the default Knative Eventing Broker</p>
+</li>
+<li>
+<p><strong>Event Subscriber(Fruits UI)</strong>: The <a href="https://quarkus.io">Quarkus</a> Java application, that will display the processed data from the Data Processor</p>
+</li>
+<li>
+<p><strong>Event Trigger</strong>: This is <a href="#knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc" class="page unresolved">Knative Event Trigger</a> that apply a filter on the processed data, to send to the Event Subscriber</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The upcoming recipes will deploy these individual components and finally we test the integration by wiring them all together.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="camelk-cbr-prerequisite"><a class="anchor" href="#camelk-cbr-prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following checks ensure that each chapter exercises are done with the right environment settings.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_minikube"></a>Minikube</p>
+</li>
+<li>
+<p><a id="tabset1_minishift"></a>Minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_minikube">
+<div class="ulist">
+<ul>
+<li>
+<p>Set your local docker to use minikube docker daemon</p>
+</li>
+</ul>
+</div>
+<div id="minikube-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minikube-set-env"><i class="fa fa-clipboard"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes should be v1.12+</p>
+</li>
+</ul>
+</div>
+<div id="kubectl-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kubectl-version"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div class="ulist">
+<ul>
+<li>
+<p>Set your local docker to use minishift docker daemon</p>
+</li>
+</ul>
+</div>
+<div id="minishift-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env)</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#minishift-set-env"><i class="fa fa-clipboard"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift CLI should be v3.11.0+</p>
+</li>
+</ul>
+</div>
+<div id="oc-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift oc-env)
+oc version</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-version"><i class="fa fa-clipboard"></i></button><br/>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project</p>
+</li>
+</ul>
+</div>
+<div id="right-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#right-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, then run following command to change to <code>knativetutorial</code> project:</p>
+</div>
+<div id="change-to-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#change-to-openshift-project"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Just make sure:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Review <a href="#eventing/eventing.adoc" class="page unresolved">Knative Eventing</a> module to refresh the concepts</p>
+</li>
+<li>
+<p>Apache Kafka <a href="deploy-apache-kafka.html" class="page">my-cluster</a> is running</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Finally navigate to the tutorial chapter&#8217;s folder advanced/camel-k:</p>
+</div>
+<div id="camelk-repo-nav-folder" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/advanced/camel-k</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-repo-nav-folder"><i class="fa fa-clipboard"></i></button><br/>
+<div class="sect2">
+<h3 id="label-namespace-for-default-broker"><a class="anchor" href="#label-namespace-for-default-broker"></a>Label Namespace</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The knativetutorial namespace is labeled to inject Knative Eventing&#8217;s default Broker filter and ingress deployment.</p>
+</li>
+</ul>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset2_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div id="run-label-namespace" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl label namespace knativetutorial knative-eventing-injection=enabled</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-label-namespace"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_oc">
+<div id="run-label-namespace-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc label namespace knativetutorial knative-eventing-injection=enabled</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-label-namespace-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If the label is set correctly on the knativetutorial namespace then you should see the following pods corresponding to Knative Eventing&#8217;s default broker&#8217;s filter and ingress:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset3_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div id="watch-default-broker-pods" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#watch-default-broker-pods"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_oc">
+<div id="watch-default-broker-pods-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc get pods -n knativetutorial</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#watch-default-broker-pods-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                       READY   STATUS      AGE
+camel-k-operator-5d74595cdf-4v9qz          1/1     Running     3h59m
+default-broker-filter-c6654bccf-zkw7s      1/1     Running     59s
+default-broker-ingress-857698bc5b-r4zmf    1/1     Running     59s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="camel-k-cbr-data-producer"><a class="anchor" href="#camel-k-cbr-data-producer"></a>Deploy Data Producer</h3>
+<div class="paragraph">
+<p>Knative Camel-K integration called <code>fruits-producer</code> which will use a public <a href="http://fruityvice.com">fruits API</a> to retrieve the information about fruits and stream the data to Apache Kafka. The <code>fruits-producer</code> service retrieves the data from the fruits API, splits it using the <a href="https://camel.apache.org/manual/latest/split-eip.html">Split EIP</a> and then sends the data to a Kafka topic called <code>fruits</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Fruits producer</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from:
+    uri: "knative:endpoint/fruits-producer"
+    steps:
+      - set-header:
+          name: CamelHttpMethod
+          constant: GET
+      - to: "http:fruityvice.com/api/fruit/all?bridgeEndpoint=true" <i class="conum" data-value="1"></i><b>(1)</b>
+      - split:
+          jsonpath: "$.[*]" <i class="conum" data-value="2"></i><b>(2)</b>
+      - marshal:
+          json: {}
+      - log:
+          message: "${body}"
+      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092" <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Call the external REST API <a href="http://fruityvice.com" class="bare">http://fruityvice.com</a> to get the list of fruits to simulate the data streaming</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Apply the Camel Split EIP to split the JSON array to individual records</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Send the processed data i.e. the individual fruit record as JSON to Apache Kafka Topic</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following command to deploy the <code>fruit-producer</code> integration:</p>
+</div>
+<div id="kamel-cbr-deploy-fruit-producer" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel -n knativetutorial run \
+ --wait \
+ --dependency camel:log \
+ --dependency camel:jackson \
+ --dependency camel:jsonpath \
+ eip/fruits-producer.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-deploy-fruit-producer"><i class="fa fa-clipboard"></i></button><br/>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The service deployment may take several minutes to become available, to monitor the status:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>watch kubectl get pods</code> or <code>watch oc get pods</code></p>
+</li>
+<li>
+<p><code>watch kamel get</code></p>
+</li>
+<li>
+<p><code>watch kubectl get ksvc</code>  or <code>watch oc get ksvc</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset4_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_kubectl">
+<div id="dddp-kamel-cbr-watch-pods" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl -n knativetutorial get</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dddp-kamel-cbr-watch-pods"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_oc">
+<div id="dddp-kamel-cbr-watch-pods-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dddp-kamel-cbr-watch-pods-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>A successful deploy will show the following pods:</p>
+</div>
+<div class="listingblock">
+<div class="title">fruits-producer service pods</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                READY   STATUS    AGE
+camel-k-operator-5d74595cdf-4v9qz                   1/1     Running   4h4m
+default-broker-filter-c6654bccf-zkw7s               1/1     Running   5m
+default-broker-ingress-857698bc5b-r4zmf             1/1     Running   5m
+<strong><em>fruits-producer-nfngm-deployment-759c797c44-d6r52   2/2     Running   70s</em></strong></code></pre>
+</div>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset5_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_kubectl">
+<div id="dddp-kamel-cbr-get-ksvc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get ksvc</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dddp-kamel-cbr-get-ksvc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_oc">
+<div id="dddp-kamel-cbr-get-ksvc-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get ksvc</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dddp-kamel-cbr-get-ksvc-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">fruit-producer Knative services</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              URL                                            READY
+event-display     <a href="http://event-display.knativetutorial.example.com" class="bare">http://event-display.knativetutorial.example.com</a>     True
+fruits-producer   <a href="http://fruits-producer.knativetutorial.example.com" class="bare">http://fruits-producer.knativetutorial.example.com</a>   True</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="kamel-cbr-fp-verify"><a class="anchor" href="#kamel-cbr-fp-verify"></a>Verify Fruit Producer</h4>
+<div class="paragraph">
+<p>Run the <code>$TUTORIAL_HOME/bin/call.sh</code> with the parameter <code>fruits-producer</code>.</p>
+</div>
+<div id="kamel-cbr-call-fp" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$TUTORIAL_HOME/bin/call.sh fruits-producer ''</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-call-fp"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Open a new terminal and run the start Kafka consumer using the script <code>$TUTORIAL_HOME/bin/kafka-consumer.sh</code> with parameter <code>fruits</code>:</p>
+</div>
+<div id="kamel-cbr-kafka-consumer" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$TUTORIAL_HOME/bin/kafka-consumer.sh fruits</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-kafka-consumer"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>If the <code>fruit-producer</code> executed well then you should the Kafka Consumer terminal show something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"genus":"Citrullus","name":"Watermelon","id":25,"family":"Cucurbitaceae","order":"Cucurbitales","nutritions":{"carbohydrates":8,"protein":0.6,"fat":0.2,"calories":30,"sugar":6}}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Since the fruits API returns a static set of fruit data consistently, you can call it as needed to simulate data streaming and it will always be the same data.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="camel-k-cbr-data-processor"><a class="anchor" href="#camel-k-cbr-data-processor"></a>Deploy Data Processor</h3>
+<div class="paragraph">
+<p>Let us now deploy a CamelSource called <code>fruits-processor</code>, that can  handle and process the streaming data from the Kafka topic <code>fruits</code>. The <code>fruits-processor</code> CamelSource applies the <strong>Content Based Router</strong> EIP to process the data. The following listing describes the <code>fruits-processor</code> CamelSource:</p>
+</div>
+<div class="listingblock">
+<div class="title">CamelSource fruits-processor</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CamelSource
+metadata:
+  name: fruits-processor
+spec:
+  source:
+    integration:
+      dependencies:
+        - camel:log
+        - camel:kafka
+        - camel:jackson
+        - camel:bean
+    flow:
+      from:
+        uri: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092" <i class="conum" data-value="1"></i><b>(1)</b>
+        steps:
+          - log:
+              message: "Received Body ${body}"
+          - unmarshal:
+              json: {} <i class="conum" data-value="2"></i><b>(2)</b>
+          - choice: <i class="conum" data-value="3"></i><b>(3)</b>
+              when:
+                - simple: "${body[nutritions][sugar]} &lt;= 5"
+                  steps:
+                    - remove-headers: "*"
+                    - marshal:
+                        json: {}
+                    - set-header: <i class="conum" data-value="4"></i><b>(4)</b>
+                        name: ce-type
+                        constant: low-sugar
+                    - set-header:
+                        name: fruit-sugar-level
+                        constant: low
+                    - to: "log:low?showAll=true&amp;multiline=true"
+                - simple: "${body[nutritions][sugar]} &gt; 5 || ${body[nutritions][sugar]} &lt;= 10"
+                  steps:
+                    - remove-headers: "*"
+                    - marshal:
+                        json: {}
+                    - set-header:
+                        name: ce-type
+                        constant: medium-sugar
+                    - set-header:
+                        name: fruit-sugar-level
+                        constant: medium
+                    - to: "log:medium?showAll=true&amp;multiline=true"
+              otherwise:
+                steps:
+                  - remove-headers: "*"
+                  - marshal:
+                      json: {}
+                  - set-header:
+                      name: ce-type
+                      constant: high-sugar
+                  - set-header:
+                      name: fruit-sugar-level
+                      constant: high
+                  - to: "log:high?showAll=true&amp;multiline=true"
+  sink: <i class="conum" data-value="5"></i><b>(5)</b>
+    ref:
+      apiVersion: eventing.knative.dev/v1alpha1
+      kind: Broker
+      name: default</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Camel route connects to Apache Kakfa broker and the topic <code>fruits</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Once the data is received it is transformed into a JSON payload.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The <code>Content Based Router</code> pattern using the <a href="https://camel.apache.org/manual/latest/choice-eip.html">Choice EIP</a>. In the data processing you classify the fruits as low (sugar &lt;= 5), medium(sugar between 5 to 10) and high(sugar &gt; 10) based on the sugar level present in their nutritions data.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Based on the data classification you will be setting the <a href="https://cloudevents.io">CloudEvents</a> <code>type</code> header to be <code>low-high</code>, <code>medium-sugar</code> and <code>high-sugar</code>. This header is used as one of the filter attributes in the Knative Eventing Trigger.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The last step is to send the processed data to the Knative Eventing Broker named <code>default</code>.</td>
+</tr>
+</table>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset6_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset6_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset6_kubectl">
+<div id="kamel-deploy-data-processor" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f eip/fruits-processor.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-deploy-data-processor"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset6_oc">
+<div id="kamel-deploy-data-processor-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f eip/fruits-processor.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-deploy-data-processor-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>As the Camel-K controller takes few minutes to deploy the CamelSource, you can watch the pods of the <code>knativetutorial</code> namespace for its status:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset7_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset7_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset7_kubectl">
+<div id="dproc-kamel-cbr-watch-pods" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl -n knativetutorial get</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dproc-kamel-cbr-watch-pods"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_oc">
+<div id="dproc-kamel-cbr-watch-pods-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#dproc-kamel-cbr-watch-pods-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">fruit-processor Knative service pods</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                      READY   STATUS    AGE
+camel-k-operator-5d74595cdf-4v9qz         1/1     Running   4h17m
+default-broker-filter-c6654bccf-zkw7s     1/1     Running   18m
+default-broker-ingress-857698bc5b-r4zmf   1/1     Running   18m
+<strong><em>fruits-processor-h45f7-6fdfd74cf9-nmfkn   1/1     Running   29s</em></strong></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A successful <code>fruit-processor</code> is deploy will show the following pods in <code>knativetutorial</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Wondering why <code>fruit-producer</code> is not listed ?</p>
+</div>
+<div class="paragraph">
+<p><code>fruit-producer</code> is a Knative service, hence it wil be scaled down to zero in 60-90 seconds.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset8_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset8_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset8_kubectl">
+<div id="kamel-cbr-query-camelsources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get  -n knativetutorial camelsources</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-query-camelsources"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset8_oc">
+<div id="kamel-cbr-query-camelsources-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc get  -n knativetutorial camelsources</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-query-camelsources-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When the CamelSource deployment is successful you will see it in <code>READY</code> state as shown:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME               READY   REASON   AGE
+fruits-processor   True             2m22s</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="camel-k-cbr-event-subscriber"><a class="anchor" href="#camel-k-cbr-event-subscriber"></a>Deploy Event Subscriber</h3>
+<div class="paragraph">
+<p>Let us now deploy a <a href="https://en.wikipedia.org/wiki/Reactive_programming">Reactive</a> Web application called fruit-events-display`. It is a <a href="https://quarkus.io">Quarkus</a> Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.</p>
+</div>
+<div class="paragraph">
+<p>You can deploy the <code>fruit-events-display</code> application using the command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset9_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset9_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset9_kubectl">
+<div id="kamel-cbr-deploy-event-sub" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial \
+  -f $TUTORIAL_HOME/install/utils/fruit-events-display.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-deploy-event-sub"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset9_oc">
+<div id="kamel-cbr-deploy-event-sub-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial \
+  -f $TUTORIAL_HOME/install/utils/fruit-events-display.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-deploy-event-sub-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify if the <code>fruit-events-display</code> application is up and running:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset10_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset10_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset10_kubectl">
+<div id="desub-kamel-cbr-watch-pods" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl -n knativetutorial get</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#desub-kamel-cbr-watch-pods"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset10_oc">
+<div id="desub-kamel-cbr-watch-pods-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch oc -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#desub-kamel-cbr-watch-pods-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the <code>fruit-events-display</code> is running you will see the following pods in the <code>knativetutorial</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Pods list</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                       READY   STATUS    AGE
+camel-k-operator-5d74595cdf-4v9qz          1/1     Running   4h21m
+default-broker-filter-c6654bccf-zkw7s      1/1     Running   22m
+default-broker-ingress-857698bc5b-r4zmf    1/1     Running   22m
+<strong><em>fruit-events-display-8d47bc98f-6r7zt       1/1     Running   15s</em></strong>
+fruits-processor-h45f7-6fdfd74cf9-nmfkn    1/1     Running   4m12s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The web <code>fruit-events-display</code> application will refresh its UI as and when it receives the processed data, you need you open the web application in your browser.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset11_minikube"></a>Minikube</p>
+</li>
+<li>
+<p><a id="tabset11_openshift"></a>OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset11_minikube">
+<div id="kamel-open-fruit-ui" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">minikube -n knativetutorial service fruit-events-display</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-open-fruit-ui"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset11_openshift">
+<div id="kamel-open-fruit-expose" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc expose -n knativetutorial service fruit-events-display</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-open-fruit-expose"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Once you have exposed the service, you can open the OpenShift route in the web browser:</p>
+</div>
+<div id="kamel-open-fruit-rt" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get -n knativetutorial route fruit-events-display</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-open-fruit-rt"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>fruit-events-display</code> UI will be empty as shown below:</p>
+</div>
+<div id="fruit_events_page_before" class="imageblock text-center">
+<div class="content">
+<img src="_images/cbr_app_ui_empty.png" alt="cbr app ui empty">
+</div>
+<div class="title">Figure 2. Fruit events Display Web Application</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="camel-k-cbr-event-filter"><a class="anchor" href="#camel-k-cbr-event-filter"></a>Apply Knative Filter</h3>
+<div class="paragraph">
+<p>As a last step let us now deploy a Knative Event Trigger called <code>fruits-trigger</code>. The trigger consumes the events from the Knative Event Broker named <code>default</code>, when the fruit event is received it will dispatch the events to the subscriber&#8201;&#8212;&#8201;that is <code>fruit-events-display</code> service --.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: sugary-fruits
+spec:
+  broker: default <i class="conum" data-value="1"></i><b>(1)</b>
+  filter: <i class="conum" data-value="2"></i><b>(2)</b>
+    attributes:
+      type: low-sugar
+  subscriber: <i class="conum" data-value="3"></i><b>(3)</b>
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: fruit-events-display</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Knative Event Broker that this Trigger listens to for Knative events. Events originate from the CamelSource called <code>fruits-processor</code> and are sent to the Knative Eventing Broker named <code>default</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The filter attribute restricts the events that <code>fruit-events-display</code> will receive. In this example, it is configured to filter the events for the type <code>low-sugar</code>. You could also use the other classifications of fruits such as <code>medium-sugar</code> or <code>high-sugar</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set the subscriber as the <code>fruit-events-display</code> Kubernetes service to receive the filtered event data.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can deploy the Knative Event Trigger using the following command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset12_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset12_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset12_kubectl">
+<div id="kamel-cbr-deploy-trigger" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f eip/sugary-fruits.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-deploy-trigger"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset12_oc">
+<div id="kamel-cbr-deploy-trigger-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f eip/sugary-fruits.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-deploy-trigger-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Let us check the status of the Trigger using the command <code>kubectl -n knativetutorial get triggers</code> which should return one trigger called <code>sugary-fruits</code> with ready state as shown below.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset13_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset13_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset13_kubectl">
+<div id="kamel-cbr-list-triggers" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get triggers</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-list-triggers"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset13_oc">
+<div id="kamel-cbr-list-triggers-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get triggers</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-list-triggers-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>As the trigger will dispatch its filtered event to <code>fruit-events-display</code> , the subscriber URI of the Trigger will be that of <code>fruit-events-display</code> service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           READY BROKER    SUBSCRIBER_URI
+sugary-fruits  True  default   <a href="http://fruits-events-display.knativetutorial.svc.cluster.local/" class="bare">http://fruits-events-display.knativetutorial.svc.cluster.local/</a></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verify-e2e"><a class="anchor" href="#verify-e2e"></a>Verify end to end</h3>
+<div class="paragraph">
+<p>Now that we have all the components for the <a href="#cbr-app-overview">Application Overview</a>, let us verify the end to end flow:</p>
+</div>
+<div class="paragraph">
+<p>To verify the data flow and processing call the <code>fruits-producer</code> service using the script <code>$TUTORIAL_HOME/bin/call.sh</code> with parameters <code>fruits-producer</code> and ''.</p>
+</div>
+<div id="kamel-cbr-e2e-run" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$TUTORIAL_HOME/bin/call.sh fruits-producer ''</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#kamel-cbr-e2e-run"><i class="fa fa-clipboard"></i></button><br/>
+<div class="paragraph">
+<p>Assuming everything worked well, you should see the <code>low-sugar</code> fruits listed in the <code>fruits-event-display</code> as shown below:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/cbr_app_ui_with_data.png" alt="cbr app ui with data">
+</div>
+<div class="title">Figure 3. Fruit events</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kamel-cbr-cleanup"><a class="anchor" href="#kamel-cbr-cleanup"></a>Cleanup</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset14_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset14_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset14_kubectl">
+<div id="camelk-cbr-cleanup" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete  -n knativetutorial fruit-producer
+kubectl delete  -n knativetutorial -f -f eip/fruits-processor.yaml
+kubectl delete -n knativetutorial -f $TUTORIAL_HOME/install/utils/fruit-events-display.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cbr-cleanup"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+<div class="tab-pane" aria-labelledby="tabset14_oc">
+<div id="camelk-cbr-cleanup-oc" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel delete  -n knativetutorial fruit-producer
+oc delete  -n knativetutorial -f -f eip/fruits-processor.yaml
+oc delete -n knativetutorial -f $TUTORIAL_HOME/install/utils/fruit-events-display.yaml</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#camelk-cbr-cleanup-oc"><i class="fa fa-clipboard"></i></button><br/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html" class="bare">https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html</a>
+</div>
+</div>
+</article>
+  </main>
+</div>
+<footer role="contentinfo">
+  <div class="region region-rhd-footer">
+    <div id="block-rhdfooter" class="rhd-footer">
+      <nav class="rhd-footer-nav" aria-label="Secondary Navigation" role="navigation">
+  <ul class="rhd-menu">
+    <li class="menu-item menu-item--expanded">
+      <h3 class="section-toggle">GitHub</h3>
+      <ul class="rhd-menu">
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial" title="Knative Tutorial">Knative
+            Tutorial</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/redhat-developer-demos/knative-tutorial/issues" title="Issue Tracker">Issue
+            Tracker</a>
+        </li>
+        <li class="menu-item">
+          <a href="https://github.com/openshift-cloud-functions/Documentation"
+            title="OpenShift Cloud Functions">OpenShift Cloud Functions</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      <div class="rhd-footer-sidebar">
+        <p class="rhd-footer-sidebar-title">Red Hat Developer</p>
+        <p class="rhd-footer-sidebar-subtitle">Build here. Go anywhere.</p>
+        <p class="rhd-footer-sidebar-content">
+          We serve the builders. The problem solvers who create careers with
+          code.<br /><br /><a href="https://developer.redhat.com/register">Join us</a>
+          if you’re a developer, software engineer, web designer, front-end
+          designer, UX designer, computer scientist, architect, tester,
+          product manager, project manager or team lead.
+        </p>
+        <ul class="rhd-footer-sidebar-social">
+          <li>
+            <a href="https://www.youtube.com/channel/UC7noUdfWp-ukXUlAsJnSm-Q" target="_blank"
+              rel="noopener noreferrer"><svg class="svg-inline--fa fa-youtube fa-w-18" aria-hidden="true"
+                data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 576 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+                </path>
+              </svg><!-- <i class="fab fa-youtube"></i> --></a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/RedHatDeveloperProgram" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-facebook fa-w-14" aria-hidden="true" data-prefix="fab" data-icon="facebook"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z">
+                </path>
+              </svg><!-- <i class="fab fa-facebook"> </i> --></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/rhdevelopers" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="twitter"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                </path>
+              </svg><!-- <i class="fab fa-twitter"> </i> --></a>
+          </li>
+          <li>
+            <a href="https://github.com/redhat-developer" target="_blank" rel="noopener noreferrer"><svg
+                class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" data-prefix="fab" data-icon="github"
+                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
+                <path fill="currentColor"
+                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+                </path>
+              </svg><!-- <i class="fab fa-github"> </i> --></a>
+          </li>
+        </ul>
+        <a class="rhd-footer-sidebar-signup" href="https://developers.redhat.com/register">Sign me up ▸</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="../_/js/site.js"></script>
+<script src="../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

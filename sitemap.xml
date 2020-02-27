@@ -4,12 +4,12 @@
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/sitemap-knative-tutorial.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/sitemap-knative-tutorial-basics.xml</loc>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/sitemap-knative-tutorial-adv.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/sitemap-knative-tutorial-camelk.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://redhat-developer-demos.github.io/knative-tutorial/sitemap-knative-tutorial-tekton.xml</loc>
+<loc>https://redhat-developer-demos.github.io/knative-tutorial/sitemap-knative-tutorial-serving.xml</loc>
 </sitemap>
 </sitemapindex>

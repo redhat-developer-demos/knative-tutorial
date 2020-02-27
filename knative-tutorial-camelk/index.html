@@ -3,13 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found :: Knative Tutorial</title>
-    <link rel="stylesheet" href="/knative-tutorial/_/css/site.css">
-<link rel="icon" href="/knative-tutorial/_/img/favicon.ico" type="image/x-icon">
+    <title>Knative Tutorial :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-camelk/index.html">
+    <meta name="generator" content="Antora 2.2.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
   </head>
-  <body class="status-404">
+  <body class="article">
 <header class="header" role="banner">
   <nav class="navbar">
     <div class="navbar-brand">
@@ -25,29 +27,142 @@
   </nav>
 </header>
 <div class="main-wrapper">
-<div class="navigation-container" >
+<div class="navigation-container"  data-component="knative-tutorial-camelk"
+  data-version="master" >
   <aside class="navigation">
     <div class="panels">
-          </div>
+      <div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Knative with Apache Camel-K</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html#camelk-prerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camel-k-basics.html">Camel-K with Knative Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-basics.html#camel-k-prerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="camel-k-eventing.html">Camel-K with Knative Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-eventing.html#camel-k-eve-prerequisite">Prerequisite</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-eventing.html#deploy-camel-k-source">Deploy Knative CamelSource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-eventing.html#logging-ce-messages">View CloudEvents Messages</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-eventing.html#camel-k-es-sink">CamelSource to Sink</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camel-k-eventing.html#camelk-eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
   </aside>
-  <div class="navigation-explore is-active" data-panel="explore">
+  <div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <!-- Just a place holder to fill in  explorer for each context -->
+  </div>
 </div>
 </div>
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="/knative-tutorial/index.html" class="home-link"></a>
+  <a href="../knative-tutorial/index.html" class="home-link"></a>
   <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Knative with Apache Camel-K</a></li>
+    <li class="crumb"><a href="index.html">Knative Tutorial</a></li>
+  </ul>
 </nav>
 </div>
 <article class="doc">
-<h1>Page Not Found</h1>
+<h1>Knative Tutorial</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The page you're looking for does not exist. It may have been moved.</p>
+<p>Within the average large IT organization, it is very rare that you would ever build a new application that would live in total isolation, one that would be completely detached from all other old or new systems.  Many real time use cases demands, that the old and new systems share and exchange data.</p>
 </div>
 <div class="paragraph">
-<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
-If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
+<p><a href="https://camel.apache.org">Apache Camel</a> is open source framework that helps you integrate systems. Apache Camel allows the integrated system to produce and consume data between them. It provides over 300 components that include <a href="https://camel.apache.org/components/latest/index.html">integration connectors</a> to sources such as TCP, ActiveMQ, FTP, Salesforce.com, which makes it easier to integrate heterogenous systems . <a href="https://www.enterpriseintegrationpatterns.com/">Enterprise Integration Patterns(EIP)</a> provides solutions to many common integration problems, Apache Camel provides implementations of these patterns via its rich <a href="https://camel.apache.org/manual/latest/dsl.html">Domain Specific Language(DSL)</a>, thereby making it easier for the developers to apply the EIP easily.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://camel.apache.org/camel-k/latest/index.html">Apache Camel-K</a> aims at simplifying the programming and deployment model for Apache Camel integrations. By working with Apache Camel-K, the integration developers can now focus on writing their integrations using Camel DSL in Java,JavaScript,Groovy,XML or YAML, without the need to worry about how package and deploy them.</p>
+</div>
+<div class="paragraph">
+<p>Camel-K will enable you to craft a Kubernetes-native integration application. It also leverages serverless capabilities via Knative.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="camelk-tutorial-prerequisite"><a class="anchor" href="#camelk-tutorial-prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As pre-requisite to this tutorial, its highly recommended that you have completed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#knative-tutorial-module-serving:ROOT:index.adoc" class="page unresolved">Knative Serving</a></p>
+</li>
+<li>
+<p><a href="#knative-tutorial-module-eventing:ROOT:index.adoc" class="page unresolved">Knative Eventing</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_camel_k_and_knative_serving"><a class="anchor" href="#_camel_k_and_knative_serving"></a>Camel-K and Knative Serving</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With Camel-K we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_camel_k_and_knative_eventing"><a class="anchor" href="#_camel_k_and_knative_eventing"></a>Camel-K and Knative Eventing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With Camel-K we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into <a href="https://cloudevents.io"> Cloud Events</a> format and exchanged with other consumers.</p>
+</div>
+</div>
 </div>
 </article>
   </main>
@@ -130,8 +245,8 @@ If you typed the URL of this page manually, please double check that you entered
     </div>
   </div>
 </footer>
-<script src="/knative-tutorial/_/js/site.js"></script>
-<script src="/knative-tutorial/_/js/vendor/highlight.js"></script>
+<script src="../_/js/site.js"></script>
+<script src="../_/js/vendor/highlight.js"></script>
 <script>hljs.initHighlighting()</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
