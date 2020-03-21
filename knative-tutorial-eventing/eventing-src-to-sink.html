@@ -355,7 +355,9 @@ spec.  In the above example it defines <strong>schedule</strong>(the cron expres
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div id="eventing-run-verify-event-source" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get \
+  cronjobsources.sources.eventing.knative.dev \
+  event-greeter-cronjob-source</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-run-verify-event-source"><i class="fa fa-clipboard"></i></button><br/>
@@ -363,7 +365,9 @@ spec.  In the above example it defines <strong>schedule</strong>(the cron expres
 <div class="tab-pane" aria-labelledby="tabset2_oc">
 <div id="eventing-run-oc-verify-event-source" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get cronjobsources.sources.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc -n knativetutorial get \
+  cronjobsources.sources.eventing.knative.dev \
+  event-greeter-cronjob-source</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-run-oc-verify-event-source"><i class="fa fa-clipboard"></i></button><br/>
@@ -432,20 +436,21 @@ cronjob-event-greeter-cronjob-source-4v9vq-6bff96b58f-tgrhj   2/2       Running 
 <p>Run the following command to create the Knative service that will be used as the subscriber for the cron events:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
-kind: CronJobSource
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
+kind: Service
 metadata:
-  name: eventinghello-cronjob-source
+  name: eventinghello
 spec:
-  schedule: "*/2 * * * *"
-  data: '{"key": "every 2 mins"}'
-  sink:
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: eventinghello</code></pre>
+  template:
+    metadata:
+      name: eventinghello-v1
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+      - image: quay.io/burrsutter/eventinghello:0.0.1</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -470,7 +475,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div id="deploy-sink-service-kn-resources-apply" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#deploy-sink-service-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
@@ -478,7 +483,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset4_oc">
 <div id="deploy-sink-service-oc-kn-resources-apply" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#deploy-sink-service-oc-kn-resources-apply"><i class="fa fa-clipboard"></i></button><br/>
@@ -543,7 +548,8 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div id="knative-services" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get services.serving.knative.dev event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get \
+  services.serving.knative.dev eventinghello</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#knative-services"><i class="fa fa-clipboard"></i></button><br/>
@@ -551,8 +557,8 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_oc">
 <div id="oc-knative-services" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative Service (short name ksvc) called greeter
-oc --namespace knativetutorial  get services.serving.knative.dev event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial  get \
+  services.serving.knative.dev eventinghello</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-knative-services"><i class="fa fa-clipboard"></i></button><br/>

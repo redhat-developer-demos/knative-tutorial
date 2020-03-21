@@ -698,13 +698,11 @@ sinkbindings                    sources.knative.dev   true         SinkBinding</
 <div class="title">Knative Serving pods</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n knative-serving</strong>
-NAME                               READY   STATUS    RESTARTS   AGE
-activator-5dd6dc95bc-k9lg9         1/1     Running   0          86s
-autoscaler-b56799cdf-55h5k         1/1     Running   0          86s
-autoscaler-hpa-6f5c5cf986-b8lvg    1/1     Running   0          86s
-controller-f8b98d964-qjxff         1/1     Running   0          85s
-networking-istio-bb44d8c87-s2lbg   1/1     Running   0          85s
-webhook-78dcbf4d94-dczd6           1/1     Running   0          85s</code></pre>
+NAME                          READY   STATUS    RESTARTS   AGE
+activator-6b49796b46-g66z2    1/1     Running   0          11m
+autoscaler-7b46fcb475-cnbrm   1/1     Running   0          11m
+controller-65f4f4bcb4-mrkgs   1/1     Running   0          11m
+webhook-59585cb6-wqldc        1/1     Running   0          11m</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -759,14 +757,12 @@ NAME                                      READY   STATUS    RESTARTS   AGE
 <div class="title">Knative eventing pods</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n knative-eventing</strong>
-NAME                                            READY   STATUS    RESTARTS   AGE
-eventing-controller-77b4f76d56-d4fzf            1/1     Running   0          2m39s
-eventing-webhook-f5d57b487-hbgps                1/1     Running   0          2m39s
-imc-controller-65bb5ddf-kld5l                   1/1     Running   0          2m39s
-imc-dispatcher-dd84879d7-qt2qn                  1/1     Running   0          2m39s
-in-memory-channel-controller-6f74d5c8c8-vm44b   1/1     Running   0          2m39s
-in-memory-channel-dispatcher-8db675949-mqmfk    1/1     Running   0          2m39s
-sources-controller-79c4bf8b86-lxbjf             1/1     Running   0          2m39s</code></pre>
+NAME                                   READY   STATUS    RESTARTS   AGE
+eventing-controller-69ffcc6f7d-9qb6z   1/1     Running   0          41s
+eventing-webhook-6c56fcd86c-n6mzc      1/1     Running   0          41s
+imc-controller-6bcf5957b5-5zpxd        1/1     Running   0          40s
+imc-dispatcher-f59b7c57-qkqnq          1/1     Running   0          40s
+sources-controller-8596684d7b-gkvc2    1/1     Running   0          41s</code></pre>
 </div>
 </div>
 <div class="paragraph">

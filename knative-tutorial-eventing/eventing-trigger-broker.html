@@ -191,7 +191,7 @@
 <h2 id="broker"><a class="anchor" href="#broker"></a>Broker</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By labeling <strong>knativetutorial</strong> namespace with <code>knative-eventing-injection=enabled</code> as shown below, will make Knative Eventing to deploy a default Knative Eventing Broker and its related Ingress :</p>
+<p>By labeling <code>knativetutorial</code> namespace with <code>knative-eventing-injection=enabled</code> as shown below, will make Knative Eventing to deploy a default Knative Eventing Broker and its related Ingress :</p>
 </div>
 <div id="label-namespace-for-default-broker" class="listingblock">
 <div class="content">
@@ -227,7 +227,7 @@
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME     READY REASON URL                                                 AGE
-default  True         http://default-broker.{tutorial-namespace}.svc.cluster.local   22s</code></pre>
+default  True         <a href="http://default-broker.knativetutorial.svc.cluster.local" class="bare">http://default-broker.knativetutorial.svc.cluster.local</a>   22s</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -263,7 +263,7 @@ default-broker-ingress-7479966dc7-99xvm      1/1   Running     18s</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME     READY REASON URL                                                 AGE
-default  True         http://default-broker.{tutorial-namespace}.svc.cluster.local   22s</code></pre>
+default  True         <a href="http://default-broker.knativetutorial.svc.cluster.local" class="bare">http://default-broker.knativetutorial.svc.cluster.local</a>   22s</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -576,7 +576,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div id="knative-triggers" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get triggers.eventing.knative.dev event-greeter-trigger</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get triggers.eventing.knative.dev helloaloha hellobonjour</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#knative-triggers"><i class="fa fa-clipboard"></i></button><br/>
@@ -584,7 +584,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_oc">
 <div id="oc-knative-triggers" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial  get triggers.eventing.knative.dev event-greeter-trigger</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial  get triggers.eventing.knative.dev helloaloha hellobonjour</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-knative-triggers"><i class="fa fa-clipboard"></i></button><br/>
@@ -653,7 +653,8 @@ hellobonjour True  default <a href="http://eventingbonjour.knativetutorial.svc.c
 <div class="tab-pane" aria-labelledby="tabset8_kubectl">
 <div id="knative-services" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get services.serving.knative.dev event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get \
+  services.serving.knative.dev eventinghello</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#knative-services"><i class="fa fa-clipboard"></i></button><br/>
@@ -661,8 +662,8 @@ hellobonjour True  default <a href="http://eventingbonjour.knativetutorial.svc.c
 <div class="tab-pane" aria-labelledby="tabset8_oc">
 <div id="oc-knative-services" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># get a Knative Service (short name ksvc) called greeter
-oc --namespace knativetutorial  get services.serving.knative.dev event-greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc --namespace knativetutorial  get \
+  services.serving.knative.dev eventinghello</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#oc-knative-services"><i class="fa fa-clipboard"></i></button><br/>
