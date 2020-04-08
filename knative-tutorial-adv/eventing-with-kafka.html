@@ -577,11 +577,11 @@ metadata:
   namespace: knative-eventing
 data:
   default-ch-config: |
-    clusterDefault: <i class="conum" data-value="1"></i><b>(1)</b>
+    clusterDefault: #<1>
       apiVersion: messaging.knative.dev/v1alpha1
       kind: InMemoryChannel
-    namespaceDefaults: <i class="conum" data-value="2"></i><b>(2)</b>
-      chapter-4:
+    namespaceDefaults: #<2>
+      knativetutorial:
         apiVersion: messaging.knative.dev/v1alpha1
         kind: KafkaChannel
         spec:
@@ -621,7 +621,7 @@ apiVersion: messaging.knative.dev/v1alpha1
 kind: Channel
 metadata:
   name: my-events-ch
-  namespace: {tutorial-namespace}
+  namespace: knativetutorial
 spec: {}
 EOF</code></pre>
 </div>

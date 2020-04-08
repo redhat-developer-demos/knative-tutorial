@@ -202,10 +202,15 @@
 <div class="paragraph">
 <p>Knative Eventing Sources installs the following four sources out-of-the-box:</p>
 </div>
+<div id="eventing-get-api-resources" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='sources.eventing.knative.dev'</code></pre>
+</div>
+</div>
+<button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#eventing-get-api-resources"><i class="fa fa-clipboard"></i></button><br/>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='sources.eventing.knative.dev'</strong>
-NAME              APIGROUP                      NAMESPACED   KIND
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              APIGROUP                      NAMESPACED   KIND
 apiserversources  sources.eventing.knative.dev  true         ApiServerSource
 containersources  sources.eventing.knative.dev  true         ContainerSource
 cronjobsources    sources.eventing.knative.dev  true         CronJobSource
@@ -213,7 +218,7 @@ sinkbindings      sources.eventing.knative.dev  true         SinkBinding</code><
 </div>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing-hello-sink.yaml">eventinghello-source.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
 kind: CronJobSource <i class="conum" data-value="1"></i><b>(1)</b>
@@ -244,13 +249,13 @@ spec: <i class="conum" data-value="2"></i><b>(2)</b>
 </div>
 </div>
 <div class="sect1">
-<h2 id="eventing-sink"><a class="anchor" href="#eventing-sink"></a>Event Sink</h2>
+<h2 id="eventing-sink"><a class="anchor" href="#eventing-sink"></a>Referencing the Event Sink</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Knative Eventing Sink</strong> is how you specify the event receiver&#8201;&#8212;&#8201;that is the consumer of the event--. Sinks can be invoked directly in a point-to-point fashion by referencing them via the Event Source&#8217;s <code>sink</code> as shown below:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/master/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1
 kind: CronJobSource
