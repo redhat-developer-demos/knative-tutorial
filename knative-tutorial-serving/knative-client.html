@@ -441,60 +441,24 @@ http $SVC_URL</code></pre>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-desc-ksvc"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
-<p>The describe should show you an exhaustive YAML like</p>
+<p>The describe should show you a short summary of your service :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  annotations:
-    serving.knative.dev/creator: minikube-user
-    serving.knative.dev/lastModifier: minikube-user
-  creationTimestamp: "2019-08-05T12:51:40Z"
-  generation: 2
-  name: greeter
-  namespace: knativetutorial
-  resourceVersion: "35193"
-  selfLink: /apis/serving.knative.dev/v1/namespaces/knativetutorial/services/greeter
-  uid: c4ee1f47-b77f-11e9-96b1-22e0f431a3ed
-spec:
-  template:
-    metadata:
-      creationTimestamp: null
-    spec:
-      containers:
-      - env:
-        - name: MESSAGE_PREFIX
-          value: '''Namaste'''
-        image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
-        name: user-container
-        resources: {}
-      timeoutSeconds: 300
-  traffic:
-  - latestRevision: true
-    percent: 100
-status:
-  address:
-    url: http://greeter.knativetutorial.svc.cluster.local
-  conditions:
-  - lastTransitionTime: "2019-08-05T13:03:33Z"
-    status: "True"
-    type: ConfigurationsReady
-  - lastTransitionTime: "2019-08-05T13:03:33Z"
-    status: "True"
-    type: Ready
-  - lastTransitionTime: "2019-08-05T13:03:33Z"
-    status: "True"
-    type: RoutesReady
-  latestCreatedRevisionName: greeter-578mv
-  latestReadyRevisionName: greeter-578mv
-  observedGeneration: 2
-  traffic:
-  - latestRevision: true
-    percent: 100
-    revisionName: greeter-578mv
-  url: http://greeter.knativetutorial.example.com</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Name:       greeter
+Namespace:  knativetutorial
+Age:        1m
+URL:        http://greeter.knativetutorial.example.com
+
+Revisions:
+  100%  @latest (greeter-twpgf-1) [1] (1m)
+        Image:  quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+
+Conditions:
+  OK TYPE                   AGE REASON
+  ++ Ready                  34s
+  ++ ConfigurationsReady    34s
+  ++ RoutesReady            34s</code></pre>
 </div>
 </div>
 </div>
@@ -559,9 +523,9 @@ status:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            SERVICE   AGE   CONDITIONS   READY   REASON
-greeter-7cqzq   greeter   11s   4 OK / 4     True
-greeter-qctxv   greeter   56s   4 OK / 4     True</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
+greeter-tjtpm-2   greeter   100%             2            98s   3 OK / 4     True
+greeter-twpgf-1   greeter                    1            11h   3 OK / 4     True</code></pre>
 </div>
 </div>
 </div>
@@ -572,69 +536,27 @@ greeter-qctxv   greeter   56s   4 OK / 4     True</code></pre>
 </div>
 <div id="run-kn-desc-rev" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision describe greeter-7cqzq</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision describe greeter-twpgf-1</code></pre>
 </div>
 </div>
 <button class="copybtn float-right" title="Copy to clipboard" data-clipboard-target="#run-kn-desc-rev"><i class="fa fa-clipboard"></i></button><br/>
 <div class="paragraph">
-<p>The command should return a YAML like</p>
+<p>The command should return a output like</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
-kind: Revision
-metadata:
-  annotations:
-    serving.knative.dev/lastPinned: "1565062128"
-  creationTimestamp: "2019-08-06T03:28:42Z"
-  generateName: greeter-
-  generation: 1
-  labels:
-    serving.knative.dev/configuration: greeter
-    serving.knative.dev/configurationGeneration: "2"
-    serving.knative.dev/service: greeter
-  name: greeter-7cqzq
-  namespace: knativetutorial
-  ownerReferences:
-  - apiVersion: serving.knative.dev/v1
-    blockOwnerDeletion: true
-    controller: true
-    kind: Configuration
-    name: greeter
-    uid: 2f89f930-b7fa-11e9-96b1-22e0f431a3ed
-  resourceVersion: "40312"
-  selfLink: /apis/serving.knative.dev/v1/namespaces/knativetutorial/revisions/greeter-7cqzq
-  uid: 49e30221-b7fa-11e9-96b1-22e0f431a3ed
-spec:
-  containers:
-  - env:
-    - name: MESSAGE_PREFIX
-      value: Namaste
-    image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
-    name: user-container
-    resources: {}
-  timeoutSeconds: 300
-status:
-  conditions:
-  - lastTransitionTime: "2019-08-06T03:29:51Z"
-    message: The target is not receiving traffic.
-    reason: NoTraffic
-    severity: Info
-    status: "False"
-    type: Active
-  - lastTransitionTime: "2019-08-06T03:28:48Z"
-    status: "True"
-    type: ContainerHealthy
-  - lastTransitionTime: "2019-08-06T03:28:48Z"
-    status: "True"
-    type: Ready
-  - lastTransitionTime: "2019-08-06T03:28:48Z"
-    status: "True"
-    type: ResourcesAvailable
-  imageDigest: quay.io/rhdevelopers/knative-tutorial-greeter@sha256:767e2f4b37d29de3949c8c695d3285739829c348df1dd703479bbae6dc86aa5a
-  logUrl: http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.knative-dev%2FrevisionUID:(query:'49e30221-b7fa-11e9-96b1-22e0f431a3ed',type:phrase))))
-  observedGeneration: 1
-  serviceName: greeter-7cqzq</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Name:       greeter-twpgf-1
+Namespace:  knativetutorial
+Age:        10m
+Image:      quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+Service:    greeter
+
+Conditions:
+  OK TYPE                  AGE REASON
+  ++ Ready                  9m
+  ++ ContainerHealthy       9m
+  ++ ResourcesAvailable     9m
+   I Active                 8m NoTraffic</code></pre>
 </div>
 </div>
 </div>

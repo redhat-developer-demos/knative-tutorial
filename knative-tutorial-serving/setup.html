@@ -605,8 +605,12 @@ metadata:
 <div class="listingblock">
 <div class="title">serving.knative.dev</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='serving.knative.dev'</strong>
-NAME             SHORTNAMES      APIGROUP              NAMESPACED   KIND
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='serving.knative.dev'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME             SHORTNAMES      APIGROUP              NAMESPACED   KIND
 configurations   config,cfg      serving.knative.dev   true         Configuration
 revisions        rev             serving.knative.dev   true         Revision
 routes           rt              serving.knative.dev   true         Route
@@ -635,8 +639,12 @@ services         kservice,ksvc   serving.knative.dev   true         Service</cod
 <div class="listingblock">
 <div class="title">messaging.knative.dev</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='messaging.knative.dev'</strong>
-NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='messaging.knative.dev'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
 channels           ch           messaging.knative.dev   true         Channel
 inmemorychannels   imc          messaging.knative.dev   true         InMemoryChannel
 parallels                       messaging.knative.dev   true         Parallel
@@ -647,8 +655,12 @@ subscriptions      sub          messaging.knative.dev   true         Subscriptio
 <div class="listingblock">
 <div class="title">eventing.knative.dev</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='eventing.knative.dev'</strong>
-NAME         SHORTNAMES   APIGROUP               NAMESPACED   KIND
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='eventing.knative.dev'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME         SHORTNAMES   APIGROUP               NAMESPACED   KIND
 brokers                   eventing.knative.dev   true         Broker
 eventtypes                eventing.knative.dev   true         EventType
 triggers                  eventing.knative.dev   true         Trigger</code></pre>
@@ -657,8 +669,12 @@ triggers                  eventing.knative.dev   true         Trigger</code></pr
 <div class="listingblock">
 <div class="title">sources.eventing.knative.dev</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='sources.eventing.knative.dev'</strong>
-NAME               SHORTNAMES   APIGROUP                       NAMESPACED   KIND
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='sources.eventing.knative.dev'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME               SHORTNAMES   APIGROUP                       NAMESPACED   KIND
 apiserversources                sources.eventing.knative.dev   true         ApiServerSource
 containersources                sources.eventing.knative.dev   true         ContainerSource
 cronjobsources                  sources.eventing.knative.dev   true         CronJobSource
@@ -668,8 +684,12 @@ sinkbindings                    sources.eventing.knative.dev   true         Sink
 <div class="listingblock">
 <div class="title">sources.knative.dev</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>kubectl api-resources --api-group='sources.knative.dev'</strong>
-NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='sources.knative.dev'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
 apiserversources                sources.knative.dev   true         ApiServerSource
 sinkbindings                    sources.knative.dev   true         SinkBinding</code></pre>
 </div>
@@ -694,8 +714,12 @@ sinkbindings                    sources.knative.dev   true         SinkBinding</
 <div class="listingblock">
 <div class="title">Knative Serving pods</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n knative-serving</strong>
-NAME                          READY   STATUS    RESTARTS   AGE
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n knative-serving</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                          READY   STATUS    RESTARTS   AGE
 activator-6b49796b46-g66z2    1/1     Running   0          11m
 autoscaler-7b46fcb475-cnbrm   1/1     Running   0          11m
 controller-65f4f4bcb4-mrkgs   1/1     Running   0          11m
@@ -716,8 +740,12 @@ webhook-59585cb6-wqldc        1/1     Running   0          11m</code></pre>
 <div class="listingblock">
 <div class="title">Kourier pods</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n kourier-system</strong>
-NAME                                      READY   STATUS    RESTARTS   AGE
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n kourier-system</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                      READY   STATUS    RESTARTS   AGE
 3scale-kourier-control-77459dcc76-56pkc   1/1     Running   0          55s
 3scale-kourier-gateway-8645d88bf6-gvbf7   1/1     Running   0          56s</code></pre>
 </div>
@@ -753,8 +781,12 @@ NAME                                      READY   STATUS    RESTARTS   AGE
 <div class="listingblock">
 <div class="title">Knative eventing pods</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ <strong>watch kubectl get pods -n knative-eventing</strong>
-NAME                                   READY   STATUS    RESTARTS   AGE
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n knative-eventing</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                   READY   STATUS    RESTARTS   AGE
 eventing-controller-69ffcc6f7d-9qb6z   1/1     Running   0          41s
 eventing-webhook-6c56fcd86c-n6mzc      1/1     Running   0          41s
 imc-controller-6bcf5957b5-5zpxd        1/1     Running   0          40s
@@ -829,7 +861,7 @@ Kubernetes Version: v1.16.2</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Please follow the <a href="https://docs.openshift.com/container-platform/4.3/serverless/installing-openshift-serverless.html">OpenShift</a> documentation, to have Knative components installed on your cluster.</p>
+<p>Please follow the <a href="https://docs.openshift.com/container-platform/4.3/serverless/installing_serverless/installing-openshift-serverless.html">OpenShift</a> documentation, to have Knative components installed on your cluster.</p>
 </div>
 </td>
 </tr>
