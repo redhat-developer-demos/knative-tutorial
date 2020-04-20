@@ -11,6 +11,13 @@ spec:
     spec:
       containers:
       - image: quay.io/rhdevelopers/prime-generator:v27-quarkus
+        resources:
+          requests: 
+            memory: "30Mi" 
+            cpu: "75m" 
+          limits:
+            memory: "30Mi"
+            cpu: "75m"
         livenessProbe:
           httpGet:
             path: /healthz

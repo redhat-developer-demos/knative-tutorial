@@ -9,6 +9,13 @@ spec:
     spec:
       containers:
         - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+          resources:
+            requests: 
+              memory: "30Mi" 
+              cpu: "75m" 
+            limits:
+              memory: "30Mi"
+              cpu: "75m"
           livenessProbe:
             httpGet:
               path: /healthz

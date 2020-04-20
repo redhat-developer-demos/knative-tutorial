@@ -11,4 +11,10 @@ spec:
     spec:
       containers:
       - image: quay.io/burrsutter/eventinghello:0.0.1
-
+        resources:
+          requests: 
+            memory: "30Mi" 
+            cpu: "75m" 
+          limits:
+            memory: "30Mi"
+            cpu: "75m" 
