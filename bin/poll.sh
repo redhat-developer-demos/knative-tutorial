@@ -1,10 +1,11 @@
 #!/bin/bash
+set -eu
+set -o pipefail
 
 trap '{ echo "" ; exit 1; }' INT
 
 KSVC_NAME=${1:-'greeter'}
 
-IP_ADDRESS="$(minikube ip):$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
 CURR_CTX=$(kubectl config current-context)
 
