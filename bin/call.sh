@@ -5,8 +5,6 @@ set -o pipefail
 
 KSVC_NAME=${1:-'greeter'}
 
-IP_ADDRESS="$(minikube ip):$(kubectl get svc kourier-external --namespace kourier-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
-
 CURR_CTX=$(kubectl config current-context)
 
 CURR_NS="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${CURR_CTX}\")].context.namespace}")" \
