@@ -1,7 +1,8 @@
 - from:
     uri: "timer:tick"
     parameters:
-      period: "10s"
+      # time in milliseconds
+      period: 10000
     steps:
       - set-body:
           constant: "Welcome to Apache Camel K"
