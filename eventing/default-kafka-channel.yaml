@@ -3,13 +3,15 @@ kind: ConfigMap
 metadata:
   name: default-ch-webhook
   namespace: knative-eventing
+  labels:
+    eventing.knative.dev/release: devel
 data:
   default-ch-config: |
     clusterDefault:
       apiVersion: messaging.knative.dev/v1alpha1
       kind: InMemoryChannel
     namespaceDefaults:
-      chapter-4:
+      knativetutorial:
         apiVersion: messaging.knative.dev/v1alpha1
         kind: KafkaChannel
         spec:

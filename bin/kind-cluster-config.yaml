@@ -1,0 +1,18 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        listenAddress: 0.0.0.0
+      - containerPort: 443
+        hostPort: 443
+        listenAddress: 0.0.0.0
+containerdConfigPatches:
+  - |-
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${CONTAINER_REGISTRY_PORT}"]
+      endpoint = ["http://${CONTAINER_REGISTRY_NAME}:${CONTAINER_REGISTRY_PORT}"]
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."${CONTAINER_REGISTRY_NAME}:${CONTAINER_REGISTRY_PORT}"]
+      endpoint = ["http://${CONTAINER_REGISTRY_NAME}:${CONTAINER_REGISTRY_PORT}"]

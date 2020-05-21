@@ -21,14 +21,9 @@ HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
 
 if [ $# -le 1 ]
 then
-  curl -H "$HOST_HEADER" $IP_ADDRESS
+  http GET $IP_ADDRESS "$HOST_HEADER" 
 else
-  if [ -z "$2" ]
-  then 
-    curl -X POST -H "$HOST_HEADER" $IP_ADDRESS
-  else 
-    curl -X POST -d "$2" -H "$HOST_HEADER" $IP_ADDRESS
-  fi
+  echo "$2" | http --body POST $IP_ADDRESS "$HOST_HEADER" 'Content-Type: plain'
 fi
 
 exit_err() {

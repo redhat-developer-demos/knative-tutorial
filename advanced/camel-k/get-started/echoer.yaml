@@ -3,10 +3,10 @@
     steps:
       - log:
           message: "Got Message: ${body}"
-      - convert-body: "java.lang.String"
+      - convert-body-to: "java.lang.String"
       - choice:
           when:
-            - simple: "${body} != null && ${body.length} > 0"
+            - simple: "${body} != null && ${body.trim().length} > 0"
               steps:
                 - set-body:
                     simple: "${body.toUpperCase()}"
