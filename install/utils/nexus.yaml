@@ -25,17 +25,17 @@ spec:
     spec:
       containers:
         - name: nexus
-          image: docker.io/sonatype/nexus
+          image: docker.io/sonatype/nexus3
           resources:
             limits:
-              memory: "512Mi"
+              memory: "1300Mi"
               cpu: "500m"
           ports:
             - containerPort: 8081
               name: 8081-tcp
           livenessProbe:
             httpGet:
-              path: /nexus
+              path: /service/rest/v1/status
               port: 8081
             # nexus has lots of init to do first time so lets give
             # more time for that to happen
@@ -43,15 +43,15 @@ spec:
             periodSeconds: 3
           readinessProbe:
             httpGet:
-              path: /nexus
+              path: /service/rest/v1/status
               port: 8081
             # nexus has lots of init to do first time so lets give
             # more time for that to happen
             initialDelaySeconds: 180
             periodSeconds: 3
           volumeMounts:
-            - name: sonatype-work
-              mountPath: /sonatype-work
+            - name: nexus-data
+              mountPath: /nexus-data
       volumes:
-        - name: sonatype-work
+        - name: nexus-data
           emptyDir: {}
