@@ -10,4 +10,5 @@ spec:
         autoscaling.knative.dev/target: "1"
     spec:
       containers:
-        - image: quay.io/rhdevelopers/eventinghello:0.0.2
+      - image: quay.io/rhdevelopers/eventinghello:0.0.2
+

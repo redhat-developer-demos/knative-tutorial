@@ -4,7 +4,7 @@ metadata:
   name: my-cjs
 spec:
   schedule: "*/2 * * * *"
-  data: '{"key": "from CornJobSource"}'
+  data: '{"key": "from CronJobSource"}'
   sink:
    ref:
     apiVersion: messaging.knative.dev/v1alpha1
