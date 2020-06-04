@@ -428,7 +428,7 @@ my-events-ch   True   <a href="http://my-events-ch-kn-channel.knativetutorial.sv
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get -n knativetutorial pods</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get -n knative-eventing pods</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -512,7 +512,7 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n kafka \
-  -f $TUTORIAL_HOME/eventing/kafka-topic-my-topic.yaml</code></pre>
+  -f kafka-topic-my-topic.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -538,7 +538,7 @@ consumer-offsets---84e7a678d08f4bd226872e5cdd4eb527fadc1c6a   50           1
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.eventing.knative.dev/v1alpha1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1alpha1
 kind: KafkaSource
 metadata:
   name: mykafka-source
@@ -729,7 +729,7 @@ POST:Namaste Duniya</code></pre>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">KAFKA_SPAMMER_POD=$(kubectl -n kafka get pod -l "run=kafka-spammer" \
--o jsonpath={.items[0].metadata.name})
+-o jsonpath='{.items[0].metadata.name}')
 kubectl -n kafka exec -it $KAFKA_SPAMMER_POD -- /bin/sh</code></pre>
 </div>
 </div>
