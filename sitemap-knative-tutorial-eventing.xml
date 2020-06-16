@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-eventing/channel-and-subscribers.html</loc>
-<lastmod>2020-06-04T08:37:31.632Z</lastmod>
+<lastmod>2020-06-16T08:18:09.231Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-eventing/eventing-src-to-sink.html</loc>
-<lastmod>2020-06-04T08:37:31.632Z</lastmod>
+<lastmod>2020-06-16T08:18:09.231Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-eventing/eventing-trigger-broker.html</loc>
-<lastmod>2020-06-04T08:37:31.632Z</lastmod>
+<lastmod>2020-06-16T08:18:09.231Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-eventing/eventing.html</loc>
-<lastmod>2020-06-04T08:37:31.632Z</lastmod>
+<lastmod>2020-06-16T08:18:09.231Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial-eventing/index.html</loc>
-<lastmod>2020-06-04T08:37:31.632Z</lastmod>
+<lastmod>2020-06-16T08:18:09.231Z</lastmod>
 </url>
 </urlset>
