@@ -18,7 +18,7 @@ MutatingAdmissionWebhook"
 minikube start -p $PROFILE_NAME \
   --memory=$MEMORY \
   --cpus=$CPUS \
-  --kubernetes-version=v1.15.0 \
+  --kubernetes-version=v1.15.1 \
   --disk-size=50g \
   --extra-config="$EXTRA_CONFIG" \
   --insecure-registry='10.0.0.0/24' 
