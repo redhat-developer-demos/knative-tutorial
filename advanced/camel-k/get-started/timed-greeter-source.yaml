@@ -1,0 +1,30 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: CamelSource
+metadata:
+  name: timed-greeter
+spec:
+  integration:
+    dependencies:
+      - camel:log
+  source:
+    flow:
+      from:
+        uri: "timer:tick"
+        parameters:
+          # time in milliseconds
+          period: 10000
+        steps:
+          - set-body:
+              constant: "Welcome to Apache Camel K"
+          - set-header:
+              name: ContentType
+              simple: text/plain
+          - transform:
+              simple: "${body.toUpperCase()}"
+          - log:
+              message: "${body}"
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display

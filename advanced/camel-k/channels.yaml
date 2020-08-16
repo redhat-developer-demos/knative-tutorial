@@ -1,0 +1,31 @@
+apiVersion: messaging.knative.dev/v1alpha1
+kind: KafkaChannel
+metadata:
+  name: cartoon-genres
+spec:
+  numPartitions: 1
+  replicationFactor: 1
+---
+apiVersion: messaging.knative.dev/v1alpha1
+kind: KafkaChannel
+metadata:
+  name: genre-comedy
+spec:
+  numPartitions: 1
+  replicationFactor: 1
+---
+apiVersion: messaging.knative.dev/v1alpha1
+kind: KafkaChannel
+metadata:
+  name: genre-others
+spec:
+  numPartitions: 1
+  replicationFactor: 1
+---
+apiVersion: messaging.knative.dev/v1alpha1
+kind: KafkaChannel
+metadata:
+  name: camel-test-channel
+spec:
+  numPartitions: 1
+  replicationFactor: 1

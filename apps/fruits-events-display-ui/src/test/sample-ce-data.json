@@ -1,0 +1,21 @@
+{
+    "data": {
+        "genus": "Fragaria",
+        "name": "Strawberry",
+        "id": 3,
+        "family": "Rosaceae",
+        "order": "Rosales",
+        "nutritions": {
+            "carbohydrates": 5.5,
+            "protein": 0.8,
+            "fat": 0.4,
+            "calories": 29,
+            "sugar": 5.4
+        }
+    },
+    "specversion": "0.3",
+    "type": "low-sugar",
+    "time": "2019-12-23T12:30:14.128Z",
+    "id": "ID-fruits-processor-glmls-7fb9bff9cd-5k65g-1577104083727-0-45",
+    "source": "camel-source:knativetutorial/fruits-processor"
+}

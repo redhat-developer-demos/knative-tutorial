@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fruit Events</title>
+
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Fruits</h2>
+      <table id="fruitEvents" class="striped highlight">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Sugar Level</th>
+            <th>Category</th>
+            <th>Event Time</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    var source = new EventSource("/fruits");
+    source.onmessage = function(event) {
+      var data = JSON.parse(event.data);
+
+      console.log("Received Data:",data)
+
+      var tableRef = document
+        .getElementById("fruitEvents")
+        .getElementsByTagName("tbody")[0];
+
+      // Insert a row in the table at the last row
+      var newRow = tableRef.insertRow();
+
+      // Insert a cell in the row at index 0
+      var nameCell = newRow.insertCell(0);
+      var sugarLevel = newRow.insertCell(1);
+      var fruitCategory = newRow.insertCell(2);
+      var eventTime = newRow.insertCell(3);
+
+      // Append a text node to the cell
+      var fruitNameVal= document.createTextNode(data.name);
+      nameCell.appendChild(fruitNameVal);
+
+      // Append a text node to the cell
+      var sugarLevelVal = document.createTextNode(data.sugarLevel);
+      sugarLevel.appendChild(sugarLevelVal);
+
+      // Append a text node to the cell
+      var fruitCategoryVal = document.createTextNode(data.type);
+      fruitCategory.appendChild(fruitCategoryVal);
+
+      // Append a text node to the cell
+      var eventTimeVal = document.createTextNode(data.time);
+      eventTime.appendChild(eventTimeVal);
+    };
+  </script>
+</html>

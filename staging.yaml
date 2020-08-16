@@ -1,0 +1,44 @@
+runtime:
+  cache_dir: ./.cache/antora
+
+site:
+  title: Knative Tutorial(Staging)
+  url: http://redhat-developer-docs.github.io/knative-tutorial-staging
+  start_page: knative-tutorial::index.adoc
+
+content:
+  sources:
+    - url: git@github.com:redhat-developer-demos/knative-tutorial.git
+      tags: []
+      branches: master
+      start_path: documentation
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-serving.git
+      tags: []
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-eventing.git
+      tags: []
+      branches: master
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
+      tags: []
+      branches: master
+    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-advanced.git
+      tags: []
+      branches: master
+asciidoc:
+  attributes:
+    tutorial-namespace: knativetutorial
+    title: Knative Tutorial(Staging)
+    workshop-domain: guru.devx.red
+    kubernetes-version: v1.15.0
+    release-version: master
+    openshift-console-url: https://console-openshift-console.apps.example.com
+    etherpad-url: http://example.com
+  extensions:
+    - ./lib/remote-include-processor.js
+    - ./lib/tab-block.js
+ui:
+  bundle:
+    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.1.9/ui-bundle.zip
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+output:
+  dir: ./gh-pages

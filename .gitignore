@@ -38,3 +38,10 @@ openshift-cloud-functions
 workshop-attributes.yaml
 workshop-site.yaml
 **/.factorypath
+install/kafka
+install/knative-eventing/knative-kafka.yaml
+bin/kubectl
+gh-pages
+staging-gh-pages
+
+yarn.lock

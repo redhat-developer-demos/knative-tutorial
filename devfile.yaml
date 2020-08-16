@@ -33,7 +33,7 @@ components:
           serviceAccountName: tutorial-tools
           initContainers:
           - name: kubeconfiger
-            image: quay.io/rhdevelopers/tutorial-tools:0.0.2
+            image: quay.io/rhdevelopers/tutorial-tools:0.0.3
             imagePullPolicy: IfNotPresent
             workingDir:  /workspace/kubeconfig   
             volumeMounts:

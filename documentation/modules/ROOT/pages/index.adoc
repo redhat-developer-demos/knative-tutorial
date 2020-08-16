@@ -2,41 +2,52 @@
 :page-layout: home
 :!sectids:
 
-****
-Serverless computing refers to the concept of building and running applications that do not require server management. It describes a finer-grained deployment model where applications, bundled as one or more functions, are uploaded to a platform and then executed, scaled, and billed in response to the exact demand needed at the moment”
+[cols="3a,2a"]
+|===
+a|****
+Deploying applications as Serverless services is becoming a popular architectural style. It seems like many organizations assume that _Functions as a Service (FaaS)_ is serverless. But we think it is more accurate to say that FaaS is one way to do serverless, not the only way. This raises a super critical question for enterprises that may have applications which could be monolith or a microservice: What is the easiest path to serverless application deployment?
 
-[.small.text-right]
-__**Source**__:  https://www.cncf.io/blog/2018/02/14/cncf-takes-first-step-towards-serverless-computing/
+The answer is a platform that can run serverless workloads, while enabling you to have complete control how to configure, build, deploy and run. Ideally, the platform  that supports deploying the applications as linux containers. In this chapter we introduce you to one such platform -- https://knative.dev[Knative] --, that helps you to run the serverless workloads in a Kubernetes-native way.
 ****
+a|[caption="Knative Cookbook",link="https://developers.redhat.com/books/knative-cookbook/"]
+image::knative-cookbook.png[Knative Cookbook,300,300]
+|
+|===
 
-[.tiles.browse]
 == Get started with your serverless journey
-
+[cols="3a,3a",frame=none,grid=rows,stripe]
+|===
+a|
 [.tile]
-.xref:knative-tutorial-basics:ROOT:index.adoc[Basics and Fundamentals]
-* xref:knative-tutorial-basics:ROOT:01-setup.adoc[Setup]
-* xref:knative-tutorial-basics:ROOT:03-knative-client.adoc[Knative Client]
-* xref:knative-tutorial-basics:ROOT:02-basic-fundas.adoc[Serving]
-* xref:knative-tutorial-basics:ROOT:04-scaling.adoc[Auto Scaling]
-
+.xref:knative-tutorial-serving:ROOT:index.adoc[Setup]
+* xref:knative-tutorial-serving:ROOT:setup.adoc[Deploy]
+* xref:knative-tutorial-serving:ROOT:knative-client.adoc[Knative Client]
+a|
 [.tile]
-.xref:knative-tutorial-tekton:ROOT:index.adoc[Tekton Pipelines]
-* xref:knative-tutorial-tekton:ROOT:01-setup.adoc[Setup]
-* xref:knative-tutorial-tekton:ROOT:02-pipeline-resources.adoc[Pipeline Resources]
-* xref:knative-tutorial-tekton:ROOT:03-tasks.adoc[Task]
-* xref:knative-tutorial-tekton:ROOT:04-pipelines.adoc[Pipelines]
-
+.xref:knative-tutorial-serving:ROOT:index.adoc[Knative Serving]
+* xref:knative-tutorial-serving:ROOT:basic-fundas.adoc[Serving]
+* xref:knative-tutorial-serving:ROOT:scaling.adoc[Auto Scaling]
+* xref:knative-tutorial-serving:ROOT:traffic-distribution.adoc[Traffic Distribution]
+a|
 [.tile]
-.xref:knative-tutorial-basics:ROOT:05-eventing/eventing.adoc[Eventing]
-*** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-src-svc.adoc[Source to Service]
-*** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-src-sub.adoc[Source to Subscriber]
-*** xref:knative-tutorial-basics:ROOT:05-eventing/eventing-trigger-broker.adoc#events-triggers-brokers[Events, Triggers and Brokers]
-
+.xref:knative-tutorial-eventing:ROOT:index.adoc[Knative Eventing]
+*** xref:knative-tutorial-eventing:ROOT:eventing-src-to-sink.adoc[Source to Sink]
+*** xref:knative-tutorial-eventing:ROOT:channel-and-subscribers.adoc[Channel and Subscribers]
+*** xref:knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc[Brokers and Triggers]
+|
 ifndef::workshop[]
+a|
 [.tile]
-.xref:knative-tutorial-camelk:ROOT:index.adoc[Serverless Integration using Camel-K]
+.xref:knative-tutorial-camelk:ROOT:index.adoc[Apache Camel-K]
 * xref:knative-tutorial-camelk:ROOT:setup.adoc[Setup]
-* xref:knative-tutorial-camelk:ROOT:getting-started.adoc[Message Filter]
-* xref:knative-tutorial-camelk:ROOT:poll-enrich.adoc[Poll Enrich]
-*  xref:knative-tutorial-camelk:ROOT:content-based-router.adoc[Content Based Router]
+* xref:knative-tutorial-camelk:ROOT:camel-k-basics.adoc#deploy-camel-k-kn-integration[Camel-K with Knative Serving]
+* xref:knative-tutorial-camelk:ROOT:camel-k-eventing.adoc[Camel-K with Knative Eventing]
+*  xref:knative-tutorial-camelk:ROOT:camel-k-eventing.adoc#camel-k-es-sink[CamelSource to Sink]
+a|
+[.tile]
+.xref:knative-tutorial-adv:ROOT:index.adoc[Advanced]
+* xref:knative-tutorial-adv:ROOT:deploy-apache-kafka.adoc[Deploy Apache Kafka]
+* xref:knative-tutorial-adv:ROOT:eventing-with-kafka.adoc[Knative Eventing with Apache Kafka]
+*  xref:knative-tutorial-adv:ROOT:camel-k-cbr.adoc[Content Based Routing with Camel-K]
 endif::[]
+|===

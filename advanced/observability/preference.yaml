@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: preference
+  labels:
+    serving.knative.dev/visibility: "cluster-local"
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/target: "10"
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/istio-tutorial-preference:v1
+          env:
+            - name: COM_REDHAT_DEVELOPER_DEMOS_CUSTOMER_REST_RECOMMENDATIONSERVICE_MP_REST_URL
+              value: "http://recommendation.knativetutorial.svc.cluster.local"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health

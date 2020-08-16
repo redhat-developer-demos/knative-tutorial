@@ -1,0 +1,21 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: customer
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/istio-tutorial-customer:v1
+          env:
+            - name: COM_REDHAT_DEVELOPER_DEMOS_CUSTOMER_REST_PREFERENCESERVICE_MP_REST_URL
+              value: "http://preference.knativetutorial.svc.cluster.local"
+          livenessProbe:
+            httpGet:
+              path: /health
+          readinessProbe:
+            httpGet:
+              path: /health

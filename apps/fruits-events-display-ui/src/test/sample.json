@@ -1,0 +1,14 @@
+{
+    "genus": "Fragaria",
+    "name": "Strawberry",
+    "id": 3,
+    "family": "Rosaceae",
+    "order": "Rosales",
+    "nutritions": {
+        "carbohydrates": 5.5,
+        "protein": 0.8,
+        "fat": 0.4,
+        "calories": 29,
+        "sugar": 5.4
+    }
+}

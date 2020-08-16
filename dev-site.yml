@@ -11,29 +11,30 @@ content:
     - url: .
       branches: HEAD
       start_path: documentation
-    - url: ../knative-tutorial-module-basics
+    - url: ../knative-tutorial-module-serving
       branches: HEAD
-    - url: ../knative-tutorial-module-build
+    - url: ../knative-tutorial-module-eventing
       branches: HEAD
     - url: ../knative-tutorial-module-camelk
       branches: HEAD
-    - url: ../knative-tutorial-module-tekton
+    - url: ../knative-tutorial-module-advanced
       branches: HEAD
 asciidoc:
   attributes:
-    tutorial-namespace:  knativetutorial
-    #workshop: true
+    tutorial-namespace: knativetutorial
     title: Knative Tutorial
     workshop-domain: guru.devx.red
-    release-version: release/0.7.x
+    kubernetes-version: v1.15.0
+    release-version: master
     openshift-console-url: https://console-openshift-console.apps.example.com
     etherpad-url: http://example.com
   extensions:
-    - ./lib/copy-to-clipboard.js
+    - ./lib/remote-include-processor.js
     - ./lib/tab-block.js
 ui:
   bundle:
-    url: ../rhd-tutorial-ui/build/ui-bundle.zip
+    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.1.9/ui-bundle.zip
+    snapshot: true
   supplemental_files: ./supplemental-ui
 output:
   dir: ./gh-pages

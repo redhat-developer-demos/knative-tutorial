@@ -1,0 +1,14 @@
+- from:
+    uri: "knative:endpoint/fruits-producer"
+    steps:
+      - set-header:
+          name: CamelHttpMethod
+          constant: GET
+      - to: "http:fruityvice.com/api/fruit/all?bridgeEndpoint=true"
+      - split:
+          jsonpath: "$.[*]"
+      - marshal:
+          json: {}
+      - log:
+          message: "${body}"
+      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"

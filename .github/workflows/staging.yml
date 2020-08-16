@@ -1,0 +1,64 @@
+name: Knative Tutorial Staging
+
+on:
+  push:
+    branches: 
+      - master
+env:
+  SITE_DIR: 'gh-pages'
+jobs:
+  build_site:
+    name: "Build site with Antora"
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: "Generate site using antora site action"
+        uses: kameshsampath/antora-site-action@master
+        with:
+         antora_playbook: staging.yaml
+#       - name: "List folder"
+#         run: |
+#            ls -ltr $GITHUB_WORKSPACE/
+      - name: "Upload generated site"
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: site
+          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
+  deploy_site:
+    runs-on: [ubuntu-latest]
+    needs: [build_site]
+    name: "Deploy to Staging"
+    steps:
+     - name: Checkout
+       uses: actions/checkout@v2
+       with:
+         repository: redhat-developer-docs/knative-tutorial-staging
+         path: knative-tutorial-staging
+     - name: Install SSH Client
+       uses: webfactory/ssh-agent@v0.2.0
+       with:
+        ssh-private-key: ${{ secrets.KNATIVE_TUTORIAL_STAGING }}
+     - name: Download generated site
+       uses: actions/download-artifact@v1
+       with:
+         name: site
+         path: "${{ github.workspace }}/knative-tutorial-staging/${{ env.SITE_DIR }}"
+     - name: Deploy to GitHub Pages       
+       working-directory: "${{ github.workspace }}/knative-tutorial-staging"
+       run: |
+         git config --global user.email "kamesh.sampath@hotmail.com"
+         git config --global user.name "Kamesh Sampath"
+     - name: Setup Node.js for use with actions
+       uses: actions/setup-node@v1.1.0
+       with:        
+        version: "12.x"
+     - name: Deploy to GitHub Pages       
+       working-directory: "${{ github.workspace }}/knative-tutorial-staging"
+       run: |
+         npm -g install gh-pages@2.2.0
+         touch $SITE_DIR/.nojekyll
+         gh-pages --dist=$SITE_DIR \
+         --repo="git@github.com:redhat-developer-docs/knative-tutorial-staging.git" \
+         --dotfiles='true' \
+         --message="Publish Staging Site, Build run: ${{github.run_number}} "
