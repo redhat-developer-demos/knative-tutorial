@@ -1,0 +1,279 @@
+[[channels-and-subs]]
+= Channel and Subscribers
+include::_attributes.adoc[]
+//Define vars
+:greeter-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+
+Channels::
+  Channels are an event forwarding and persistence layer where each channel is a separate Kubernetes Custom Resource.  A Channel may be backed by Apache Kafka or InMemoryChannel.  This recipe focuses on InMemoryChannel.
+
+Subscriptions::
+  Subscriptions are how you register your service to listen to a particular channel.
+
+[#eventing-channel]
+== Channel(Sink)
+
+The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channel or sink] is an interface between the <<eventing-source,event source>> and the <<eventing-subscriber,subscriber>>. The channels are built in to store the incoming events and distribute the event data to the subscribers. When forwarding event to subscribers the channel transforms the event data as per http://cloudevents.io[CloudEvent] specification.
+
+[#eventing-create-event-channel]
+=== Create Event Channel
+.link:{github-repo}/{eventing-repo}/channel.yaml[channel.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+apiVersion: messaging.knative.dev/v1beta1
+kind: Channel
+metadata:
+  name: eventinghello-ch #<1> 
+----
+
+<1> The name of the channel. Knative makes it addressable, i.e. resolveable to a target (a consumer service)
+
+Run the following commands to create the channel:
+
+:doc-sec: eventing-run-source-sub
+:url: {github-repo}/{eventing-repo}/channel.yaml
+:url-alt-text: channel.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+[#eventing-verify-event-channel]
+==== Verification
+
+[#eventing-run-verify-event-channel]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get channels.messaging.knative.dev 
+----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+NAME             READY URL
+eventinghello-ch True  http://eventinghello-ch-kn-channel.{tutorial-namespace}.svc.cluster.local
+----
+
+[#eventing-source]
+== Event Source
+
+The event source listens to external events e.g. a kafka topic or for a file on a FTP server. It is responsible to drain the received event(s) along with its data to a configured https://en.wikipedia.org/wiki/Sink_(computing)[sink].
+
+[#eventing-create-event-source]
+=== Create Event Source
+.link:{github-repo}/{eventing-repo}/event-source.yaml[event-source.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+apiVersion: sources.knative.dev/v1alpha2
+kind: PingSource
+metadata:
+  name: event-greeter-ping-source
+spec:
+  schedule: "*/2 * * * *"
+  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  sink:
+   ref:
+    apiVersion: messaging.knative.dev/v1alpha1 # <1>
+    kind: Channel # <2>
+    name: eventinghello-ch
+----
+
+<1> The Channel API is in api-group `messaging.eventing.knative.dev`
+<2> Kind is `Channel` instead of direct to a specific service; default is InMemoryChannel implementation
+
+Run the following commands to create the event source resources:
+
+:doc-sec: eventing-run-apply-event-src
+:url: {github-repo}/{eventing-repo}/event-source.yaml
+:url-alt-text: event-source.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+[#eventing-verify-event-source]
+==== Verification
+
+[#eventing-run-verify-event-src]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get pingsource.sources.knative.dev 
+----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                        READY   REASON   SINK                                                                 AGE
+event-greeter-ping-source   True             http://eventinghello-ch-kn-channel.kn-cheatsheet.svc.cluster.local   5s
+
+----
+
+[#eventing-subscriber]
+== Event Subscriber
+
+The event subscription is responsible of connecting the channel(sink) with the service. Once a service is connected to a channel it starts receiving the events (cloud events).
+
+[#eventing-create-subscribers-services]
+=== Create Subscriber Services
+.link:{github-repo}/{eventing-repo}/eventing-helloa-sink.yaml[eventing-helloa-sink.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: eventinghelloa
+spec:
+  template:
+    metadata:
+      name: eventinghelloa-v1 #<1>
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/eventinghello:0.0.2
+----
+<1> The string of `eventinghelloa` will help you identify this particular service.
+
+.link:{github-repo}/{eventing-repo}/eventing-hellob-sink.yaml[eventing-hellob-sink.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: eventinghellob
+spec:
+  template:
+    metadata:
+      name: eventinghellob-v1 <1>
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/eventinghello:0.0.2
+----
+
+<1> The string of `eventinghellob` will help you identify this particular service.
+
+:doc-sec: create-subscriber-svc-1
+:url: {github-repo}/{eventing-repo}/eventing-helloa-sink.yaml
+:url-alt-text: eventing-helloa-sink.yaml
+include::eventing:partial$deploy-knative-resources.adoc[]
+
+
+:doc-sec: create-subscriber-svc-2
+:url: {github-repo}/{eventing-repo}/eventing-hellob-sink.yaml
+:url-alt-text: eventing-hellob-sink.yaml
+include::eventing:partial$deploy-knative-resources.adoc[]
+
+[#eventing-create-subscriber]
+=== Create Channel Subscribers
+
+Now create the appropriate `Subscription` for `eventinghelloa` to the Channel `eventinghello-ch`:
+
+[source,yaml]
+----
+apiVersion: messaging.knative.dev/v1beta1
+kind: Subscription
+metadata:
+  name: eventinghelloa-sub
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1beta1
+    kind: Channel
+    name: eventinghello-ch
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: eventinghelloa
+----
+
+And create the appropriate `Subscription` for `eventinghellob` to the Channel `eventinghello-ch`:
+
+[source,yaml]
+----
+apiVersion: messaging.knative.dev/v1beta1
+kind: Subscription
+metadata:
+  name: eventinghellob-sub
+spec:
+  channel:
+    apiVersion: messaging.knative.dev/v1beta1
+    kind: Channel
+    name: eventinghello-ch
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: eventinghellob
+----
+
+:doc-sec: create-subscriber-1
+:url: {github-repo}/{eventing-repo}/eventing-helloa-sub.yaml
+:url-alt-text: eventing-helloa-sub.yaml
+include::eventing:partial$deploy-knative-resources.adoc[]
+
+
+:doc-sec: create-subscriber-2
+:url: {github-repo}/{eventing-repo}/eventing-hellob-sub.yaml
+:url-alt-text: eventing-hellob-sub.yaml
+include::eventing:partial$deploy-knative-resources.adoc[]
+
+[#eventing-verify-subscriber]
+==== Verification
+
+[#eventing-run-verify-subscriber]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get subscription.messaging.knative.dev 
+----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                       AGE
+eventinghelloa-sub         39s
+eventinghellob-sub         39s
+----
+
+If you wait approximately 2 minutes for the PingSource then you will see both `eventinghelloa` and `eventinghellob` begin to run in the {tutorial-namespace}.
+
+.Watch pods in the {tutorial-namespace}
+[.console-output]
+[source,bash]
+----
+NAME                                                      READY STATUS  AGE
+eventinghelloa-v1-deployment-d86bf4847-hvbk6               2/2   Running 5s
+eventinghellob-v1-deployment-5c986c7586-4clpb              2/2   Running 5s
+----
+
+[#eventing-see-what-you-have-deployed]
+== See what you have deployed
+
+=== channel
+include::eventing:partial$knative-objects.adoc[tag=knative-event-channel]
+
+=== source
+include::eventing:partial$knative-objects.adoc[tag=knative-event-ping-sources]
+
+=== subscriptions
+include::eventing:partial$knative-objects.adoc[tag=knative-event-subscribers]
+
+TIP: Add `-oyaml` to the above commands to get more details about each object that were queried for. 
+
+[#eventing-cleanup]
+== Cleanup
+
+[#eventing-run-cleanup2]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} delete -f eventing-helloa-sink.yaml
+kubectl -n {tutorial-namespace} delete -f eventing-helloa-sub.yaml
+kubectl -n {tutorial-namespace} delete -f eventing-hellob-sink.yaml
+kubectl -n {tutorial-namespace} delete -f eventing-hellob-sub.yaml
+kubectl -n {tutorial-namespace} delete -f event-source.yaml
+----

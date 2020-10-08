@@ -1,39 +1,22 @@
 {
-  "name": "knative-tutorial-site",
-  "description": "Knative Tutorial Documentation Site",
-  "homepage": "https://redhat-developer-demos.github.io/knative-tutorial",
-  "author": {
-    "email": "kamesh.sampath@hotmail.com",
-    "name": "Kamesh Sampath",
-    "url": "https://twitter.com/@kamesh_sampath"
-  },
+  "private": "true",
   "dependencies": {
-    "@antora/cli": "^2.3.1",
-    "@antora/site-generator-default": "^2.3.1",
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
-    "browser-sync": "^2.26.7",
+    "@antora/cli": "^2.3.3",
+    "@antora/site-generator-default": "^2.3.3",
+    "@types/browser-sync": "^2.26.1",
+    "@types/fs-extra": "^9.0.1",
+    "@types/node": "^14.0.27",
+    "browser-sync": "^2.26.12",
     "fs-extra": "^8.1.0",
     "gulp": "^4.0.0",
-    "yaml-js": "^0.2.3"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "dev": "gulp",
-    "clean": "gulp clean",
-    "workshop": "gulp workshopSite"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/redhat-developer-demos/knative-tutorial.git"
+    "js-yaml": "^3.14.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7",
+    "yargs": "^15.4.1"
   },
   "license": "Apache-2.0",
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+  "devDependencies": {
+    "@types/gulp": "^4.0.6",
+    "@types/yargs": "^15.0.5"
   }
 }

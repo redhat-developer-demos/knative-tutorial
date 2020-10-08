@@ -1,0 +1,5 @@
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply -n {tutorial-namespace} -f link:{url}[{url-alt-text}]
+----

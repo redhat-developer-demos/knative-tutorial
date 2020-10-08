@@ -1,0 +1,404 @@
+= {title}
+
+[[kn-eventing-with-kafka]]
+== Apache Kafka Events with Knative Eventing
+include::_attributes.adoc[]
+
+At the end of this chapter you will be able to:
+
+- Using KafkaSource with Knative Eventing
+- Source Kafka Events to Sink
+- Autoscaling Knative Services with Apache Kafka Events
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+cd $TUTORIAL_HOME/eventing
+----
+
+[#kn-eventing-kafka-source]
+=== Deploy Knative Eventing KafkaSource
+
+Knative Eventing `KafkaSource` need to be used to have the Kafka messages to flow through the Knative Eventing Channels. You can deploy Knative KafkaSource by running the command:
+
+[.console-input]
+[#kn-eventing-adv-deploy-kafkasource]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl apply \
+-f https://github.com/knative/eventing-contrib/\
+releases/download/{kafka-source-version}/kafka-source.yaml
+----
+
+The previous step deploys Knative KafkaSource in the `knative-sources` namespace as well as a CRD, ServiceAccount, ClusterRole, etc.  Verify that knative-source namespace includes the `kafka-controller-manager-0` pod:
+
+[.console-input]
+[#watch-kafkasource-controller-pod]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+watch "kubectl get pods -n knative-sources"
+----
+
+The command above should show the following output:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                         READY   STATUS    AGE
+kafka-controller-manager-0   1/1     Running   1m17s
+----
+
+You should also deploy the Knative Kafka Channel that can be used to connect the Knative Eventing Channel with a Apache Kafka cluster backend, to deploy a Knative Kafka Channel run:
+
+[.console-input]
+[#kn-eventing-deploy-kafka-channel]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+curl -L "https://github.com/knative/eventing-contrib/\
+releases/download/{kafka-source-version}/kafka-channel.yaml" \
+ | sed 's/REPLACE_WITH_CLUSTER_URL/my-cluster-kafka-bootstrap.kafka:9092/' \
+ | kubectl apply --filename -
+----
+
+[NOTE]
+=====
+* "my-cluster-kafka-bootstrap.kafka:9092" comes from `kubectl get services -n kafka`
+* On *OpenShift*, Knative Eventing Kafka operator that was done in earlier, will install Knative KafkaChannel as well.
+=====
+
+Look for 3 new pods in namespace `knative-eventing` with the prefix "kafka":
+
+[.console-input]
+[#kn-eventing-list-kafka-source-pods]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+watch "kubectl get pods -n knative-eventing"
+----
+
+The command will shown an output like:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                                    READY   STATUS    RESTARTS   AGE
+broker-controller-56b4d58667-mgf4w      1/1     Running   0          3h54m
+broker-filter-5bdbc8d8dd-jqrfc          1/1     Running   0          3h54m
+broker-ingress-d896b6b46-nvg92          1/1     Running   0          3h54m
+eventing-controller-5fc5645584-n42xs    1/1     Running   0          3h54m
+eventing-webhook-7674b867dc-qn44m       1/1     Running   0          3h54m
+imc-controller-6b548d6468-zcspc         1/1     Running   0          3h54m
+imc-dispatcher-655cdf6ff6-x5sxx         1/1     Running   0          3h54m
+*kafka-ch-controller-5cf4bdc98-tl8xv     1/1     Running   0          76s*
+*kafka-webhook-5f8895ccdf-z6qnw          1/1     Running   0          76s*
+mt-broker-controller-6d66c4c6f6-vbpk4   1/1     Running   0          3h54m
+----
+
+And you should also find some new api-resources as shown:
+
+[.console-input]
+[#kn-eventing-list-api-res-sources]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl api-resources --api-group='sources.knative.dev'
+----
+
+The command should show the following APIs in `sources.eventing.knative.dev` :
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
+apiserversources                sources.knative.dev   true         ApiServerSource
+containersources                sources.knative.dev   true         ContainerSource
+*kafkasources                    sources.knative.dev   true         KafkaSource*
+pingsources                     sources.knative.dev   true         PingSource
+sinkbindings                    sources.knative.dev   true         SinkBinding
+----
+
+[.console-input]
+[#kn-eventing-list-api-res-messaging]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl api-resources --api-group='messaging.knative.dev'
+----
+
+The command should show the following APIs in `messaging.knative.dev` :
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
+channels           ch           messaging.knative.dev   true         Channel
+inmemorychannels   imc          messaging.knative.dev   true         InMemoryChannel
+*kafkachannels      kc           messaging.knative.dev   true         KafkaChannel*
+subscriptions      sub          messaging.knative.dev   true         Subscription
+----
+
+[#kn-eventing-adv-default-knative-channel]
+== Using Kafka Channel as Default Knative Channel
+
+include::partial$default-knative-channel.adoc[leveloffset=+2]
+
+[#kn-eventing-kafka-source-to-sink]
+=== Connecting Kafka Source to Sink 
+
+Now, all of your infrastructure is configured, you can deploy the Knative Serving Service(sink) by running the command:
+
+[.console-input]
+[#kn-kafka-src-eventing-hello]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl apply -n {tutorial-namespace} -f eventing-hello-sink.yaml
+----
+
+Check the Knative Service that was created by the command above:
+
+[.console-input]
+[#kn-kafka-src-eventing-hello-ksvc]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl get ksvc
+----
+
+Check the Knative Service that was created by the command above. The command should show an output like:
+
+[.console-output]
+[source,bash]
+----
+NAME            URL                                      READY
+eventinghello   http://eventinghello.kafka.example.com   True
+----
+
+Make sure to follow the logs using `stern`:
+
+[.console-input]
+[#kn-kafka-src-sink-stern]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+stern eventinghello -c user-container
+----
+
+The initial deployment of `eventinghello` will cause it to scale up to 1 pod.  It will be around until it hits its scale-down time limit.  Allow it to scale down to zero pods before continuing.
+
+Create `KafkaTopic` called `my-topic` as shown below:
+
+[source,yaml]
+----
+include::example$kafka-topic-my-topic.yaml[]
+----
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl apply -n kafka \
+  -f kafka-topic-my-topic.yaml
+----
+
+Check the created topics by:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl get -n kafka kafkatopics
+----
+
+The command should show an output like:
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                                                          PARTITIONS   REPLICATION FACTOR
+consumer-offsets---84e7a678d08f4bd226872e5cdd4eb527fadc1c6a   50           1
+*my-topic                                                      _10_           1*
+----
+
+
+Create a `KafkaSource` for `my-topic` by connecting your Kafka topic `my-topic` to eventinghello:
+
+[source,yaml]
+----
+apiVersion: sources.knative.dev/v1alpha1
+kind: KafkaSource
+metadata:
+  name: mykafka-source
+spec:
+  consumerGroup: knative-group
+  bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092 #<.>
+  topics: my-topic #<.>
+  sink: #<.>
+    ref:
+      apiVersion: serving.knative.dev/v1 
+      kind: Service
+      name: eventinghello
+----
+
+<.> "my-cluster-kafka-bootstrap:9092" can be found via `kubectl get -n kafka services` or `oc get  -n kafka services`
+<.> `my-topic` was created earlier xref:deploy-apache-kafka.adoc#create-kafka-topic[section] when deploying Apache Kafka
+<.> This is another example of a direct xref:knative-tutorial-eventing:ROOT:eventing-src-to-sink.adoc.adoc#eventing-sink-service[Source to Sink]
+
+The deployment of `KafkaSource` will result in a new pod prefixed with "mykafka-source".
+
+[.console-input]
+[#kn-kafka-source-deploy]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl -n {tutorial-namespace} apply -f mykafka-source.yaml
+----
+
+[.console-input]
+[#kn-kafka-source-status-watch]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+watch kubectl get pods
+----
+
+When the KafkaSource is ready it will show the following output:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                                          READY  STATUS   RESTARTS  AGE
+mykafka-source-vxs2k-56548756cc-j7m7v         1/1    Running  0         11s
+----
+
+[WARNING]
+====
+Since we had test messages of "one", "two" and "three" from earlier you might see the eventinghello service awaken to process those messages.
+
+Wait for eventinghello to scale down to zero pods before moving on then push more Kafka messages into my-topic.
+====
+
+[.console-input]
+[#kn-kakfa-source-producer-events]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+$TUTORIAL_HOME/bin/kafka-producer.sh
+----
+
+And then enter the following messages:
+
+[.console-output]
+[source,bash]
+----
+Hello World
+
+Hola Mundo
+
+Bonjour Le Monde
+
+Namaste Duniya
+----
+
+[NOTE]
+====
+Knative Eventing events through the Kafka Source must be JSON formatted
+====
+
+While making sure to monitor the logs of the `eventinghello` pod:
+
+[.console-input]
+[#stern-kafka-src-events]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+stern eventinghello -c user-container
+----
+
+[.console-output]
+[source,bash,subs="attributes+,+macros"]
+----
+ce-id=partition:1/offset:1
+ce-source=/apis/v1/namespaces/kafka/kafkasources/mykafka-source#my-topic
+ce-specversion=1.0
+ce-time=2020-01-01T01:16:12.886Z
+ce-type=dev.knative.kafka.event
+content-type=null
+content-length=17
+POST:Namaste Duniya
+----
+
+[NOTE]
+====
+If the `eventinghello` sink was scaled down by Knative due to inactivity, you will see the service comeup to serve the request once the message is sent
+====
+
+[[kn-eventing-kafka-auto-scaling]]
+== Auto Scaling with Apache Kafka
+
+[IMPORTANT]
+====
+Allow all the `eventinghello` sink pods to scale down to zero.
+====
+
+Open a new terminal and watch the pods of `{tutorial-namespace}` namespace:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch kubectl get pods -n {tutorial-namespace} 
+----
+
+We will use a utility pod called `kafka-spammer` to send a bunch of messages to KafkaTopic `my-topic`, which in turn will trigger the Knative sink service `eventinghello` to scale up to handle the KakaTopic message events.
+
+Deploy `kafka-spammer` application using the command:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl -n kafka run kafka-spammer \
+--image=quay.io/rhdevelopers/kafkaspammer:1.0.2
+----
+
+Wait for the `kafka-spammer` pod to be up and running, you can watch `kafka` namespace for the pod:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch kubectl -n kafka get pods
+----
+
+Once the `kafka-spammer` is up and running, open a new terminal and exec into the pod by running:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+KAFKA_SPAMMER_POD=$(kubectl -n kafka get pod -l "run=kafka-spammer" \
+-o jsonpath='{.items[0].metadata.name}')
+kubectl -n kafka exec -it $KAFKA_SPAMMER_POD -- /bin/sh
+----
+
+Once you are in the shell of the `kafka-spammer` pod run the following command:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+curl localhost:8080/3
+----
+
+The command should now send three concurrent messages to KafkaTopic `my-topic`. As the`eventinghello` sink pods were scaled down to zero, you should see three or more `eventinghello` sink pods being scaled to serve the request.
+
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                                                              READY   STATUS    RESTARTS   AGE
+camel-k-operator-65db5d46bb-llc6g                                 1/1     Running   0          20h
+*eventinghello-v1-deployment-57c686cc96-6k9r2                      2/2     Running   0          15s*
+*eventinghello-v1-deployment-57c686cc96-jcv8b                      2/2     Running   0          13s*
+*eventinghello-v1-deployment-57c686cc96-lh8xr                      2/2     Running   0          15s*
+*eventinghello-v1-deployment-57c686cc96-n2slh                      2/2     Running   0          16s*
+kafkasource-mykafka-source-a29a50ca-4d76-4e65-8b96-1507372bfphb   1/1     Running   0          119s
+----
+
+
+[#kn-kafka-src-cleanup]
+=== Cleanup
+
+[.console-input]
+[#kn-eventing-kafka-src-cleanup]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl delete -n kafka pod kafka-spammer
+kubectl delete -n {tutorial-namespace}  -f mykafka-source.yaml
+kubectl delete -n {tutorial-namespace}  -f eventing-hello-sink.yaml
+kubectl delete -n kafka -f kafka-topic-my-topic.yaml
+----

@@ -1,0 +1,135 @@
+https://developers.redhat.com/blog/2016/08/10/persistence-vs-durability-in-messaging/[Persistence and Durability] are two very important features of any messaging based architectures. The Knative Channel has built-in support for durability. Durability of messages becomes ineffective, if the Knative Eventing Channel does not support persistence. As without persistence it will not be able to deliver the messages to subscribers which might be  offline at the time of message delivery.
+
+By default all Knative Channels created by the Knative Eventing API use InMemoryChannel(imc), which does not have capability to persist messages. To enable persistence we need to use one of the supported https://knative.dev/docs/eventing/channels/channels-crds/[channels] such as GCP PubSub, Kafka or Natss as the default Knative Channel backend.
+
+We installed xref:knative-tutorial-adv:ROOT:deploy-apache-kafka.adoc[Apache Kafka], earlier in this tutorial, let us now configure it to be the default Knative Channel backend:
+
+.Knative Default Channel ConfigMap
+[source,yaml,subs="attributes+,macros+"]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: default-ch-webhook
+  namespace: knative-eventing
+data:
+  default-ch-config: |
+    clusterDefault: #<.>
+      apiVersion: messaging.knative.dev/v1alpha1
+      kind: InMemoryChannel
+    namespaceDefaults: #<.>
+      {tutorial-namespace}:
+        apiVersion: messaging.knative.dev/v1alpha1
+        kind: KafkaChannel
+        spec:
+          numPartitions: 1
+          replicationFactor: 1
+----
+<1> For the cluster we will still use the default InMemoryChannel
+<2> For the namespace *{tutorial-namespace}*, all Knative Eventing Channels will use KafkaChannel as default
+
+Run the following command apply the Knative Eventing Channel configuration:
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl apply -f default-kafka-channel.yaml
+----
+
+Since you have now made all Knative Eventing Channels of *{tutorial-namespace}* to be KafkaChannel, creating a Knative Eventing Channel in namespace *{tutorial-namespace}* will result in a corresponding Kafka Topic created. Let us now verify it by creating a sample Channel as show in listing,
+
+.Create a example Channel
+[source,yaml,subs="+attributes"]
+----
+cat <<EOF | kubectl apply -f - 
+apiVersion: messaging.knative.dev/v1beta1
+kind: Channel
+metadata:
+  name: my-events-ch
+  namespace: {tutorial-namespace}
+spec: {}
+EOF
+----
+
+The Channel `my-events-ch` creation will result in the following resources in the `{tutorial-namespace}`
+
+A `channel.messaging.knative.dev` called `my-events-ch`:
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl get -n {tutorial-namespace} channels
+----
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME           READY   URL                                                                
+my-events-ch   True    http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local 
+----
+
+And a corresponding `kafkachannel.messaging.knative.dev` with the same name `my-events-ch`:
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl get -n {tutorial-namespace} kafkachannels
+----
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME           READY  URL                                                              
+my-events-ch   True   http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local 
+----
+
+When you now list the topics that are available in Kafka using the script `$TUTORIAL_HOME/bin/kafka-list-topics.sh`, you should see a topic corresponding to your Channel `my-events-ch`:
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+$TUTORIAL_HOME/bin/kafka-list-topics.sh
+----
+
+The command should return an output like:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+knative-messaging-kafka.{tutorial-namespace}.my-events-ch
+----
+
+For each Knative Eventing Channel that you will create, there will be a Kafka Topic created, the topic's name will follow a convention like `knative-messaging-kafka.<your-channel-namespace>.<your-channel-name>`.
+
+When listing the resources of `knative-eventing` , you should see an extra deployment called `kafka-ch-dispatcher` with its corrsponding pod started:
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl get -n knative-eventing pods
+----
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                                    READY   STATUS    RESTARTS   AGE
+broker-controller-56b4d58667-tz77k      1/1     Running   0          19h
+broker-filter-5bdbc8d8dd-2b657          1/1     Running   0          19h
+broker-ingress-d896b6b46-xss59          1/1     Running   0          19h
+eventing-controller-5fc5645584-fqz72    1/1     Running   0          19h
+eventing-webhook-7674b867dc-x2lg2       1/1     Running   0          19h
+imc-controller-6b548d6468-v4pr8         1/1     Running   0          19h
+imc-dispatcher-655cdf6ff6-xftlk         1/1     Running   0          19h
+kafka-ch-controller-5cf4bdc98-l8lqg     1/1     Running   0          32m
+*kafka-ch-dispatcher-7fb7896db4-6r7m6    1/1     Running   0          24m*
+kafka-webhook-5f8895ccdf-hf28p          1/1     Running   0          32m
+mt-broker-controller-6d66c4c6f6-56s9s   1/1     Running   0          19h
+----
+
+We can delete the example `my-events-ch` channel using the command:
+
+[.console-input]
+[source,bash,subs="attributes+,+macros",linenums]
+----
+kubectl -n {tutorial-namespace} delete  channels.messaging.knative.dev my-events-ch
+----

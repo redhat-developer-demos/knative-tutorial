@@ -1,0 +1,176 @@
+ifndef::workshop[]
+You could get started with tutorial using the **all-in-one-environment** based on https://eclipse.org/che[Eclipse Che] -- a browser based IDE --. 
+
+[#dev-env-install-chectl]
+*Install chectl*
+
+To get started in setting up this environment, we need to have https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/[chectl]. You can follow the https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/[instructions] to have it installed locally.
+
+You can verify the install using the command:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+chectl version
+-----
+
+The command above should return an output like:
+
+[.console-output]
+[source,bash]
+-----
+chectl/7.12.2 darwin-x64 node-v12.16.3
+-----
+
+NOTE: The above output is an example from macOS (darwin), the OS information in output may vary based on your OS
+
+Navigate to `$TUTORIAL_HOME`:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+cd pass:[$TUTORIAL_HOME]
+-----
+
+[#dev-env-che-server]
+*Create Che server*
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+chectl server:start --platform minikube 
+-----
+
+It will take few minutes for Che server to be started, watch the output of `chectl` command for the status.
+
+A successful Che install should show an output like:
+
+[source,bash]
+[.console-output]
+-----
+chectl server:start --platform minikube
+  ✔ Verify Kubernetes API...OK
+  ✔ 👀  Looking for an already existing Che instance
+    ✔ Verify if Che is deployed into namespace "che"...it is not
+  ✔ ✈️  Minikube preflight checklist
+    ✔ Verify if kubectl is installed
+    ✔ Verify if minikube is installed
+    ✔ Verify if minikube is running
+    ↓ Start minikube [skipped]
+      → Minikube is already running.
+    ✔ Verify if minikube ingress addon is enabled
+    ↓ Enable minikube ingress addon [skipped]
+      → Ingress addon is already enabled.
+    ✔ Retrieving minikube IP and domain for ingress URLs...192.168.64.166.
+nip.io.
+  ✔ 🏃‍  Running Helm to install Che
+    ✔ Verify if helm is installed
+    ✔ Create Tiller Role Binding...done.
+    ✔ Create Tiller Service Account...done.
+    ✔ Create Tiller RBAC
+    ✔ Create Tiller Service...done.
+    ✔ Preparing Che Helm Chart...done.
+    ✔ Updating Helm Chart dependencies...done.
+    ✔ Deploying Che Helm Chart...done.
+  ✔ ✅  Post installation checklist
+    ✔ Devfile registry pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Plugin registry pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Che pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Retrieving Che Server URL...http://che-che.192.168.64.166.nip.io
+    ✔ Che status check
+Command server:start has completed successfully.
+-----
+
+NOTE: The Che server url will be matching to your minikube ip `minikube ip`
+
+*Configure Che server*
+
+The default Che server Kubernetes service account has limited privileges, for this tutorial we will use a different service account called `tutorial-tools` which is a cluster-admin within your Kubernetes cluster:  
+
+Create the service account, tutorial-tools configmap:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+kubectl apply -n che -f $TUTORIAL_HOME/install/tutorial-tools.yaml 
+-----
+
+Patch the Che configmap to use `tutorial-tools` service account 
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+kubectl patch configmaps -n che che \
+  --patch '{"data": {"CHE_INFRA_KUBERNETES_SERVICE__ACCOUNT__NAME": "tutorial-tools"} }'
+-----
+
+We need to restart the `che` pod to make it pick up the new service account from the configmap:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+kubectl delete -n che pod che 
+-----
+
+[NOTE]
+=====
+It will take few mins for the new che pod to come up, you can watch the status using the command `kubectl get -n che pods -w`. Use kbd:[Ctrl+c] to terminate the watch
+=====
+
+[#dev-env-create-workspace]
+*Create workspace*
+
+Create Che workspace and clone the knative tutorial sources in it:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+-----
+chectl workspace:start -f $TUTORIAL_HOME/devfile.yaml 
+-----
+
+A successful workspace creation will show the following output
+
+[.console-output]
+-----
+chectl workspace:start -f devfile.yaml
+  ✔ Retrieving Che Server URL...http://che-che.192.168.64.166.nip.io
+  ✔ Verify if Che server is running...RUNNING (auth disabled)
+  ✔ Create workspace from Devfile devfile.yaml
+
+Workspace IDE URL:
+pass:[http://che-che.192.168.64.166.nip.io/dashboard/#/ide/che/knative-tutorial]
+-----
+
+NOTE: The IP used in the Che workspace url will be your minikube ip(`minikube ip`)
+
+Open your environment using the **Workspace IDE URL** listed in the output to start the workspace.
+
+NOTE: It will take few minutes for the workspace to be up and running. 
+
+[#dev-env-workspace-familiarize]
+*Familiarize your workspace*
+
+Opening your Che workspace using the `Workspace IDE URL` will show browser window like:
+
+image::che_env_overview.png[]
+
+You can open the `New Terminal` to start running the tutorial exercises.
+
+[NOTE]
+======
+The editor has been pre-configured with all common and popular vscode plugins:
+
+* Java
+* Xml
+* YAML
+* Kubernetes 
+======

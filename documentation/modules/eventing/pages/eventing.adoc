@@ -1,0 +1,27 @@
+= Eventing
+include::_attributes.adoc[]
+
+At the end of this chapter you will know and understand:
+
+* What is an event source?
+* What is a channel?
+* What is a subscriber?
+* What is a trigger?
+* What is a broker?
+* How to make a Knative serving service receive an event?
+* How to make a service a subscriber of an event?
+
+ifndef::workshop[]
+[#eventing-prerequisite]
+== Prerequisite 
+include::eventing:partial$prereq-cli.adoc[]
+endif::[]
+
+include::eventing:partial$eventing-snippets.adoc[tag=eventing-nav-folder]
+
+[#eventing-watch-logs]
+== Watching Logs
+
+:kube-ns: knativetutorial
+:kube-svc: event-greeter
+include::eventing:partial$watching-logs.adoc[]

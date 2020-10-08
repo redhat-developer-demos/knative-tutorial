@@ -1,0 +1,46 @@
+ifndef::workshop[]
+[kube-ns='knativetutorial']
+[kube-svc='']
+
+In the eventing related subsections of this tutorial, event sources are configured to emit events every minute with a `PingSource` or with a `ContainerSource`.  
+
+The logs could be watched using the command:
+
+[source,yaml,subs="attributes+,+macros"]
+----
+kubectl logs -n {kube-ns} -f <pod-name> -c user-container
+----
+
+[TIP]
+====
+* Using stern with the command `stern  -n {kube-ns} {kube-svc}`, to filter the logs further add `-c user-container` to the stern command.
+
+[source,bash,subs="+macros,+attributes"]
+----
+stern -n {kube-ns} -c user-container {kube-svc} 
+----
+====
+
+The logs will have the output like below printing every minute.
+
+[.console-output]
+[source]
+----
+INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter => 'event-greeter-5cbh5-pod-52d8fb' : 1",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:50:07"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }
+----
+(OR)
+[.console-output]
+[source]
+----
+INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter => 'event-greeter-5cbh5-pod-52d8fb' : 2",
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:51:00"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }
+----

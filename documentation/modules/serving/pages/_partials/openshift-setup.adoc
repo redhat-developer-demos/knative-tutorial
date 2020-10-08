@@ -1,0 +1,36 @@
+[#install-knative-openshift]
+
+**OpenShift**
+
+Knative Serving and Eventing install needs OpenShift4, you need to have one provisioned using https://try.openshift.com[try.openshift.com] or can use any existing OpenShift4 cluster.
+
+Once you have your cluster, you can download the latest OpenShift client(oc) from https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/[here] and add to your path.
+
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+oc version 
+----
+
+The output should show oc version >=4.5
+
+[.console-output]
+[source,bash]
+----
+Client Version: 4.5.8
+Kubernetes Version: v1.18.2-0-g52c56ce
+----
+
+[IMPORTANT]
+=====
+Please follow the https://docs.openshift.com/container-platform/4.3/serverless/installing_serverless/installing-openshift-serverless.html[OpenShift] documentation, to have Knative components installed on your cluster.
+=====
+
+**Navigate to tutorial project**
+
+[#nav-to-tutorial-project]
+[source,bash,subs="+macros,+attributes"]
+----
+oc new-project knativetutorial
+----

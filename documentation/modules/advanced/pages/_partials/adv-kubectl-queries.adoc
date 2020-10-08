@@ -1,0 +1,15 @@
+#tag::kgpow[]
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch kubectl -n {tutorial-namespace} get 
+----
+#end::kgpow[]
+
+#tag::kgksvc[]
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl -n {tutorial-namespace} get ksvc
+----
+#end::kgksvc[]

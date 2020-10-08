@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: eventinghellob
+spec:
+  template:
+    metadata:
+      name: eventinghellob-v1
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/eventinghello:0.0.2
+

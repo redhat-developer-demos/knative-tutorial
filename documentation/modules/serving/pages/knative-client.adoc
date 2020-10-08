@@ -1,0 +1,353 @@
+= Knative Client
+include::_attributes.adoc[]
+:experimental:
+:greeter-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+
+https://github.com/knative/client[Knative Client] is the command line utility aimed at enhancing the developer experience when doing Knative Serving and Eventing tasks.
+
+At the end of this chapter you will be able to :
+
+* Install Knative Client 
+* Create, update, list and delete Knative service
+* Create, update, list and delete Knative service revisions
+* List Knative service routes
+
+[WARNING]
+====
+* Knative Client (`kn`) is still under aggressive development, so commands and options might change rapidly. 
+* As of writing the tutorial {kn-client-version} was the latest version of the Knative Client
+====
+
+[#kn-install]
+== Install
+
+Download the https://github.com/knative/client/releases/tag/{kn-client-version}[latest] Knative Client and add to your `PATH`.
+
+Verify installation by running the command:
+
+[#kn-verify-install]
+[.console-input]
+[source,bash]
+----
+kn version
+----
+
+The above command will return a response like 
+
+[source,bash,subs="+attributes,macros+"]
+[.console-output]
+----
+Version:      {kn-client-version}
+Build Date:   2020-08-26 11:08:52
+Git Revision: 8fcd25c3
+Supported APIs:
+* Serving
+  - serving.knative.dev/v1 (knative-serving v0.17.0)
+* Eventing
+  - sources.knative.dev/v1alpha2 (knative-eventing v0.17.0)
+  - eventing.knative.dev/v1beta1 (knative-eventing v0.17.0)
+----
+
+[#kn-ksvc]
+== Knative Service Commands
+
+[#kn-create-ksvc]
+=== Create Service
+
+To create the `greeter` service using `kn` run the following command:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn service create greeter \
+  --namespace {tutorial-namespace} \
+  --image {greeter-image}
+----
+
+A successful create of the `greeter` service should show a response like 
+
+[.console-output]
+[source,bash,subs="+attributes"]
+----
+Creating service 'greeter' in namespace 'knativetutorial':
+
+  0.028s The Configuration is still working to reflect the latest desired specification.
+  0.097s The Route is still working to reflect the latest desired specification.
+  0.120s Configuration "greeter" is waiting for a Revision to become ready.
+ 12.075s ...
+ 12.128s Ingress has not yet been reconciled.
+ 12.223s unsuccessfully observed a new generation
+ 12.378s Ready to serve.
+
+Service 'greeter' created to latest revision 'greeter-zyjrq-1' is available at URL:
+http://greeter.knativetutorial.example.com
+----
+
+[#kn-list-services]
+=== List Knative Services
+
+You can list the created services using the command:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn service list --namespace {tutorial-namespace}
+----
+
+[.console-output]
+[source,bash,subs="+attributes"]
+----
+NAME      URL                                          LATEST            AGE   CONDITIONS   READY   REASON
+greeter   http://greeter.{tutorial-namespace}.example.com   greeter-zyjrq-1   98s   3 OK / 3     True
+----
+
+=== Invoke Service
+ifndef::workshop[]
+[tabs]
+====
+Kubernetes::
++
+--
+include::serving:partial$invoke-service.adoc[tags=**;!workshop-call;!workshop-call-params]
+--
+OpenShift::
++
+--
+include::serving:partial$invoke-service.adoc[tag=workshop-call]
+--
+====
+endif::[]
+
+You can xref:basic-fundas.adoc#basics-see-what-you-have-deployed[verify] what you the kn client has deployed, to make sure its inline with what you have see in previous chapter.
+
+[#kn-update-ksvc]
+=== Update Knative Service
+
+To create a new revision using `kn` is as easy as running another command.
+
+In previous chapter we deployed a new revision of Knative service by adding an environment variable. Lets try do the same thing with `kn` to trigger a new deployment:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn service update greeter --env "MESSAGE_PREFIX=Namaste"
+----
+
+[.console-output]
+[source,bash,subs="+macros,attributes+"]
+----
+Updating Service 'greeter' in namespace '{tutorial-namespace}':
+
+  0.025s The Configuration is still working to reflect the latest desired specification.
+  5.694s Traffic is not yet migrated to the latest revision.
+  5.736s Ingress has not yet been reconciled.
+  5.783s unsuccessfully observed a new generation
+  5.971s Ready to serve.
+
+Service 'greeter' updated to latest revision 'greeter-tmvxm-2' is available at URL:
+http://greeter.{tutorial-namespace}.example.com
+----
+
+Now <<kn-invoke-service,Invoking the service>> will return me a response like:
+
+[.console-output]
+[source,bash,subs="+macros,attributes+"]
+----
+Namaste  greeter => '9861675f8845' : 1
+----
+
+[#kn-desc-ksvc]
+=== Describe Knative Service
+
+Sometime you wish you get the YAML of the Knative service to build a new service or to compare with with another service. `kn` makes it super easy for you to get the YAML:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn service describe greeter
+----
+
+The describe should show you a short summary of your service : 
+
+[.console-output]
+[source,bash]
+----
+Name:       greeter
+Namespace:  knativetutorial
+Age:        1m
+URL:        http://greeter.knativetutorial.example.com
+
+Revisions:  
+  100%  @latest (greeter-twpgf-1) [1] (1m)
+        Image:  quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+
+Conditions:  
+  OK TYPE                   AGE REASON
+  ++ Ready                  34s 
+  ++ ConfigurationsReady    34s 
+  ++ RoutesReady            34s 
+----
+
+==== Describe with verboisity
+
+To list all the revisions as part of the `describe` command use:
+
+[.console-input]
+[source,bash]
+----
+kn service describe greeter -v
+----
+[.console-output]
+[source,bash]
+----
+Name:         greeter
+Namespace:    knativetutorial
+Annotations:  serving.knative.dev/creator=minikube-user
+              serving.knative.dev/lastModifier=minikube-user
+Age:          14m
+URL:          http://greeter.knativetutorial.example.com
+Cluster:      http://greeter.knativetutorial.svc.cluster.local
+
+Revisions:
+  100%  @latest (greeter-tmvxm-2) [2] (10m)
+        Image:  quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+        Env:    MESSAGE_PREFIX=Namaste
+     +  greeter-zyjrq-1 [1] (14m)
+        Image:  quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+
+Conditions:
+  OK TYPE                   AGE REASON
+  ++ Ready                  10m
+  ++ ConfigurationsReady    10m
+  ++ RoutesReady            10m
+----
+
+==== Get Service URL
+
+To get the Knative service url use `describe` with `-o url` option:
+
+[.console-input]
+[source,bash]
+----
+kn service describe greeter -o url
+----
+
+[.console-output]
+[source,bash]
+----
+http://greeter.knativetutorial.example.com
+----
+
+[#kn-revisions]
+== Knative Revision Commands
+
+The `kn` revision commands are used to interact with revision(s) of Knative service.
+
+[#kn-revisions-list]
+=== List Revisions
+
+You can list the available revisions of a Knative service using:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn revision list
+----
+
+[.console-output]
+[source,bash]
+----
+NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
+greeter-tjtpm-2   greeter   100%             2            98s   3 OK / 4     True    
+greeter-twpgf-1   greeter                    1            11h   3 OK / 4     True    
+
+----
+
+[#kn-revisions-desc]
+=== Describe Revision
+
+To get the details about a specific revision you can use the command:
+
+[#run-kn-desc-rev]
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn revision describe greeter-twpgf-1
+----
+
+[.console-output]
+[source,bash]
+----
+Name:       greeter-twpgf-1
+Namespace:  knativetutorial
+Age:        10m
+Image:      quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+Service:    greeter
+
+Conditions:  
+  OK TYPE                  AGE REASON
+  ++ Ready                  9m 
+  ++ ContainerHealthy       9m 
+  ++ ResourcesAvailable     9m 
+   I Active                 8m NoTraffic
+
+----
+
+[#kn-revisions-delete]
+=== Delete Revision
+
+To delete a specific revision you can use the command:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn revision delete greeter-7cqzq
+----
+
+[.console-output]
+[source,bash]
+----
+Revision 'greeter-7cqzq' successfully deleted in namespace 'knativetutorial'.
+----
+
+Now <<kn-invoke-service, invoking service>> will return the response from revision `greeter-6m45j`.
+
+[#kn-routes]
+== Knative Route Commands
+
+The `kn` revision commands are used to interact with route(s) of Knative service.
+
+[#kn-routes-list]
+=== List Routes
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn route list
+----
+
+[.console-output]
+[source,bash]
+----
+NAME      URL                                          AGE   CONDITIONS   TRAFFIC
+greeter   http://greeter.knativetutorial.example.com   10m   3 OK / 3     100% -> greeter-zd7jk
+----
+
+[#kn-cleanup]
+== Delete Knative Service
+
+You can also use `kn` to delete the service that were created, to delete the service named `greeter` run the following command:
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn service delete greeter
+----
+
+[source,bash]
+[.console-output]
+----
+Service 'greeter' successfully deleted in namespace 'knativetutorial'.
+----
+
+<<kn-list-services,Listing services>> you will notice that the `greeter` service no longer exists.

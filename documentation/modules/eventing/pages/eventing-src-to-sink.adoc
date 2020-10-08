@@ -1,0 +1,164 @@
+[[source-to-sink]]
+= Eventing Source to Sink
+include::_attributes.adoc[]
+//Define vars
+:greeter-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:source-file: eventinghello-source.yaml
+
+include::eventing:partial$eventing-snippets.adoc[tag=eventing-nav-folder]
+
+[#eventing-source]
+== Event Source
+
+*Knative Eventing Sources* are software components that emit events.  The job of a Source is to connect to, drain, capture and potentially buffer events; often from an external system and then relay those events to the *Sink*.
+
+Knative Eventing Sources installs the following four sources out-of-the-box:
+
+[#eventing-get-api-resources]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl api-resources --api-group='sources.knative.dev'
+----
+
+[.console-output]
+[source,bash]
+----
+NAME              APIGROUP                      NAMESPACED   KIND
+apiserversources  sources.knative.dev           true         ApiServerSource
+containersources  sources.knative.dev           true         ContainerSource
+pingsources       sources.knative.dev           true         PingSource
+sinkbindings      sources.knative.dev           true         SinkBinding
+----
+
+Let's see how a simple source, the *PingSource* looks like : 
+
+.link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+apiVersion: sources.knative.dev/v1alpha2
+kind: PingSource #<1>
+metadata:
+  name: eventinghello-ping-source
+spec: #<2>
+  schedule: "*/2 * * * *"
+  jsonData: '{"key": "every 2 mins"}'
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: eventinghello
+----
+
+<1> The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources
+<2> spec will be unique per source, per kind
+
+
+[#eventing-sink]
+== Referencing the Event Sink
+
+*Knative Eventing Sink* is how you specify the event receiver -- that is the consumer of the event--. Sinks can be invoked directly in a point-to-point fashion by referencing them via the Event Source's `sink` as shown below:
+
+.link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+apiVersion: sources.knative.dev/v1alpha2
+kind: PingSource
+metadata:
+  name: eventinghello-ping-source
+spec:
+  schedule: "*/2 * * * *"
+  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  sink:  #<1>
+    ref:
+      apiVersion: serving.knative.dev/v1 #<2>
+      kind: Service
+      name: eventinghello #<3>
+----
+
+<1> sink can target any Kubernetes Service or 
+<2> a Knative Service
+<3> Deployed as "eventinghello"
+
+[NOTE]
+====
+Event Source can define the attributes that it wishes to receive via the 
+spec.  In the above example it defines **schedule**(the cron expression) and **jsonData** that will be sent as part of the event.
+
+When you xref:{eventing-repo}#eventing-watch-logs[watch logs], you will notice this data being delivered to the service.
+====
+
+[#eventing-sink-service]
+== Create Sink Service 
+
+Run the following command to create the Knative service that will be used as the subscriber for the cron events:
+
+.link:{github-repo}/{eventing-repo}/eventing-hello-sink.yaml[eventing-hello-sink.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+include::eventing:example$eventing/eventing-hello-sink.yaml[]
+----
+
+[#eventing-deploy-sink-service]
+=== Deploy Sink Service
+
+Run the following commands to create the service:
+
+:doc-sec: deploy-sink-service
+:url: {github-repo}/{eventing-repo}/eventing/eventing-hello-sink.yaml
+:url-alt-text: eventing-hello-sink.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+[#eventing-create-event-source]
+== Create Event Source
+
+Run the following commands to create the event source resources:
+
+:doc-sec: event-src-svc
+:url: {github-repo}/{eventing-repo}/eventinghello-source.yaml
+:url-alt-text: eventinghello-source.yaml
+include::ROOT:partial$deploy-knative-resources.adoc[]
+
+[#eventing-verify-event-source]
+== Verification
+
+[#eventing-run-verify-event-source]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get \
+  pingsources.sources.knative.dev \
+  eventinghello-ping-source
+----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                       AGE
+eventinghello-ping-source  39s
+----
+
+You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to see the ping job source sending an event every 1 minute.
+
+[#eventing-see-what-you-have-deployed]
+== See what you have deployed
+
+=== sources
+include::partial$knative-objects.adoc[tag=knative-event-ping-sources]
+
+=== services
+:svc-name: eventinghello
+include::partial$knative-objects.adoc[tag=knative-event-services]
+
+[#eventing-cleanup]
+== Cleanup
+
+[#eventing-run-src-svc-cleanup]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} delete -f eventinghello-source.yaml
+kubectl -n {tutorial-namespace} delete -f eventing-hello-sink.yaml
+----

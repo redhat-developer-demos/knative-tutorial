@@ -1,0 +1,105 @@
+[doc-sec='']
+
+#tag::knative-services[]
+[#knative-services]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace}  get services.serving.knative.dev greeter 
+----
+#end::knative-services[]
+
+#tag::knative-configs[]
+[#knative-configs]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get configurations.serving.knative.dev greeter
+----
+#end::knative-configs[]
+
+#tag::knative-routes[]
+[#knative-routes]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get routes.serving.knative.dev greeter
+----
+#end::knative-routes[]
+
+#tag::knative-revisions[]
+[#{doc-sec}knative-revisions]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get rev \
+--selector=serving.knative.dev/service=greeter \
+--sort-by="{.metadata.creationTimestamp}"
+----
+#end::knative-revisions[]
+
+#tag::knative-config-revisions[]
+
+[#knative-config-revisions]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get rev \
+  -l serving.knative.dev/configuration=greeter \
+  --sort-by="{.metadata.creationTimestamp}"
+----
+#end::knative-config-revisions[]
+
+#tag::knative-event-channel[]
+[#knative-event-channel]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get channels.eventing.knative.dev ch-event-greeter
+----
+#end::knative-event-channel[]
+
+#tag::knative-event-cronjob-sources[]
+[#knative-event-sources]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+----
+#end::knative-event-cronjob-sources[]
+
+#tag::knative-event-subscribers[]
+[#knative-event-subscribers]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get subscriptions.eventing.knative.dev event-greeter-subscriber
+----
+#end::knative-event-subscribers[]
+
+#tag::knative-event-services[]
+[#knative-services]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace}  get services.serving.knative.dev event-greeter  
+----
+#end::knative-event-services[]
+
+#tag::knative-triggers[]
+[#knative-triggers]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace}  get triggers.eventing.knative.dev event-greeter-trigger  
+----
+#end::knative-triggers[]
+
+#tag::knative-container-event-sources[]
+[#knative-container-event-sources]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get containersources.sources.eventing.knative.dev heartbeat-event-source
+----
+#end::knative-container-event-sources[]

@@ -11,21 +11,23 @@ content:
     - url: .
       branches: HEAD
       start_path: documentation
-    - url: ../knative-tutorial-module-serving
-      branches: HEAD
-    - url: ../knative-tutorial-module-eventing
-      branches: HEAD
-    - url: ../knative-tutorial-module-camelk
-      branches: HEAD
-    - url: ../knative-tutorial-module-advanced
-      branches: HEAD
+    # - url: ../knative-tutorial-module-serving
+    #   branches: HEAD
+    # - url: ../knative-tutorial-module-eventing
+    #   branches: HEAD
+    # - url: ../knative-tutorial-module-camelk
+    #   branches: HEAD
+    # - url: ../knative-tutorial-module-advanced
+    #   branches: HEAD
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
     title: Knative Tutorial
     workshop-domain: guru.devx.red
-    kubernetes-version: v1.15.0
+    kubernetes-version: v1.18.0
+    kubernetes-cli: kubectl
     release-version: master
+    page-pagination: true
     openshift-console-url: https://console-openshift-console.apps.example.com
     etherpad-url: http://example.com
   extensions:

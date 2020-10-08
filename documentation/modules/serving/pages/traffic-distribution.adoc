@@ -1,0 +1,344 @@
+= Traffic Distribution
+include::_attributes.adoc[]
+
+:revision-v1: greeter-v1
+:revision-file-v1: greeter-v1-service.yaml
+:revision-v2: greeter-v2
+:revision-file-v2: greeter-v2-service.yaml
+
+At the end of this chapter you will be able to :
+
+* Providing custom name to deployment
+* Understanding advanced deployment techniques 
+* Apply blue-green deployment pattern
+* Apply Canary Release Deployment pattern
+* Reduce the service visibility
+
+
+As you noticed, Knative service always routes traffic to the **latest** revision of the service deployment. It is possible to split the traffic amongst the available revisions. 
+
+[[deploying-revisions]]
+== Arbitrary Revision Names
+
+By default Knative generates a random revision names for the service based with Knative service's `metadata.name` as prefix. 
+
+The following service deployments will show how to use an arbitrary revision names for the services. The service are exactly same `greeter` service except that their Revision name is specified using the service revision template spec. 
+
+Deploy greeter service revision v1:
+
+.link:{github-repo}/{basics-repo}/{revision-file-v1}[{revision-v1}]
+[source,yaml,subs="attributes+,+macros"]
+----
+include::serving:example${basics-repo}/{revision-file-v1}[]
+----
+
+[.console-input]
+[source,yaml,subs="attributes+,+macros"]
+----
+kubectl apply -n {tutorial-namespace} -f greeter-v1-service.yaml
+----
+
+Deploy greeter service revision v2:
+
+.link:{github-repo}/{basics-repo}/{revision-file-v2}[{revision-v2}]
+[source,yaml,subs="attributes+,+macros"]
+----
+include::serving:example${basics-repo}/{revision-file-v2}[]
+----
+
+[.console-input]
+[source,yaml,subs="attributes+,+macros"]
+----
+kubectl apply -n {tutorial-namespace} -f greeter-v2-service.yaml
+----
+
+Check to ensure you have two revisions of the greeter service:
+
+[#rev1-basics-show-knative-revisions]
+=== revisions
+:doc-sec: td-all-revs
+include::serving:partial$knative-objects.adoc[tag=knative-revisions]
+
+The command above should list two revisions namely `greeter-v1` and `greeter-v2`.
+
+[.console-output]
+[source,bash]
+----
+NAME         CONFIG NAME   K8S SERVICE NAME   GENERATION   READY
+greeter-v1   greeter       greeter-v1         1            True
+greeter-v2   greeter       greeter-v2         2            True
+----
+
+[TIP]
+====
+* add `-oyaml` to the commands above to see more detail
+====
+
+[[blue-green]]
+== Applying Blue-Green Deployment Pattern
+
+Knative offers a simple way of switching 100% of the traffic from one Knative service revision (blue) to another newly rolled out revision (green). If the new revision (e.g. green) has erroneous behavior then it is easy to rollback the change.
+
+In this exercise you will applying theBlue/Green deployment pattern with the Knative Service called greeter. You have already deployed two <<deploying-revisions,revisions>> of greeter named `greeter-v1` and `greeter-v2` earlier in this chapter.
+
+With the deployment of `greeter-v2` you noticed that Knative automatically started to routing 100% of the traffic to `greeter-v2`. Now let us assume that we need to roll back `greeter-v2` to `greeter-v1` for some critical reason.
+
+The following Knative Service YAML is identical to the previously deployed `greeter-v2` except that we have added the _traffic_ section to indicate that 100% of the traffic should be routed to `greeter-v1`.
+
+.All traffic to greeter-v1
+[source,yaml]
+----
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: greeter
+spec:
+  template:
+    metadata:
+      name: greeter-v1
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+          livenessProbe:
+            httpGet:
+              path: /healthz
+          readinessProbe:
+            httpGet:
+              path: /healthz
+  traffic:
+    - tag: v1
+      revisionName: greeter-v1
+      percent: 100
+    - tag: v2
+      revisionName: greeter-v2
+      percent: 0
+    - tag: latest
+      latestRevision: true
+      percent: 0
+----
+
+The above service definition creates three sub-routes(named after traffic **tags**) to existing `greeter` route.
+
+- **v1** - The revision is going to have all 100% traffic distribution
+- **v2** - The previously active revision, which will now have zero traffic 
+- **latest** - The route pointing to any latest service deployment, by setting to zero we are making sure the latest revision is not picked up automatically.
+
+[NOTE]
+====
+If you observe the resource YAML above, we have added a special tag `latest`. Since you have defined that all 100% of traffic need to go to `greeter-v1`, this tag can be  used to suppress the default behavior of Knative Service to route all 100% traffic to latest revision.
+====
+
+Before you apply the resource `$TUTORIAL_HOME/basics/service-pinned.yaml`, call the `greeter` service again to verify that it is still providing the response from `greeter-v2` that includes `Namaste`.
+
+[.console-input]
+[source,bash,subs="quotes,attributes+,+macros"]
+----
+$TUTORIAL_HOME/bin/call.sh
+----
+
+[.console-output]
+[source,bash,subs="quotes,attributes+,+macros"]
+----
+Namaste  greeter => '9861675f8845' : 1
+----
+
+[.console-input]
+[source,bash,subs="quotes,attributes+,+macros"]
+----
+kubectl get pods
+----
+
+[.console-output]
+[source,bash,subs="quotes,attributes+,+macros"]
+----
+NAME                                    READY   STATUS    AGE
+greeter-v2-deployment-9984bb56d-gr4gp   2/2     Running   14s
+----
+
+Now apply the update Knative service configuration using the command as shown in following listing:
+
+.Create greeter deployment (blue)
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl -n {tutorial-namespace} apply -f service-pinned.yaml
+----
+
+
+Let us list the available sub-routes:
+
+[#run-traffic-sub-routes]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get ksvc greeter -oyaml \
+ | yq r - 'status.traffic[*].url'
+----
+
+The above command should return you three sub-routes for the main `greeter` route:
+
+[source,bash,subs="+macros,attributes"]
+----
+- http://current-greeter.knativetutorial.example.com #<1>
+- http://prev-greeter.knativetutorial.example.com #<2>
+- http://latest-greeter.knativetutorial.example.com #<3>
+----
+
+<1> the sub route for the traffic tag `current`
+<2> the sub route for the traffic tag `prev`
+<3> the sub route for the traffic tag `latest`
+
+You will notice that the command does not create any new configuration/revision/deployment as there was no application update (e.g. image tag, env var, etc), but when you call the service, Knative scales up the `greeter-v1` and the service responds with the text **Hi  greeter => '9861675f8845' : 1**.
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$TUTORIAL_HOME/bin/call.sh
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+Hi  greeter => '9861675f8845' : 1
+----
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl get pods
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                                        READY   STATUS        RESTARTS   AGE
+greeter-9x8zn-deployment-84c946dd65-x2cbz   2/2     Terminating   0          82s
+greeter-v1-deployment-7ff594cc7b-d9h6l      2/2     Running       0          9s
+----
+
+Since `greeter-v1` is the active revision now, the existing `greeter-v2` pod is getting terminated as no future requests will be served by it.
+
+[TIP]
+====
+As an exercise, flip all the traffic back to `greeter-v2` (green). You need to edit the traffic block of the service-pinned.yaml and update the revision name to `greeter-v2`. After you redeploy the `service-pinned.yaml`, try calling the service again to notice the difference. If everything went smooth you will notice the service calls will now go to only `greeter-v2`.
+====
+
+[[canary-release]]
+== Applying Canary Release Pattern
+
+A Canary release is more effective when you want to reduce the risk of introducing new feature. It allows you a more effective feature-feedback loop before rolling out the change to your entire user base.
+
+Knative allows you to split the traffic between revisions in increments as small as 1%.
+
+To see this in action, apply the following Knative service definition that will split the traffic 80% to 20% between `greeter-v1` and `greeter-v2`.
+
+.Canary between greeter v1 and v2
+[source,yaml]
+----
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: greeter
+spec:
+  template:
+    metadata:
+      name: greeter-v2
+    spec:
+      containers:
+        - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+          env:
+            - name: MESSAGE_PREFIX
+              value: Namaste
+          livenessProbe:
+            httpGet:
+              path: /healthz
+          readinessProbe:
+            httpGet:
+              path: /healthz
+  traffic:
+    - tag: v1
+      revisionName: greeter-v1
+      percent: 80
+    - tag: v2
+      revisionName: greeter-v2
+      percent: 20
+    - tag: latest
+      latestRevision: true
+      percent: 0
+----
+
+To roll out the greeter canary deployment use the following command:
+
+.Create greeter canary Deployment
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl -n {tutorial-namespace} apply -f service-canary.yaml
+----
+
+As in the previous section on <<blue-green>> deployments, the command will not create any new configuration/revision/deployment. To observe the traffic distribution you need to run the script `$TUTORIAL_HOME/bin/poll.sh`, which is almost identical to `$TUTORIAL_HOME/bin/call.sh` but will invoke the Knative service in a loop.
+
+.Verify Canary rollout
+[.console-input]
+[source,bash,subs="quotes,attributes+,+macros"]
+----
+$TUTORIAL_HOME/bin/poll.sh
+----
+
+With the poll.sh script running you will see that approximately 80% of the responses are returned from `greeter-v1` and approximately 20% from `greeter-v2`. See the listing below for sample output:
+
+.Sample greeter Canary roll out output
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+Hi  greeter => '9861675f8845' : 1
+Hi  greeter => '9861675f8845' : 2
+Namaste  greeter => '9861675f8845' : 1
+Hi  greeter => '9861675f8845' : 3
+Hi  greeter => '9861675f8845' : 4
+Hi  greeter => '9861675f8845' : 5
+Hi  greeter => '9861675f8845' : 6
+Hi  greeter => '9861675f8845' : 7
+Hi  greeter => '9861675f8845' : 8
+Hi  greeter => '9861675f8845' : 9
+Hi  greeter => '9861675f8845' : 10
+Hi  greeter => '9861675f8845' : 11
+Namaste  greeter => '9861675f8845' : 2
+Hi  greeter => '9861675f8845' : 12
+Hi  greeter => '9861675f8845' : 13
+Hi  greeter => '9861675f8845' : 14
+Hi  greeter => '9861675f8845' : 15
+Hi  greeter => '9861675f8845' : 16
+...
+----
+
+You should also notice that two pods are running representing both `greeter-v1` and `greeter-v2`:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch "kubectl get pods"
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                                     READY   STATUS    AGE
+greeter-v1-deployment-6f75dfd9d8-86q89   2/2     Running   12s
+greeter-v2-deployment-9984bb56d-n7xvm    2/2     Running   2s
+----
+
+[TIP]
+====
+As a challenge, adjust the traffic distribution and observe the responses while the poll.sh script is actively running.
+====
+
+[#basics-cleanup]
+== Cleanup
+[#basics-run-cleanup]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
+----
+
