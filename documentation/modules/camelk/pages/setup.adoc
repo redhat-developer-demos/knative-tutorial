@@ -16,7 +16,7 @@ As of building this tutorial the latest **kamel** version was `{kamel-version}`
 
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
 [.console-input]

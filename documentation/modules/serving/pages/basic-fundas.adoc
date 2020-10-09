@@ -40,7 +40,7 @@ include::serving:example${basics-repo}/{service-file}[]
 
 The service can be deployed using the following command:
 
-include::serving:partial$deploy-knative-resources.adoc[tags=basic]
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;basic;tab-2]
 
 [tabs]
 ====
@@ -88,7 +88,7 @@ kubectl get deployments -n {tutorial-namespace}
 ifndef::workshop[]
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
 include::serving:partial$invoke-service.adoc[tags=**;!workshop-call;!workshop-call-params]
@@ -212,7 +212,7 @@ Adding an environment variable that will be used as the message prefix
 
 Let us deploy the new revision using the command:
 
-include::serving:partial$deploy-knative-resources.adoc[tags=env]
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;env;tab-2]
 
 [tabs]
 ====

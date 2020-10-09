@@ -105,7 +105,7 @@ greeter   http://greeter.{tutorial-namespace}.example.com   greeter-zyjrq-1   98
 ifndef::workshop[]
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
 include::serving:partial$invoke-service.adoc[tags=**;!workshop-call;!workshop-call-params]

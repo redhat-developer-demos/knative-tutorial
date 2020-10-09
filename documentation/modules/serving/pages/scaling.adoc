@@ -36,9 +36,7 @@ include::serving:example$basics/{service-file}[]
 
 The service can be deployed using the command:
 
-:url: {github-repo}/{basics-repo}/{service-file}
-:url-alt-text: {service-file}
-include::serving:partial$deploy-knative-resources.adoc[]
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;basic;tab-2]
 
 After the deployment of the service was successful we should see a Kubernetes deployment like `greeter-v1-deployment`.
 
@@ -46,21 +44,15 @@ After the deployment of the service was successful we should see a Kubernetes de
 == Invoke Service
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
-:k8s-env: minikube
-:k8s-cli: kubectl
-:doc-sec: scaling-is
 include::serving:partial$invoke-service.adoc[tags=**;!workshop-call;!workshop-call-params]
 
 --
 OpenShift::
 +
 --
-:k8s-env: minishift
-:k8s-cli: oc
-:doc-sec: scaling-is
 include::serving:partial$invoke-service.adoc[tags=workshop-call]
 --
 ====
@@ -92,11 +84,10 @@ For better clarity and understanding let us <<scaling-cleanup,clean up>> the dep
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
+kn -n {tutorial-namespace}  service delete greeter
 ----
 
 :service-file: service-10.yaml
-
 [#scaling-auto-scaling]
 == Auto Scaling
 
@@ -126,9 +117,7 @@ cd $TUTORIAL_HOME/{scaling-repo}
 [#scaling-autoscaling-deploy-service]
 === Deploy service 
 
-:url: {github-repo}/{scaling-repo}/{service-file}
-:url-alt-text: {service-file}
-include::serving:partial$deploy-knative-resources.adoc[]
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;scaling-10;tab-2]
 
 [#scaling-autoscaling-invoke-service]
 === Invoke Service 
@@ -146,7 +135,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
 [#scaling-run-siege]
@@ -171,29 +160,28 @@ hey -c 50 -z 10s \
 --
 ====
 
-After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 5 automatically. 
+After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 7 automatically. 
 
 The autoscale pods is computed using the formula:
 
 [source,bash,subs="attributes+,+macros"]
 [.console-output]
 ----
-totalPodsToScale = inflightRequests / concurrencyTarget
+totalPodsToScale = concurrencyTarget * utilization per pod
 ----
 
-With this current setting of **concurrencyTarget=10** and **inflightRequests=50** , you will see Knative automatically scales the greeter services to  `**50/10 = 5 pods**`.
+By default the Knative Service utlization is set to `0.7`, hence
+with this current setting of **concurrencyTarget=10** and **utilization=0.7** , you will see Knative automatically scales the greeter services to  `**10 x 0.7 = 7 pods**`.
 
 For more clarity and understanding let us <<scaling-cleanup,clean up>> existing deployments before proceeding to next section.
 
+:service-file: service-min-max-scale.yaml
 [#scaling-min-scale]
 == Minimum Scale
 
 In real world scenarios your service might need to handle sudden spikes in requests. Knative starts each service with a default of **1** replica. As described above, this will eventually be scaled to zero as described above. If your app needs to stay particularly responsive under any circumstances and/or has a long startup time, it might be beneficial to always keep a minimum number of pods around. This can be done via an the annotation **autoscaling.knative.dev/minScale**.
 
 The following example shows how to make Knative create services that start with a replica count of **2** and never scale below it.
-
-:service-file: service-min-max-scale.yaml
-:greeter-image: quay.io/rhdevelopers/prime-generator:v27-quarkus
 
 [#scaling-deploy-service-minscale]
 === Deploy service 
@@ -206,9 +194,7 @@ include::serving:example$scaling/{service-file}[]
 - The deployment of this service will always have a minimum of 2 pods.
 - Will allow each service pod to handle max of 10 in-flight requests per pod before automatically scaling to new pods.
 
-:url: {github-repo}/{scaling-repo}/{service-file}
-:url-alt-text: {service-file}
-include::serving:partial$deploy-knative-resources.adoc[]
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;scaling-min;tab-2]
 
 After the deployment was successful we should see a Kubernetes Deployment called `prime-generator-v2-deployment` with **two** pods available.
 
@@ -222,10 +208,9 @@ When all requests are done and if we are beyond the `scale-to-zero-grace-period`
 
 [#scaling-cleanup]
 == Cleanup
-[#run-scaling-cleanup]
 [source,bash,subs="attributes+,+macros"]
 [.console-input]
 ----
-kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
-kubectl -n {tutorial-namespace} delete services.serving.knative.dev prime-generator
+kn service delete -n {tutorial-namespace} greeter
+kn service delete -n {tutorial-namespace} prime-generator
 ----

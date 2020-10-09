@@ -17,10 +17,10 @@ spec:
           httpGet:
             path: /healthz
   traffic:
-  - tag: current
+  - tag: v1
     revisionName: greeter-v1
     percent: 100
-  - tag: prev
+  - tag: v2
     revisionName: greeter-v2
     percent: 0
   - tag: latest

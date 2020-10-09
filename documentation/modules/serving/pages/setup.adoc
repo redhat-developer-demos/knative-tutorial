@@ -100,7 +100,7 @@ Knative can be installed only on Kubernetes cluster. The following section shows
 
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
 include::serving:partial$minikube-setup.adoc[]

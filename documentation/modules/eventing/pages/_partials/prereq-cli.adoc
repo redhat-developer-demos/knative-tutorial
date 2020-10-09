@@ -3,7 +3,7 @@ The following checks ensure that each chapter exercises are done with the right 
 
 [tabs]
 ====
-Kubernetes::
+Minikube::
 +
 --
 * Set your local docker to use minikube docker daemon

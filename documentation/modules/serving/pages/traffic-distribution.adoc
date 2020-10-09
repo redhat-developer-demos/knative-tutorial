@@ -5,6 +5,7 @@ include::_attributes.adoc[]
 :revision-file-v1: greeter-v1-service.yaml
 :revision-v2: greeter-v2
 :revision-file-v2: greeter-v2-service.yaml
+:service-file: greeter-v1-service.yaml
 
 At the end of this chapter you will be able to :
 
@@ -24,7 +25,8 @@ By default Knative generates a random revision names for the service based with 
 
 The following service deployments will show how to use an arbitrary revision names for the services. The service are exactly same `greeter` service except that their Revision name is specified using the service revision template spec. 
 
-Deploy greeter service revision v1:
+:service-file: greeter-v1-service.yaml
+=== Deploy greeter service revision v1
 
 .link:{github-repo}/{basics-repo}/{revision-file-v1}[{revision-v1}]
 [source,yaml,subs="attributes+,+macros"]
@@ -32,13 +34,10 @@ Deploy greeter service revision v1:
 include::serving:example${basics-repo}/{revision-file-v1}[]
 ----
 
-[.console-input]
-[source,yaml,subs="attributes+,+macros"]
-----
-kubectl apply -n {tutorial-namespace} -f greeter-v1-service.yaml
-----
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-rev1;tab-2]
 
-Deploy greeter service revision v2:
+:service-file: greeter-v2-service.yaml
+=== Deploy greeter service revision v2
 
 .link:{github-repo}/{basics-repo}/{revision-file-v2}[{revision-v2}]
 [source,yaml,subs="attributes+,+macros"]
@@ -46,11 +45,7 @@ Deploy greeter service revision v2:
 include::serving:example${basics-repo}/{revision-file-v2}[]
 ----
 
-[.console-input]
-[source,yaml,subs="attributes+,+macros"]
-----
-kubectl apply -n {tutorial-namespace} -f greeter-v2-service.yaml
-----
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-rev2;tab-2]
 
 Check to ensure you have two revisions of the greeter service:
 
@@ -157,13 +152,9 @@ greeter-v2-deployment-9984bb56d-gr4gp   2/2     Running   14s
 
 Now apply the update Knative service configuration using the command as shown in following listing:
 
-.Create greeter deployment (blue)
-[.console-input]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl -n {tutorial-namespace} apply -f service-pinned.yaml
-----
-
+:service-file: service-pinned.yaml
+=== Create greeter deployment (blue)
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-pinned;tab-2]
 
 Let us list the available sub-routes:
 
@@ -179,13 +170,13 @@ The above command should return you three sub-routes for the main `greeter` rout
 
 [source,bash,subs="+macros,attributes"]
 ----
-- http://current-greeter.knativetutorial.example.com #<1>
-- http://prev-greeter.knativetutorial.example.com #<2>
+- http://v1-greeter.knativetutorial.example.com #<1>
+- http://v2-greeter.knativetutorial.example.com #<2>
 - http://latest-greeter.knativetutorial.example.com #<3>
 ----
 
-<1> the sub route for the traffic tag `current`
-<2> the sub route for the traffic tag `prev`
+<1> the sub route for the traffic tag `v1
+<2> the sub route for the traffic tag `v2`
 <3> the sub route for the traffic tag `latest`
 
 You will notice that the command does not create any new configuration/revision/deployment as there was no application update (e.g. image tag, env var, etc), but when you call the service, Knative scales up the `greeter-v1` and the service responds with the text **Hi  greeter => '9861675f8845' : 1**.
@@ -224,6 +215,7 @@ As an exercise, flip all the traffic back to `greeter-v2` (green). You need to e
 ====
 
 [[canary-release]]
+:service-file: service-canary.yaml
 == Applying Canary Release Pattern
 
 A Canary release is more effective when you want to reduce the risk of introducing new feature. It allows you a more effective feature-feedback loop before rolling out the change to your entire user base.
@@ -270,11 +262,7 @@ spec:
 To roll out the greeter canary deployment use the following command:
 
 .Create greeter canary Deployment
-[.console-input]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl -n {tutorial-namespace} apply -f service-canary.yaml
-----
+include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-canary;tab-2]
 
 As in the previous section on <<blue-green>> deployments, the command will not create any new configuration/revision/deployment. To observe the traffic distribution you need to run the script `$TUTORIAL_HOME/bin/poll.sh`, which is almost identical to `$TUTORIAL_HOME/bin/call.sh` but will invoke the Knative service in a loop.
 
@@ -335,10 +323,9 @@ As a challenge, adjust the traffic distribution and observe the responses while 
 
 [#basics-cleanup]
 == Cleanup
-[#basics-run-cleanup]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
+kn -n {tutorial-namespace}  service delete greeter
 ----
 
