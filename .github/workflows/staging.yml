@@ -3,7 +3,7 @@ name: Knative Tutorial Staging
 on:
   push:
     branches: 
-      - master
+      - unify
 env:
   SITE_DIR: 'gh-pages'
 jobs:
