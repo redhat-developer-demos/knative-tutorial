@@ -76,7 +76,7 @@ Scale-to-zero is one of the main properties making Knative a serverless platform
 
 If another request tries to get to this revision, the activator will get it, instruct the autoscaler to create new pods for the revision as quickly as possible and buffer the request until those new pods are created.
 
-By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in approx `60-70 secs`. There are at least 20 seconds after the pod starts to terminate and before it's completely terminated. This gives Istio enough time to leave out the pod from its own networking configuration.
+By default the **scale-to-zero-grace-period** is `30s`, and the **stable-window** is `60s`. Firing a request to the greeter service will bring up the pod (if it is already terminated, as described above) to serve the request. Leaving it without any further requests will automatically cause it to scale to zero in approx `60-70 secs`. There are at least 20 seconds after the pod starts to terminate and before it's completely terminated. This gives the Kourier Ingress enough time to leave out the pod from its own networking configuration.
 
 For better clarity and understanding let us <<scaling-cleanup,clean up>> the deployed Knative resources before going to next section, by running:
 
