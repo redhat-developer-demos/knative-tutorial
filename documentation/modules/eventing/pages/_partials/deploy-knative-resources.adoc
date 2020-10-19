@@ -1,5 +1,109 @@
+#tag::tab-1[]
+[tabs]
+====
+kn::
++
+--
+#end::tab-1[]
+
+#tag::eventing-hello[]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl apply -n {tutorial-namespace} -f link:{url}[{url-alt-text}]
+kn service create eventinghello \
+  --namespace {tutorial-namespace} \
+  --concurrency-target=1 \
+  --image=quay.io/rhdevelopers/quay.io/rhdevelopers/eventinghello:0.0.2
 ----
+#end::eventing-hello[]
+
+#tag::eventing-hello-sink[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service create {sink-service-name} \
+  --namespace {tutorial-namespace} \
+  --concurrency-target=1 \
+  --revision-name={revision-name} \
+  --image=quay.io/rhdevelopers/quay.io/rhdevelopers/eventinghello:0.0.2
+----
+#end::eventing-hello-sink[]
+
+#tag::eventing-hello-source[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn source ping create \
+  eventinghello-ping-source
+  --namespace {tutorial-namespace} \
+  --schedule "*/2 * * * *" \
+  --sink ksvc:eventinghello
+----
+#end::eventing-hello-source[]
+
+#tag::channel[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn channel create eventinghello-ch \
+  --namespace {tutorial-namespace}
+----
+#end::channel[]
+
+#tag::ev-ping-channel[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn source ping create \
+  event-greeter-ping-source
+  --namespace {tutorial-namespace} \
+  --schedule "*/2 * * * *" \
+  --sink channel:eventinghello-ch
+----
+#end::ev-ping-channel[]
+#tag::sub-helloa-sink[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn subscription create \
+  eventinghelloa-sub \
+  --namespace {tutorial-namespace} \
+  --channel eventinghello-ch \
+  --sink eventinghelloa
+----
+#end::sub-helloa-sink[]
+#tag::sub-hellob-sink[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn subscription create \
+  eventinghellob-sub \
+  --namespace {tutorial-namespace} \
+  --channel eventinghello-ch \
+  --sink eventinghellob
+----
+#end::sub-hellob-sink[]
+#tag::eventing-trigger-sub[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn trigger create {trigger-name} \
+  --namespace {tutorial-namespace} \
+  --broker=default \
+  --sink=ksvc:{trigger-sub-name} \
+  --filter=type=greeting
+----
+#end::eventing-trigger-sub[]
+#tag::tab-2[]
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+{kubernetes-cli} apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/{service-file}[{service-file}]
+----
+--
+====
+#end::tab-2[]

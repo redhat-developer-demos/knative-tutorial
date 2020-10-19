@@ -10,6 +10,7 @@ Channels::
 Subscriptions::
   Subscriptions are how you register your service to listen to a particular channel.
 
+:service-file: channel.yaml
 [#eventing-channel]
 == Channel(Sink)
 
@@ -30,20 +31,35 @@ metadata:
 
 Run the following commands to create the channel:
 
-:doc-sec: eventing-run-source-sub
-:url: {github-repo}/{eventing-repo}/channel.yaml
-:url-alt-text: channel.yaml
-include::ROOT:partial$deploy-knative-resources.adoc[]
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;channel;tab-2]
 
 [#eventing-verify-event-channel]
 ==== Verification
 
-[#eventing-run-verify-event-channel]
+[tabs]
+====
+kn::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get channels.messaging.knative.dev 
+kn channel list -n {tutorial-namespace}
 ----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} get \
+  channels.messaging.knative.dev 
+----
+--
+====
+
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;channel;tab-2]
 
 Running  the above command should return the following result:
 
@@ -59,6 +75,7 @@ eventinghello-ch True  http://eventinghello-ch-kn-channel.{tutorial-namespace}.s
 
 The event source listens to external events e.g. a kafka topic or for a file on a FTP server. It is responsible to drain the received event(s) along with its data to a configured https://en.wikipedia.org/wiki/Sink_(computing)[sink].
 
+:service-file: event-source.yaml
 [#eventing-create-event-source]
 === Create Event Source
 .link:{github-repo}/{eventing-repo}/event-source.yaml[event-source.yaml]
@@ -83,10 +100,7 @@ spec:
 
 Run the following commands to create the event source resources:
 
-:doc-sec: eventing-run-apply-event-src
-:url: {github-repo}/{eventing-repo}/event-source.yaml
-:url-alt-text: event-source.yaml
-include::ROOT:partial$deploy-knative-resources.adoc[]
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;ev-ping-channel;tab-2]
 
 [#eventing-verify-event-source]
 ==== Verification
@@ -113,6 +127,7 @@ event-greeter-ping-source   True             http://eventinghello-ch-kn-channel.
 
 The event subscription is responsible of connecting the channel(sink) with the service. Once a service is connected to a channel it starts receiving the events (cloud events).
 
+:service-file: eventing-helloa-sink.yaml
 [#eventing-create-subscribers-services]
 === Create Subscriber Services
 .link:{github-repo}/{eventing-repo}/eventing-helloa-sink.yaml[eventing-helloa-sink.yaml]
@@ -154,16 +169,18 @@ spec:
 
 <1> The string of `eventinghellob` will help you identify this particular service.
 
-:doc-sec: create-subscriber-svc-1
-:url: {github-repo}/{eventing-repo}/eventing-helloa-sink.yaml
-:url-alt-text: eventing-helloa-sink.yaml
-include::eventing:partial$deploy-knative-resources.adoc[]
+:service-file: eventing-helloa-sink.yaml
+:sink-service-name: eventinghelloa
+:revision-name: eventinghelloa-v1
+==== Deploy eventing-helloa-sink
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hello-sink;tab-2]
 
+:service-file: eventing-hellob-sink.yaml
+:sink-service-name: eventinghellob
+:revision-name: eventinghellob-v1
+==== Deploy eventing-hellob-sink
 
-:doc-sec: create-subscriber-svc-2
-:url: {github-repo}/{eventing-repo}/eventing-hellob-sink.yaml
-:url-alt-text: eventing-hellob-sink.yaml
-include::eventing:partial$deploy-knative-resources.adoc[]
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hello-sink;tab-2]
 
 [#eventing-create-subscriber]
 === Create Channel Subscribers
@@ -208,26 +225,39 @@ spec:
       name: eventinghellob
 ----
 
-:doc-sec: create-subscriber-1
-:url: {github-repo}/{eventing-repo}/eventing-helloa-sub.yaml
-:url-alt-text: eventing-helloa-sub.yaml
-include::eventing:partial$deploy-knative-resources.adoc[]
+:service-file: eventing-helloa-sub.yaml
+==== Subscribe to eventinghelloa 
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;sub-helloa-sink;tab-2]
 
-
-:doc-sec: create-subscriber-2
-:url: {github-repo}/{eventing-repo}/eventing-hellob-sub.yaml
-:url-alt-text: eventing-hellob-sub.yaml
-include::eventing:partial$deploy-knative-resources.adoc[]
+:service-file: eventing-hellob-sub.yaml
+==== Subscribe to eventinghelloa 
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;sub-hellob-sink;tab-2]
 
 [#eventing-verify-subscriber]
 ==== Verification
 
-[#eventing-run-verify-subscriber]
+[tabs]
+====
+kn::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get subscription.messaging.knative.dev 
+kubectl subscription -n {tutorial-namespace} list
 ----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} \
+   get subscription.messaging.knative.dev 
+----
+--
+====
 
 Running  the above command should return the following result:
 
@@ -267,7 +297,24 @@ TIP: Add `-oyaml` to the above commands to get more details about each object th
 [#eventing-cleanup]
 == Cleanup
 
-[#eventing-run-cleanup2]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service delete -n {tutorial-namespace} delete eventing-helloa
+kn subscription delete eventinghelloa-sub --namespace {tutorial-namespace}
+kn service delete -n {tutorial-namespace} delete eventing-helloab
+kn subscription delete eventinghellob-sub --namespace {tutorial-namespace}
+kn source ping delete -n {tutorial-namespace} event-greeter-ping-source
+----
+--
+{kubernetes-cli}::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -277,3 +324,7 @@ kubectl -n {tutorial-namespace} delete -f eventing-hellob-sink.yaml
 kubectl -n {tutorial-namespace} delete -f eventing-hellob-sub.yaml
 kubectl -n {tutorial-namespace} delete -f event-source.yaml
 ----
+--
+====
+
+

@@ -21,7 +21,7 @@ At the end of this chapter you will be able to :
 [#kn-install]
 == Install
 
-Download the https://github.com/knative/client/releases/tag/{kn-client-version}[latest] Knative Client and add to your `PATH`.
+Download the https://github.com/knative/client/releases/tag/{kn-client-version}[{kn-client-version}] Knative Client and add it to your `PATH`.
 
 Verify installation by running the command:
 
@@ -34,7 +34,7 @@ kn version
 
 The above command will return a response like 
 
-[source,bash,subs="+attributes,macros+"]
+[source,text,subs="macros+,+attributes"]
 [.console-output]
 ----
 Version:      {kn-client-version}
@@ -42,10 +42,10 @@ Build Date:   2020-08-26 11:08:52
 Git Revision: 8fcd25c3
 Supported APIs:
 * Serving
-  - serving.knative.dev/v1 (knative-serving v0.17.0)
+  - serving.knative.dev/v1 (knative-serving {kn-client-version})
 * Eventing
-  - sources.knative.dev/v1alpha2 (knative-eventing v0.17.0)
-  - eventing.knative.dev/v1beta1 (knative-eventing v0.17.0)
+  - sources.knative.dev/v1alpha2 (knative-eventing {kn-client-version})
+  - eventing.knative.dev/v1beta1 (knative-eventing {kn-client-version})
 ----
 
 [#kn-ksvc]

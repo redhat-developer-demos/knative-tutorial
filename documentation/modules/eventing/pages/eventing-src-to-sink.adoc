@@ -3,10 +3,10 @@
 include::_attributes.adoc[]
 //Define vars
 :greeter-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
-:source-file: eventinghello-source.yaml
 
 include::eventing:partial$eventing-snippets.adoc[tag=eventing-nav-folder]
 
+:service-file: eventinghello-source.yaml
 [#eventing-source]
 == Event Source
 
@@ -53,7 +53,6 @@ spec: #<2>
 <1> The type of event source, the eventing system deploys a bunch of sources out of the box and it also provides way to deploy custom resources
 <2> spec will be unique per source, per kind
 
-
 [#eventing-sink]
 == Referencing the Event Sink
 
@@ -99,30 +98,35 @@ Run the following command to create the Knative service that will be used as the
 include::eventing:example$eventing/eventing-hello-sink.yaml[]
 ----
 
+:service-file: eventing-hello-sink.yaml
 [#eventing-deploy-sink-service]
 === Deploy Sink Service
 
 Run the following commands to create the service:
 
-:doc-sec: deploy-sink-service
-:url: {github-repo}/{eventing-repo}/eventing/eventing-hello-sink.yaml
-:url-alt-text: eventing-hello-sink.yaml
-include::ROOT:partial$deploy-knative-resources.adoc[]
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hello;tab-2]
 
+:service-file: eventinghello-source.yaml
 [#eventing-create-event-source]
 == Create Event Source
 
 Run the following commands to create the event source resources:
 
-:doc-sec: event-src-svc
-:url: {github-repo}/{eventing-repo}/eventinghello-source.yaml
-:url-alt-text: eventinghello-source.yaml
-include::ROOT:partial$deploy-knative-resources.adoc[]
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hello-source;tab-2]
 
 [#eventing-verify-event-source]
 == Verification
 
-[#eventing-run-verify-event-source]
+[tabs]
+====
+kn::
++
+--
+kn source ping list -n {tutorial-namespace}
+--
+{kubernetes-cli}::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -130,6 +134,8 @@ kubectl -n {tutorial-namespace} get \
   pingsources.sources.knative.dev \
   eventinghello-ping-source
 ----
+--
+====
 
 Running  the above command should return the following result:
 
@@ -146,19 +152,36 @@ You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to se
 == See what you have deployed
 
 === sources
-include::partial$knative-objects.adoc[tag=knative-event-ping-sources]
+include::eventing:partial$knative-objects.adoc[tag=knative-event-ping-sources]
 
 === services
 :svc-name: eventinghello
-include::partial$knative-objects.adoc[tag=knative-event-services]
+include::eventing:partial$knative-objects.adoc[tag=knative-event-services]
 
 [#eventing-cleanup]
 == Cleanup
 
-[#eventing-run-src-svc-cleanup]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn source ping delete -n {tutorial-namespace} eventinghello-ping-source 
+kn service delete -n {tutorial-namespace} eventinghello
+----
+--
+{kubernetes-cli}::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace} delete -f eventinghello-source.yaml
 kubectl -n {tutorial-namespace} delete -f eventing-hello-sink.yaml
 ----
+--
+====
+

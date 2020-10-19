@@ -16,7 +16,6 @@ At the end of this chapter you will be able to:
 
 Navigate to the tutorial chapter's `{basics-repo}` folder:
 
-[#scaling-navigate-to-basics]
 [source,bash,subs="attributes+,+macros"]
 [.console-input]
 ----
@@ -107,7 +106,6 @@ The Knative service definition above will allow each service pod to handle max o
 
 Navigate to the tutorial chapter's `basics` folder:
 
-[#scaling-navigate-back]
 [.console-input]
 [source,bash,subs="attributes+,+macros"]
 ----
@@ -167,11 +165,11 @@ The autoscale pods is computed using the formula:
 [source,bash,subs="attributes+,+macros"]
 [.console-output]
 ----
-totalPodsToScale = concurrencyTarget * utilization per pod
+totalPodsToScale = actualConcurrency/concurrencyTargetPerPod/utilizationPerPod
 ----
 
 By default the Knative Service utlization is set to `0.7`, hence
-with this current setting of **concurrencyTarget=10** and **utilization=0.7** , you will see Knative automatically scales the greeter services to  `**10 x 0.7 = 7 pods**`.
+with this current setting of **concurrencyTarget=10** and **utilization=0.7**, when you receive 140 requests(*actualConcurrency*) then Knative will scale upto *20* pods i.e. 140/10/0.7.
 
 For more clarity and understanding let us <<scaling-cleanup,clean up>> existing deployments before proceeding to next section.
 

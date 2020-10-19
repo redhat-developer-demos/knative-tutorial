@@ -11,7 +11,7 @@
 :openshift-version: v4.5+
 :knative-istio-version: 1.3.6
 :kubernetes-version: v1.18.x
-:kn-client-version: v0.17.0
+:kn-client-version: v0.18.0
 
 :knative-serving-repo: https://github.com/knative/serving/releases/download
 :knative-serving-version: v0.16.0
