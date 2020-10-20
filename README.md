@@ -1,9 +1,10 @@
 # Knative Tutorial - Introduction to Knative
 
- ![Knative Tutorial](https://github.com/redhat-developer-demos/knative-tutorial/workflows/Knative%20Tutorial/badge.svg) [![Knative Serving v0.16](https://img.shields.io/badge/Knative%20Serving-v0.16-blue)](https://knative.dev/docs/serving/)
- [![Knative Eventing v0.16](https://img.shields.io/badge/Knative%20Eventing-v0.16-blue)](https://knative.dev/docs/eventing/)
- [![Strimzi Kafka](https://img.shields.io/badge/Strimzi%20Kafka-v0.16.2-blue)](https://strimzi.io)
- [![Apache Camel-K](https://img.shields.io/badge/Apache%20Camel--K-v1.0.1-blue)](https://camel.apache.org/camel-k/latest/)
+ ![Knative Tutorial](https://github.com/redhat-developer-demos/knative-tutorial/workflows/Knative%20Tutorial/badge.svg) [![Knative Serving v0.17](https://img.shields.io/badge/Knative%20Serving-v0.17-blue)](https://knative.dev/docs/serving/)
+ [![Knative Eventing v0.17](https://img.shields.io/badge/Knative%20Eventing-v0.17-blue)](https://knative.dev/docs/eventing/)
+ [![Strimzi Kafka](https://img.shields.io/badge/Strimzi%20Kafka-v0.19.0-blue)](https://strimzi.io)
+ [![Apache Camel-K](https://img.shields.io/badge/Apache%20Camel--K-v1.2.0-blue)](https://camel.apache.org/camel-k/latest/)
+  [![OpenShift Serverless](https://img.shields.io/badge/OpenShift%20Serverless-v1.11-blue)](https://www.openshift.com/learn/topics/serverless)
 
 ## Documentation
 
@@ -19,7 +20,7 @@
 
 ## Devlopment Site
 
-You can access the latest staging site at  <https://redhat-developer-docs.github.io/knative-tutorial-staging>
+If you like to try the latest development updates,check the [staging site](https://redhat-developer-docs.github.io/knative-tutorial-staging).
 
 ## Contributing
 

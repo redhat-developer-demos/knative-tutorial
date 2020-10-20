@@ -6,16 +6,16 @@
 :scaling-repo: scaling
 :eventing-repo: eventing
 :experimental:
-:minikube-version: v1.13.1
-:knative-version: v0.16.0
+:minikube-version: v1.14.0
+:knative-version: v0.17.0
 :openshift-version: v4.5+
 :knative-istio-version: 1.3.6
 :kubernetes-version: v1.18.x
 :kn-client-version: v0.18.0
 
 :knative-serving-repo: https://github.com/knative/serving/releases/download
-:knative-serving-version: v0.16.0
-:knative-eventing-version: v0.16.0
+:knative-serving-version: v0.17.0
+:knative-eventing-version: v0.17.0
 :knative-sources-repo: https://github.com/knative/eventing-sources/releases/download
-:knative-sources-version: v0.16.0
+:knative-sources-version: v0.17.0
 :knative-eventing-repo: https://github.com/knative/eventing/releases/download

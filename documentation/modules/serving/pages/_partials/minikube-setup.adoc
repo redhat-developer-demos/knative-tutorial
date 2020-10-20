@@ -15,7 +15,7 @@ $TUTORIAL_HOME/bin/start-minikube.sh
 [.console-output]
 [source,bash,subs="+macros,+attributes"]
 ----
-😄  [{tutorial-namespace}] minikube v1.13.1 on Darwin 10.15.7
+😄  [{tutorial-namespace}] minikube {minikube-version} on Darwin 10.15.7
 ✨  Using the hyperkit driver based on user configuration
 👍  Starting control plane node {tutorial-namespace} in cluster {tutorial-namespace}
 🔥  Creating hyperkit VM (CPUs=6, Memory=8192MB, Disk=51200MB) ...
@@ -94,22 +94,6 @@ NAME         SHORTNAMES   APIGROUP               NAMESPACED   KIND
 brokers                   eventing.knative.dev   true         Broker
 eventtypes                eventing.knative.dev   true         EventType
 triggers                  eventing.knative.dev   true         Trigger
-----
-
-.sources.eventing.knative.dev
-[.console-input]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl api-resources --api-group='sources.knative.dev'
-----
-[.console-output]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
-apiserversources                sources.knative.dev   true         ApiServerSource
-containersources                sources.knative.dev   true         ContainerSource
-pingsources                     sources.knative.dev   true         PingSource
-sinkbindings                    sources.knative.dev   true         SinkBinding
 ----
 
 .sources.knative.dev
@@ -204,7 +188,11 @@ kubectl patch configmap/config-network \
 ----
 kubectl apply \
   --filename \
-  {knative-eventing-repo}/{knative-eventing-version}/eventing-core.yaml
+  {knative-eventing-repo}/{knative-eventing-version}/eventing-core.yaml \
+  --filename \
+  {knative-eventing-repo}/{knative-eventing-version}/in-memory-channel.yaml \
+  --filename \
+  {knative-eventing-repo}/{knative-eventing-version}/mt-channel-broker.yaml
 ----
 
 
