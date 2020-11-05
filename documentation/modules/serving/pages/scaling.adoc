@@ -102,15 +102,7 @@ For this exercise let us make our service handle only **10** concurrent requests
 include::serving:example$scaling/{service-file}[]
 ----
 
-The Knative service definition above will allow each service pod to handle max of 10 in-flight requests per pod (configured via `autoscaling.knative.dev/target` annotation) before automatically scaling to new pod(s)
-
-Navigate to the tutorial chapter's `basics` folder:
-
-[.console-input]
-[source,bash,subs="attributes+,+macros"]
-----
-cd $TUTORIAL_HOME/{scaling-repo}
-----
+The Knative service definition above will allow each service pod to handle max of 10 in-flight requests per pod (configured via `autoscaling.knative.dev/target` annotation) before automatically scaling to new pod(s).
 
 [#scaling-autoscaling-deploy-service]
 === Deploy service 
@@ -209,6 +201,5 @@ When all requests are done and if we are beyond the `scale-to-zero-grace-period`
 [source,bash,subs="attributes+,+macros"]
 [.console-input]
 ----
-kn service delete -n {tutorial-namespace} greeter
 kn service delete -n {tutorial-namespace} prime-generator
 ----

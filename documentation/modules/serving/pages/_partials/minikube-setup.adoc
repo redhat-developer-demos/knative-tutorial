@@ -165,10 +165,25 @@ watch "kubectl get pods -n kourier-system"
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 NAME                                      READY   STATUS    RESTARTS   AGE
-3scale-kourier-control-77459dcc76-56pkc   1/1     Running   0          55s
 3scale-kourier-gateway-8645d88bf6-gvbf7   1/1     Running   0          56s
 ----
 
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch "kubectl get pods -n knative-serving"
+----
+
+[.console-output]
+[source,text]
+----
+NAME                                      READY   STATUS    RESTARTS   AGE
+3scale-kourier-control-6f9f49f99b-q7nn4   1/1     Running   0          23m
+activator-ddbb8cfb5-8xw5s                 1/1     Running   0          25m
+autoscaler-55d7dd475b-v49ln               1/1     Running   0          25m
+controller-75f887cfdc-74khc               1/1     Running   0          25m
+webhook-676c9c56dc-lphcs                  1/1     Running   0          25m
+----
 
 Now configure Knative serving to use Kourier as the ingress:
 

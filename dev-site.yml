@@ -24,7 +24,14 @@ asciidoc:
     tutorial-namespace: knativetutorial
     title: Knative Tutorial
     workshop-domain: guru.devx.red
-    kubernetes-version: v1.18.0
+    minikube-version: v1.14.1
+    openshift-version: v4.6
+    kubernetes-version: v1.19.0
+    knative-version: v0.17.0
+    knative-serving-version: v0.17.0
+    knative-eventing-version: v0.17.0
+    knative-sources-version: v0.17.0
+    kn-client-version: v0.18.0
     kubernetes-cli: kubectl
     release-version: master
     page-pagination: true

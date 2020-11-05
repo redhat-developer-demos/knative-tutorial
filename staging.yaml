@@ -17,7 +17,8 @@ asciidoc:
     tutorial-namespace: knativetutorial
     title: Knative Tutorial(Staging)
     workshop-domain: guru.devx.red
-    kubernetes-version: v1.18.0
+    openshift-version: v4.6
+    kubernetes-version: v1.19.0
     release-version: master
     openshift-console-url: https://console-openshift-console.apps.example.com
     etherpad-url: http://example.com

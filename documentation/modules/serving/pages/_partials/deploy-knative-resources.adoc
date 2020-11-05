@@ -26,7 +26,7 @@ kn service update greeter \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter \
+kn service create greeter \
   --revision-name greeter-v1 \
   --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
 ----
@@ -37,17 +37,36 @@ kn service update greeter \
 ----
 kn service update greeter \
   --revision-name greeter-v2 \
+  --env MESSAGE_PREFIX=Namaste \
   --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
 ----
 #end::td-rev2[]
 #tag::td-pinned[]
+.Tag Revision v1
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greteer --tag="greeter-v1=v1"
-kn service update greteer --tag="greeter-v2=v2"
-kn service update greteer --tag="@latest=latest"
-kn service update greteer \
+kn service update greeter --tag="greeter-v1=v1"
+----
+.Tag Revision v2
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter --tag="greeter-v2=v2"
+----
+
+.Tag Revision latest
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter --tag="@latest=latest"
+----
+
+.Route all traffic to v1
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter \
   --traffic="v1=100" \
   --traffic="v2=0"  \
   --traffic="latest=0"
@@ -57,7 +76,7 @@ kn service update greteer \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greteer \
+kn service update greeter \
   --traffic="v1=80" \
   --traffic="v2=20"  \
   --traffic="latest=0"

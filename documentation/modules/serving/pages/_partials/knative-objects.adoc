@@ -34,11 +34,28 @@ kubectl --namespace {tutorial-namespace} get configurations.serving.knative.dev 
 
 #tag::knative-routes[]
 [#knative-routes]
+[tabs]
+====
+kn::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} get routes.serving.knative.dev greeter
+kn route --namespace {tutorial-namespace} list
 ----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+{kubernetes-cli} --namespace {tutorial-namespace} get routes.serving.knative.dev greeter
+----
+--
+====
+
 #end::knative-routes[]
 
 #tag::knative-revisions[]
@@ -47,7 +64,11 @@ kubectl --namespace {tutorial-namespace} get routes.serving.knative.dev greeter
 kn::
 +
 --
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
 kn revision list --namespace {tutorial-namespace}
+----
 --
 {kubernetes-cli}::
 +

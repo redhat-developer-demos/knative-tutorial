@@ -8,7 +8,6 @@
 :experimental:
 :maven-version: 3.6.3+
 :camel-source-version: 
-:knative-version: v0.17.0
 :camel-source-version: v0.17.1
 :knative-eventing-version: v0.17.0
 :kafka-source-version: v0.17.1

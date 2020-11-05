@@ -59,9 +59,9 @@ The command above should list two revisions namely `greeter-v1` and `greeter-v2`
 [.console-output]
 [source,bash]
 ----
-NAME         CONFIG NAME   K8S SERVICE NAME   GENERATION   READY
-greeter-v1   greeter       greeter-v1         1            True
-greeter-v2   greeter       greeter-v2         2            True
+NAME         SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
+greeter-v2   greeter   100%             2            11s   4 OK / 4     True
+greeter-v1   greeter                    1            28s   4 OK / 4     True
 ----
 
 [TIP]
@@ -146,8 +146,9 @@ kubectl get pods
 [.console-output]
 [source,bash,subs="quotes,attributes+,+macros"]
 ----
-NAME                                    READY   STATUS    AGE
-greeter-v2-deployment-9984bb56d-gr4gp   2/2     Running   14s
+NAME                                     READY   STATUS    RESTARTS   AGE
+greeter-v1-deployment-597f9f5b85-hgmqq   2/2     Running   0          48s
+greeter-v2-deployment-587786fc6b-9jvk5   2/2     Running   0          36s
 ----
 
 Now apply the update Knative service configuration using the command as shown in following listing:
@@ -156,9 +157,26 @@ Now apply the update Knative service configuration using the command as shown in
 === Create greeter deployment (blue)
 include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-pinned;tab-2]
 
+Let us list all revisions with tags:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn revision list greeter --namespace {tutorial-namespace}
+----
+
+Based on the revision tags that we created earlier, the output should be like:
+
+[.console-output]
+[source,bash,subs="quotes"]
+----
+NAME         SERVICE   TRAFFIC   TAGS        GENERATION   AGE     CONDITIONS   READY   REASON
+greeter-v2   greeter   100%      #latest,v2#   2            4m45s   3 OK / 4     True
+greeter-v1   greeter             #v1#          1            4m56s   3 OK / 4     True
+----
+
 Let us list the available sub-routes:
 
-[#run-traffic-sub-routes]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -170,14 +188,14 @@ The above command should return you three sub-routes for the main `greeter` rout
 
 [source,bash,subs="+macros,attributes"]
 ----
-- http://v1-greeter.knativetutorial.example.com #<1>
-- http://v2-greeter.knativetutorial.example.com #<2>
-- http://latest-greeter.knativetutorial.example.com #<3>
+- http://latest-greeter.knativetutorial.example.com #<1>
+- http://v1-greeter.knativetutorial.example.com #<2>
+- http://v2-greeter.knativetutorial.example.com #<3>
 ----
 
-<1> the sub route for the traffic tag `v1
-<2> the sub route for the traffic tag `v2`
-<3> the sub route for the traffic tag `latest`
+<1> the sub route for the traffic tag `latest`
+<2> the sub route for the traffic tag `v1`
+<3> the sub route for the traffic tag `v2`
 
 You will notice that the command does not create any new configuration/revision/deployment as there was no application update (e.g. image tag, env var, etc), but when you call the service, Knative scales up the `greeter-v1` and the service responds with the text **Hi  greeter => '9861675f8845' : 1**.
 
@@ -190,7 +208,7 @@ $TUTORIAL_HOME/bin/call.sh
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-Hi  greeter => '9861675f8845' : 1
+Namaste  greeter => '9861675f8845' : 1
 ----
 
 [.console-input]
@@ -202,9 +220,8 @@ kubectl get pods
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                        READY   STATUS        RESTARTS   AGE
-greeter-9x8zn-deployment-84c946dd65-x2cbz   2/2     Terminating   0          82s
-greeter-v1-deployment-7ff594cc7b-d9h6l      2/2     Running       0          9s
+NAME                                     READY   STATUS    RESTARTS   AGE
+greeter-v2-deployment-587786fc6b-lmfzq   1/2     Running   0          6s
 ----
 
 Since `greeter-v1` is the active revision now, the existing `greeter-v2` pod is getting terminated as no future requests will be served by it.
@@ -316,7 +333,7 @@ greeter-v1-deployment-6f75dfd9d8-86q89   2/2     Running   12s
 greeter-v2-deployment-9984bb56d-n7xvm    2/2     Running   2s
 ----
 
-[TIP]
+[NOTE,caption=Challenge]
 ====
 As a challenge, adjust the traffic distribution and observe the responses while the poll.sh script is actively running.
 ====
