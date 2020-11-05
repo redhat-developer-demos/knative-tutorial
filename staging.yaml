@@ -15,14 +15,21 @@ content:
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
-    title: Knative Tutorial(Staging)
+    title: Knative Tutorial
     workshop-domain: guru.devx.red
+    minikube-version: v1.14.1
     openshift-version: v4.6
     kubernetes-version: v1.19.0
+    knative-version: v0.17.0
+    knative-serving-version: v0.17.0
+    knative-eventing-version: v0.17.0
+    knative-sources-version: v0.17.0
+    kn-client-version: v0.18.0
+    kubernetes-cli: kubectl
     release-version: master
+    page-pagination: true
     openshift-console-url: https://console-openshift-console.apps.example.com
     etherpad-url: http://example.com
-    page-pagination: true
   extensions:
     - ./lib/remote-include-processor.js
     - ./lib/tab-block.js
