@@ -34,12 +34,12 @@ kubectl apply \
   -f "https://github.com/knative/eventing-contrib/releases/download/{camel-source-version}/camel.yaml"
 ----
 
-Once you deploy, thee following new pod showing up the `knative-sources` namespace:
+Once you deploy, thee following new pod showing up the `knative-sources` namespace, wait for the `camel-controller-manager-0` to be running:
 
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl -n knative-sources get pods
+watch 'kubectl -n knative-sources get pods'
 ----
 
 [.console-output]
@@ -65,10 +65,10 @@ The command above should list:
 ----
 NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
 apiserversources                sources.knative.dev   true         ApiServerSource
-*camelsources                    sources.knative.dev   true         CamelSource*
+#camelsources                    sources.knative.dev   true         CamelSource#
 containersources                sources.knative.dev   true         ContainerSource
 pingsources                     sources.knative.dev   true         PingSource
-sinkbindings                    sources.knative.dev   true         SinkBinding
+sinkbindings                    sources.knative.dev   true         SinkBinding    SinkBinding
 ----
 
 [#logging-ce-messages]
@@ -92,12 +92,45 @@ A successful event display should show the following pod in the `{tutorial-names
 watch kubectl get -n {tutorial-namespace} pods
 ----
 
+List the Knative Service `event-display`:
+
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kn service -n {tutorial-namespace} ls
+----
+
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME            URL                                                      READY
-event-display   http://event-display.{tutorial-namespace}.example.com         True
+NAME            URL                                                LATEST                AGE   CONDITIONS   READY   REASON
+event-display   http://event-display.knativetutorial.example.com   event-display-7jvmm   85s   3 OK / 3     True
 ----
+
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl -n {tutorial-namespace} get ksvc
+----
+
+[.console-output]
+[source,bash]
+----
+NAME            URL                                                LATESTCREATED         LATESTREADY           READY   REASON
+event-display   http://event-display.knativetutorial.example.com   event-display-7jvmm   event-display-7jvmm   True
+----
+--
+====
+
 
 [[camel-k-es-sink]]
 === CamelSource to a Knative Eventing Sink

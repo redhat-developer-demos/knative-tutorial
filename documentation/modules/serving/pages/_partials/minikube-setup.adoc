@@ -31,6 +31,20 @@ $TUTORIAL_HOME/bin/start-minikube.sh
 🏄  Done! kubectl is now configured to use "{tutorial-namespace}" by default
 ----
 
+**Deploy Registry**
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+minikube -p {tutorial-namespace} addons enable registry
+----
+
+[.console-output]
+[source,bash]
+----
+🔎  Verifying registry addon...
+🌟  The 'registry' addon is enabled
+----
+
 **Install Custom Resource Definitions**
 
 [.console-input]

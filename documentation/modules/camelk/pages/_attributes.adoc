@@ -5,9 +5,9 @@
 :camelk-demos-github-repo-uri: https://github.com/redhat-developer-demos/knative-tutorial-camelk
 :camelk-demos-github-repo: {camelk-demos-github-repo-uri}/blob/{branch}
 :camelk-repo: advanced/camel-k
-:kamel-version: 1.0.1
+:kamel-version: 1.2.0
 :experimental:
 :maven-version: 3.6.0+
 :camel-source-version: 
-:knative-version: v0.16.0
-:camel-source-version: v0.16.1
+:knative-version: v0.17.0
+:camel-source-version: v0.17.7

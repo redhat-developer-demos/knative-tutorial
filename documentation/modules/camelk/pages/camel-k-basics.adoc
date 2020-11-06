@@ -189,36 +189,81 @@ The command above shows the following output:
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 NAME                   SHORTNAMES   APIGROUP           NAMESPACED   KIND
-builds                              camel.apache.org   true         Build
+builds                 ikb          camel.apache.org   true         Build
 camelcatalogs          cc           camel.apache.org   true         CamelCatalog
 integrationkits        ik           camel.apache.org   true         IntegrationKit
 integrationplatforms   ip           camel.apache.org   true         IntegrationPlatform
 integrations           it           camel.apache.org   true         Integration
+kameletbindings        klb          camel.apache.org   true         KameletBinding
+kamelets               kl           camel.apache.org   true         Kamelet
 ----
-
 
 [#camel-k-list-int]
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch kubectl -n {tutorial-namespace} get integrations
+watch kamel -n {tutorial-namespace} get
 ----
 
 A successful integration deployment should show the following output:
 
 [source,bash]
 ----
-NAME              PHASE     KIT                        REPLICAS
-echoer            Running   kit-bodug9d83u4bmr3uh8jg   1
+NAME    PHASE   KIT
+echoer  Running kit-buifr3v968fjg6sum6e0
 ----
 
 Once the integration is started, you can check the Knative service using the command:
 
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kn -n {tutorial-namespace} service describe echoer
+----
+
+[.console-output]
+[source,bash]
+----
+Name:       echoer
+Namespace:  knativetutorial
+Labels:     camel.apache.org/generation=1, camel.apache.org/integration=echoer
+Age:        5m
+URL:        http://echoer.knativetutorial.example.com
+
+Revisions:
+  100%  @latest (echoer-g6g68) [1] (5m)
+        Image:  10.105.219.172/knativetutorial/camel-k-kit-buifr3v968fjg6sum6e0@sha256:06588f7dfb53e0e6027c975e206c8bb67a03311a90ed2ccafdc883e16c627f25 (at 06588f)
+
+Conditions:
+  OK TYPE                   AGE REASON
+  ++ Ready                   4m
+  ++ ConfigurationsReady     4m
+  ++ RoutesReady             4m
+----
+--
+{kubernetes-cli}::
++
+--
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 kubectl -n {tutorial-namespace} get ksvc echoer
 ----
+
+[.console-output]
+[source,bash]
+----
+NAME     URL                                         LATESTCREATED   LATESTREADY    READY   REASON
+echoer   http://echoer.knativetutorial.example.com   echoer-g6g68    echoer-g6g68   True
+----
+--
+====
+
 
 When the service is in a ready state use the call script `$TUTORIAL/bin/call.sh` with parameter `echoer` and a request body of "Hello World":
 

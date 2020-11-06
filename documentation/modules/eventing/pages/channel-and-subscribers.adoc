@@ -353,6 +353,7 @@ kn subscription delete eventinghelloa-sub --namespace {tutorial-namespace}
 kn service delete -n {tutorial-namespace}  eventinghellob
 kn subscription delete eventinghellob-sub --namespace {tutorial-namespace}
 kn source ping delete -n {tutorial-namespace} event-greeter-ping-source
+kn channel delete -n {tutorial-namespace} eventinghello-ch
 ----
 --
 {kubernetes-cli}::
@@ -366,6 +367,7 @@ kubectl -n {tutorial-namespace} delete -f eventing-helloa-sub.yaml
 kubectl -n {tutorial-namespace} delete -f eventing-hellob-sink.yaml
 kubectl -n {tutorial-namespace} delete -f eventing-hellob-sub.yaml
 kubectl -n {tutorial-namespace} delete -f event-source.yaml
+kubectl -n knativetutorial delete -f channel.yaml
 ----
 --
 ====

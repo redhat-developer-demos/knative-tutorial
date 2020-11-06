@@ -23,9 +23,7 @@ Minikube::
 [#camel-k-k8s-install]
 [source,bash,subs="+quotes,+attributes,+macros"]
 -----
-kamel install --olm=false \
-  --maven-repository=https://repository.apache.org/content/repositories/snapshots@id=apache-snapshots@snapshots \
- --wait
+kamel install --namespace {tutorial-namespace} --olm=false --wait
 -----
 
 As with other installations in this tutorial, this process will take a few minutes for the Camel-K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace `{tutorial-namespace}`.
@@ -96,7 +94,7 @@ Install or Update `Camel-K` and make it use the maven repository settings:
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kamel install --force \ #<.>
+kamel install --force \#<.>
   --maven-settings="configmap:my-camel-k-maven-settings/settings.xml" \
   --wait
 ----

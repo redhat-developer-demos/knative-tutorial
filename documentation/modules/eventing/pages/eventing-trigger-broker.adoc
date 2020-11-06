@@ -348,6 +348,7 @@ kn service delete eventingaloha -n {tutorial-namespace}
 kn trigger delete helloaloha -n {tutorial-namespace}
 kn trigger delete hellobonjour -n {tutorial-namespace}
 kubectl -n {tutorial-namespace} delete pod curler
+kn broker delete default -n {tutorial-namespace}
 ----
 --
 {kubernetes-cli}::
@@ -361,6 +362,7 @@ kubectl -n {tutorial-namespace} delete -f eventing-bonjour-sink.yaml
 kubectl -n {tutorial-namespace} delete -f trigger-helloaloha.yaml
 kubectl -n {tutorial-namespace} delete -f trigger-hellobonjour.yaml
 kubectl -n {tutorial-namespace} delete -f curler.yaml
+kubectl -n knativetutorial delete -f default-broker.yaml
 ----
 --
 ====
