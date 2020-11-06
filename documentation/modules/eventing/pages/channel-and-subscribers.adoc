@@ -59,8 +59,6 @@ kubectl -n {tutorial-namespace} get \
 --
 ====
 
-include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;channel;tab-2]
-
 Running  the above command should return the following result:
 
 [.console-output]
@@ -105,7 +103,30 @@ include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;ev-ping-chann
 [#eventing-verify-event-source]
 ==== Verification
 
-[#eventing-run-verify-event-src]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn source ping -n {tutorial-namespace} list
+----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                        SCHEDULE      SINK                       AGE   CONDITIONS   READY   REASON
+event-greeter-ping-source   */2 * * * *   Channel:eventinghello-ch   24s   4 OK / 4     True
+----
+
+--
+kubectl::
++
+--
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -119,8 +140,12 @@ Running  the above command should return the following result:
 ----
 NAME                        READY   REASON   SINK                                                                 AGE
 event-greeter-ping-source   True             http://eventinghello-ch-kn-channel.kn-cheatsheet.svc.cluster.local   5s
-
 ----
+
+--
+====
+
+
 
 [#eventing-subscriber]
 == Event Subscriber
@@ -230,7 +255,7 @@ spec:
 include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;sub-helloa-sink;tab-2]
 
 :service-file: eventing-hellob-sub.yaml
-==== Subscribe to eventinghelloa 
+==== Subscribe to eventinghelloab
 include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;sub-hellob-sink;tab-2]
 
 [#eventing-verify-subscriber]
@@ -244,7 +269,17 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl subscription -n {tutorial-namespace} list
+kn subscription -n {tutorial-namespace} list
+----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                 CHANNEL                    SUBSCRIBER            REPLY   DEAD LETTER SINK   READY   REASON
+eventinghelloa-sub   Channel:eventinghello-ch   ksvc:eventinghelloa                              True
+eventinghellob-sub   Channel:eventinghello-ch   ksvc:eventinghellob                              True
 ----
 --
 {kubernetes-cli}::
@@ -256,8 +291,6 @@ kubectl subscription -n {tutorial-namespace} list
 kubectl -n {tutorial-namespace} \
    get subscription.messaging.knative.dev 
 ----
---
-====
 
 Running  the above command should return the following result:
 
@@ -269,7 +302,17 @@ eventinghelloa-sub         39s
 eventinghellob-sub         39s
 ----
 
+--
+====
+
+
 If you wait approximately 2 minutes for the PingSource then you will see both `eventinghelloa` and `eventinghellob` begin to run in the {tutorial-namespace}.
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+watch 'kubectl get pods -n {tutorial-namespace}'
+----
 
 .Watch pods in the {tutorial-namespace}
 [.console-output]
@@ -305,9 +348,9 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service delete -n {tutorial-namespace} delete eventing-helloa
+kn service delete -n {tutorial-namespace} eventinghelloa
 kn subscription delete eventinghelloa-sub --namespace {tutorial-namespace}
-kn service delete -n {tutorial-namespace} delete eventing-helloab
+kn service delete -n {tutorial-namespace}  eventinghellob
 kn subscription delete eventinghellob-sub --namespace {tutorial-namespace}
 kn source ping delete -n {tutorial-namespace} event-greeter-ping-source
 ----

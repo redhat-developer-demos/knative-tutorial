@@ -3,19 +3,28 @@
 include::_attributes.adoc[]
 
 :greeter-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:service-file: default-broker.yaml
 
 Use the Knative Eventing `Broker` and `Trigger` Custom Resources to allow for link:https://cloudevents.io/[CloudEvent] attribute filtering.
 
 [#broker]
 == Broker
 
-By labeling `{tutorial-namespace}` namespace with `eventing.knative.dev/injection=enabled` as shown below, will make Knative Eventing to deploy a default Knative Eventing Broker and its related Ingress :
+.link:{github-repo}/{eventing-repo}/default-broker.yaml[default-broker]
+[source,yaml,subs="attributes+,+macros"]
+----
+---
+apiVersion: eventing.knative.dev/v1
+kind: broker
+metadata:
+ name: default
+----
 
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl label namespace {tutorial-namespace} eventing.knative.dev/injection=enabled
-----
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;broker;tab-2]
+
+Verify the created resources:
+
+include::eventing:partial$knative-objects.adoc[tags=knative-eventing-broker]
 
 [#eventing-service]
 == Service 
@@ -111,16 +120,6 @@ Verify that your triggers are ready:
 
 include::eventing:partial$knative-objects.adoc[tag=knative-triggers]
 
-The command should show the following output:
-
-[.console-output]
-[source,bash]
-----
-NAME         READY BROKER  SUBSCRIBER_URI                                      AGE
-helloaloha   True  default http://eventingaloha.knativetutorial.svc.cluster.local   24s
-hellobonjour True  default http://eventingbonjour.knativetutorial.svc.cluster.local 48s
-----
-
 [#eventing-trigger-verification]
 == Verification
 
@@ -203,7 +202,7 @@ spec:
 
 <1> You can use any image that includes a curl command.
 
-Then exec into the `curler` pod:
+Wait for the `curler` pod to be running and then exec into the `curler` pod:
 
 [#trigger-verify-curler]
 [.console-input]

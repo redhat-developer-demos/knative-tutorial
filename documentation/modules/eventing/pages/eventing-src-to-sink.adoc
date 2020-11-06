@@ -122,7 +122,11 @@ include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hell
 kn::
 +
 --
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
 kn source ping list -n {tutorial-namespace}
+----
 --
 {kubernetes-cli}::
 +
@@ -139,12 +143,30 @@ kubectl -n {tutorial-namespace} get \
 
 Running  the above command should return the following result:
 
+[tabs]
+====
+kn::
++
+--
 [.console-output]
 [source,bash]
 ----
-NAME                       AGE
-eventinghello-ping-source  39s
+NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
+eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True
 ----
+--
+{kubernetes-cli}::
++
+--
+[.console-output]
+[source,bash]
+----
+NAME                        SINK                                                     AGE   READY   REASON
+eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.local   47s   True
+----
+--
+====
+
 
 You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to see the ping job source sending an event every 1 minute.
 

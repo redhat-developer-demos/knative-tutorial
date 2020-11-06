@@ -1,3 +1,40 @@
+#tag::knative-eventing-broker[]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn broker -n {tutorial-namespace} list
+----
+
+[.console-output]
+[source,bash]
+----
+NAME      URL                                                                                AGE    CONDITIONS   READY   REASON
+default   http://broker-ingress.knative-eventing.svc.cluster.local/knativetutorial/default   112s   5 OK / 5     True
+----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get broker.eventing.knative.dev -n {tutorial-namespace} list
+----
+[.console-output]
+[source,bash]
+----
+NAME      URL                                                                                AGE     READY   REASON
+default   http://broker-ingress.knative-eventing.svc.cluster.local/knativetutorial/default   2m57s   True
+----
+--
+====
+#end::knative-eventing-broker[]
+
 #tag::knative-event-channel[]
 [tabs]
 ====
@@ -9,6 +46,12 @@ kn::
 ----
 kn channel list --namespace {tutorial-namespace}
 ----
+
+[.console-output]
+[source,bash]
+----
+kn channel list --namespace knativetutorial
+----
 --
 {kubernetes-cli}::
 +
@@ -16,7 +59,14 @@ kn channel list --namespace {tutorial-namespace}
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} channels.messaging.knative.dev eventinghello-ch
+kubectl get --namespace {tutorial-namespace} channels.messaging.knative.dev eventinghello-ch
+----
+
+[.console-output]
+[source,bash]
+----
+NAME               URL                                                                    AGE   READY   REASON
+eventinghello-ch   http://eventinghello-ch-kn-channel.knativetutorial.svc.cluster.local   35m   True
 ----
 --
 ====
@@ -31,8 +81,16 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping --namespace {tutorial-namespace}
+kn source ping --namespace {tutorial-namespace} list
 ----
+
+[.console-output]
+[source,bash]
+----
+NAME                        SCHEDULE      SINK                       AGE   CONDITIONS   READY   REASON
+event-greeter-ping-source   */2 * * * *   Channel:eventinghello-ch   10m   4 OK / 4     True
+----
+
 --
 {kubernetes-cli}::
 +
@@ -40,7 +98,14 @@ kn source ping --namespace {tutorial-namespace}
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} get pingsource.sources.knative.dev  eventinghello-ping-source
+kubectl get --namespace {tutorial-namespace} get pingsource.sources.knative.dev  event-greeter-ping-source
+----
+
+[.console-output]
+[source,bash]
+----
+NAME                        SINK                                                                   AGE   READY   REASON
+event-greeter-ping-source   http://eventinghello-ch-kn-channel.knativetutorial.svc.cluster.local   12m   True
 ----
 --
 ====
@@ -57,6 +122,14 @@ kn::
 ----
 kn subscription list --namespace {tutorial-namespace}
 ----
+
+[.console-output]
+[source,bash]
+----
+NAME                 CHANNEL                    SUBSCRIBER            REPLY   DEAD LETTER SINK   READY   REASON
+eventinghelloa-sub   Channel:eventinghello-ch   ksvc:eventinghelloa                              True
+eventinghellob-sub   Channel:eventinghello-ch   ksvc:eventinghellob                              True
+----
 --
 {kubernetes-cli}::
 +
@@ -64,7 +137,15 @@ kn subscription list --namespace {tutorial-namespace}
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} get subscriptions.knative.dev 
+kubectl --namespace {tutorial-namespace} get subscriptions.messaging.knative.dev 
+----
+
+[.console-output]
+[source,bash]
+----
+NAME                 AGE   READY   REASON
+eventinghelloa-sub   10m   True
+eventinghellob-sub   10m   True
 ----
 --
 ====
@@ -107,6 +188,14 @@ kn::
 ----
 kn trigger list --namespace {tutorial-namespace}
 ----
+
+[.console-output]
+[source,bash]
+----
+NAME           BROKER    SINK                   AGE   CONDITIONS   READY   REASON
+helloaloha     default   ksvc:eventingaloha     12m   5 OK / 5     True
+hellobonjour   default   ksvc:eventingbonjour   11m   5 OK / 5     True
+----
 --
 {kubernetes-cli}::
 +
@@ -115,6 +204,14 @@ kn trigger list --namespace {tutorial-namespace}
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl --namespace {tutorial-namespace}  get triggers.eventing.knative.dev
+----
+
+[.console-output]
+[source,bash]
+----
+NAME         READY BROKER  SUBSCRIBER_URI                                      AGE
+helloaloha   True  default http://eventingaloha.knativetutorial.svc.cluster.local   24s
+hellobonjour True  default http://eventingbonjour.knativetutorial.svc.cluster.local 48s
 ----
 --
 ====
@@ -147,26 +244,3 @@ kubectl --namespace {tutorial-namespace} get containersources.sources.knative.de
 
 #end::knative-container-event-sources[]
 
-#tag::knative-event-subscribers[]
-[tabs]
-====
-kn::
-+
---
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kn subscription list --namespace {tutorial-namespace}
-----
---
-{kubernetes-cli}::
-+
---
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl --namespace {tutorial-namespace} get subscriptions.eventing.knative.dev event-greeter-subscriber
-----
---
-====
-#end::knative-event-subscribers[]

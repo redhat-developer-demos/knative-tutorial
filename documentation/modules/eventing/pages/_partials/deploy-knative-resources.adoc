@@ -6,6 +6,15 @@ kn::
 --
 #end::tab-1[]
 
+#tag::broker[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn broker create default \
+  --namespace {tutorial-namespace}
+----
+#end::broker[]
+
 #tag::eventing-hello[]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -13,7 +22,7 @@ kn::
 kn service create eventinghello \
   --namespace {tutorial-namespace} \
   --concurrency-target=1 \
-  --image=quay.io/rhdevelopers/quay.io/rhdevelopers/eventinghello:0.0.2
+  --image=quay.io/rhdevelopers/eventinghello:0.0.2
 ----
 #end::eventing-hello[]
 
@@ -25,7 +34,7 @@ kn service create {sink-service-name} \
   --namespace {tutorial-namespace} \
   --concurrency-target=1 \
   --revision-name={revision-name} \
-  --image=quay.io/rhdevelopers/quay.io/rhdevelopers/eventinghello:0.0.2
+  --image=quay.io/rhdevelopers/eventinghello:0.0.2
 ----
 #end::eventing-hello-sink[]
 
@@ -33,8 +42,7 @@ kn service create {sink-service-name} \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping create \
-  eventinghello-ping-source
+kn source ping create eventinghello-ping-source \
   --namespace {tutorial-namespace} \
   --schedule "*/2 * * * *" \
   --sink ksvc:eventinghello
@@ -55,7 +63,7 @@ kn channel create eventinghello-ch \
 [source,bash,subs="+macros,+attributes"]
 ----
 kn source ping create \
-  event-greeter-ping-source
+  event-greeter-ping-source \
   --namespace {tutorial-namespace} \
   --schedule "*/2 * * * *" \
   --sink channel:eventinghello-ch
