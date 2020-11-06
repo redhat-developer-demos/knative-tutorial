@@ -16,6 +16,7 @@ Subscriptions::
 
 The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channel or sink] is an interface between the <<eventing-source,event source>> and the <<eventing-subscriber,subscriber>>. The channels are built in to store the incoming events and distribute the event data to the subscribers. When forwarding event to subscribers the channel transforms the event data as per http://cloudevents.io[CloudEvent] specification.
 
+:channel-name: eventinghello-ch
 [#eventing-create-event-channel]
 === Create Event Channel
 .link:{github-repo}/{eventing-repo}/channel.yaml[channel.yaml]

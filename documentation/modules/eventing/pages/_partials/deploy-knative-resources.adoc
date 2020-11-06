@@ -53,7 +53,7 @@ kn source ping create eventinghello-ping-source \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn channel create eventinghello-ch \
+kn channel create {channel-name} \
   --namespace {tutorial-namespace}
 ----
 #end::channel[]

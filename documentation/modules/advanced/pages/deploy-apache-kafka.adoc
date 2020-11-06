@@ -74,6 +74,7 @@ kafkaconnects        kc           kafka.strimzi.io   true         KafkaConnect
 kafkaconnects2is     kcs2i        kafka.strimzi.io   true         KafkaConnectS2I
 kafkamirrormaker2s   kmm2         kafka.strimzi.io   true         KafkaMirrorMaker2
 kafkamirrormakers    kmm          kafka.strimzi.io   true         KafkaMirrorMaker
+kafkarebalances      kr           kafka.strimzi.io   true         KafkaRebalance
 kafkas               k            kafka.strimzi.io   true         Kafka
 kafkatopics          kt           kafka.strimzi.io   true         KafkaTopic
 kafkausers           ku           kafka.strimzi.io   true         KafkaUser

@@ -88,19 +88,35 @@ eventing-controller-5fc5645584-n42xs    1/1     Running   0          3h54m
 eventing-webhook-7674b867dc-qn44m       1/1     Running   0          3h54m
 imc-controller-6b548d6468-zcspc         1/1     Running   0          3h54m
 imc-dispatcher-655cdf6ff6-x5sxx         1/1     Running   0          3h54m
-*kafka-ch-controller-5cf4bdc98-tl8xv     1/1     Running   0          76s*
-*kafka-webhook-5f8895ccdf-z6qnw          1/1     Running   0          76s*
+#kafka-ch-controller-5cf4bdc98-tl8xv     1/1     Running   0          76s#
+#kafka-webhook-5f8895ccdf-z6qnw          1/1     Running   0          76s#
 mt-broker-controller-6d66c4c6f6-vbpk4   1/1     Running   0          3h54m
 ----
 
 And you should also find some new api-resources as shown:
 
+[tabs]
+====
+kn::
++
+--
 [.console-input]
-[#kn-eventing-list-api-res-sources]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kn source list-types
+----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
 kubectl api-resources --api-group='sources.knative.dev'
 ----
+--
+====
+
 
 The command should show the following APIs in `sources.eventing.knative.dev` :
 
@@ -115,6 +131,7 @@ pingsources                     sources.knative.dev   true         PingSource
 sinkbindings                    sources.knative.dev   true         SinkBinding
 ----
 
+include:
 [.console-input]
 [#kn-eventing-list-api-res-messaging]
 [source,bash,subs="+quotes,attributes+,+macros"]
@@ -134,22 +151,20 @@ inmemorychannels   imc          messaging.knative.dev   true         InMemoryCha
 subscriptions      sub          messaging.knative.dev   true         Subscription
 ----
 
+:service-file: default-kafka-channel.yaml
+:channel-name: my-events-ch
 [#kn-eventing-adv-default-knative-channel]
 == Using Kafka Channel as Default Knative Channel
 
 include::partial$default-knative-channel.adoc[leveloffset=+2]
 
+:service-file: eventing-hello-sink.yaml
 [#kn-eventing-kafka-source-to-sink]
 === Connecting Kafka Source to Sink 
 
 Now, all of your infrastructure is configured, you can deploy the Knative Serving Service(sink) by running the command:
 
-[.console-input]
-[#kn-kafka-src-eventing-hello]
-[source,bash,subs="+quotes,attributes+,+macros"]
-----
-kubectl apply -n {tutorial-namespace} -f eventing-hello-sink.yaml
-----
+include::eventing:partial$deploy-knative-resources.adoc[tags="tab-1;eventing-hello;tab-2"]
 
 Check the Knative Service that was created by the command above:
 
@@ -157,16 +172,17 @@ Check the Knative Service that was created by the command above:
 [#kn-kafka-src-eventing-hello-ksvc]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
-kubectl get ksvc
+kn service ls
 ----
 
 Check the Knative Service that was created by the command above. The command should show an output like:
 
 [.console-output]
-[source,bash]
+[source,bash,subs="+quotes"]
 ----
-NAME            URL                                      READY
-eventinghello   http://eventinghello.kafka.example.com   True
+NAME            URL                                                LATEST                  AGE     CONDITIONS   READY   REASON
+event-display   http://event-display.knativetutorial.example.com   event-display-2mhz8     4h11m   3 OK / 3     True
+#eventinghello  http://eventinghello.knativetutorial.example.com   eventinghello-krmch-1   34s     3 OK / 3     True#
 ----
 
 Make sure to follow the logs using `stern`:
@@ -209,7 +225,7 @@ The command should show an output like:
 ----
 NAME                                                          PARTITIONS   REPLICATION FACTOR
 consumer-offsets---84e7a678d08f4bd226872e5cdd4eb527fadc1c6a   50           1
-*my-topic                                                      _10_           1*
+#my-topic                                                      _10_           1#
 ----
 
 
@@ -223,8 +239,10 @@ metadata:
   name: mykafka-source
 spec:
   consumerGroup: knative-group
-  bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092 #<.>
-  topics: my-topic #<.>
+  bootstrapServers: 
+   - my-cluster-kafka-bootstrap.kafka:9092 #<.>
+  topics: 
+   - my-topic #<.>
   sink: #<.>
     ref:
       apiVersion: serving.knative.dev/v1 
@@ -252,13 +270,28 @@ kubectl -n {tutorial-namespace} apply -f mykafka-source.yaml
 watch kubectl get pods
 ----
 
-When the KafkaSource is ready it will show the following output:
+When the KafkaSource is ready it will show the following output(listing only relvant pods):
 
 [.console-output]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
-NAME                                          READY  STATUS   RESTARTS  AGE
-mykafka-source-vxs2k-56548756cc-j7m7v         1/1    Running  0         11s
+kafkasource-mykafka-source-f0e52a48-256a-4748-bd6a-43422a0rdqtg   1/1     Running   0
+      108s
+----
+
+Check the created sources
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kn sources -n knativetutorial ls
+----
+
+[.console-output]
+[source,bash]
+----
+NAME             TYPE          RESOURCE                           SINK                 READY
+mykafka-source   KafkaSource   kafkasources.sources.knative.dev   ksvc:eventinghello   True
 ----
 
 [WARNING]
@@ -302,6 +335,8 @@ While making sure to monitor the logs of the `eventinghello` pod:
 ----
 stern eventinghello -c user-container
 ----
+
+NOTE: Output shrinked for brevity
 
 [.console-output]
 [source,bash,subs="attributes+,+macros"]
@@ -361,9 +396,7 @@ Once the `kafka-spammer` is up and running, open a new terminal and exec into th
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-KAFKA_SPAMMER_POD=$(kubectl -n kafka get pod -l "run=kafka-spammer" \
--o jsonpath='{.items[0].metadata.name}')
-kubectl -n kafka exec -it $KAFKA_SPAMMER_POD -- /bin/sh
+kubectl -n kafka exec -it kafka-spammer -- /bin/sh
 ----
 
 Once you are in the shell of the `kafka-spammer` pod run the following command:

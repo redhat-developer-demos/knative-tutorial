@@ -23,7 +23,7 @@ asciidoc:
     knative-version: v0.17.0
     knative-serving-version: v0.17.0
     knative-eventing-version: v0.17.0
-    knative-sources-version: v0.17.0
+    knative-sources-version: v0.17.7
     kn-client-version: v0.18.0
     kubernetes-cli: kubectl
     release-version: master

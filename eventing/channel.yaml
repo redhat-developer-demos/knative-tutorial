@@ -1,4 +1,4 @@
-apiVersion: messaging.knative.dev/v1beta1
+apiVersion: messaging.knative.dev/v1
 kind: Channel
 metadata:
   name: eventinghello-ch
