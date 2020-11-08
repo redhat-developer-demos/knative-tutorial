@@ -91,28 +91,3 @@ This tutorial was developed and tested with:
 - OpenShift `{openshift-version}`
 ====
 endif::[]
-
-ifndef::workshop[]
-[#kubernetes-cluster]
-== Choose your Kubernetes Cluster
-
-Knative can be installed only on Kubernetes cluster. The following section shows how to install Knative on vanilla https://kubernetes.io[Kubernetes] or on Red Hat https://www.openshift.com[Openshift] -- an enterprise grade Kubernetes platform --
-
-[tabs]
-====
-Minikube::
-+
---
-include::setup:partial$minikube-setup.adoc[]
---
-OpenShift::
-+
---
-include::setup:partial$openshift-setup.adoc[]
---
-====
-endif::[]
-
-ifdef::workshop[]
-include::workshop:partial$openshift-setup.adoc[]
-endif::[]

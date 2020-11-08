@@ -1,6 +1,7 @@
-[#start-minikube]
-= Configure and Start Minikube
+include::_attributes.adoc[]
 
+[#start-minikube]
+== Configure and Start Minikube
 Before installing Knative and its components, we need to create a Minikube virtual machine and deploy Kubernetes into it.
 
 Download https://kubernetes.io/docs/setup/minikube[minikube] and add it to your path.
@@ -31,7 +32,8 @@ $TUTORIAL_HOME/bin/start-minikube.sh
 🏄  Done! kubectl is now configured to use "{tutorial-namespace}" by default
 ----
 
-**Deploy Registry**
+[#minikube-deploy-registry]
+=== Deploy Registry
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -45,7 +47,9 @@ minikube -p {tutorial-namespace} addons enable registry
 🌟  The 'registry' addon is enabled
 ----
 
-**Install Custom Resource Definitions**
+== Install Knative
+
+=== Deploy Cusom Resource Definitions
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -129,7 +133,8 @@ sinkbindings                    sources.knative.dev   true         SinkBinding
 
 The Knative has two main infrastructure components: https://kubernetes.io/docs/concepts/architecture/controller/[controller] and https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/[webhook] helps in translating the Knative CRDs which are usually written YAML files, into Kubernetes objects like Deployment and Service. Apart from the controller and webhook, the Knative Serving and Eventing also install their respective functional components which are listed in the upcoming sections.
 
-**Install Knative Serving**
+[#install-knative-serving]
+=== Install Knative Serving
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -139,13 +144,24 @@ kubectl apply \
   {knative-serving-repo}/{knative-serving-version}/serving-core.yaml
 ----
 
-This process will take few minutes for the Knative Serving pods to be up and running, you can monitor the status of the Knative Serving installation by watching the pods in the `knative-serving` namespace, using the command:
+Wait for the Knative Serving deployment to complete:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status deploy controller -n knative-serving 
+kubectl rollout status deploy activator -n knative-serving 
+kubectl rollout status deploy autoscaler -n knative-serving 
+kubectl rollout status deploy webhook -n knative-serving 
+----
+
+A successfuly deployment should show the following pods in `knative-serving` namespace:
 
 .Knative Serving pods
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch "kubectl get pods -n knative-serving"
+kubectl get pods -n knative-serving
 ----
 
 [.console-output]
@@ -158,7 +174,8 @@ controller-65f4f4bcb4-mrkgs   1/1     Running   0          11m
 webhook-59585cb6-wqldc        1/1     Running   0          11m
 ----
 
-*Install Kourier*
+[#install-kourier-ingress-gateway]
+=== Install Kourier Ingress Gateway
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -168,35 +185,31 @@ kubectl apply \
     https://github.com/knative/net-kourier/releases/download/{knative-serving-version}/kourier.yaml
 ----
 
+Wait for the Ingress Gateway  deployment to complete:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl rollout status deploy 3scale-kourier-control -n knative-serving
+kubectl rollout status deploy 3scale-kourier-gateway -n kourier-system
+----
+
+A successful Kourier Ingress Gateway should show the following pods in `kourier-system` and `knative-serving`:
+
 .Kourier pods
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch "kubectl get pods -n kourier-system"
+kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kourier-cont
+rol)'
 ----
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                      READY   STATUS    RESTARTS   AGE
-3scale-kourier-gateway-8645d88bf6-gvbf7   1/1     Running   0          56s
-----
-
-[.console-input]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-watch "kubectl get pods -n knative-serving"
-----
-
-[.console-output]
-[source,text]
-----
-NAME                                      READY   STATUS    RESTARTS   AGE
-3scale-kourier-control-6f9f49f99b-q7nn4   1/1     Running   0          23m
-activator-ddbb8cfb5-8xw5s                 1/1     Running   0          25m
-autoscaler-55d7dd475b-v49ln               1/1     Running   0          25m
-controller-75f887cfdc-74khc               1/1     Running   0          25m
-webhook-676c9c56dc-lphcs                  1/1     Running   0          25m
+NAMESPACE         NAME                                      READY   STATUS    RESTARTS   AGE
+knative-serving   3scale-kourier-control-6f9f49f99b-q7nn4   1/1     Running   1          3d10h
+kourier-system    3scale-kourier-gateway-79898dffd4-qsc65   1/1     Running   1          3d10h
 ----
 
 Now configure Knative serving to use Kourier as the ingress:
@@ -210,7 +223,8 @@ kubectl patch configmap/config-network \
   -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
 ----
 
-**Install and Configure Ingress**
+[#install-ingress-controller]
+=== Install and Configure Ingress Controller
 
 To access the Knative Serving services from the minikube host, it will be easier to have Ingress deployed and configured. 
 
@@ -223,7 +237,84 @@ kubectl apply \
   --filename https://projectcontour.io/quickstart/contour.yaml
 ----
 
-**Install Knative Eventing** 
+Wait for the Ingress to be deployed and running:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status ds envoy -n projectcontour
+kubectl rollout status deploy contour -n projectcontour
+----
+
+A successful rollout shoud list the following pods in `projectcontour`
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get pods -n projectcontour
+----
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+AME                            READY   STATUS      RESTARTS   AGE
+contour-5475898957-6d9xl        1/1     Running     1          34h
+contour-5475898957-h6hxb        1/1     Running     1          34h
+contour-certgen-v1.10.0-x69qz   0/1     Completed   0          34h
+envoy-ft8ct                     2/2     Running     2          34h
+----
+
+Now create Ingress to Kourier Ingress Gateway:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+cat <<EOF | kubectl apply -n kourier-system -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kourier-ingress
+  namespace: kourier-system
+spec:
+  rules:
+  - http:
+     paths:
+       - path: /
+         pathType: Prefix
+         backend:
+           service: 
+             name: kourier
+             port:
+               number: 80
+EOF
+----
+
+[.console-output]
+[source,bash]
+----
+ingress.networking.k8s.io/kourier-ingress created
+----
+
+Configure Knative to use the `kourier-ingress` Gateway:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+ksvc_domain="\"data\":{\""$(minikube ip)".nip.io\": \"\"}"
+kubectl patch configmap/config-domain \
+    -n knative-serving \
+    --type merge \
+    -p "{$ksvc_domain}"
+----
+
+[.console-output]
+[source,bash]
+----
+configmap/config-domain patched
+----
+
+[#install-knative-eventing]
+=== Install Knative Eventing
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -237,15 +328,29 @@ kubectl apply \
   {knative-eventing-repo}/{knative-eventing-version}/mt-channel-broker.yaml
 ----
 
+Like Knative Serving deployment, Knative Eventing deployment will also take few minutes to complete, check the status of the deployment using:
 
-Like Knative Serving deployment, Knative Eventing deployment will also take few minutes to complete. You can watch `knative-eventing` namespace pods for live status, using the command:
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status deploy eventing-controller -n knative-eventing 
+kubectl rollout status deploy eventing-webhook  -n knative-eventing 
+kubectl rollout status deploy imc-controller  -n knative-eventing 
+kubectl rollout status deploy imc-dispatcher -n knative-eventing 
+kubectl rollout status deploy mt-broker-controller -n knative-eventing 
+kubectl rollout status deploy mt-broker-filter -n knative-eventing 
+kubectl rollout status deploy mt-broker-filter -n knative-eventing 
+----
+
+A successful deployment should show the following pods in `knative-eventing` namespace:
 
 .Knative eventing pods
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch "kubectl get pods -n knative-eventing"
+kubectl get pods -n knative-eventing
 ----
+
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
@@ -259,7 +364,8 @@ mt-broker-filter-5d994fb97f-kpm5z      1/1     Running   0          95s
 mt-broker-ingress-769b458fd-ghmnc      1/1     Running   0          95s
 ----
 
-**Configuring Kubernetes namespace**
+[#create-tutorial-namespace]
+== Create Tutorial namespace
 
 All the tutorial exercises will be deployed in namespace called `{tutorial-namespace}`:
 
