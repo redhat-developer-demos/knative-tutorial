@@ -80,7 +80,7 @@ Creating service 'greeter' in namespace 'knativetutorial':
  12.378s Ready to serve.
 
 Service 'greeter' created to latest revision 'greeter-zyjrq-1' is available at URL:
-http://greeter.knativetutorial.example.com
+http://greeter.{tutorial-namespace}.{minikube-nip-io}
 ----
 
 [#kn-list-services]
@@ -95,10 +95,10 @@ kn service list --namespace {tutorial-namespace}
 ----
 
 [.console-output]
-[source,bash,subs="+attributes"]
+[source,text,subs="+quotes,+attributes"]
 ----
-NAME      URL                                          LATEST            AGE   CONDITIONS   READY   REASON
-greeter   http://greeter.{tutorial-namespace}.example.com   greeter-zyjrq-1   98s   3 OK / 3     True
+NAME      #URL#                                                   LATEST            AGE   CONDITIONS   READY   REASON
+greeter   #http://greeter.knativetutorial.192.168.64.13.nip.io#  greeter-sxnzq-1   10m   3 OK / 3     True
 ----
 
 === Invoke Service
@@ -145,7 +145,7 @@ Updating Service 'greeter' in namespace '{tutorial-namespace}':
   5.971s Ready to serve.
 
 Service 'greeter' updated to latest revision 'greeter-tmvxm-2' is available at URL:
-http://greeter.{tutorial-namespace}.example.com
+http://greeter.{tutorial-namespace}.{minikube-nip-io}
 ----
 
 Now <<kn-invoke-service,Invoking the service>> will return me a response like:
@@ -170,12 +170,12 @@ kn service describe greeter
 The describe should show you a short summary of your service : 
 
 [.console-output]
-[source,bash]
+[source,subs="+macros,attributes+"]
 ----
 Name:       greeter
 Namespace:  knativetutorial
 Age:        1m
-URL:        http://greeter.knativetutorial.example.com
+URL:        http://greeter.{tutorial-namespace}.{minikube-nip-io}
 
 Revisions:  
   100%  @latest (greeter-twpgf-1) [1] (1m)
@@ -193,19 +193,19 @@ Conditions:
 To list all the revisions as part of the `describe` command use:
 
 [.console-input]
-[source,bash]
+[source,subs="+macros,attributes+"]
 ----
 kn service describe greeter -v
 ----
 [.console-output]
-[source,bash]
+[source,text,subs="+quotes,+macros,attributes+"]
 ----
 Name:         greeter
 Namespace:    knativetutorial
 Annotations:  serving.knative.dev/creator=minikube-user
               serving.knative.dev/lastModifier=minikube-user
 Age:          14m
-URL:          http://greeter.knativetutorial.example.com
+URL:          http://greeter.{tutorial-namespace}.{minikube-nip-io}
 Cluster:      http://greeter.knativetutorial.svc.cluster.local
 
 Revisions:
@@ -233,9 +233,9 @@ kn service describe greeter -o url
 ----
 
 [.console-output]
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-http://greeter.knativetutorial.example.com
+http://greeter.{tutorial-namespace}.{minikube-nip-io}
 ----
 
 [#kn-revisions]
@@ -327,10 +327,11 @@ kn route list
 ----
 
 [.console-output]
-[source,bash]
+[source,bash,subs="+macros,attributes+"]
 ----
 NAME      URL                                          AGE   CONDITIONS   TRAFFIC
-greeter   http://greeter.knativetutorial.example.com   10m   3 OK / 3     100% -> greeter-zd7jk
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}
+   10m   3 OK / 3     100% -> greeter-zd7jk
 ----
 
 [#kn-cleanup]

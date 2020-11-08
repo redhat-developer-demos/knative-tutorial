@@ -56,6 +56,11 @@ include::serving:partial$knative-objects.adoc[tag=knative-revisions]
 
 The command above should list two revisions namely `greeter-v1` and `greeter-v2`.
 
+[tabs]
+====
+kn::
++
+--
 [.console-output]
 [source,bash]
 ----
@@ -63,6 +68,20 @@ NAME         SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   
 greeter-v2   greeter   100%             2            11s   4 OK / 4     True
 greeter-v1   greeter                    1            28s   4 OK / 4     True
 ----
+
+--
+{kubernetes-cli}::
++
+--
+[.console-output]
+[source,bash]
+----
+NAME         CONFIG NAME   K8S SERVICE NAME   GENERATION   READY   REASON
+greeter-v1   greeter       greeter-v1         1            True
+greeter-v2   greeter       greeter-v2         2            True
+----
+--
+====
 
 [TIP]
 ====
@@ -162,7 +181,7 @@ Let us list all revisions with tags:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn revision list greeter --namespace {tutorial-namespace}
+kn revision ls --namespace {tutorial-namespace}
 ----
 
 Based on the revision tags that we created earlier, the output should be like:

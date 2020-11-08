@@ -9,6 +9,13 @@ kn::
 ----
 kn service list -n {tutorial-namespace}
 ----
+
+[.console-output]
+[source,text,subs="+attributes"]
+----
+NAME      URL                                                   LATEST            AGE   CONDITIONS   READY   REASON
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   greeter-sxnzq-1   17m   3 OK / 3     True
+----
 --
 {kubernetes-cli}::
 +
@@ -17,6 +24,13 @@ kn service list -n {tutorial-namespace}
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl --namespace {tutorial-namespace}  get services.serving.knative.dev greeter 
+----
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+NAME      URL                                                   LATESTCREATED     LATESTREADY       READY   REASON
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   greeter-sxnzq-1   greeter-sxnzq-1   True
 ----
 --
 ====
@@ -44,6 +58,14 @@ kn::
 ----
 kn route --namespace {tutorial-namespace} list
 ----
+
+[.console-output]
+[source,bash,subs="+attributes"]
+----
+NAME      URL                                          READY
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   True
+----
+
 --
 {kubernetes-cli}::
 +
@@ -52,6 +74,13 @@ kn route --namespace {tutorial-namespace} list
 [source,bash,subs="+macros,+attributes"]
 ----
 {kubernetes-cli} --namespace {tutorial-namespace} get routes.serving.knative.dev greeter
+----
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+NAME      URL                                                   READY   REASON
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   True
 ----
 --
 ====

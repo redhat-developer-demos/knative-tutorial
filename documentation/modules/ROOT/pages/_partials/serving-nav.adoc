@@ -15,7 +15,7 @@ ifndef::workshop[]
 *** xref:serving:knative-client.adoc#kn-route-list[Knative Revision List]
 endif::[]
 
-* xref:serving:basic-fundas.adoc[Services]
+* xref:serving:basic-fundas.adoc[Serving]
 ifndef::workshop[]
 ** xref:serving:basic-fundas.adoc#basics-prerequisite[Prerequisites]
 ** xref:serving:basic-fundas.adoc#basics-build-containers[Build Containers]

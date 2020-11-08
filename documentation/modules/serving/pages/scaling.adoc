@@ -133,8 +133,7 @@ Minikube::
 [source,bash,subs="attributes+,+macros",linenums]
 ----
 hey -c 50 -z 10s \
-  -host "prime-generator.knativetutorial.example.com" \
-  "http://pass:[${IP_ADDRESS}]/?sleep=3&upto=10000&memload=100"
+  "http://prime-generator.{tutorial-namespace}.{minikube-nip-io}/?sleep=3&upto=10000&memload=100"
 ----
 --
 OpenShift::

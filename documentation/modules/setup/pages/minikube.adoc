@@ -246,7 +246,7 @@ kubectl rollout status ds envoy -n projectcontour
 kubectl rollout status deploy contour -n projectcontour
 ----
 
-A successful rollout shoud list the following pods in `projectcontour`
+A successful rollout should list the following pods in `projectcontour`
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -263,6 +263,8 @@ contour-5475898957-h6hxb        1/1     Running     1          34h
 contour-certgen-v1.10.0-x69qz   0/1     Completed   0          34h
 envoy-ft8ct                     2/2     Running     2          34h
 ----
+
+[#configure-ingress-to-gateway]
 
 Now create Ingress to Kourier Ingress Gateway:
 
