@@ -1,0 +1,8 @@
+ifdef::workshop[]
+* xref:setup:setup.adoc#kubernetes-cluster[Kubernetes Cluster]
+endif::[]
+ifndef::workshop[]
+** xref:setup:setup.adoc#tutorial-dev-env[Development Environment]
+** xref:setup:setup.adoc#download-tutorial-sources[Download Tutorial Sources]
+endif::[]
+** xref:setup:setup.adoc#kubernetes-cluster[Choose your Kubernetes Cluster]

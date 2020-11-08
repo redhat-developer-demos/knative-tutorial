@@ -19,8 +19,8 @@ image::knative-cookbook.png[Knative Cookbook,300,300]
 |===
 a|
 [.tile]
-.xref:serving:index.adoc[Setup]
-* xref:serving:setup.adoc[Deploy]
+.xref:setup:setup.adoc[Setup]
+* xref:setup:setup.adoc[Deploy]
 * xref:serving:knative-client.adoc[Knative Client]
 a|
 [.tile]

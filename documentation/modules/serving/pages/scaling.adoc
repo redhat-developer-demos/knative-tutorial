@@ -30,7 +30,7 @@ The following snippet shows what a Knative service YAML will look like:
 .link:{github-repo}/{basics-repo}/{service-file}[{service-file}]
 [source,yaml,subs="+macros,attributes+"]
 ----
-include::serving:example$basics/{service-file}[]
+include::serving:example${basics-repo}/{service-file}[]
 ----
 
 The service can be deployed using the command:

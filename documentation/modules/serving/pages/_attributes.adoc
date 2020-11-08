@@ -1,7 +1,7 @@
 :moduledir: ..
 :branch: master
 :github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
-:basics-repo: basics
+:basics-repo: serving
 :configs-and-routes-repo: configs-and-routes
 :scaling-repo: scaling
 :eventing-repo: eventing

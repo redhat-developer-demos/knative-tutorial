@@ -65,7 +65,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 All In One::
 +
 --
-include::serving:partial$tutorial-dev-env.adoc[]
+include::setup:partial$tutorial-dev-env.adoc[]
 --
 ====
 
@@ -103,12 +103,12 @@ Knative can be installed only on Kubernetes cluster. The following section shows
 Minikube::
 +
 --
-include::serving:partial$minikube-setup.adoc[]
+include::setup:partial$minikube-setup.adoc[]
 --
 OpenShift::
 +
 --
-include::serving:partial$openshift-setup.adoc[]
+include::setup:partial$openshift-setup.adoc[]
 --
 ====
 endif::[]

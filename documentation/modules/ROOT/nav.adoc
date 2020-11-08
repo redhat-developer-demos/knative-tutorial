@@ -1,7 +1,5 @@
-.xref:serving:setup.adoc[Setup]
-* xref:serving:setup.adoc#tutorial-dev-env[Development Environment]
-* xref:serving:setup.adoc#download-tutorial-sources[Download Tutorial Sources]
-** xref:serving:setup.adoc#kubernetes-cluster[Choose your Kubernetes Cluster]
+.xref:setup:setup.adoc[Setup]
+include::ROOT:partial$setup-nav.adoc[]
 
 .xref:serving:index.adoc[Knative Serving]
 include::ROOT:partial$serving-nav.adoc[]
