@@ -15,3 +15,4 @@
 :camelk-repo: advanced/camel-k
 :eventing-repo: eventing
 :observability-repo: advanced/observability
+:minikube-nip-io: 192.168.64.13.nip.io 

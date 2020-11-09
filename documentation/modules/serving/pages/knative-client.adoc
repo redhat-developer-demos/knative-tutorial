@@ -118,7 +118,12 @@ include::serving:partial$invoke-service.adoc[tag=workshop-call]
 ====
 endif::[]
 
-You can xref:basic-fundas.adoc#basics-see-what-you-have-deployed[verify] what you the kn client has deployed, to make sure its inline with what you have see in previous chapter.
+[IMPORTANT]
+====
+For all the examples in the tutorial we have configured the xref:setup:minikube.adoc#configure-ingress-to-gateway[Ingress Controller and domain], which will use the domain suffix format like `**<service-name>.<namespace>.<minikube ip>.nip.io**`.
+
+If you have not using the Ingress controller configuration then the service has to be invoked like `http $IP_ADDRESS 'Host:greeter.knativetutorial.example.com'`, you noticed that we added a **Host** header to the request with value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative Routes and uses the following format: `**<service-name>.<namespace>.<domain-suffix>**`.
+====
 
 [#kn-update-ksvc]
 === Update Knative Service

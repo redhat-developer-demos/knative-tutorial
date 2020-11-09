@@ -1,4 +1,4 @@
-apiVersion: sources.eventing.knative.dev/v1alpha1
+apiVersion: sources.knative.dev/v1alpha1
 kind: CamelSource
 metadata:
   name: fruits-processor
@@ -58,6 +58,6 @@ spec:
                   - to: "log:high?showAll=true&multiline=true"
   sink:
     ref:
-      apiVersion: eventing.knative.dev/v1alpha1
+      apiVersion: eventing.knative.dev/v1
       kind: Broker
       name: default

@@ -2,7 +2,7 @@
 
  ![Knative Tutorial](https://github.com/redhat-developer-demos/knative-tutorial/workflows/Knative%20Tutorial/badge.svg) [![Knative Serving v0.17](https://img.shields.io/badge/Knative%20Serving-v0.17-blue)](https://knative.dev/docs/serving/)
  [![Knative Eventing v0.17](https://img.shields.io/badge/Knative%20Eventing-v0.17-blue)](https://knative.dev/docs/eventing/)
- [![Strimzi Kafka](https://img.shields.io/badge/Strimzi%20Kafka-v0.19.0-blue)](https://strimzi.io)
+ [![Strimzi Kafka](https://img.shields.io/badge/Strimzi%20Kafka-v0.20.0-blue)](https://strimzi.io)
  [![Apache Camel-K](https://img.shields.io/badge/Apache%20Camel--K-v1.2.0-blue)](https://camel.apache.org/camel-k/latest/)
   [![OpenShift Serverless](https://img.shields.io/badge/OpenShift%20Serverless-v1.11-blue)](https://www.openshift.com/learn/topics/serverless)
 

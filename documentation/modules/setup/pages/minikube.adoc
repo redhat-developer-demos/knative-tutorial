@@ -226,7 +226,7 @@ kubectl patch configmap/config-network \
 [#install-ingress-controller]
 === Install and Configure Ingress Controller
 
-To access the Knative Serving services from the minikube host, it will be easier to have Ingress deployed and configured. 
+To access the Knative Serving services from the minikube host, it will be easier to have https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress] deployed and configured. 
 
 The following section will install and configure https://projectcontour.io[Contour] as the Ingress Controller.
 
@@ -266,7 +266,7 @@ envoy-ft8ct                     2/2     Running     2          34h
 
 [#configure-ingress-to-gateway]
 
-Now create Ingress to Kourier Ingress Gateway:
+Now create an Ingress to Kourier Ingress Gateway:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]

@@ -39,49 +39,64 @@ Just make sure:
 * Review xref:eventing/eventing.adoc[Knative Eventing] module to refresh the concepts
 * Apache Kafka xref:deploy-apache-kafka.adoc[my-cluster] is running
 
+:service-file: default-broker.yaml
+[#label-namespace-for-default-broker]
+=== Create default Broker
+
+If you have deleted the *default* broker, then you need to create the *default* broker to be used by this chapter's exercises.
+
+Navigate to the eventing chapter folder {eventing-repo}:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/{eventing-repo}
+----
+
+.link:{github-repo}/{eventing-repo}/default-broker.yaml[default-broker]
+[source,yaml,subs="attributes+,+macros"]
+----
+---
+apiVersion: eventing.knative.dev/v1
+kind: broker
+metadata:
+ name: default
+----
+
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;broker;tab-2]
+
+Verify the created resources:
+
+include::eventing:partial$knative-objects.adoc[tags=knative-eventing-broker]
+
 Finally navigate to the tutorial chapter's folder {camelk-repo}:
 
 [.console-input]
-[#camelk-repo-nav-folder]
 [source,bash,subs="+macros,+attributes"]
 ----
 cd $TUTORIAL_HOME/{camelk-repo}
-----
-
-[#label-namespace-for-default-broker]
-=== Label Namespace 
-
-* The {tutorial-namespace} namespace is labeled to inject Knative Eventing's default Broker filter and ingress deployment.
-
-[.console-input]
-[#run-label-namespace]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl label namespace {tutorial-namespace} knative-eventing-injection=enabled
-----
-
-If the label is set correctly on the {tutorial-namespace} namespace then you should see the following pods corresponding to Knative Eventing's default broker's filter and ingress:
-
-[.console-input]
-[#watch-default-broker-pods]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-watch kubectl get pods -n {tutorial-namespace}
-----
-
-[.console-output]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-NAME                                       READY   STATUS      AGE
-camel-k-operator-5d74595cdf-4v9qz          1/1     Running     3h59m
-default-broker-filter-c6654bccf-zkw7s      1/1     Running     59s
-default-broker-ingress-857698bc5b-r4zmf    1/1     Running     59s
 ----
 
 [#camel-k-cbr-data-producer]
 === Deploy Data Producer
 
 Knative Camel-K integration called `fruits-producer` which will use a public http://fruityvice.com[fruits API] to retrieve the information about fruits and stream the data to Apache Kafka. The `fruits-producer` service retrieves the data from the fruits API, splits it using the https://camel.apache.org/manual/latest/split-eip.html[Split EIP] and then sends the data to a Kafka topic called `fruits`.
+
+As the Fruityvice services self-signed certificates which Quarkus does not allow out of the box, we will use a proxy that skips SSL check.
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/fruityvice-proxy.yaml
+----
+
+Wait for the frutiyvice proxy to be running:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status deploy fruityvice-proxy
+----
 
 .Fruits producer
 [source,yaml]
@@ -92,7 +107,7 @@ Knative Camel-K integration called `fruits-producer` which will use a public htt
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "http:fruityvice.com/api/fruit/all?bridgeEndpoint=true" # <1>
+      - to: "http:fruityvice-proxy:8080/api/fruit/all?bridgeEndpoint=true" # <1>
       - split:
           jsonpath: "$.[*]" # <2>
       - marshal:
@@ -129,8 +144,7 @@ The service deployment may take several minutes to become available, to monitor 
 * `watch kubectl get ksvc`  or `watch oc get ksvc`
 ====
 
-:doc-sec: dddp
-include::partial$adv-kubectl-queries.adoc[tags="kgpow"]
+include::advanced:partial$adv-kubectl-queries.adoc[tags="kgpow"]
 
 A successful deploy will show the following pods:
 
@@ -145,16 +159,14 @@ default-broker-ingress-857698bc5b-r4zmf             1/1     Running   5m
 *_fruits-producer-nfngm-deployment-759c797c44-d6r52   2/2     Running   70s_*
 ----
 
-:doc-sec: dddp
-include::partial$adv-kubectl-queries.adoc[tags="kgksvc"]
+include::advanced:partial$adv-kubectl-queries.adoc[tags="kgksvc"]
 
 .fruit-producer Knative services
 [.console-output]
-[source,bash,subs="+quotes,+attributes,+macros"]
+[source,bash,subs="+attributes,+macros"]
 ----
-NAME              URL                                            READY
-event-display     http://event-display.{tutorial-namespace}.example.com     True
-fruits-producer   http://fruits-producer.{tutorial-namespace}.example.com   True
+NAME              URL                                                           LATESTCREATED           LATESTREADY             READY   REASON
+fruits-producer   http://fruits-producer.{tutorial-namespace}.{minikube-nip-io}   fruits-producer-gl575   fruits-producer-gl575   True
 ----
 
 [[kamel-cbr-fp-verify]]
@@ -279,7 +291,7 @@ kubectl apply -n {tutorial-namespace} -f eip/fruits-processor.yaml
 
 As the Camel-K controller takes few minutes to deploy the CamelSource, you can watch the pods of the `{tutorial-namespace}` namespace for its status:
 
-include::partial$adv-kubectl-queries.adoc[tags="kgpow"]
+include::advanced:partial$adv-kubectl-queries.adoc[tags="kgpow"]
 
 [.console-output]
 .fruit-processor Knative service pods
@@ -471,7 +483,12 @@ image::cbr_app_ui_with_data.png[align="center"]
 [#camelk-cbr-cleanup]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kamel delete  -n {tutorial-namespace} fruit-producer
-kubectl delete  -n {tutorial-namespace} -f -f eip/fruits-processor.yaml
+kamel delete  -n {tutorial-namespace} fruits-producer
+kubectl delete  -n {tutorial-namespace} -f eip/fruits-processor.yaml
+kubectl delete  -n {tutorial-namespace} -f eip/sugary-fruits.yaml
 kubectl delete -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/fruit-events-display.yaml
+kubectl delete -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/fruityvice-proxy.yaml
+kn broker delete  -n {tutorial-namespace} default
+kamel -n {tutorial-namespace} reset
+kamel -n {tutorial-namespace} uninstall
 ----
