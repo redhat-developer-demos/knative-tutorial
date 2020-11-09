@@ -1,13 +1,9 @@
 = Setup
 include::_attributes.adoc[]
 
-[#tutorial-dev-env]
-== Development Environment
-[tabs]
-====
-Install Locally::
-+
---
+
+== Install Locally
+
 The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
 
 [cols="4*^,4*.",options="header,+attributes"]
@@ -60,34 +56,3 @@ The following CLI tools are required for running the exercises in this tutorial.
 |
 
 |===
-
---
-All In One::
-+
---
-include::setup:partial$tutorial-dev-env.adoc[]
---
-====
-
-[#download-tutorial-sources]
-== Download Tutorial Sources
-Before we start setting up the environment, let's clone the tutorial sources and set the `TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
-
-[.console-input]
-[source,bash,subs="attributes+,+macros"]
-----
-git clone https://github.com/redhat-developer-demos/knative-tutorial
-export TUTORIAL_HOME="$(pwd)/knative-tutorial"
-----
-
-ifndef::workshop[]
-[IMPORTANT,subs="attributes+,+macros"]
-====
-
-This tutorial was developed and tested with:
-
-- Knative `{knative-version}`
-- Minikube `{minikube-version}`
-- OpenShift `{openshift-version}`
-====
-endif::[]

@@ -4,7 +4,7 @@ You could get started with tutorial using the **all-in-one-environment** based o
 [#dev-env-install-chectl]
 *Install chectl*
 
-To get started in setting up this environment, we need to have https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/[chectl]. You can follow the https://www.eclipse.org/che/docs/che-7/installing-the-chectl-management-tool/[instructions] to have it installed locally.
+To get started in setting up this environment, we need to have https://www.eclipse.org/che/docs/che-7/installation-guide/using-the-chectl-management-tool/[chectl]. You can follow the https://www.eclipse.org/che/docs/che-7/installation-guide/using-the-chectl-management-tool/[instructions] to have it installed locally.
 
 You can verify the install using the command:
 
@@ -19,7 +19,7 @@ The command above should return an output like:
 [.console-output]
 [source,bash]
 -----
-chectl/7.12.2 darwin-x64 node-v12.16.3
+chectl/7.21.1 darwin-x64 node-v10.23.0
 -----
 
 NOTE: The above output is an example from macOS (darwin), the OS information in output may vary based on your OS
