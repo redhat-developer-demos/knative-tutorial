@@ -20,7 +20,7 @@ cd $TUTORIAL_HOME/{camelk-repo}
 ----
 
 [#deploy-camel-k-integration]
-=== Deploy Camel-K integration
+== Deploy Camel-K integration
 
 Camel-K helps you in writing the Apache Camel integrations using Java, JS, XML and as YAML. 
 
@@ -106,7 +106,7 @@ You can use Ctrl+C to stop the running Camel K integration and it automatically 
 The `dev` mode allows live reload of code. Update the `timed-greeter.yaml` body text to be "Hi Camel K rocks!" and observe the automatic reloading of the context and the logs printing the new message.
 
 [#deploy-camel-k-kn-integration]
-=== Deploy Camel-K Knative Integration
+== Deploy Camel-K Knative Integration
 
 Any Camel-K integration can be converted into a serverless service using Knative. For an integration to be deployed as a Knative Service you need to use the Camel-K\'s `knative` component.
 
@@ -284,16 +284,9 @@ The invocation of a Knative Camel-K Integration is a bit different than previous
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-*NODE_PORT=$(kubectl get svc kourier --namespace kourier-system \
-  --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')* <1>
-*IP_ADDRESS="$(minikube ip):$NODE_PORT"* <2>
-*HOST_HEADER="Host:echoer.{tutorial-namespace}.example.com"* <3>
-*curl -X POST -H $HOST_HEADER -d "Hello World" $IP_ADDRESS* <4>
+*curl -X POST -d "Hello World" $KSVC_URL* <.>
 ----
-<1> All Knative traffic should flow through the Istio Ingress gateway and NodePort is the easiest solution on minikube
-<2> Minikube, which is running as a VM on your local machine, provides a local IP address (e.g. 192.168.99.100)
-<3> The host header can be determined by running `kubectl get ksvc echoer`, just make sure to *remove* the "http://" prefix
-<4> curl with a POST
+<.> curl with a POST
 
 [TIP]
 ====
@@ -301,7 +294,7 @@ Explore the `kamel` tool via its help option of `kamel --help` to see the list o
 ====
 
 [#cleanup]
-=== Cleanup
+== Cleanup
 
 [.console-input]
 [#camelk-gs-cleanup]

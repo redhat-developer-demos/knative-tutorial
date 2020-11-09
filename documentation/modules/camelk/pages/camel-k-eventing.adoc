@@ -18,7 +18,7 @@ cd $TUTORIAL_HOME/{camelk-repo}
 ----
 
 [#deploy-camel-k-source]
-=== Deploy Knative Eventing CamelSource
+== Deploy Knative Eventing CamelSource
 
 The `CamelSource` allows you use a Camel-K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel-K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and  send the Camel exchanges (OUT) through a Knative Event Sink.
 
@@ -70,7 +70,7 @@ sinkbindings                    sources.knative.dev   true         SinkBinding  
 ----
 
 [#logging-ce-messages]
-=== View CloudEvents Messages
+== View CloudEvents Messages
 
 In order for you to view the events drained from the CamelSource `timed-greeter`, you need to deploy a utility service called `event-display`. Run the following command to deploy the service:
 
@@ -131,7 +131,7 @@ event-display   http://event-display.knativetutorial.example.com   event-display
 
 
 [[camel-k-es-sink]]
-=== CamelSource to a Knative Eventing Sink
+== CamelSource to a Knative Eventing Sink
 
 Knative Eventing semantics allows you to link the Event Source to Event Sink using the **sink** block of the Knative Eventing source specification.
 
@@ -246,7 +246,7 @@ event-... user-container   source: camel-source:knativetutorial/timed-greeter
 ----
 
 [#cleanup]
-=== Cleanup
+== Cleanup
 
 [.console-input]
 [#camelk-eventing-cleanup]
