@@ -1,5 +1,4 @@
-= {title}
-
+= Advanced
 include::_attributes.adoc[]
 
 This tutorial helps in undertanding some advanced concepts and application with Knative Serving, Eventing and Apache Camel-k

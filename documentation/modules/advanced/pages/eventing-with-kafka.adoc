@@ -1,7 +1,5 @@
-= {title}
-
 [[kn-eventing-with-kafka]]
-== Apache Kafka Events with Knative Eventing
+= Apache Kafka Events with Knative Eventing
 include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
@@ -17,7 +15,7 @@ cd $TUTORIAL_HOME/eventing
 ----
 
 [#kn-eventing-kafka-source]
-=== Deploy Knative Eventing KafkaSource
+== Deploy Knative Eventing KafkaSource
 
 Knative Eventing `KafkaSource` need to be used to have the Kafka messages to flow through the Knative Eventing Channels. You can deploy Knative KafkaSource by running the command:
 

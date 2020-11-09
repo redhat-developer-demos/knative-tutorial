@@ -1,6 +1,4 @@
-= {title}
-
-== Knative Serving 
+= Knative Serving 
 
 Knative Serving is ideal for running your application services inside Kubernetes by providing a more simplified deployment syntax with automated scale-to-zero and scale-out based on HTTP load. The Knative platform will manage your service’s deployments, revisions, networking and scaling.
 Knative Serving exposes your service via an HTTP URL and has a lot of sane defaults for its configurations. For many practical use cases you might need to tweak the defaults to your needs and might also need to adjust the traffic distribution amongst the service revisions. As the Knative Serving Service has the built in ability to automatically scale down to zero when not in use, it is apt to call it as “serverless service”.

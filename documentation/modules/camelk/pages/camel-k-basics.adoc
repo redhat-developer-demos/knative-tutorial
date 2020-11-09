@@ -1,8 +1,6 @@
-= Page Title
-include::_attributes.adoc[]
-
 [[camel-k-basics]]
-== Camel-K Basics
+= Camel-K Basics
+include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
 

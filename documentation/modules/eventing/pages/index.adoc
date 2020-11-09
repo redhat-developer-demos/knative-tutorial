@@ -1,6 +1,4 @@
-= {title}
-
-== Knative Eventing
+= Knative Eventing
 
 .CloudEvents
 ****

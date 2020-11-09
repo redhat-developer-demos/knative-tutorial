@@ -1,7 +1,5 @@
-= {title}
-
 [[camel-k-cbr]]
-== Applying Content Based Routing EIP
+= Applying Content Based Routing EIP
 include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
@@ -18,7 +16,7 @@ The Content Based Router examines the message content and routes the message to 
 ****
 
 [[cbr-app-overview]]
-=== Application Overview
+== Application Overview
 
 We will deploy a simple data streaming application that will use Camel-K and Knative to process the incoming data where that processed data is pushed out to to a reactive web application via https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[Server-Sent Events (SSE)] as shown below:
 
@@ -41,7 +39,7 @@ Just make sure:
 
 :service-file: default-broker.yaml
 [#label-namespace-for-default-broker]
-=== Create default Broker
+== Create default Broker
 
 If you have deleted the *default* broker, then you need to create the *default* broker to be used by this chapter's exercises.
 
@@ -78,7 +76,7 @@ cd $TUTORIAL_HOME/{camelk-repo}
 ----
 
 [#camel-k-cbr-data-producer]
-=== Deploy Data Producer
+== Deploy Data Producer
 
 Knative Camel-K integration called `fruits-producer` which will use a public http://fruityvice.com[fruits API] to retrieve the information about fruits and stream the data to Apache Kafka. The `fruits-producer` service retrieves the data from the fruits API, splits it using the https://camel.apache.org/manual/latest/split-eip.html[Split EIP] and then sends the data to a Kafka topic called `fruits`.
 
@@ -170,7 +168,7 @@ fruits-producer   http://fruits-producer.{tutorial-namespace}.{minikube-nip-io} 
 ----
 
 [[kamel-cbr-fp-verify]]
-==== Verify Fruit Producer
+=== Verify Fruit Producer
 
 Run the `$TUTORIAL_HOME/bin/call.sh` with the parameter `fruits-producer`. 
 
@@ -204,7 +202,7 @@ Since the fruits API returns a static set of fruit data consistently, you can ca
 ====
 
 [[camel-k-cbr-data-processor]]
-=== Deploy Data Processor
+== Deploy Data Processor
 
 Let us now deploy a CamelSource called `fruits-processor`, that can  handle and process the streaming data from the Kafka topic `fruits`. The `fruits-processor` CamelSource applies the *Content Based Router* EIP to process the data. The following listing describes the `fruits-processor` CamelSource:
 
@@ -330,7 +328,7 @@ fruits-processor   True             2m22s
 ----
 
 [[camel-k-cbr-event-subscriber]]
-=== Deploy Event Subscriber
+== Deploy Event Subscriber
 
 Let us now deploy a https://en.wikipedia.org/wiki/Reactive_programming[Reactive] Web application called fruit-events-display`. It is a https://quarkus.io[Quarkus] Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.
 
@@ -404,7 +402,7 @@ The `fruit-events-display` UI will be empty as shown below:
 image::cbr_app_ui_empty.png[align="center"]
 
 [[camel-k-cbr-event-filter]]
-=== Apply Knative Filter
+== Apply Knative Filter
 
 As a last step let us now deploy a Knative Event Trigger called `fruits-trigger`. The trigger consumes the events from the Knative Event Broker named `default`, when the fruit event is received it will dispatch the events to the subscriber -- that is `fruit-events-display` service --.
 
@@ -458,7 +456,7 @@ sugary-fruits  True  default   http://fruits-events-display.knativetutorial.svc.
 ----
 
 [[verify-e2e]]
-=== Verify end to end
+== Verify end to end
 
 Now that we have all the components for the <<cbr-app-overview>>, let us verify the end to end flow:
 
@@ -477,7 +475,7 @@ Assuming everything worked well, you should see the `low-sugar` fruits listed in
 image::cbr_app_ui_with_data.png[align="center"]
 
 [#kamel-cbr-cleanup]
-=== Cleanup
+== Cleanup
 
 [.console-input]
 [#camelk-cbr-cleanup]

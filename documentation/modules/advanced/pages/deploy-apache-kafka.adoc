@@ -1,7 +1,5 @@
-= {title}
-
 [[deploy-apache-kafka]]
-== Deploying Apache Kafka Cluster
+= Deploying Apache Kafka Cluster
 include::_attributes.adoc[]
 
 As part of the upcoming section of this chapter, we will be deploying a <<eventing-source,Knative Source>>, that will respond to Apache Kafka Topic messages(events). Before getting to other exercises, we need to first deploy Apache Kafka inside in your Kubernetes cluster. 
@@ -136,7 +134,7 @@ You can choose to skip the manual pre-creation of a KafkaTopic but the automatic
 ====
 
 [[create-kafka-topic]]
-=== Create Kafka Topic
+== Create Kafka Topic
 
 [.console-input]
 [#oc-create-kakfa-topic]
@@ -166,7 +164,7 @@ my-topic   10           1
 Verify that your Kafka Topic is working correctly by connecting a simple producer, consumer and creating some test messages.  The sample code repository includes a script for producing Kafka messages called `kafka-producer.sh`.  Execute the script and type in "one", "two", "three".  Hitting enter/return after each string:
 
 [[kafka-producer]]
-=== Producer
+== Producer
 
 [.console-input]
 [#run-kafka-producer]

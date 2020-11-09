@@ -1,4 +1,4 @@
-= {title}
+
 :page-layout: home
 :!sectids:
 
