@@ -134,7 +134,8 @@ In previous chapter we deployed a new revision of Knative service by adding an e
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service update greeter --env "MESSAGE_PREFIX=Namaste"
+kn service update greeter --namespace {tutorial-namespace} \
+  --env "MESSAGE_PREFIX=Namaste"
 ----
 
 [.console-output]
@@ -168,7 +169,7 @@ Sometime you wish you get the YAML of the Knative service to build a new service
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service describe greeter
+kn service describe --namespace {tutorial-namespace} greeter 
 ----
 
 The describe should show you a short summary of your service : 
@@ -199,7 +200,7 @@ To list all the revisions as part of the `describe` command use:
 [.console-input]
 [source,subs="+macros,attributes+"]
 ----
-kn service describe greeter -v
+kn service describe --namespace {tutorial-namespace} greeter -v
 ----
 [.console-output]
 [source,text,subs="+quotes,+macros,attributes+"]
@@ -233,7 +234,7 @@ To get the Knative service url use `describe` with `-o url` option:
 [.console-input]
 [source,bash]
 ----
-kn service describe greeter -o url
+kn service describe --namespace {tutorial-namespace}  greeter -o url
 ----
 
 [.console-output]
@@ -255,7 +256,7 @@ You can list the available revisions of a Knative service using:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision list
+kn revision list --namespace {tutorial-namespace}
 ----
 
 [.console-output]
@@ -276,7 +277,7 @@ To get the details about a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision describe greeter-twpgf-1
+kn revision describe --namespace {tutorial-namespace} greeter-twpgf-1
 ----
 
 [.console-output]
@@ -305,7 +306,7 @@ To delete a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision delete greeter-twpgf-1
+kn revision delete --namespace {tutorial-namespace} greeter-twpgf-1
 ----
 
 [.console-output]
@@ -343,7 +344,7 @@ You can also use `kn` to delete the service that were created, to delete the ser
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service delete greeter
+kn service delete --namespace {tutorial-namespace} greeter
 ----
 
 [source,bash]
