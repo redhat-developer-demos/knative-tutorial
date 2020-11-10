@@ -1,5 +1,4 @@
 :moduledir: ..
-:branch: master
 :github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
 :advanced-module-github-repo-uri: https://github.com/redhat-developer-demos/knative-tutorial-advanced
 :advanced-github-repo-uri: https://github.com/redhat-developer-demos/knative-tutorial-advanced

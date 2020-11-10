@@ -22,6 +22,7 @@ content:
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
+    branch: staging
     workshop-domain: guru.devx.red
     minikube-version: v1.14.1
     openshift-version: v4.6
