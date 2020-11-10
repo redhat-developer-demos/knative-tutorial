@@ -95,7 +95,7 @@ kn service create prime-generator \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update prime-generator \
+kn service create prime-generator \
   --concurrency-target=10 \
   --scale-min=2 \
   --image=quay.io/rhdevelopers/prime-generator:v27-quarkus

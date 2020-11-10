@@ -60,7 +60,6 @@ To create the `greeter` service using `kn` run the following command:
 [source,bash,subs="+macros,attributes+"]
 ----
 kn service create greeter \
-  --namespace {tutorial-namespace} \
   --image {greeter-image}
 ----
 
@@ -91,7 +90,7 @@ You can list the created services using the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service list --namespace {tutorial-namespace}
+kn service list
 ----
 
 [.console-output]
@@ -263,7 +262,7 @@ kn revision list
 [source,bash]
 ----
 NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
-greeter-tjtpm-2   greeter   100%             2            98s   3 OK / 4     True    
+greeter-tjtpm-2   greeter   100%             2            98s   4 OK / 4     True    
 greeter-twpgf-1   greeter                    1            11h   3 OK / 4     True    
 
 ----
@@ -306,16 +305,14 @@ To delete a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision delete greeter-7cqzq
+kn revision delete greeter-twpgf-1
 ----
 
 [.console-output]
 [source,bash]
 ----
-Revision 'greeter-7cqzq' successfully deleted in namespace 'knativetutorial'.
+Revision 'greeter-twpgf-1' successfully deleted in namespace 'knativetutorial'.
 ----
-
-Now <<kn-invoke-service, invoking service>> will return the response from revision `greeter-6m45j`.
 
 [#kn-routes]
 == Knative Route Commands
@@ -334,9 +331,8 @@ kn route list
 [.console-output]
 [source,bash,subs="+macros,attributes+"]
 ----
-NAME      URL                                          AGE   CONDITIONS   TRAFFIC
-greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}
-   10m   3 OK / 3     100% -> greeter-zd7jk
+NAME      URL                                                  READY
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   True
 ----
 
 [#kn-cleanup]
