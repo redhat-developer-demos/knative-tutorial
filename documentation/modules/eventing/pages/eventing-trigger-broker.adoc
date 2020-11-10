@@ -75,11 +75,12 @@ Now create the the trigger for `eventingaloha` that will associate the filtered 
 .link:{github-repo}/{eventing-repo}/trigger-helloaloha.yaml[trigger-helloaloha.yaml]
 [source,yaml]
 ----
-apiVersion: eventing.knative.dev/v1beta1
+apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: helloaloha
 spec:
+  broker: default
   filter:
     attributes:
       type: greeting # <1>
