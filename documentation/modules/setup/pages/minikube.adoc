@@ -1,3 +1,4 @@
+= Minikube
 include::_attributes.adoc[]
 
 [#start-minikube]
@@ -182,7 +183,7 @@ webhook-59585cb6-wqldc        1/1     Running   0          11m
 ----
 kubectl apply \
   --filename \
-    https://github.com/knative/net-kourier/releases/download/{knative-serving-version}/kourier.yaml
+    +https://github.com/knative/net-kourier/releases/download/+{net-kourier-version}/kourier.yaml
 ----
 
 Wait for the Ingress Gateway  deployment to complete:
