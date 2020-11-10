@@ -231,7 +231,7 @@ Create a `KafkaSource` for `my-topic` by connecting your Kafka topic `my-topic` 
 
 [source,yaml]
 ----
-apiVersion: sources.knative.dev/v1alpha1
+apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
   name: mykafka-source

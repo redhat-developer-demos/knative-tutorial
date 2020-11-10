@@ -105,6 +105,8 @@ NAME                                         READY  STATUS   AGE
 my-cluster-entity-operator-7d677bdf7b-jpws7  3/3    Running  85s
 my-cluster-kafka-0                           2/2    Running  110s
 my-cluster-zookeeper-0                       2/2    Running  2m22s
+my-cluster-zookeeper-1                       2/2    Running  2m22s
+my-cluster-zookeeper-2                       2/2    Running  2m22s
 strimzi-cluster-operator-85f596bfc7-7dgds    1/1    Running  4m22s
 ----
 

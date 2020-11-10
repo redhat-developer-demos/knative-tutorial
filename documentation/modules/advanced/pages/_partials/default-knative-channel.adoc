@@ -58,8 +58,8 @@ kn channel -n {tutorial-namespace} ls
 [.console-output]
 [source,bash]
 ----
-NAME           TYPE              URL                                                                AGE   READY   REASON
-my-events-ch   InMemoryChannel   http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local   10m   True
+NAME           TYPE           URL                                                                AGE     READY   REASON
+my-events-ch   KafkaChannel   http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local   2m55s   True
 ----
 --
 {kubernetes-cli}::
