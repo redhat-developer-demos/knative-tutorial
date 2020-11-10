@@ -36,7 +36,7 @@ Let's see how a simple source, the *PingSource* looks like :
 .link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1alpha2
+apiVersion: sources.knative.dev/v1beta1
 kind: PingSource #<1>
 metadata:
   name: eventinghello-ping-source
@@ -61,7 +61,7 @@ spec: #<2>
 .link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1alpha2
+apiVersion: sources.knative.dev/v1beta1
 kind: PingSource
 metadata:
   name: eventinghello-ping-source
@@ -168,7 +168,7 @@ eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.loc
 ====
 
 
-You can xref:{eventing-repo}/eventing.adoc#eventing-watch-logs[watch logs] to see the ping job source sending an event every 1 minute.
+You can xref:{eventing-repo}#eventing-watch-logs[watch logs] to see the ping job source sending an event every 2 minutes.
 
 [#eventing-see-what-you-have-deployed]
 == See what you have deployed

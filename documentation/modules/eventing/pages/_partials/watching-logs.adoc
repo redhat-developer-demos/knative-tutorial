@@ -21,7 +21,7 @@ stern -n {kube-ns} -c user-container {kube-svc}
 ----
 ====
 
-The logs will have the output like below printing every minute.
+The logs will have the output like below printing every 2 minutes.
 
 [.console-output]
 [source]
@@ -41,6 +41,6 @@ INFO  [com.red.dev.dem.GreetingService] (XNIO-1 task-1) Event Message Received
 event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container  {
 event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "message" : "Thanks for doing Knative Tutorial",
 event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "host" : "Event  greeter => 'event-greeter-5cbh5-pod-52d8fb' : 2",
-event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:51:00"
+event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container   "time" : "13:52:07"
 event-greeter-g94kp-deployment-89f66cb58-wjl2v user-container }
 ----

@@ -75,11 +75,12 @@ Now create the the trigger for `eventingaloha` that will associate the filtered 
 .link:{github-repo}/{eventing-repo}/trigger-helloaloha.yaml[trigger-helloaloha.yaml]
 [source,yaml]
 ----
-apiVersion: eventing.knative.dev/v1beta1
+apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: helloaloha
 spec:
+  broker: default
   filter:
     attributes:
       type: greeting # <1>
@@ -168,7 +169,7 @@ The command should show the output as:
 [.console-output]
 [source,bash]
 ----
-http://default-broker.knativetutorial.svc.cluster.local
+http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default
 ----
 
 You should notice that the subscriberURIs are Kubernetes services with the suffix of `{tutorial-namespace}.svc.cluster.local`.  This means they can be interacted with from another pod within the Kubernetes cluster.
@@ -295,7 +296,7 @@ Now, trigger both `eventingaloha` and `eventingbonjour` by curling the subcriber
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://default-broker.{tutorial-namespace}.svc.cluster.local" \
+curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \

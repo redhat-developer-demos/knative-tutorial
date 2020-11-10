@@ -22,7 +22,7 @@ The https://en.wikipedia.org/wiki/Event-driven_architecture#Event_channel[channe
 .link:{github-repo}/{eventing-repo}/channel.yaml[channel.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: messaging.knative.dev/v1beta1
+apiVersion: messaging.knative.dev/v1
 kind: Channel
 metadata:
   name: eventinghello-ch #<1> 
@@ -80,7 +80,7 @@ The event source listens to external events e.g. a kafka topic or for a file on 
 .link:{github-repo}/{eventing-repo}/event-source.yaml[event-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1alpha2
+apiVersion: sources.knative.dev/v1beta1
 kind: PingSource
 metadata:
   name: event-greeter-ping-source
@@ -89,7 +89,7 @@ spec:
   jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:
    ref:
-    apiVersion: messaging.knative.dev/v1alpha1 # <1>
+    apiVersion: messaging.knative.dev/v1 # <1>
     kind: Channel # <2>
     name: eventinghello-ch
 ----
@@ -215,13 +215,13 @@ Now create the appropriate `Subscription` for `eventinghelloa` to the Channel `e
 
 [source,yaml]
 ----
-apiVersion: messaging.knative.dev/v1beta1
+apiVersion: messaging.knative.dev/v1
 kind: Subscription
 metadata:
   name: eventinghelloa-sub
 spec:
   channel:
-    apiVersion: messaging.knative.dev/v1beta1
+    apiVersion: messaging.knative.dev/v1
     kind: Channel
     name: eventinghello-ch
   subscriber:
@@ -235,13 +235,13 @@ And create the appropriate `Subscription` for `eventinghellob` to the Channel `e
 
 [source,yaml]
 ----
-apiVersion: messaging.knative.dev/v1beta1
+apiVersion: messaging.knative.dev/v1
 kind: Subscription
 metadata:
   name: eventinghellob-sub
 spec:
   channel:
-    apiVersion: messaging.knative.dev/v1beta1
+    apiVersion: messaging.knative.dev/v1
     kind: Channel
     name: eventinghello-ch
   subscriber:
@@ -298,9 +298,9 @@ Running  the above command should return the following result:
 [.console-output]
 [source,bash]
 ----
-NAME                       AGE
-eventinghelloa-sub         39s
-eventinghellob-sub         39s
+NAME                 AGE   READY   REASON
+eventinghelloa-sub   26s   True    
+eventinghellob-sub   6s    True 
 ----
 
 --
