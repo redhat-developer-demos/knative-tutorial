@@ -198,8 +198,7 @@ A successful Kourier Ingress Gateway should show the following pods in `kourier-
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kourier-cont
-rol)'
+kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kourier-control)'
 ----
 
 [.console-output]
@@ -300,7 +299,7 @@ Configure Knative to use the `kourier-ingress` Gateway:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-ksvc_domain="\"data\":{\""$(minikube ip)".nip.io\": \"\"}"
+ksvc_domain="\"data\":{\""$(minikube ip -p knativetutorial)".nip.io\": \"\"}"
 kubectl patch configmap/config-domain \
     -n knative-serving \
     --type merge \

@@ -227,7 +227,7 @@ $TUTORIAL_HOME/bin/call.sh
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-Namaste  greeter => '9861675f8845' : 1
+Hi  greeter => '9861675f8845' : 1
 ----
 
 [.console-input]
