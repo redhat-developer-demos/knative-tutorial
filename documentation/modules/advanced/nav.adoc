@@ -12,7 +12,7 @@
 *  EIP with Apache Camel-K
 ** xref:camel-k-cbr.adoc[Content Based Routing]
 *** xref:camel-k-cbr.adoc#cbr-app-overview[Application Overview]
-*** xref:camel-k-cbr.adoc#label-namespace-for-default-broker[Label Namespace]
+*** xref:camel-k-cbr.adoc#label-namespace-for-default-broker[Create Broker]
 *** xref:camel-k-cbr.adoc#camel-k-cbr-data-producer[Deploy Data Producer]
 *** xref:camel-k-cbr.adoc#camel-k-cbr-data-processor[Deploy Data Processor]
 *** xref:camel-k-cbr.adoc#camel-k-cbr-event-subscriber[Deploy Event Subscriber]
