@@ -300,7 +300,7 @@ Wait for eventinghello to scale down to zero pods before moving on then push mor
 ====
 
 [.console-input]
-[#kn-kakfa-source-producer-events]
+[#kn-kafka-source-producer-events]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
 $TUTORIAL_HOME/bin/kafka-producer.sh

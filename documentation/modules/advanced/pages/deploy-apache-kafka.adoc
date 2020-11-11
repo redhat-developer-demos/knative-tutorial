@@ -78,7 +78,7 @@ kafkatopics          kt           kafka.strimzi.io   true         KafkaTopic
 kafkausers           ku           kafka.strimzi.io   true         KafkaUser
 ----
 
-Now with the Apache Kafka operator running, you can deploy and verify a single node Apache Kakfa cluster by running the command:
+Now with the Apache Kafka operator running, you can deploy and verify a single node Apache Kafka cluster by running the command:
 
 [.console-input]
 [#create-kafka-cluster]
@@ -139,7 +139,7 @@ You can choose to skip the manual pre-creation of a KafkaTopic but the automatic
 == Create Kafka Topic
 
 [.console-input]
-[#oc-create-kakfa-topic]
+[#oc-create-kafka-topic]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
 kubectl -n kafka create -f kafka-topic-my-topic.yaml
@@ -148,7 +148,7 @@ kubectl -n kafka create -f kafka-topic-my-topic.yaml
 Verify the created topic:
 
 [.console-input]
-[#oc-verify-create-kakfa-topic]
+[#oc-verify-create-kafka-topic]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
 kubectl -n kafka  get kafkatopics

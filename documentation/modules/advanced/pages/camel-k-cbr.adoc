@@ -152,8 +152,7 @@ A successful deploy will show the following pods:
 ----
 NAME                                                READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz                   1/1     Running   4h4m
-default-broker-filter-c6654bccf-zkw7s               1/1     Running   5m
-default-broker-ingress-857698bc5b-r4zmf             1/1     Running   5m
+fruityvice-proxy-76d6ff5f7f-rlrqh                   1/1     Running   4m1
 *_fruits-producer-nfngm-deployment-759c797c44-d6r52   2/2     Running   70s_*
 ----
 
@@ -274,7 +273,7 @@ spec:
       name: default
 ----
 
-<1> The Camel route connects to Apache Kakfa broker and the topic `fruits`.
+<1> The Camel route connects to Apache Kafka broker and the topic `fruits`.
 <2> Once the data is received it is transformed into a JSON payload.
 <3> The `Content Based Router` pattern using the https://camel.apache.org/manual/latest/choice-eip.html[Choice EIP]. In the data processing you classify the fruits as low (sugar pass:[&lt;=] 5), medium(sugar between 5 to 10) and high(sugar > 10) based on the sugar level present in their nutritions data.
 <4> Based on the data classification you will be setting the https://cloudevents.io[CloudEvents] `type` header to be `low-high`, `medium-sugar` and `high-sugar`. This header is used as one of the filter attributes in the Knative Eventing Trigger.
@@ -297,9 +296,8 @@ include::advanced:partial$adv-kubectl-queries.adoc[tags="kgpow"]
 ----
 NAME                                      READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz         1/1     Running   4h17m
-default-broker-filter-c6654bccf-zkw7s     1/1     Running   18m
-default-broker-ingress-857698bc5b-r4zmf   1/1     Running   18m
 *_fruits-processor-h45f7-6fdfd74cf9-nmfkn   1/1     Running   29s_*
+fruityvice-proxy-76d6ff5f7f-rlrqh         1/1     Running   24m
 ----
 
 A successful `fruit-processor` is deploy will show the following pods in `{tutorial-namespace}`
@@ -354,10 +352,9 @@ Once the `fruit-events-display` is running you will see the following pods in th
 ----
 NAME                                       READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz          1/1     Running   4h21m
-default-broker-filter-c6654bccf-zkw7s      1/1     Running   22m
-default-broker-ingress-857698bc5b-r4zmf    1/1     Running   22m
 *_fruit-events-display-8d47bc98f-6r7zt       1/1     Running   15s_*
 fruits-processor-h45f7-6fdfd74cf9-nmfkn    1/1     Running   4m12s
+fruityvice-proxy-76d6ff5f7f-rlrqh          1/1     Running   24m
 ----
 
 The web `fruit-events-display` application will refresh its UI as and when it receives the processed data, you need you open the web application in your browser.
@@ -371,7 +368,7 @@ Minikube::
 [#kamel-open-fruit-ui]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-minikube -n {tutorial-namespace} service fruit-events-display
+minikube -p knativetutorial -n {tutorial-namespace} service fruit-events-display
 ----
 --
 OpenShift::
@@ -408,7 +405,7 @@ As a last step let us now deploy a Knative Event Trigger called `fruits-trigger`
 
 [source,yaml]
 ----
-apiVersion: eventing.knative.dev/v1alpha1
+apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: sugary-fruits
