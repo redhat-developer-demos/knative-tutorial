@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Apache Kafka Events with Knative Eventing :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/advanced/eventing-with-kafka.html">
+    <link rel="prev" href="deploy-apache-kafka.html">
+    <link rel="next" href="camel-k-cbr.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="knative-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../setup/setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../setup/kubernetes-cluster.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../setup/minikube.html">Minikube</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#start-minikube">Configure and Start Minikube</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#minikube-deploy-registry">Deploy Registry</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-knative-serving">Install Knative Serving</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-kourier-ingress-gateway">Install Kourier Ingress Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-ingress-controller">Install Ingress Controller</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-knative-eventing">Install Knative Eventing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#create-tutorial-namespace">Create Tutorial Namespace</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html">Development Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/index.html">Knative Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html">Knative Client</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/knative-client.html#kn-install">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html#kn-ksvc">Knative Service Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-create-ksvc">Create Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-list-services">List Knative Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-update-ksvc">Update Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisons">Knative Revision Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisions-list">Knative Revision List</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html#kn-routes">Knative Route Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-route-list">Knative Revision List</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/basic-fundas.html">Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#deploying-new-revision">Deploy a New Revision of a Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/traffic-distribution.html">Traffic Distribution</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#blue-green">Blue-Green Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#canary-release">Canary Release</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html">Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/scaling.html#scaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/scaling.html#scaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html#scaling-scale-to-zero">Scale to Zero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-observer-scale-to-zero">Observing Default Scale Down</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-observer-scale-to-zero-1m">Change Scale-to-Zero Time</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html#scaling-auto-scaling">Auto Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-load-service">Load Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html#scaling-min-scale">Minimum Scale</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-deploy-service-minscale">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/scaling.html#scaling-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/index.html">Knative Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html">Source to Sink</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-sink-service">Sink Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-verify-event-source">Verify</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html">Channel and Subscribers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html">Brokers and Triggers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-trigger-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/index.html">Apache Camel-K</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/setup.html#install-camel-k">Install Camel-K </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/camel-k-basics.html">Camel-K with Knative Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/camel-k-eventing.html">Camel-K with Knative Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#deploy-camel-k-source">Deploy Knative CamelSource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#logging-ce-messages">View CloudEvents Messages</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#camel-k-es-sink">CamelSource to Sink</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#camelk-eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Advanced</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Knative Eventing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="deploy-apache-kafka.html">Deploy Apache Kafka</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#create-kafka-topic">Create Topic</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#kafka-producer">Run Producer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#kafka-consumer">Run Consumer</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="eventing-with-kafka.html">Knative Eventing with Apache Kafka</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#kn-eventing-kafka-source">Deploy KafkaSource</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#kn-eventing-adv-default-knative-channel">Kafka Knative Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#kn-eventing-kafka-source-to-sink">Kafka Source to Sink</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#kn-eventing-kafka-auto-scaling">Auto Scaling with Kafka</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#kn-kafka-src-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">EIP with Apache Camel-K</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="camel-k-cbr.html">Content Based Routing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#cbr-app-overview">Application Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#label-namespace-for-default-broker">Create Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-data-producer">Deploy Data Producer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-data-processor">Deploy Data Processor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-event-subscriber">Deploy Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-event-filter">Apply Knative Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#verify-e2e">Verify End to End</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#kamel-cbr-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Appendix</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../serving/faq.html">Frequently Asked Questions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Knative Tutorial</a></li>
+    <li><a href="index.html">Advanced</a></li>
+    <li>Knative Eventing</li>
+    <li><a href="eventing-with-kafka.html">Knative Eventing with Apache Kafka</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/advanced/pages/eventing-with-kafka.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Apache Kafka Events with Knative Eventing</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the end of this chapter you will be able to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using KafkaSource with Knative Eventing</p>
+</li>
+<li>
+<p>Source Kafka Events to Sink</p>
+</li>
+<li>
+<p>Autoscaling Knative Services with Apache Kafka Events</p>
+</li>
+</ul>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd $TUTORIAL_HOME/eventing</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-eventing-kafka-source"><a class="anchor" href="#kn-eventing-kafka-source"></a>Deploy Knative Eventing KafkaSource</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Knative Eventing <code>KafkaSource</code> need to be used to have the Kafka messages to flow through the Knative Eventing Channels. You can deploy Knative KafkaSource by running the command:</p>
+</div>
+<div id="kn-eventing-adv-deploy-kafkasource" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
+-f <a href="https://github.com/knative/eventing-contrib/\" class="bare">https://github.com/knative/eventing-contrib/\</a>
+releases/download/v0.17.7/kafka-source.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The previous step deploys Knative KafkaSource in the <code>knative-sources</code> namespace as well as a CRD, ServiceAccount, ClusterRole, etc.  Verify that knative-source namespace includes the <code>kafka-controller-manager-0</code> pod:</p>
+</div>
+<div id="watch-kafkasource-controller-pod" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch "kubectl get pods -n knative-sources"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command above should show the following output:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                         READY   STATUS    AGE
+kafka-controller-manager-0   1/1     Running   1m17s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should also deploy the Knative Kafka Channel that can be used to connect the Knative Eventing Channel with a Apache Kafka cluster backend, to deploy a Knative Kafka Channel run:</p>
+</div>
+<div id="kn-eventing-deploy-kafka-channel" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L "https://github.com/knative/eventing-contrib/\
+releases/download/v0.17.7/kafka-channel.yaml" \
+ | sed 's/REPLACE_WITH_CLUSTER_URL/my-cluster-kafka-bootstrap.kafka:9092/' \
+ | kubectl apply --filename -</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>"my-cluster-kafka-bootstrap.kafka:9092" comes from <code>kubectl get services -n kafka</code></p>
+</li>
+<li>
+<p>On <strong>OpenShift</strong>, Knative Eventing Kafka operator that was done in earlier, will install Knative KafkaChannel as well.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Look for 3 new pods in namespace <code>knative-eventing</code> with the prefix "kafka":</p>
+</div>
+<div id="kn-eventing-list-kafka-source-pods" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch "kubectl get pods -n knative-eventing"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command will shown an output like:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                    READY   STATUS    RESTARTS   AGE
+broker-controller-56b4d58667-mgf4w      1/1     Running   0          3h54m
+broker-filter-5bdbc8d8dd-jqrfc          1/1     Running   0          3h54m
+broker-ingress-d896b6b46-nvg92          1/1     Running   0          3h54m
+eventing-controller-5fc5645584-n42xs    1/1     Running   0          3h54m
+eventing-webhook-7674b867dc-qn44m       1/1     Running   0          3h54m
+imc-controller-6b548d6468-zcspc         1/1     Running   0          3h54m
+imc-dispatcher-655cdf6ff6-x5sxx         1/1     Running   0          3h54m
+<mark>kafka-ch-controller-5cf4bdc98-tl8xv     1/1     Running   0          76s</mark>
+<mark>kafka-webhook-5f8895ccdf-z6qnw          1/1     Running   0          76s</mark>
+mt-broker-controller-6d66c4c6f6-vbpk4   1/1     Running   0          3h54m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And you should also find some new api-resources as shown:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_kn"></a>kn</p>
+</li>
+<li>
+<p><a id="tabset1_kubectl"></a>kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_kn">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source list-types</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_kubectl">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='sources.knative.dev'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The command should show the following APIs in <code>sources.eventing.knative.dev</code> :</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
+apiserversources                sources.knative.dev   true         ApiServerSource
+containersources                sources.knative.dev   true         ContainerSource
+<strong>kafkasources                    sources.knative.dev   true         KafkaSource</strong>
+pingsources                     sources.knative.dev   true         PingSource
+sinkbindings                    sources.knative.dev   true         SinkBinding</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>include:</p>
+</div>
+<div id="kn-eventing-list-api-res-messaging" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl api-resources --api-group='messaging.knative.dev'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command should show the following APIs in <code>messaging.knative.dev</code> :</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
+channels           ch           messaging.knative.dev   true         Channel
+inmemorychannels   imc          messaging.knative.dev   true         InMemoryChannel
+<strong>kafkachannels      kc           messaging.knative.dev   true         KafkaChannel</strong>
+subscriptions      sub          messaging.knative.dev   true         Subscription</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-eventing-adv-default-knative-channel"><a class="anchor" href="#kn-eventing-adv-default-knative-channel"></a>Using Kafka Channel as Default Knative Channel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://developers.redhat.com/blog/2016/08/10/persistence-vs-durability-in-messaging/">Persistence and Durability</a> are two very important features of any messaging based architectures. The Knative Channel has built-in support for durability. Durability of messages becomes ineffective, if the Knative Eventing Channel does not support persistence. As without persistence it will not be able to deliver the messages to subscribers which might be  offline at the time of message delivery.</p>
+</div>
+<div class="paragraph">
+<p>By default all Knative Channels created by the Knative Eventing API use InMemoryChannel(imc), which does not have capability to persist messages. To enable persistence we need to use one of the supported <a href="https://knative.dev/docs/eventing/channels/channels-crds/">channels</a> such as GCP PubSub, Kafka or Natss as the default Knative Channel backend.</p>
+</div>
+<div class="paragraph">
+<p>We installed <a href="#knative-tutorial-adv:ROOT:deploy-apache-kafka.adoc" class="page unresolved">Apache Kafka</a>, earlier in this tutorial, let us now configure it to be the default Knative Channel backend:</p>
+</div>
+<div class="listingblock">
+<div class="title">Knative Default Channel ConfigMap</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: default-ch-webhook
+  namespace: knative-eventing
+data:
+  default-ch-config: |
+    clusterDefault:
+      apiVersion: messaging.knative.dev/v1
+      kind: InMemoryChannel<i class="conum" data-value="1"></i><b>(1)</b>
+    namespaceDefaults:
+      knativetutorial:
+        apiVersion: messaging.knative.dev/v1beta1
+        kind: KafkaChannel<i class="conum" data-value="2"></i><b>(2)</b>
+        spec:
+          numPartitions: 2
+          replicationFactor: 1</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>For the cluster we will still use the default InMemoryChannel</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For the namespace <strong>knativetutorial</strong>, all Knative Eventing Channels will use KafkaChannel as default</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following command apply the Knative Eventing Channel configuration:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f default-channel-config.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since you have now made all Knative Eventing Channels of <strong>knativetutorial</strong> to be KafkaChannel, creating a Knative Eventing Channel in namespace <strong>knativetutorial</strong> will result in a corresponding Kafka Topic created. Let us now verify it by creating a sample Channel as show in listing,</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kn"></a>kn</p>
+</li>
+<li>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_kn">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel create my-events-ch \
+  --namespace knativetutorial</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/knative/default-kafka-channel.yaml">default-kafka-channel.yaml</a></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The Channel <code>my-events-ch</code> creation will result in the following resources in the <code>knativetutorial</code></p>
+</div>
+<div class="paragraph">
+<p>A <code>channel.messaging.knative.dev</code> called <code>my-events-ch</code>:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_kn"></a>kn</p>
+</li>
+<li>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_kn">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel -n knativetutorial ls</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           TYPE           URL                                                                AGE     READY   REASON
+my-events-ch   KafkaChannel   http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local   2m55s   True</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get -n knativetutorial channels</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           READY   URL
+my-events-ch   True    <a href="http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local" class="bare">http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local</a></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>And a corresponding <code>kafkachannel.messaging.knative.dev</code> with the same name <code>my-events-ch</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get -n knativetutorial kafkachannels</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME           READY  URL
+my-events-ch   True   <a href="http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local" class="bare">http://my-events-ch-kn-channel.knativetutorial.svc.cluster.local</a></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you now list the topics that are available in Kafka using the script <code>$TUTORIAL_HOME/bin/kafka-list-topics.sh</code>, you should see a topic corresponding to your Channel <code>my-events-ch</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$TUTORIAL_HOME/bin/kafka-list-topics.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command should return an output like:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">knative-messaging-kafka.knativetutorial.my-events-ch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For each Knative Eventing Channel that you will create, there will be a Kafka Topic created, the topic&#8217;s name will follow a convention like <code>knative-messaging-kafka.&lt;your-channel-namespace&gt;.&lt;your-channel-name&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>When listing the resources of <code>knative-eventing</code> , you should see an extra deployment called <code>kafka-ch-dispatcher</code> with its corrsponding pod started:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get -n knative-eventing pods</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                    READY   STATUS    RESTARTS   AGE
+broker-controller-56b4d58667-tz77k      1/1     Running   0          19h
+broker-filter-5bdbc8d8dd-2b657          1/1     Running   0          19h
+broker-ingress-d896b6b46-xss59          1/1     Running   0          19h
+eventing-controller-5fc5645584-fqz72    1/1     Running   0          19h
+eventing-webhook-7674b867dc-x2lg2       1/1     Running   0          19h
+imc-controller-6b548d6468-v4pr8         1/1     Running   0          19h
+imc-dispatcher-655cdf6ff6-xftlk         1/1     Running   0          19h
+kafka-ch-controller-5cf4bdc98-l8lqg     1/1     Running   0          32m
+<mark>kafka-ch-dispatcher-7fb7896db4-6r7m6    1/1     Running   0          24m</mark>
+kafka-webhook-5f8895ccdf-hf28p          1/1     Running   0          32m
+mt-broker-controller-6d66c4c6f6-56s9s   1/1     Running   0          19h</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can delete the example <code>my-events-ch</code> channel using the command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_kn"></a>kn</p>
+</li>
+<li>
+<p><a id="tabset4_kubectl"></a>kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_kn">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel delete -n knativetutorial my-events-ch</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_kubectl">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete  channels.messaging.knative.dev my-events-ch</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-eventing-kafka-source-to-sink"><a class="anchor" href="#kn-eventing-kafka-source-to-sink"></a>Connecting Kafka Source to Sink</h3>
+<div class="paragraph">
+<p>Now, all of your infrastructure is configured, you can deploy the Knative Serving Service(sink) by running the command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_kn"></a>kn</p>
+</li>
+<li>
+<p><a id="tabset5_kubectl"></a>kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_kn">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventinghello \
+  --namespace knativetutorial \
+  --concurrency-target=1 \
+  --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_kubectl">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/knative/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the Knative Service that was created by the command above:</p>
+</div>
+<div id="kn-kafka-src-eventing-hello-ksvc" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service ls</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the Knative Service that was created by the command above. The command should show an output like:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            URL                                                LATEST                  AGE     CONDITIONS   READY   REASON
+event-display   http://event-display.knativetutorial.example.com   event-display-2mhz8     4h11m   3 OK / 3     True
+<mark>eventinghello  http://eventinghello.knativetutorial.example.com   eventinghello-krmch-1   34s     3 OK / 3     True</mark></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make sure to follow the logs using <code>stern</code>:</p>
+</div>
+<div id="kn-kafka-src-sink-stern" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern eventinghello -c user-container</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The initial deployment of <code>eventinghello</code> will cause it to scale up to 1 pod.  It will be around until it hits its scale-down time limit.  Allow it to scale down to zero pods before continuing.</p>
+</div>
+<div class="paragraph">
+<p>Create <code>KafkaTopic</code> called <code>my-topic</code> as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: kafka.strimzi.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: my-topic
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  partitions: 10
+  replicas: 1</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n kafka \
+  -f kafka-topic-my-topic.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the created topics by:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get -n kafka kafkatopics</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command should show an output like:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                          PARTITIONS   REPLICATION FACTOR
+consumer-offsets---84e7a678d08f4bd226872e5cdd4eb527fadc1c6a   50           1
+<mark>my-topic                                                      <em>10</em>           1</mark></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a <code>KafkaSource</code> for <code>my-topic</code> by connecting your Kafka topic <code>my-topic</code> to eventinghello:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1beta1
+kind: KafkaSource
+metadata:
+  name: mykafka-source
+spec:
+  consumerGroup: knative-group
+  bootstrapServers:
+   - my-cluster-kafka-bootstrap.kafka:9092 <i class="conum" data-value="1"></i><b>(1)</b>
+  topics:
+   - my-topic <i class="conum" data-value="2"></i><b>(2)</b>
+  sink: <i class="conum" data-value="3"></i><b>(3)</b>
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: eventinghello</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>"my-cluster-kafka-bootstrap:9092" can be found via <code>kubectl get -n kafka services</code> or <code>oc get  -n kafka services</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>my-topic</code> was created earlier <a href="deploy-apache-kafka.html#create-kafka-topic" class="page">section</a> when deploying Apache Kafka</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>This is another example of a direct <a href="#knative-tutorial-eventing:ROOT:eventing-src-to-sink.adoc.adoc#eventing-sink-service" class="page unresolved">Source to Sink</a></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The deployment of <code>KafkaSource</code> will result in a new pod prefixed with "mykafka-source".</p>
+</div>
+<div id="kn-kafka-source-deploy" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial apply -f mykafka-source.yaml</code></pre>
+</div>
+</div>
+<div id="kn-kafka-source-status-watch" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the KafkaSource is ready it will show the following output(listing only relvant pods):</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kafkasource-mykafka-source-f0e52a48-256a-4748-bd6a-43422a0rdqtg   1/1     Running   0
+      108s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the created sources</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn sources -n knativetutorial ls</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME             TYPE          RESOURCE                           SINK                 READY
+mykafka-source   KafkaSource   kafkasources.sources.knative.dev   ksvc:eventinghello   True</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Since we had test messages of "one", "two" and "three" from earlier you might see the eventinghello service awaken to process those messages.</p>
+</div>
+<div class="paragraph">
+<p>Wait for eventinghello to scale down to zero pods before moving on then push more Kafka messages into my-topic.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="kn-kafka-source-producer-events" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$TUTORIAL_HOME/bin/kafka-producer.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then enter the following messages:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Hello World
+
+Hola Mundo
+
+Bonjour Le Monde
+
+Namaste Duniya</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Knative Eventing events through the Kafka Source must be JSON formatted</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>While making sure to monitor the logs of the <code>eventinghello</code> pod:</p>
+</div>
+<div id="stern-kafka-src-events" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern eventinghello -c user-container</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Output shrinked for brevity
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ce-id=partition:1/offset:1
+ce-source=/apis/v1/namespaces/kafka/kafkasources/mykafka-source#my-topic
+ce-specversion=1.0
+ce-time=2020-01-01T01:16:12.886Z
+ce-type=dev.knative.kafka.event
+content-type=null
+content-length=17
+POST:Namaste Duniya</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the <code>eventinghello</code> sink was scaled down by Knative due to inactivity, you will see the service comeup to serve the request once the message is sent</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kn-eventing-kafka-auto-scaling"><a class="anchor" href="#kn-eventing-kafka-auto-scaling"></a>Auto Scaling with Apache Kafka</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Allow all the <code>eventinghello</code> sink pods to scale down to zero.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Open a new terminal and watch the pods of <code>knativetutorial</code> namespace:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl get pods -n knativetutorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We will use a utility pod called <code>kafka-spammer</code> to send a bunch of messages to KafkaTopic <code>my-topic</code>, which in turn will trigger the Knative sink service <code>eventinghello</code> to scale up to handle the KakaTopic message events.</p>
+</div>
+<div class="paragraph">
+<p>Deploy <code>kafka-spammer</code> application using the command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n kafka run kafka-spammer \
+--image=quay.io/rhdevelopers/kafkaspammer:1.0.2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for the <code>kafka-spammer</code> pod to be up and running, you can watch <code>kafka</code> namespace for the pod:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl -n kafka get pods</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the <code>kafka-spammer</code> is up and running, open a new terminal and exec into the pod by running:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n kafka exec -it kafka-spammer -- /bin/sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you are in the shell of the <code>kafka-spammer</code> pod run the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl localhost:8080/3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command should now send three concurrent messages to KafkaTopic <code>my-topic</code>. As the`eventinghello` sink pods were scaled down to zero, you should see three or more <code>eventinghello</code> sink pods being scaled to serve the request.</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                                              READY   STATUS    RESTARTS   AGE
+camel-k-operator-65db5d46bb-llc6g                                 1/1     Running   0          20h
+<strong>eventinghello-v1-deployment-57c686cc96-6k9r2                      2/2     Running   0          15s</strong>
+<strong>eventinghello-v1-deployment-57c686cc96-jcv8b                      2/2     Running   0          13s</strong>
+<strong>eventinghello-v1-deployment-57c686cc96-lh8xr                      2/2     Running   0          15s</strong>
+<strong>eventinghello-v1-deployment-57c686cc96-n2slh                      2/2     Running   0          16s</strong>
+kafkasource-mykafka-source-a29a50ca-4d76-4e65-8b96-1507372bfphb   1/1     Running   0          119s</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kn-kafka-src-cleanup"><a class="anchor" href="#kn-kafka-src-cleanup"></a>Cleanup</h3>
+<div id="kn-eventing-kafka-src-cleanup" class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -n kafka pod kafka-spammer
+kubectl delete -n knativetutorial  -f mykafka-source.yaml
+kubectl delete -n knativetutorial  -f eventing-hello-sink.yaml
+kubectl delete -n kafka -f kafka-topic-my-topic.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="deploy-apache-kafka.html">Deploy Apache Kafka</a></span>
+  <span class="next"><a href="camel-k-cbr.html">Content Based Routing</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
