@@ -1,0 +1,40 @@
+ifndef::workshop[]
+[kube-ns='knativetutorial']
+[kube-svc='']
+
+In the eventing related subsections of this tutorial, event sources are configured to emit events every minute with a `CronJobSource` or with a `ContainerSource`.  
+
+The logs could be watched using the command:
+[tabs]
+====
+kubectl::
++
+--
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl logs -n {kube-ns} -f <pod-name> -c user-container
+----
+--
+oc::
++
+--
+endif::[]
+
+[source,bash,subs="+macros,+attributes"]
+----
+oc logs -n {kube-ns} -f <pod-name> -c user-container
+----
+ifndef::workshop[]
+--
+====
+endif::[]
+
+[TIP]
+====
+* Using stern with the command `stern  -n {kube-ns} {kube-svc}`, to filter the logs further add `-c user-container` to the stern command.
+
+[source,bash,subs="+macros,+attributes"]
+----
+stern -n {kube-ns} -c user-container {kube-svc} 
+----
+====

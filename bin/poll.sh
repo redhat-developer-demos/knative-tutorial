@@ -19,11 +19,13 @@ else
   CURR_NS="${CURR_NS}"
 fi
 
-HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
+# HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
+KSVC_HOST="$KSVC_NAME.$CURR_NS.$(minikube -p knativetutorial ip).nip.io"
+
 
 while true
 do
-  curl -H "$HOST_HEADER" $IP_ADDRESS
+  curl "$KSVC_HOST"
   sleep .5
 done
 

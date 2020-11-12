@@ -1,0 +1,145 @@
+[IMPORTANT]
+====
+This tutorial assumes that you have prior knowledge of:
+
+- https://camel.apache.org[Apache Camel]
+- https://www.enterpriseintegrationpatterns.com[Enterprise Integration Patterns]
+- https://cloud.google.com/knative/[Knative] 
+====
+
+The following checks ensures that each chapter exercises are done with right environment settings.
+
+* Make sure the **minikube** clock is set to right timezone; this is required when using API's that are time sensitive e.g. AWS s3 cli API that we will use in this tutorial demos
+
+[tabs]
+====
+
+minikube::
++
+--
+[source,bash,subs="+macros,+attributes"]
+----
+minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s
+----
+
+[TIP]
+=====
+If you are a mac user then the following setup might help:
+[source,bash]
+----
+brew install sleepwatcher
+brew services start sleepwatcher
+echo "PATH=$PATH:/usr/local/bin \n
+minikube ssh -- docker run -i --rm --privileged --pid=host debian nsenter -t 1 -m -u -n -i hwclock -s" > ~/.wakeup
+chmod +x ~/.wakeup
+----
+=====
+
+* Make sure to be connected to minikube docker daemon
+[#camelk-set-k8s-docker-env]
+[source,bash,subs="+macros,+attributes"]
+----
+eval $(minikube docker-env)
+----
+copyToClipboard::camelk-set-k8s-docker-env[]
+
+* Make sure right Kubernetes is used, it should be v1.12+
+
+[#camelk-set-k8s-version]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl version
+----
+copyToClipboard::camelk-set-k8s-version[]
+
+* Make sure to be on `{tutorial-namespace}` namespace or use you night need to use `--namespace {tutorial-namespace}` in all commands
+
+[TIP]
+=====
+If you are on minikube then **kubens** utility can be used to switch to kubernetes namespace like:
+[#camelk-set-k8s-ns]
+[source,bash,subs="+macros,+attributes"]
+----
+kubens {tutorial-namespace}
+----
+copyToClipboard::camelk-set-k8s-ns[]
+=====
+
+--
+minishift::
++
+--
+[#camelk-minishift-set-tz]
+[source,bash,subs="+macros,+attributes"]
+----
+minishift stop && \
+minishift start --timezone 'Asia/Kolkata' #<1>
+----
+copyToClipboard::camelk-minishift-set-tz[]
+
+<1> Set it to your local timezone
+
+* Make sure to be connected to minishift docker daemon
+
+[#camelk-minishift-docker-oc]
+[source,bash,subs="+macros,+attributes"]
+----
+eval $(minishift docker-env) && eval $(minishift oc-env)
+----
+copyToClipboard::camelk-minishift-docker-oc[]
+
+* Make sure right OpenShift client is used, it should be `v3.11+ kubernetes v1.11.0+` or above
+
+[#camelk-which-oc]
+[source,bash,subs="+macros,+attributes"]
+----
+oc version 
+----
+copyToClipboard::camelk-which-oc[]
+
+* Make sure to be on `{tutorial-namespace}` OpenShift project
+
+[#camelk-which-oc-project]
+[source,bash,subs="+macros,+attributes"]
+----
+oc project -q 
+----
+copyToClipboard::camelk-which-oc-project[]
+
+If you are not on `{tutorial-namespace}` project, use the following command  to change to `{tutorial-namespace}` project
+
+[#camelk-change-oc-project]
+[source,bash,subs="+macros,+attributes"]
+----
+oc project {tutorial-namespace}
+----
+copyToClipboard::camelk-change-oc-project[]
+
+--
+====
+
+* Make sure right `kamel` version, preferred is `{kamel-version}` or above
+
+[#camelk-kamel-version]
+[source,bash,subs="+macros,+attributes"]
+----
+kamel version
+----
+copyToClipboard::camelk-kamel-version[]
+
+* Make sure AWS CLI is installed and has the right version, at the time of doing this tutorial it was `aws-cli/1.16.50 Python/3.7.1 Darwin/18.2.0 botocore/1.12.40`
+
+[#camelk-aws-cli-version]
+[source,bash,subs="+macros,+attributes"]
+----
+$ aws --version
+----
+copyToClipboard::camelk-aws-cli-version[]
+
+* Make sure right maven version is used (only for Java exercises), recommended maven version is `{maven-version}`
+
+[#camelk-maven-version]
+----
+./mvnw --version
+----
+copyToClipboard::camelk-maven-version[]

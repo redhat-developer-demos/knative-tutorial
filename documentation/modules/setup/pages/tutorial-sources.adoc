@@ -1,0 +1,22 @@
+[#download-tutorial-sources]
+= Download Tutorial Sources
+Before we start setting up the environment, let's clone the tutorial sources and set the `TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
+
+[.console-input]
+[source,bash,subs="attributes+,+macros"]
+----
+git clone -b {branch} https://github.com/redhat-developer-demos/knative-tutorial
+export TUTORIAL_HOME="$(pwd)/knative-tutorial"
+----
+
+ifndef::workshop[]
+[IMPORTANT,subs="attributes+,+macros"]
+====
+
+This tutorial was developed and tested with:
+
+- Knative `{knative-version}`
+- Minikube `{minikube-version}`
+- OpenShift `{openshift-version}`
+====
+endif::[]

@@ -1,0 +1,370 @@
+[[brokers-and-triggers]]
+= Brokers and Triggers 
+include::_attributes.adoc[]
+
+:greeter-image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+:service-file: default-broker.yaml
+
+Use the Knative Eventing `Broker` and `Trigger` Custom Resources to allow for link:https://cloudevents.io/[CloudEvent] attribute filtering.
+
+[#broker]
+== Broker
+
+.link:{github-repo}/{eventing-repo}/default-broker.yaml[default-broker]
+[source,yaml,subs="attributes+,+macros"]
+----
+---
+apiVersion: eventing.knative.dev/v1
+kind: broker
+metadata:
+ name: default
+----
+
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;broker;tab-2]
+
+Verify the created resources:
+
+include::eventing:partial$knative-objects.adoc[tags=knative-eventing-broker]
+
+[#eventing-service]
+== Service 
+
+Now, that you have the broker configured, you need to create the sinks `eventingaloha` and `eventingbonjour`, which will receive the filtered events.
+
+.link:{github-repo}/{eventing-repo}/eventing-aloha-sink.yaml[eventing-aloha-sink.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+include::eventing:example$eventing/eventing-aloha-sink.yaml[]
+----
+
+.link:{github-repo}/{eventing-repo}/eventing-bonjour-sink.yaml[eventing-bonjour-sink.yaml]
+[source,yaml,subs="attributes+,+macros"]
+----
+include::eventing:example$eventing/eventing-bonjour-sink.yaml[]
+----
+
+[NOTE]
+====
+The image being used by both of these services is identical.  However, the difference in name `aloha` vs `bonjour` will make obvious which one is receiving a particular event.
+====
+
+[#eventing-deploy-service]
+=== Deploy Service
+
+Run the following commands to deploy the `eventingaloha` and `eventingbonjour` services:
+
+:service-file: eventing-aloha-sink.yaml
+:sink-service-name: eventingaloha
+:revision-name: eventingaloha-v1
+==== Deploy Aloha
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hello-sink;tab-2]
+
+:service-file: eventing-bonjour-sink.yaml
+:sink-service-name: eventingbonjour
+:revision-name: eventingbonjour-v1
+==== Deploy Bonjour
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-hello-sink;tab-2]
+
+Wait approximately 60 seconds for `eventingaloha` and `eventingbonjour` to terminate, scale-down to zero before proceeding.
+
+[#eventing-trigger]
+== Trigger
+
+Now create the the trigger for `eventingaloha` that will associate the filtered events to a service:
+
+.link:{github-repo}/{eventing-repo}/trigger-helloaloha.yaml[trigger-helloaloha.yaml]
+[source,yaml]
+----
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: helloaloha
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: greeting # <1>
+  subscriber:
+    ref:
+     apiVersion: serving.knative.dev/v1
+     kind: Service
+     name: eventingaloha
+----
+
+<1> The `type` is the CloudEvent type that is mapped to the `ce-type` HTTP header.  A Trigger can filter by link:https://cloudevents.io/[CloudEvent] attributes such as type, source or extension.
+
+Now create the the trigger for `eventingaloha` that will associate the filtered events to a service:
+
+:service-file: trigger-helloaloha.yaml
+:trigger-name: helloaloha
+:trigger-sub-name: eventingaloha
+=== Create Aloha Trigger
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-trigger-sub;tab-2]
+
+:service-file: trigger-hellobonjour.yaml
+:trigger-name: hellobonjour
+:trigger-sub-name: eventingbonjour
+=== Create Bonjour Trigger
+Now create the the trigger for `eventingbonjour` that will associate the filtered events to a service:
+
+.link:{github-repo}/{eventing-repo}/trigger-hellobonjour.yaml[trigger-hellobonjour.yaml]
+[source,yaml,linenums,subs="attributes+,+macros"]
+----
+include::eventing:example$eventing/trigger-hellobonjour.yaml[]
+----
+
+Run the following commands to create the trigger:
+
+include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-trigger-sub;tab-2]
+
+Verify that your triggers are ready:
+
+include::eventing:partial$knative-objects.adoc[tag=knative-triggers]
+
+[#eventing-trigger-verification]
+== Verification
+
+Pull out the subscriberUri for `eventhingaloha`:
+
+[#eventing-triggers-verify-sub1]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get trigger helloaloha -o jsonpath='{.status.subscriberUri}'
+----
+
+The command should show the output as: 
+[.console-output]
+[source,bash]
+----
+http://eventingaloha.knativetutorial.svc.cluster.local
+----
+
+Pull out the subscriberUri for `eventhingbonjour`:
+
+[#eventing-triggers-verify-sub2]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get trigger hellobonjour -o jsonpath='{.status.subscriberUri}'
+----
+
+The command should show the output as: 
+[.console-output]
+[source,bash]
+----
+http://eventingbonjour.knativetutorial.svc.cluster.local
+----
+
+As well as broker's subscriberUri:
+
+[#eventing-triggers-verify-sub3]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get broker default -o jsonpath='{.status.address.url}'
+----
+
+The command should show the output as: 
+[.console-output]
+[source,bash]
+----
+http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default
+----
+
+You should notice that the subscriberURIs are Kubernetes services with the suffix of `{tutorial-namespace}.svc.cluster.local`.  This means they can be interacted with from another pod within the Kubernetes cluster.
+
+Now that you have setup the Broker and Triggers you need to send in some test messages to see the behavior.
+
+First start streaming the logs for the event consumers:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+stern eventing -c user-container
+----
+
+Then create a pod for using the `curl` command:
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: curler
+  name: curler
+spec:
+  containers:
+  - name: curler
+    image: fedora:29 # <1>
+    tty: true
+----
+
+<1> You can use any image that includes a curl command.
+
+Wait for the `curler` pod to be running and then exec into the `curler` pod:
+
+[#trigger-verify-curler]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+-----
+kubectl -n {tutorial-namespace} apply -f curler.yaml
+-----
+
+Exec into the `curler` pod:
+
+[trigger-verify-exec-curler]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} exec -it curler -- /bin/bash
+----
+
+Using the `curler` pod's shell, curl the subcriberURI for eventingaloha:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+curl -v "http://eventingaloha.{tutorial-namespace}.svc.cluster.local" \
+-X POST \
+-H "Ce-Id: say-hello" \
+-H "Ce-Specversion: 1.0" \
+-H "Ce-Type: aloha" \
+-H "Ce-Source: mycurl" \
+-H "Content-Type: application/json" \
+-d '{"key":"from a curl"}'
+----
+
+You will then see `eventingaloha` will scale-up to respond to that event:
+
+[#trigger-watch-aloha-scale]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+-----
+watch kubectl get pods
+-----
+
+The command above should show the following output:
+
+[.console-output]
+[source,bash]
+-----
+NAME                                        READY STATUS  AGE
+curler                                      1/1   Running 59s
+eventingaloha-1-deployment-6cdc888d9d-9xnnn 2/2   Running 30s
+-----
+
+Next, curl the subcriberURI for `eventingbonjour`:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+curl -v "http://eventingbonjour.{tutorial-namespace}.svc.cluster.local" \
+-X POST \
+-H "Ce-Id: say-hello" \
+-H "Ce-Specversion: 1.0" \
+-H "Ce-Type: bonjour" \
+-H "Ce-Source: mycurl" \
+-H "Content-Type: application/json" \
+-d '{"key":"from a curl"}'
+----
+
+And you will see the `eventingbonjour` pod scale up:
+
+[#trigger-watch-eventingbonjour-scale]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+-----
+watch kubectl get pods
+-----
+
+The command above should show the following output:
+
+[.console-output]
+[source,bash]
+-----
+NAME                                         READY STATUS  AGE
+curler                                       1/1   Running 82s
+eventingaloha-1-deployment-6cdc888d9d-9xnnn  2/2   Running 53s
+eventingbonjour-1-deployment-fc7858b5b-s9prj 2/2   Running 5s
+-----
+
+Now, trigger both `eventingaloha` and `eventingbonjour` by curling the subcriberURI for the broker:
+
+[#trigger-verify-trigger-all]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
+-X POST \
+-H "Ce-Id: say-hello" \
+-H "Ce-Specversion: 1.0" \
+-H "Ce-Type: greeting" \
+-H "Ce-Source: mycurl" \
+-H "Content-Type: application/json" \
+-d '{"key":"from a curl"}'
+----
+
+[NOTE]
+====
+"Ce-Type: greeting" is the key to insuring that both aloha and bonjour respond to this event
+====
+
+And by watching the *{tutorial-namespace}* namespace, you will see both `eventingaloha` and `eventingbonjour` will come to life:
+
+[#trigger-watch-all-scale]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+-----
+watch kubectl get pods
+-----
+
+The command above should show the following output:
+
+[.console-output]
+[source,bash]
+-----
+NAME                                         READY STATUS  AGE
+curler                                       1/1   Running 3m21s
+eventingaloha-1-deployment-6cdc888d9d-nlpm8  2/2   Running 6s
+eventingbonjour-1-deployment-fc7858b5b-btdcr 2/2   Running 6s
+-----
+
+You can experiment by using different type filters in the Subscription to see how the different subscribed services respond. `Filters` may use an link:https://cloudevents.io/[CloudEvent] attribute for its criteria.
+
+[#eventing-cleanup]
+== Cleanup
+
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service delete eventingbonjour -n {tutorial-namespace}
+kn service delete eventingaloha -n {tutorial-namespace}
+kn trigger delete helloaloha -n {tutorial-namespace}
+kn trigger delete hellobonjour -n {tutorial-namespace}
+kubectl -n {tutorial-namespace} delete pod curler
+kn broker delete default -n {tutorial-namespace}
+----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl -n {tutorial-namespace} delete -f eventing-aloha-sink.yaml
+kubectl -n {tutorial-namespace} delete -f eventing-bonjour-sink.yaml
+kubectl -n {tutorial-namespace} delete -f trigger-helloaloha.yaml
+kubectl -n {tutorial-namespace} delete -f trigger-hellobonjour.yaml
+kubectl -n {tutorial-namespace} delete -f curler.yaml
+kubectl -n knativetutorial delete -f default-broker.yaml
+----
+--
+====
+

@@ -4,7 +4,7 @@
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "http:fruityvice.com/api/fruit/all?bridgeEndpoint=true"
+      - to: "http:fruityvice-proxy:8080/api/fruit/all?bridgeEndpoint=true"
       - split:
           jsonpath: "$.[*]"
       - marshal:

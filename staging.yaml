@@ -10,26 +10,24 @@ content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
       tags: []
-      branches: master
+      branches: staging
       start_path: documentation
-    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-serving.git
-      tags: []
-    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-eventing.git
-      tags: []
-      branches: master
-    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-camelk.git
-      tags: []
-      branches: master
-    - url: git@github.com:redhat-developer-demos/knative-tutorial-module-advanced.git
-      tags: []
-      branches: master
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
-    title: Knative Tutorial(Staging)
-    workshop-domain: guru.devx.red
-    kubernetes-version: v1.15.0
+    branch: staging
+    minikube-version: v1.14.1
+    openshift-version: v4.6
+    kubernetes-version: v1.19.0
+    knative-version: v0.17.0
+    knative-serving-version: v0.17.4
+    net-kourier-version: v0.17.2
+    knative-eventing-version: v0.17.8
+    knative-sources-version: v0.17.7
+    kn-client-version: v0.18.0
+    kubernetes-cli: kubectl
     release-version: master
+    page-pagination: true
     openshift-console-url: https://console-openshift-console.apps.example.com
     etherpad-url: http://example.com
   extensions:

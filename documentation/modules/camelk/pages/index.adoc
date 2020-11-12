@@ -1,0 +1,24 @@
+= Apache Camel-K
+include::_attributes.adoc[]
+
+Within the average large IT organization, it is very rare that you would ever build a new application that would live in total isolation, one that would be completely detached from all other old or new systems.  Many real time use cases demands, that the old and new systems share and exchange data.
+
+https://camel.apache.org[Apache Camel] is open source framework that helps you integrate systems. Apache Camel allows the integrated system to produce and consume data between them. It provides over 300 components that include https://camel.apache.org/components/latest/index.html[integration connectors] to sources such as TCP, ActiveMQ, FTP, Salesforce.com, which makes it easier to integrate heterogenous systems . https://www.enterpriseintegrationpatterns.com/[Enterprise Integration Patterns(EIP)] provides solutions to many common integration problems, Apache Camel provides implementations of these patterns via its rich https://camel.apache.org/manual/latest/dsl.html[Domain Specific Language(DSL)], thereby making it easier for the developers to apply the EIP easily.
+
+https://camel.apache.org/camel-k/latest/index.html[Apache Camel-K] aims at simplifying the programming and deployment model for Apache Camel integrations. By working with Apache Camel-K, the integration developers can now focus on writing their integrations using Camel DSL in Java,JavaScript,Groovy,XML or YAML, without the need to worry about how package and deploy them.
+
+Camel-K will enable you to craft a Kubernetes-native integration application. It also leverages serverless capabilities via Knative.
+
+[#camelk-tutorial-prerequisite]
+== Prerequisite 
+As pre-requisite to this tutorial, its highly recommended that you have completed: 
+
+* xref:serving:index.adoc[Knative Serving]
+* xref:eventing:index.adoc[Knative Eventing]
+
+== Camel-K and Knative Serving
+
+With Camel-K we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.
+
+== Camel-K and Knative Eventing
+With Camel-K we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into https://cloudevents.io[ Cloud Events] format and exchanged with other consumers.  

@@ -1,0 +1,11 @@
+:moduledir: ..
+:github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
+:basics-repo: serving
+:configs-and-routes-repo: configs-and-routes
+:scaling-repo: scaling
+:eventing-repo: eventing
+:experimental:
+
+:knative-serving-repo: https://github.com/knative/serving/releases/download
+:knative-sources-repo: https://github.com/knative/eventing-sources/releases/download
+:knative-eventing-repo: https://github.com/knative/eventing/releases/download

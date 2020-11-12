@@ -1,0 +1,4 @@
+[#kubernetes-cluster]
+== Choose your Kubernetes Cluster
+
+Knative can be installed only on Kubernetes cluster. The following section shows how to install Knative on vanilla https://kubernetes.io[Kubernetes] or on Red Hat https://www.openshift.com[Openshift] -- an enterprise grade Kubernetes platform --

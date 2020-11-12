@@ -1,0 +1,210 @@
+[[deploy-apache-kafka]]
+= Deploying Apache Kafka Cluster
+include::_attributes.adoc[]
+
+As part of the upcoming section of this chapter, we will be deploying a <<eventing-source,Knative Source>>, that will respond to Apache Kafka Topic messages(events). Before getting to other exercises, we need to first deploy Apache Kafka inside in your Kubernetes cluster. 
+
+The https://operatorhub.io/operator/strimzi-kafka-operator[strimzi] Kubernetes https://kubernetes.io/docs/concepts/extend-kubernetes/operator/[operator] can be used to deploy the Apache Kafka Cluster in your Kubernetes cluster. 
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+cd $TUTORIAL_HOME/eventing
+----
+
+Run the following command to create the `kafka` namespace 
+
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl create namespace kafka
+----
+
+Deploy Apache Kafka into `kafka` namespace:
+
+[#eventing-deploy-kafka]
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+curl -L \
+https://github.com/strimzi/strimzi-kafka-operator\
+/releases/download/{strimzi-version}/strimzi-cluster-operator-{strimzi-version}.yaml \
+  | sed 's/namespace:.*/namespace: kafka/' \
+  | kubectl apply -n kafka -f -
+----
+
+Wait for the strimzi-cluster-operator to be running:
+
+[#eventing-watch-kafka-pods]
+[.console-input]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+watch "kubectl get pods -n kafka"
+----
+
+The command should show the following output:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                                        READY STATUS    AGE
+strimzi-cluster-operator-85f596bfc7-7dgds   1/1   Running   1m2s
+----
+
+The strimzi operator would have installed several Apache Kafka related CRDs which can be used to create Apache Kafka core resources such as a topic, users, connectors etc., you can verify the CRDs that are available by querying `api-resources`:
+
+[.console-input]
+[#eventing-watch-kafka-res]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl api-resources --api-group='kafka.strimzi.io'
+----
+
+The command should show the following output:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                 SHORTNAMES   APIGROUP           NAMESPACED   KIND
+kafkabridges         kb           kafka.strimzi.io   true         KafkaBridge
+kafkaconnectors      kctr         kafka.strimzi.io   true         KafkaConnector
+kafkaconnects        kc           kafka.strimzi.io   true         KafkaConnect
+kafkaconnects2is     kcs2i        kafka.strimzi.io   true         KafkaConnectS2I
+kafkamirrormaker2s   kmm2         kafka.strimzi.io   true         KafkaMirrorMaker2
+kafkamirrormakers    kmm          kafka.strimzi.io   true         KafkaMirrorMaker
+kafkarebalances      kr           kafka.strimzi.io   true         KafkaRebalance
+kafkas               k            kafka.strimzi.io   true         Kafka
+kafkatopics          kt           kafka.strimzi.io   true         KafkaTopic
+kafkausers           ku           kafka.strimzi.io   true         KafkaUser
+----
+
+Now with the Apache Kafka operator running, you can deploy and verify a single node Apache Kafka cluster by running the command:
+
+[.console-input]
+[#create-kafka-cluster]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl -n kafka apply -f kafka-broker-my-cluster.yaml
+----
+
+Watch the Kafka cluster deployment:
+
+[.console-input]
+[#watch-kafka-cluster]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+watch "kubectl get pods -n kafka"
+----
+
+Watch the `kafka` namespace for the cluster deployment:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+NAME                                         READY  STATUS   AGE
+my-cluster-entity-operator-7d677bdf7b-jpws7  3/3    Running  85s
+my-cluster-kafka-0                           2/2    Running  110s
+my-cluster-zookeeper-0                       2/2    Running  2m22s
+my-cluster-zookeeper-1                       2/2    Running  2m22s
+my-cluster-zookeeper-2                       2/2    Running  2m22s
+strimzi-cluster-operator-85f596bfc7-7dgds    1/1    Running  4m22s
+----
+
+The Kubernetes CRD resource `$TUTORIAL_HOME/eventing/kafka-broker-my-cluster.yaml`, will deploy a single *Zookeeper*, *Kafka Broker* and a *Entity-Operator*.  The *Entity-Operator* is responsible for managing different custom resources such as KafkaTopic and KafkaUser.
+
+Now that you have an Apache Kafka cluster deployed, you can create a Kafka Topic using the KafkaTopic CRD, the following listing shows how to create a Kafka Topic `my-topic`:
+
+.Create Kafka Topic my-topic
+[source,yaml]
+----
+apiVersion: kafka.strimzi.io/v1beta1
+kind: KafkaTopic
+metadata:
+  name: my-topic
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  partitions: 10 # <1>
+  replicas: 1
+----
+
+<1> Partitions 10 allows for more concurrent scale-out of sink pods.  In theory, up to 10 pods will scale-up if there are enough messages flowing through the Kafka topic.
+
+[NOTE]
+====
+You can choose to skip the manual pre-creation of a KafkaTopic but the automatically generated topics will have partitions set to 1 by default.
+====
+
+[[create-kafka-topic]]
+== Create Kafka Topic
+
+[.console-input]
+[#oc-create-kafka-topic]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl -n kafka create -f kafka-topic-my-topic.yaml
+----
+
+Verify the created topic:
+
+[.console-input]
+[#oc-verify-create-kafka-topic]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+kubectl -n kafka  get kafkatopics
+----
+
+The verify command should show the following output:
+
+[.console-output]
+[source,bash]
+----
+NAME       PARTITIONS   REPLICATION FACTOR
+my-topic   10           1
+----
+
+Verify that your Kafka Topic is working correctly by connecting a simple producer, consumer and creating some test messages.  The sample code repository includes a script for producing Kafka messages called `kafka-producer.sh`.  Execute the script and type in "one", "two", "three".  Hitting enter/return after each string:
+
+[[kafka-producer]]
+== Producer
+
+[.console-input]
+[#run-kafka-producer]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+$TUTORIAL_HOME/bin/kafka-producer.sh
+----
+
+On the terminal prompt try entering texts like:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+>one
+>two
+>three
+----
+
+[[kafka-consumer]]
+=== Consumer
+
+You should also leverage the sample code repository's `kafka-consumer.sh` script to see the message flow through the topic, open a new terminal and run:
+
+[.console-input]
+[#run-kafka-consumer]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+$TUTORIAL_HOME/bin/kafka-consumer.sh
+----
+
+On the consumer terminal prompt you will receive texts like:
+
+[.console-output]
+[source,bash,subs="+quotes,attributes+,+macros"]
+----
+>one
+>two
+>three
+----
+
+You can use kbd:[Ctrl-c] to stop producer & consumer interaction and their associated pods.

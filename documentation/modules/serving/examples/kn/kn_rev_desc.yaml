@@ -1,0 +1,54 @@
+apiVersion: serving.knative.dev/v1
+kind: Revision
+metadata:
+  annotations:
+    serving.knative.dev/lastPinned: "1565062128"
+  creationTimestamp: "2019-08-06T03:28:42Z"
+  generateName: greeter-
+  generation: 1
+  labels:
+    serving.knative.dev/configuration: greeter
+    serving.knative.dev/configurationGeneration: "2"
+    serving.knative.dev/service: greeter
+  name: greeter-7cqzq
+  namespace: knativetutorial
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Configuration
+    name: greeter
+    uid: 2f89f930-b7fa-11e9-96b1-22e0f431a3ed
+  resourceVersion: "40312"
+  selfLink: /apis/serving.knative.dev/v1/namespaces/knativetutorial/revisions/greeter-7cqzq
+  uid: 49e30221-b7fa-11e9-96b1-22e0f431a3ed
+spec:
+  containers:
+  - env:
+    - name: MESSAGE_PREFIX
+      value: Namaste
+    image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+    name: user-container
+    resources: {}
+  timeoutSeconds: 300
+status:
+  conditions:
+  - lastTransitionTime: "2019-08-06T03:29:51Z"
+    message: The target is not receiving traffic.
+    reason: NoTraffic
+    severity: Info
+    status: "False"
+    type: Active
+  - lastTransitionTime: "2019-08-06T03:28:48Z"
+    status: "True"
+    type: ContainerHealthy
+  - lastTransitionTime: "2019-08-06T03:28:48Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2019-08-06T03:28:48Z"
+    status: "True"
+    type: ResourcesAvailable
+  imageDigest: quay.io/rhdevelopers/knative-tutorial-greeter@sha256:767e2f4b37d29de3949c8c695d3285739829c348df1dd703479bbae6dc86aa5a
+  logUrl: http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.knative-dev%2FrevisionUID:(query:'49e30221-b7fa-11e9-96b1-22e0f431a3ed',type:phrase))))
+  observedGeneration: 1
+  serviceName: greeter-7cqzq

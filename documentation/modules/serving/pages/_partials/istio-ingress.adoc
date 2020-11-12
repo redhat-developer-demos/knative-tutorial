@@ -1,0 +1,86 @@
+**Install Istio**
+
+[#run-install-istio]
+[source,bash,subs="+macros,+attributes"]
+----
+$TUTORIAL_HOME/bin/install-istio.sh
+----
+copyToClipboard::run-install-istio[]
+
+[NOTE,subs="+macros,+attributes"]
+=====
+* As Knative need only Istio Ingress Gateway and Pilot, we will use Knative Istio lean install, which just installs the required component
+* Installation of Istio components will take some time and it is highly recommended that you start Knative components installation only after you have verified that all Istio component pods are running. The Istio pods can be watched using the command:
+=====
+
+.Watching Istio pods
+[#setup-watch-istio-pods]
+[source,bash,subs="+macros,+attributes"]
+----
+watch kubectl -n istio-system get pods
+----
+copyToClipboard::setup-watch-istio-pods[]
+
+Once all the istio pods are running, you can terminate watch using kbd:[CTRL + c ] .
+
+Installing Istio components will take some time we highly recommend that you start the Knative components installation only **after** you have verified that the Istio component pods are running. The install script will terminate automatically after all the needed Istio components and CRDs have been installed and running.
+
+All Istio resources will be under one of the following API groups:
+
+  - authentication.istio.io
+  - config.istio.io
+  - networking.istio.io
+  - rbac.istio.io
+
+You can verify that the needed CRDs are available by querying `api-resources` for each API group.
+
+.networking.istio.io
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$ **kubectl api-resources --api-group='networking.istio.io'**
+NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
+destinationrules                networking.istio.io   true         DestinationRule
+envoyfilters                    networking.istio.io   true         EnvoyFilter
+gateways                        networking.istio.io   true         Gateway
+serviceentries                  networking.istio.io   true         ServiceEntry
+sidecars                        networking.istio.io   true         Sidecar
+virtualservices                 networking.istio.io   true         VirtualService
+----
+
+.config.istio.io
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$ **kubectl api-resources --api-group='config.istio.io'**
+NAME                  SHORTNAMES   APIGROUP          NAMESPACED   KIND
+adapters                           config.istio.io   true         adapter
+attributemanifests                 config.istio.io   true         attributemanifest
+handlers                           config.istio.io   true         handler
+httpapispecbindings                config.istio.io   true         HTTPAPISpecBinding
+httpapispecs                       config.istio.io   true         HTTPAPISpec
+instances                          config.istio.io   true         instance
+quotaspecbindings                  config.istio.io   true         QuotaSpecBinding
+quotaspecs                         config.istio.io   true         QuotaSpec
+rules                              config.istio.io   true         rule
+templates                          config.istio.io   true         template
+----
+
+.authentication.istio.io
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$ **kubectl api-resources --api-group='authentication.istio.io'**
+NAME           SHORTNAMES   APIGROUP                  NAMESPACED   KIND
+meshpolicies                authentication.istio.io   false        MeshPolicy
+policies                    authentication.istio.io   true         Policy
+----
+
+.rbac.istio.io
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$ **kubectl api-resources --api-group='rbac.istio.io'**
+NAME                    SHORTNAMES   APIGROUP        NAMESPACED   KIND
+authorizationpolicies                rbac.istio.io   true         AuthorizationPolicy
+clusterrbacconfigs                   rbac.istio.io   false        ClusterRbacConfig
+rbacconfigs                          rbac.istio.io   true         RbacConfig
+servicerolebindings                  rbac.istio.io   true         ServiceRoleBinding
+serviceroles                         rbac.istio.io   true         ServiceRole
+----

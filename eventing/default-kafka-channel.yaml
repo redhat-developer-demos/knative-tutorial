@@ -1,17 +1,4 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: messaging.knative.dev/v1
+kind: Channel
 metadata:
-  name: default-ch-webhook
-  namespace: knative-eventing
-data:
-  default-ch-config: |
-    clusterDefault:
-      apiVersion: messaging.knative.dev/v1alpha1
-      kind: InMemoryChannel
-    namespaceDefaults:
-      knativetutorial:
-        apiVersion: messaging.knative.dev/v1alpha1
-        kind: KafkaChannel
-        spec:
-          numPartitions: 1
-          replicationFactor: 1
+  name: my-events-ch

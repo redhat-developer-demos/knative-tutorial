@@ -1,0 +1,12 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: CronJobSource
+metadata:
+  name: my-cjs
+spec:
+  schedule: "*/2 * * * *"
+  data: '{"key": "from CronJobSource"}'
+  sink:
+   ref:
+    apiVersion: messaging.knative.dev/v1alpha1
+    kind: Channel
+    name: eventinghello-ch
