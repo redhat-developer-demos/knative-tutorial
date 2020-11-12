@@ -32,7 +32,7 @@ asciidoc:
     net-kourier-version: v0.17.2
     knative-eventing-version: v0.17.8
     knative-sources-version: v0.17.7
-    kn-client-version: v0.18.0
+    kn-client-version: v0.17.3
     kubernetes-cli: kubectl
     release-version: master
     page-pagination: true
