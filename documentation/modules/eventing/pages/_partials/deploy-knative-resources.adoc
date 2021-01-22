@@ -45,7 +45,8 @@ kn service create {sink-service-name} \
 kn source ping create eventinghello-ping-source \
   --namespace {tutorial-namespace} \
   --schedule "*/2 * * * *" \
-  --sink ksvc:eventinghello
+  --sink ksvc:eventinghello \
+  --data '{"key": "every 2 mins"}'
 ----
 #end::eventing-hello-source[]
 
@@ -66,7 +67,8 @@ kn source ping create \
   event-greeter-ping-source \
   --namespace {tutorial-namespace} \
   --schedule "*/2 * * * *" \
-  --sink channel:eventinghello-ch
+  --sink channel:eventinghello-ch \
+  --data '{"message": "Thanks for doing Knative Tutorial"}'
 ----
 #end::ev-ping-channel[]
 #tag::sub-helloa-sink[]
