@@ -1,0 +1,151 @@
+= Page Title
+include::_attributes.adoc[]
+
+[#camelk-setup]
+== Setup
+
+[#install-camel-k]
+=== Install Camel-k
+
+Download the latest camel-k release from https://github.com/apache/camel-k/releases/latest[here]. Extract the content and add the binary `kamel` to the PATH.
+
+[IMPORTANT]
+====
+As of building this tutorial the latest **kamel** version was `{kamel-version}`
+==== 
+
+[tabs]
+====
+Minikube::
++
+--
+[.console-input]
+[#camel-k-k8s-install]
+[source,bash,subs="+quotes,+attributes,+macros"]
+-----
+kamel install --namespace {tutorial-namespace} --olm=false --wait
+-----
+
+As with other installations in this tutorial, this process will take a few minutes for the Camel-K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace `{tutorial-namespace}`.
+
+.Camel K Pods
+[.console-input]
+[#camel-k-watch-pods]
+[source,bash,subs="+quotes,+attributes,+macros"]
+-----
+watch "kubectl -n {tutorial-namespace} get pods"
+-----
+
+[NOTE]
+=====
+The Camel-k install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.
+=====
+
+A successful camel-K setup will have the following pods running/completed in `{tutorial-namespace}` namespace:
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+-----
+NAME                                READY   STATUS      RESTARTS   AGE
+camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s
+-----
+--
+OpenShift::
++
+--
+
+Camel-K is installed using its https://operatorhub.io/operator/camel-k[operator].Use the Operator Hub in OpenShift webconsole to install the Camel-K operator.
+
+Once the operator is deployed successfully, run the following command to setup `Camel-K` in the namespace:
+
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kamel install --cluster-setup --skip-operator-setup
+----
+
+[NOTE]
+======
+In OpenShift, the `kamel install` command will not install Camel-K operator in each namespace, rather its done one time at cluster level when installing the Operator.
+======
+--
+====
+
+[#configure-maven-repo]
+=== Configure Camel-k to build faster 
+
+Camel-K uses https://maven.apache.org[Apache Maven] to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap `camel-k-maven-settings` in the {tutorial-namespace} namespace. One of the ways to make the build faster is by using a maven repository manager such as https://www.sonatype.com/nexus-repository-oss[Sonatype Nexus], the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.
+
+Edit the file `$TUTORIAL_HOME/install/utils/camel-k-maven-settings.xml` to adjust to your maven repository settings:
+
+
+Create the ConfigMap using the command:
+
+[.console-input]
+[#camel-k-maven-config]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl create configmap \
+  -n {tutorial-namespace} my-camel-k-maven-settings \
+  --from-file=settings.xml="$TUTORIAL_HOME/install/utils/camel-k-maven-settings.xml"
+----
+
+Install or Update `Camel-K` and make it use the maven repository settings:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kamel install --force \#<.>
+  --maven-settings="configmap:my-camel-k-maven-settings/settings.xml" \
+  --wait
+----
+<.> `--force` is used to update any existing `Camel-K` installs to use the new settings
+
+
+=== Deploy Nexus to Local Cluster (Optional)
+
+If you don't have a https://www.sonatype.com/download-oss-sonatype[Sonatype Nexus Repository^,role="ext-link"], you can deploy one into the cluster using the deployment `$TUTORIAL_HOME/install/utils/nexus/app.yaml`.
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl apply -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/nexus.yaml
+----
+
+Wait for the nexus pod to be ready:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch kubectl get -n {tutorial-namespace} pods
+----
+
+Once nexus is running you should see the following pod in the `{tutorial-namespace}`:
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                                READY   STATUS    RESTARTS   AGE
+camel-k-operator-65db5d46bb-llc6g   1/1     Running   0          22h
+*nexus-5dc54dd879-tlv2g              1/1     Running   0          9m49s*
+----
+
+The nexus repository can be opened in your browser using the command:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+minikube -p {tutorial-namespace} service -n {tutorial-namespace} nexus
+----
+
+You need to use user `admin` to login. Nexus uses a generated password, to retrieve the generated password run:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+export NEXUS_POD=$(kubectl -n knativetutorial get pods \
+  -lapp=nexus -ojsonpath='{.items[0].metadata.name}')
+kubectl exec $NEXUS_POD -- cat /nexus-data/admin.password
+----
+
+You will be able to reset it after the first login. You can then <<configure-maven-repo>>.
+

@@ -1,0 +1,50 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    serving.knative.dev/creator: minikube-user
+    serving.knative.dev/lastModifier: minikube-user
+  creationTimestamp: "2019-08-05T12:51:40Z"
+  generation: 2
+  name: greeter
+  namespace: knativetutorial
+  resourceVersion: "35193"
+  selfLink: /apis/serving.knative.dev/v1/namespaces/knativetutorial/services/greeter
+  uid: c4ee1f47-b77f-11e9-96b1-22e0f431a3ed
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - env:
+        - name: MESSAGE_PREFIX
+          value: '''Namaste'''
+        image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        name: user-container
+        resources: {}
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
+status:
+  address:
+    url: http://greeter.knativetutorial.svc.cluster.local
+  conditions:
+  - lastTransitionTime: "2019-08-05T13:03:33Z"
+    status: "True"
+    type: ConfigurationsReady
+  - lastTransitionTime: "2019-08-05T13:03:33Z"
+    status: "True"
+    type: Ready
+  - lastTransitionTime: "2019-08-05T13:03:33Z"
+    status: "True"
+    type: RoutesReady
+  latestCreatedRevisionName: greeter-578mv
+  latestReadyRevisionName: greeter-578mv
+  observedGeneration: 2
+  traffic:
+  - latestRevision: true
+    percent: 100
+    revisionName: greeter-578mv
+  url: http://greeter.knativetutorial.example.com

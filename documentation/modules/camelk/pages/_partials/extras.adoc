@@ -1,0 +1,16 @@
+[k8s-cli='']
+
+#tag::config-k8s-local-registry[]
+
+[#knative-{k8s-cli}-untag-repo]
+[source,bash,subs="+macros,+attributes"]
+----
+K8S_LOCAL_REGISTRY=`{k8s-cli} get svc -n kube-system registry -ojsonpath='{.spec.clusterIP}'` && \ 
+val="pass:[${K8S_LOCAL_REGISTRY}]" && \
+{k8s-cli} -n knative-serving get cm config-controller -oyaml \
+  | yq w - data.registriesSkippingTagResolving $val \
+  | {k8s-cli} apply -f -
+----
+copyToClipboard::knative-{k8s-cli}-untag-repo[]
+
+#end::config-k8s-local-registry[]

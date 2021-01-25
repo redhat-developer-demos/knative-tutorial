@@ -1,0 +1,17 @@
+.xref:setup:setup.adoc[Setup]
+include::ROOT:partial$setup-nav.adoc[]
+
+.xref:serving:index.adoc[Knative Serving]
+include::ROOT:partial$serving-nav.adoc[]
+
+.xref:eventing:index.adoc[Knative Eventing]
+include::ROOT:partial$eventing-nav.adoc[]
+
+.xref:camelk:index.adoc[Apache Camel-K]
+include::ROOT:partial$camelk-nav.adoc[]
+
+.xref:advanced:index.adoc[Advanced]
+include::ROOT:partial$advanced-nav.adoc[]
+
+.Appendix
+* xref:serving:faq.adoc[Frequently Asked Questions]

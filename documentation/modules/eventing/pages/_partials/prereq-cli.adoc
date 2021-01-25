@@ -1,0 +1,74 @@
+
+The following checks ensure that each chapter exercises are done with the right environment settings.
+
+[tabs]
+====
+Minikube::
++
+--
+* Set your local docker to use minikube docker daemon
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+eval $(minikube docker-env)
+----
+
+* Kubernetes should be `{kubernetes-version}`
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl version --short
+----
+
+The output should be as shown 
+
+[source,bash,subs="+macros,+attributes"]
+[.console-output]
+----
+Client Version: {kubernetes-version}
+Server Version: {kubernetes-version}
+----
+--
+OpenShift::
++
+--
+* OpenShift CLI should be v4.6+
+
+[#oc-version]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+oc version 
+----
+
+The output should be like
+
+[source,bash,subs="+macros,+attributes"]
+[.console-output]
+----
+oc version
+Client Version: 4.6.1
+Kubernetes Version: `{kubernetes-version}`
+----
+
+* Make sure to be on `knativetutorial` OpenShift project
+
+[#right-openshift-project]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+oc project -q 
+----
+
+If you are not on `{tutorial-namespace}` project, then run following command to change to `{tutorial-namespace}` project:
+
+[#change-to-openshift-project]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+oc project {tutorial-namespace}
+----
+--
+====

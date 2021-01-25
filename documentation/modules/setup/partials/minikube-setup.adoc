@@ -1,0 +1,387 @@
+[#start-minikube]
+== Configure and Start Minikube
+Before installing Knative and its components, we need to create a Minikube virtual machine and deploy Kubernetes into it.
+
+Download https://kubernetes.io/docs/setup/minikube[minikube] and add it to your path.
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+$TUTORIAL_HOME/bin/start-minikube.sh
+----
+
+.Minikube starting
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+😄  [{tutorial-namespace}] minikube {minikube-version} on Darwin 10.15.7
+✨  Using the hyperkit driver based on user configuration
+👍  Starting control plane node {tutorial-namespace} in cluster {tutorial-namespace}
+🔥  Creating hyperkit VM (CPUs=6, Memory=8192MB, Disk=51200MB) ...
+🐳  Preparing Kubernetes v1.18.0 on Docker 19.03.12 ...
+    > kubelet.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    > kubectl.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    > kubeadm.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
+    > kubectl: 41.98 MiB / 41.98 MiB [---------------] 100.00% 1.10 MiB p/s 38s
+    > kubeadm: 37.96 MiB / 37.96 MiB [-----------] 100.00% 450.47 KiB p/s 1m26s
+    > kubelet: 108.01 MiB / 108.01 MiB [---------] 100.00% 822.97 KiB p/s 2m14s
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use "{tutorial-namespace}" by default
+----
+
+[#minikube-deploy-registry]
+=== Deploy Registry
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+minikube -p {tutorial-namespace} addons enable registry
+----
+
+[.console-output]
+[source,bash]
+----
+🔎  Verifying registry addon...
+🌟  The 'registry' addon is enabled
+----
+
+== Install Knative
+
+=== Deploy Cusom Resource Definitions
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply \
+  --filename {knative-serving-repo}/{knative-serving-version}/serving-crds.yaml \
+  --filename {knative-eventing-repo}/{knative-eventing-version}/eventing-crds.yaml
+----
+
+Now that you have installed the Knative Serving and Eventing CRDs, the following sections we will verify the CRDs by querying the `api-resources`.
+
+All *Knative Serving* resources will be under the API group called `serving.knative.dev`.
+
+.serving.knative.dev
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl api-resources --api-group='serving.knative.dev'
+----
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME             SHORTNAMES      APIGROUP              NAMESPACED   KIND
+configurations   config,cfg      serving.knative.dev   true         Configuration
+revisions        rev             serving.knative.dev   true         Revision
+routes           rt              serving.knative.dev   true         Route
+services         kservice,ksvc   serving.knative.dev   true         Service
+----
+
+All *Knative Eventing* resources will be under the one of following API groups:
+
+ - messaging.knative.dev
+ - eventing.knative.dev
+ - sources.knative.dev
+
+.messaging.knative.dev
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl api-resources --api-group='messaging.knative.dev'
+----
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
+channels           ch           messaging.knative.dev   true         Channel
+subscriptions      sub          messaging.knative.dev   true         Subscription
+----
+
+.eventing.knative.dev
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl api-resources --api-group='eventing.knative.dev'
+----
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME         SHORTNAMES   APIGROUP               NAMESPACED   KIND
+brokers                   eventing.knative.dev   true         Broker
+eventtypes                eventing.knative.dev   true         EventType
+triggers                  eventing.knative.dev   true         Trigger
+----
+
+.sources.knative.dev
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl api-resources --api-group='sources.knative.dev'
+----
+
+[source,bash,subs="+quotes,+attributes,+macros"]
+[.console-output]
+----
+NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
+apiserversources                sources.knative.dev   true         ApiServerSource
+containersources                sources.knative.dev   true         ContainerSource
+pingsources                     sources.knative.dev   true         PingSource
+sinkbindings                    sources.knative.dev   true         SinkBinding
+----
+
+The Knative has two main infrastructure components: https://kubernetes.io/docs/concepts/architecture/controller/[controller] and https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/[webhook] helps in translating the Knative CRDs which are usually written YAML files, into Kubernetes objects like Deployment and Service. Apart from the controller and webhook, the Knative Serving and Eventing also install their respective functional components which are listed in the upcoming sections.
+
+[#install-knative-serving]
+=== Install Knative Serving
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply \
+  --filename \
+  {knative-serving-repo}/{knative-serving-version}/serving-core.yaml
+----
+
+Wait for the Knative Serving deployment to complete:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status deploy controller -n knative-serving 
+kubectl rollout status deploy activator -n knative-serving 
+kubectl rollout status deploy autoscaler -n knative-serving 
+kubectl rollout status deploy webhook -n knative-serving 
+----
+
+A successfuly deployment should show the following pods in `knative-serving` namespace:
+
+.Knative Serving pods
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl get pods -n knative-serving
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                          READY   STATUS    RESTARTS   AGE
+activator-6b49796b46-g66z2    1/1     Running   0          11m
+autoscaler-7b46fcb475-cnbrm   1/1     Running   0          11m
+controller-65f4f4bcb4-mrkgs   1/1     Running   0          11m
+webhook-59585cb6-wqldc        1/1     Running   0          11m
+----
+
+[#install-kourier-ingress-gateway]
+=== Install Kourier Ingress Gateway
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply \
+  --filename \
+    https://github.com/knative/net-kourier/releases/download/{knative-serving-version}/kourier.yaml
+----
+
+Wait for the Ingress Gateway  deployment to complete:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl rollout status deploy 3scale-kourier-control -n knative-serving
+kubectl rollout status deploy 3scale-kourier-gateway -n kourier-system
+----
+
+A successful Kourier Ingress Gateway should show the following pods in `kourier-system` and `knative-serving`:
+
+.Kourier pods
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kourier-control)'
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAMESPACE         NAME                                      READY   STATUS    RESTARTS   AGE
+knative-serving   3scale-kourier-control-6f9f49f99b-q7nn4   1/1     Running   1          3d10h
+kourier-system    3scale-kourier-gateway-79898dffd4-qsc65   1/1     Running   1          3d10h
+----
+
+Now configure Knative serving to use Kourier as the ingress:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl patch configmap/config-network \
+  -n knative-serving \
+  --type merge \
+  -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
+----
+
+[#install-ingress-controller]
+=== Install and Configure Ingress Controller
+
+To access the Knative Serving services from the minikube host, it will be easier to have Ingress deployed and configured. 
+
+The following section will install and configure https://projectcontour.io[Contour] as the Ingress Controller.
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply \
+  --filename https://projectcontour.io/quickstart/contour.yaml
+----
+
+Wait for the Ingress to be deployed and running:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status ds envoy -n projectcontour
+kubectl rollout status deploy contour -n projectcontour
+----
+
+A successful rollout should list the following pods in `projectcontour`
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get pods -n projectcontour
+----
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+AME                            READY   STATUS      RESTARTS   AGE
+contour-5475898957-6d9xl        1/1     Running     1          34h
+contour-5475898957-h6hxb        1/1     Running     1          34h
+contour-certgen-v1.10.0-x69qz   0/1     Completed   0          34h
+envoy-ft8ct                     2/2     Running     2          34h
+----
+
+[#configure-ingress-to-gateway]
+
+Now create Ingress to Kourier Ingress Gateway:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+cat <<EOF | kubectl apply -n kourier-system -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kourier-ingress
+  namespace: kourier-system
+spec:
+  rules:
+  - http:
+     paths:
+       - path: /
+         pathType: Prefix
+         backend:
+           service: 
+             name: kourier
+             port:
+               number: 80
+EOF
+----
+
+[.console-output]
+[source,bash]
+----
+ingress.networking.k8s.io/kourier-ingress created
+----
+
+Configure Knative to use the `kourier-ingress` Gateway:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+ksvc_domain="\"data\":{\""$(minikube ip -p knativetutorial)".nip.io\": \"\"}"
+kubectl patch configmap/config-domain \
+    -n knative-serving \
+    --type merge \
+    -p "{$ksvc_domain}"
+----
+
+[.console-output]
+[source,bash]
+----
+configmap/config-domain patched
+----
+
+[#install-knative-eventing]
+=== Install Knative Eventing
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl apply \
+  --filename \
+  {knative-eventing-repo}/{knative-eventing-version}/eventing-core.yaml \
+  --filename \
+  {knative-eventing-repo}/{knative-eventing-version}/in-memory-channel.yaml \
+  --filename \
+  {knative-eventing-repo}/{knative-eventing-version}/mt-channel-broker.yaml
+----
+
+Like Knative Serving deployment, Knative Eventing deployment will also take few minutes to complete, check the status of the deployment using:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl rollout status deploy eventing-controller -n knative-eventing 
+kubectl rollout status deploy eventing-webhook  -n knative-eventing 
+kubectl rollout status deploy imc-controller  -n knative-eventing 
+kubectl rollout status deploy imc-dispatcher -n knative-eventing 
+kubectl rollout status deploy mt-broker-controller -n knative-eventing 
+kubectl rollout status deploy mt-broker-filter -n knative-eventing 
+kubectl rollout status deploy mt-broker-filter -n knative-eventing 
+----
+
+A successful deployment should show the following pods in `knative-eventing` namespace:
+
+.Knative eventing pods
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl get pods -n knative-eventing
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                                   READY   STATUS    RESTARTS   AGE
+eventing-controller-75b7567ddc-dp5q7   1/1     Running   0          96s
+eventing-webhook-5b859fd7f-mzvbh       1/1     Running   0          96s
+imc-controller-7d465bddc5-2ckww        1/1     Running   0          95s
+imc-dispatcher-f64dcc94d-ztnnx         1/1     Running   0          95s
+mt-broker-controller-d5f96b5b5-2xr9z   1/1     Running   0          95s
+mt-broker-filter-5d994fb97f-kpm5z      1/1     Running   0          95s
+mt-broker-ingress-769b458fd-ghmnc      1/1     Running   0          95s
+----
+
+[#create-tutorial-namespace]
+== Create Tutorial namespace
+
+All the tutorial exercises will be deployed in namespace called `{tutorial-namespace}`:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl create namespace {tutorial-namespace}
+----
+
+[TIP]
+=====
+The https://github.com/ahmetb/kubens[kubens] utility installed as part of https://github.com/ahmetb/kubectx[kubectx] allows for easy switching between Kubernetes namespaces.
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubens {tutorial-namespace}
+----
+
+=====

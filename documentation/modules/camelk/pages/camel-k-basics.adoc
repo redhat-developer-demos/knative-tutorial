@@ -1,0 +1,305 @@
+[[camel-k-basics]]
+= Camel-K Basics
+include::_attributes.adoc[]
+
+At the end of this chapter you will be able to:
+
+- Understand Camel-K deployment
+- How to create Camel-K integration
+- How to run using development mode 
+- How to add dependencies to Camel-K
+- How to run your Camel-K integration in serverless mode
+
+Navigate to the tutorial chapter's folder {camelk-repo}:
+
+[.console-input]
+[#camelk-repo-nav-folder]
+[source,bash,subs="+macros,+attributes"]
+----
+cd $TUTORIAL_HOME/{camelk-repo}
+----
+
+[#deploy-camel-k-integration]
+== Deploy Camel-K integration
+
+Camel-K helps you in writing the Apache Camel integrations using Java, JS, XML and as YAML. 
+
+[NOTE]
+====
+For all the integration exercises, we will be using YAML DSL.
+
+Apache Camel YAML DSL is still under active development but using this DSL will give you a consistent resource definition across Kubernetes, Knative and Camel-K
+====
+
+Let us analyze our first Camel-K integration before running it. A Camel-K integration resource is an array of one flow or multiple route definitions. The following listing shows you simple timer integration with just one route:
+
+.Camel K integration - greeter
+[source,yaml]
+----
+- from:
+    uri: "timer:tick" #<1>
+    parameters: #<2>
+      # time in milliseconds (10 seconds)
+      period: 10000
+    steps: #<3>
+      - set-body: #<4>
+          constant: "Welcome to Apache Camel K"
+      - set-header: #<5>
+          name: ContentType
+          simple: text/plain
+      - transform: #<6>
+          simple: "${body.toUpperCase()}"
+      - to: #<7>
+          uri: "log:info?multiline=true&showAll=true"
+----
+<1> The Apache Camel producer URI, in this case it is the https://camel.apache.org/components/latest/timer-component.html[timer] component.
+<2> The `parameters` allows to specify the configurable properties of the component. In this case the timer component needs to tick every `10` seconds.
+<3> The `steps` defines the flow of Camel exchange(IN). Each Camel K integration should have at least one step defined.
+<4> Sets the body of the Camel exchange(OUT), a constant value of "Welcome to Apache Camel K"
+<5> It is possible to set headers as part of the step, this sets the `ContentType` header with its value `text/plain`.
+<6> It is possible to apply transformations as part of a step. This applies a simple transformation of converting the exchange OUT body to uppercase.
+<7> In the end you send the processed exchange(OUT) to its desired destination, here we simply log it out.
+
+It is possible  have any number of steps as needed for an integration based on your use case. In the later sections of this chapter you will deploy multi-step based integration examples.
+
+`kamel` CLI tool is used to deploy the integrations. Run the following command to 
+
+.Deploy the greeter integration
+[.console-input]
+[[deploy-integration-dev-mode]]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kamel run --dev get-started/timed-greeter.yaml
+----
+
+A typical Camel K integration deployment will take approximately 2-5 minutes, as it involves multiple steps such as:
+
+. Building an integration kit(camel-k-kit) which builds the container image with all the required Camel modules downloaded and added to classpath within the container image.
+. If using Knative then deploy as a Knative Service
+. Run the container image as a Kubernetes pod and start the Camel context
+
+Once the integration is built, you sill see the terminal populated with logs from the integration like:
+
+.timed-greeter logs
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+# kamel run --dev get-started/timed-greeter.yaml
+...
+[1] 2020-01-13 03:25:28.548 INFO  [Camel (camel-k) thread #1 - timer://tick] info - Exchange[
+[1]   Id: ID-timed-greeter-57b4d49974-vg859-1578885868551-0-13
+[1]   ExchangePattern: InOnly
+[1]   Properties: {CamelCreatedTimestamp=Mon Jan 13 03:25:28 UTC 2020, CamelExternalRedelivered=false, CamelMessageHistory=[DefaultMessageHistory[routeId=route1, node=setBody1], DefaultMessageHistory[routeId=route1, node=setHeader1], DefaultMessageHistory[routeId=route1, node=transform1], DefaultMessageHistory[routeId=route1, node=to1]], CamelTimerCounter=7, CamelTimerFiredTime=Mon Jan 13 03:25:28 UTC 2020, CamelTimerName=tick, CamelTimerPeriod=10000, CamelToEndpoint=log://info?multiline=true&showAll=true}
+[1]   Headers: {ContentType=text/plain, firedTime=Mon Jan 13 03:25:28 UTC 2020}
+[1]   BodyType: String
+[1]   Body: WELCOME TO APACHE CAMEL K
+[1] ]
+----
+
+[IMPORTANT]
+====
+If you are not using maven repository manager or it takes long time to download maven artifacts, your earlier command `kamel run --dev ..` will report a failure. In those cases, run the command `kamel get` to see the status of the integration. Once you see the `timed-greeter` pod running, then use `kamel log timed-greeter` to see the logs as shown in the earlier listing.
+
+You can use Ctrl+C to stop the running Camel K integration and it automatically terminate its pods. If you had encountered the dev mode failure as described earlier, try to delete the integration using the command `kamel delete timed-greeter`.
+====
+
+The `dev` mode allows live reload of code. Update the `timed-greeter.yaml` body text to be "Hi Camel K rocks!" and observe the automatic reloading of the context and the logs printing the new message.
+
+[#deploy-camel-k-kn-integration]
+== Deploy Camel-K Knative Integration
+
+Any Camel-K integration can be converted into a serverless service using Knative. For an integration to be deployed as a Knative Service you need to use the Camel-K\'s `knative` component.
+
+The Camel-K Knative component provides two consumers: `knative:endpoint` and `knative:channel`. The former is used to deploy the integration as Knative Service, while the later is used to handle events from a Knative Event channel.
+
+[NOTE]
+====
+The Knative endpoints can be either a Camel producer or consumer depending on the context and need.
+====
+
+We wil now deploy a `knative:endpoint` consumer as part of your integration, that will add the serverless capabilities to your Camel-K integration using Knative.
+
+The following listing shows a simple `echoer` Knative Camel-K integration, that will simply respond to your Knative Service call with same body that you sent into it in uppercase form.  If there is no body received the service will respond with "no body received":
+
+.Echoer Integration
+[source,yaml]
+----
+- from:
+    uri: "knative:endpoint/echoer" #<1>
+    steps:
+      - log:
+          message: "Got Message: ${body}"
+      - convert-body-to: "java.lang.String" #<2>
+      - choice:
+          when:
+            - simple: "${body} != null && ${body.length} > 0"
+              steps:
+                - set-body:
+                    simple: "${body.toUpperCase()}"
+                - set-header:
+                    name: ContentType
+                    simple: text/plain
+                - log:
+                    message: "${body}"
+          otherwise:
+            steps:
+              - set-body:
+                  constant: "no body received"
+              - set-header:
+                  name: ContentType
+                  simple: text/plain
+              - log:
+                  message: "Otherwise::${body}"
+----
+<1> The consumer needs to be a Knative endpoint URI of form `knative:endpoint/<your endpoint name>`, the name of the Knative service will be the last path segment of the URI, in this case your Knative service will be called `echoer`.
+<2> You will be converting the incoming data (request body) to `java.lang.String` as that will help you in converting to upper case.
+
+You can run this integration as shown in the following listing. If you notice that you are now deploying the integration in production mode i.e without `--dev` option.
+
+[#camel-k-kn-run]
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kamel run --wait get-started/echoer.yaml
+----
+
+[NOTE]
+====
+You can use `stern camel-k` to monitor the progress of the builder pod as well as `watch kubectl kamel get` and monitor the *PHASE* column.  In addition, `watch kubectl get ksvc` looking at the *READY* column to become True.
+====
+
+Since its the production mode and it takes some time for the integration to come up, you need to watch the integration\'s logs using the command `kamel log <integration name>` i.e. `kamel log echoer` and you can get the name of the integration using the command `kamel get`.
+
+In the integration that you had deployed, you had applied the https://camel.apache.org/components/latest/eips/choice-eip.html[Choice EIP^, role="ext-link"] when processing the exchange body. When the body has content then it simply converts the body to upper case otherwise it returns a canned response of "no body received". In either case, the content type header is set to `text/plain`.
+
+Camel-K defines an `integration` via Custom Resource Definition (CRD) and you can view those CRDs and the actual `integrations` via the following commands:
+
+[.console-input]
+[#camel-k-crds]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl api-resources --api-group=camel.apache.org
+----
+
+The command above shows the following output:
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                   SHORTNAMES   APIGROUP           NAMESPACED   KIND
+builds                 ikb          camel.apache.org   true         Build
+camelcatalogs          cc           camel.apache.org   true         CamelCatalog
+integrationkits        ik           camel.apache.org   true         IntegrationKit
+integrationplatforms   ip           camel.apache.org   true         IntegrationPlatform
+integrations           it           camel.apache.org   true         Integration
+kameletbindings        klb          camel.apache.org   true         KameletBinding
+kamelets               kl           camel.apache.org   true         Kamelet
+----
+
+[#camel-k-list-int]
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+watch kamel -n {tutorial-namespace} get
+----
+
+A successful integration deployment should show the following output:
+
+[source,bash]
+----
+NAME    PHASE   KIT
+echoer  Running kit-buifr3v968fjg6sum6e0
+----
+
+Once the integration is started, you can check the Knative service using the command:
+
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kn -n {tutorial-namespace} service describe echoer
+----
+
+[.console-output]
+[source,bash]
+----
+Name:       echoer
+Namespace:  knativetutorial
+Labels:     camel.apache.org/generation=1, camel.apache.org/integration=echoer
+Age:        5m
+URL:        http://echoer.knativetutorial.example.com
+
+Revisions:
+  100%  @latest (echoer-g6g68) [1] (5m)
+        Image:  10.105.219.172/knativetutorial/camel-k-kit-buifr3v968fjg6sum6e0@sha256:06588f7dfb53e0e6027c975e206c8bb67a03311a90ed2ccafdc883e16c627f25 (at 06588f)
+
+Conditions:
+  OK TYPE                   AGE REASON
+  ++ Ready                   4m
+  ++ ConfigurationsReady     4m
+  ++ RoutesReady             4m
+----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl -n {tutorial-namespace} get ksvc echoer
+----
+
+[.console-output]
+[source,bash]
+----
+NAME     URL                                         LATESTCREATED   LATESTREADY    READY   REASON
+echoer   http://echoer.knativetutorial.example.com   echoer-g6g68    echoer-g6g68   True
+----
+--
+====
+
+
+When the service is in a ready state use the call script `$TUTORIAL/bin/call.sh` with parameter `echoer` and a request body of "Hello World":
+
+[#call-echoer-with-param]
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$TUTORIAL_HOME/bin/call.sh echoer 'Hello World'
+----
+
+[#call-echoer-without-param]
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$TUTORIAL_HOME/bin/call.sh echoer ''
+----
+
+The invocation of a Knative Camel-K Integration is a bit different than previous Knative test calls.  The Knative Camel-K integration service is expecting a POST where the input data is part of the request body.  Therefore, you need to a few different elements to construct the invocation, the following snippet from `$TUTORIAL_HOME/bin/call.sh` shows how a Knative service call is constructed:
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+*curl -X POST -d "Hello World" $KSVC_URL* <.>
+----
+<.> curl with a POST
+
+[TIP]
+====
+Explore the `kamel` tool via its help option of `kamel --help` to see the list of available commands and their respective options.
+====
+
+[#cleanup]
+== Cleanup
+
+[.console-input]
+[#camelk-gs-cleanup]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+$TUTORIAL_HOME/bin/clean-completed.sh
+kamel delete echoer
+----

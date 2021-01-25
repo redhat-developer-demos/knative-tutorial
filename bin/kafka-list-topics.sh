@@ -11,4 +11,4 @@ kubectl exec -it "$KAFKA_CLUSTER_NAME-kafka-0" \
  -n $KAFKA_CLUSTER_NS \
  -- ./bin/kafka-topics.sh \
  --list \
- --zookeeper localhost:2181
+ --bootstrap-server localhost:9092

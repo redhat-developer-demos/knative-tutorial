@@ -1,0 +1,28 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: greeter
+spec:
+  template:
+    spec:
+      containers:
+      - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+        env:
+        - name: MESSAGE_PREFIX
+          value: Namaste
+        livenessProbe:
+          httpGet:
+            path: /healthz
+        readinessProbe:
+          httpGet:
+            path: /healthz
+  traffic:
+  - tag: v1
+    revisionName: greeter-v1
+    percent: 100
+  - tag: v2
+    revisionName: greeter-v2
+    percent: 0
+  - tag: latest
+    latestRevision: true
+    percent: 0 

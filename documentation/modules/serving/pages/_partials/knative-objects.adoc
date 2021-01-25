@@ -1,0 +1,125 @@
+#tag::knative-services[]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service list -n {tutorial-namespace}
+----
+
+[.console-output]
+[source,text,subs="+attributes"]
+----
+NAME      URL                                                   LATEST            AGE   CONDITIONS   READY   REASON
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   greeter-sxnzq-1   17m   3 OK / 3     True
+----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace}  get services.serving.knative.dev greeter 
+----
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+NAME      URL                                                   LATESTCREATED     LATESTREADY       READY   REASON
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   greeter-sxnzq-1   greeter-sxnzq-1   True
+----
+--
+====
+
+#end::knative-services[]
+
+#tag::knative-configs[]
+[#knative-configs]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get configurations.serving.knative.dev greeter
+----
+#end::knative-configs[]
+
+#tag::knative-routes[]
+[#knative-routes]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn route --namespace {tutorial-namespace} list
+----
+
+[.console-output]
+[source,bash,subs="+attributes"]
+----
+NAME      URL                                          READY
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   True
+----
+
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+{kubernetes-cli} --namespace {tutorial-namespace} get routes.serving.knative.dev greeter
+----
+
+[.console-output]
+[source,bash,subs="+macros,+attributes"]
+----
+NAME      URL                                                   READY   REASON
+greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   True
+----
+--
+====
+
+#end::knative-routes[]
+
+#tag::knative-revisions[]
+[tabs]
+====
+kn::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn revision list --namespace {tutorial-namespace}
+----
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get rev \
+--selector=serving.knative.dev/service=greeter \
+--sort-by="{.metadata.creationTimestamp}"
+----
+--
+====
+#end::knative-revisions[]
+
+#tag::knative-config-revisions[]
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl --namespace {tutorial-namespace} get rev \
+  -l serving.knative.dev/configuration=greeter \
+  --sort-by="{.metadata.creationTimestamp}"
+----
+#end::knative-config-revisions[]

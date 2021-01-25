@@ -17,13 +17,14 @@ else
   CURR_NS="${CURR_NS}"
 fi
 
-HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
+# HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
+KSVC_HOST="$KSVC_NAME.$CURR_NS.$(minikube -p knativetutorial ip).nip.io"
 
 if [ $# -le 1 ]
 then
-  http GET $IP_ADDRESS "$HOST_HEADER" 
+  http GET "$KSVC_HOST"
 else
-  echo "$2" | http --body POST $IP_ADDRESS "$HOST_HEADER" 'Content-Type: plain'
+  echo "$2" | http --body POST "$KSVC_HOST"
 fi
 
 exit_err() {

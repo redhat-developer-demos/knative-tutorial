@@ -1,0 +1,12 @@
+:moduledir: ..
+:github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
+:basics-repo: serving
+:configs-and-routes-repo: configs-and-routes
+:scaling-repo: scaling
+:eventing-repo: eventing
+:experimental:
+:minikube-nip-io: 192.168.64.13.nip.io
+
+:knative-serving-repo: https://github.com/knative/serving/releases/download
+:knative-sources-repo: https://github.com/knative/eventing-sources/releases/download
+:knative-eventing-repo: https://github.com/knative/eventing/releases/download

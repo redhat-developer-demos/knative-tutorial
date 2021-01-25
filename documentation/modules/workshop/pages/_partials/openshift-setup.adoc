@@ -1,0 +1,34 @@
+[#kubernetes-cluster]
+== Configure your OpenShift Environment
+
+=== Prepare your shell environment
+
+[#knative-tutorial-shell-env]
+[source,bash,subs="attributes+,+macros"]
+----
+# set the current workshop user
+export WORKSHOP_USER=1
+# update the tutorial to point to knative-tutorial
+export TUTORIAL_HOME="/projects/$CHE_WORKSPACE_ID/projects/knative-tutorial"
+----
+copyToClipboard::knative-tutorial-shell-env[]
+
+=== Login into OpenShift 
+
+[#knative-tutorial-oc-login]
+[source,bash,subs="attributes+,+macros"]
+----
+oc login --insecure-skip-tls-verify=true --username userpass:[$WORKSHOP_USER]  {ocpurl}
+----
+copyToClipboard::knative-tutorial-oc-login[]
+
+You can also access the OpenShift Console via url {openshift-console-url}
+
+=== Change to OpenShift Workshop Project
+
+[#knative-oc-project]
+[source,bash,subs="attributes+,+macros"]
+----
+oc project {tutorial-namespace}
+----
+copyToClipboard::knative-oc-project[]

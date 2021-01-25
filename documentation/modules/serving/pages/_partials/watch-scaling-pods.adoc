@@ -1,0 +1,5 @@
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+watch 'kubectl get pods -n {tutorial-namespace}'
+----

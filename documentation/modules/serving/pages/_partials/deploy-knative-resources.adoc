@@ -1,0 +1,116 @@
+#tag::tab-1[]
+[tabs]
+====
+kn::
++
+--
+#end::tab-1[]
+#tag::basic[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service create greeter \
+  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+----
+#end::basic[]
+#tag::env[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter \
+  --env MESSAGE_PREFIX=Namaste \
+  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+----
+#end::env[]
+#tag::td-rev1[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service create greeter \
+  --revision-name greeter-v1 \
+  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+----
+#end::td-rev1[]
+#tag::td-rev2[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter \
+  --revision-name greeter-v2 \
+  --env MESSAGE_PREFIX=Namaste \
+  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+----
+#end::td-rev2[]
+#tag::td-pinned[]
+.Tag Revision v1
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter --tag="greeter-v1=v1"
+----
+.Tag Revision v2
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter --tag="greeter-v2=v2"
+----
+
+.Tag Revision latest
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter --tag="@latest=latest"
+----
+
+.Route all traffic to v1
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter \
+  --traffic="v1=100" \
+  --traffic="v2=0"  \
+  --traffic="latest=0"
+----
+#end::td-pinned[]
+#tag::td-canary[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update greeter \
+  --traffic="v1=80" \
+  --traffic="v2=20"  \
+  --traffic="latest=0"
+----
+#end::td-canary[]
+#tag::scaling-10[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service create prime-generator \
+  --concurrency-target=10 \
+  --image=quay.io/rhdevelopers/prime-generator:v27-quarkus
+----
+#end::scaling-10[]
+#tag::scaling-min[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service create prime-generator \
+  --concurrency-target=10 \
+  --scale-min=2 \
+  --image=quay.io/rhdevelopers/prime-generator:v27-quarkus
+----
+#end::scaling-min[]
+#tag::tab-2[]
+--
+{kubernetes-cli}::
++
+--
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+{kubernetes-cli} apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/knative/{service-file}[{service-file}]
+----
+--
+====
+#end::tab-2[]

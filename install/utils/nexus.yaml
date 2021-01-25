@@ -26,10 +26,6 @@ spec:
       containers:
         - name: nexus
           image: docker.io/sonatype/nexus3
-          resources:
-            limits:
-              memory: "1300Mi"
-              cpu: "500m"
           ports:
             - containerPort: 8081
               name: 8081-tcp

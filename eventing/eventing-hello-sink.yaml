@@ -5,7 +5,6 @@ metadata:
 spec:
   template:
     metadata:
-      name: eventinghello-v1
       annotations:
         autoscaling.knative.dev/target: "1"
     spec:
