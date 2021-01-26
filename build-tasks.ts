@@ -14,7 +14,7 @@ interface BuildConfig {
   cacheDir: string;
   [x: string]: unknown;
   $0: string;
-  _: string[];
+  _: (string | number)[];
 }
 
 //Antora Published Site info
