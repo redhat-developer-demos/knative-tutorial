@@ -46,40 +46,34 @@ kn service update greeter \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter --tag="greeter-v1=v1"
+kn service update greeter --tag greeter-v1=v1
 ----
 .Tag Revision v2
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter --tag="greeter-v2=v2"
+kn service update greeter --tag greeter-v2=v2
 ----
 
 .Tag Revision latest
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter --tag="@latest=latest"
+kn service update greeter --tag @latest=latest
 ----
 
 .Route all traffic to v1
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter \
-  --traffic="v1=100" \
-  --traffic="v2=0"  \
-  --traffic="latest=0"
+kn service update greeter --traffic v1=100,v2=0,latest=0
 ----
 #end::td-pinned[]
 #tag::td-canary[]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter \
-  --traffic="v1=80" \
-  --traffic="v2=20"  \
-  --traffic="latest=0"
+kn service update greeter --traffic v1=80,v2=20,latest=0
 ----
 #end::td-canary[]
 #tag::scaling-10[]
