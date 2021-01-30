@@ -41,6 +41,7 @@ After the deployment of the service was successful we should see a Kubernetes de
 
 [#scaling-invoke-service]
 == Invoke Service
+ifndef::workshop[]
 [tabs]
 ====
 Minikube::
@@ -55,7 +56,13 @@ OpenShift::
 include::serving:partial$invoke-service.adoc[tags=workshop-call]
 --
 ====
+endif::[]
 
+ifdef::workshop[]
+--
+include::serving:partial$invoke-service.adoc[tags=workshop-call]
+--
+endif::[]
 
 The last `http` command should return a response like:
 
@@ -65,7 +72,7 @@ The last `http` command should return a response like:
 Hi  greeter => '9be9ccd9a2e3' : 1
 ----
 
-Check xref:ROOT:basic-fundas.adoc#basics-see-what-you-have-deployed[deployed Knative resources] for more details on which Knative objects and resources have been created with the service deployment above.
+Check xref:serving:basic-fundas.adoc#basics-see-what-you-have-deployed[deployed Knative resources] for more details on which Knative objects and resources have been created with the service deployment above.
 
 [#scaling-scale-to-zero]
 == Scale to zero 
@@ -121,8 +128,9 @@ include::serving:partial$watch-scaling-pods.adoc[]
 [#scaling-load-service]
 === Load the service
 
-We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 30s`)
+We will now send some load to the greeter service.  The command below sends 50 concurrent requests (`-c 50`) for the next 10s (`-z 10s`)
 
+ifndef::workshop[]
 [tabs]
 ====
 Minikube::
@@ -143,13 +151,24 @@ OpenShift::
 [.console-input]
 [source,bash,subs="attributes+,+macros",linenums]
 ----
+export SVC_URL=`{kubernetes-cli} get rt prime-generator -o yaml | yq read - 'status.url'`
+
 hey -c 50 -z 10s \
   "pass:[${SVC_URL}]/?sleep=3&upto=10000&memload=100"
 ----
 --
 ====
+endif::[]
 
-After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to 7 automatically. 
+[#oc-scaling-run-siege]
+[.console-input]
+[source,bash,subs="attributes+,+macros",linenums]
+----
+export SVC_URL=`{kubernetes-cli} get rt prime-generator -o yaml | yq read - 'status.url'`
+hey -c 50 -z 10s "pass:[${SVC_URL}]/?sleep=3&upto=10000&memload=100"
+----
+
+After you've successfully run this small load test, you will notice the number of greeter service pods will have scaled to *5* automatically. 
 
 The autoscale pods is computed using the formula:
 
@@ -159,8 +178,8 @@ The autoscale pods is computed using the formula:
 totalPodsToScale = actualConcurrency/concurrencyTargetPerPod/utilizationPerPod
 ----
 
-By default the Knative Service utlization is set to `0.7`, hence
-with this current setting of **concurrencyTarget=10** and **utilization=0.7**, when you receive 140 requests(*actualConcurrency*) then Knative will scale upto *20* pods i.e. 140/10/0.7.
+By default the Knative Service utilization is set to `1.0`, hence
+with this current setting of **concurrencyTarget=10** and **utilization=1.0**, when you receive 50 requests(*actualConcurrency*) then Knative will scale upto *5* pods i.e. 50/10/1.0.
 
 For more clarity and understanding let us <<scaling-cleanup,clean up>> existing deployments before proceeding to next section.
 
@@ -191,7 +210,13 @@ Open a new terminal and run the following command :
 
 include::serving:partial$watch-scaling-pods.adoc[]
 
-Let us <<scaling-load-service,send some load to the service>> to trigger autoscaling.
+Let us send some load to the service to trigger autoscaling:
+
+[.console-input]
+[source,bash,subs="attributes+,+macros",linenums]
+----
+hey -c 50 -z 10s "pass:[${SVC_URL}]/?sleep=3&upto=10000&memload=100"
+----
 
 When all requests are done and if we are beyond the `scale-to-zero-grace-period`, we will notice that Knative has terminated only 3 out 5 pods. This is because we have configured Knative to always run two pods via the annotation `autoscaling.knative.dev/minScale: "2"`.
 
