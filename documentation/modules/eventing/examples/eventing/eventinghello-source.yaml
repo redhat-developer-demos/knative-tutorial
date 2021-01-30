@@ -3,8 +3,8 @@ kind: PingSource
 metadata:
   name: eventinghello-ping-source
 spec:
-  schedule: "*/2 * * * *"
-  jsonData: '{"key": "every 2 mins"}'
+  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  schedule: '*/2 * * * *'
   sink:
     ref:
       apiVersion: serving.knative.dev/v1

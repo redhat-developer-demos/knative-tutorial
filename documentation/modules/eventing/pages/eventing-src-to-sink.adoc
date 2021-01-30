@@ -127,6 +127,16 @@ kn::
 ----
 kn source ping list -n {tutorial-namespace}
 ----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
+eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True
+----
+
 --
 {kubernetes-cli}::
 +
@@ -138,28 +148,11 @@ kubectl -n {tutorial-namespace} get \
   pingsources.sources.knative.dev \
   eventinghello-ping-source
 ----
---
-====
 
 Running  the above command should return the following result:
 
-[tabs]
-====
-kn::
-+
---
 [.console-output]
-[source,bash]
-----
-NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
-eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True
-----
---
-{kubernetes-cli}::
-+
---
-[.console-output]
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 NAME                        SINK                                                     AGE   READY   REASON
 eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.local   47s   True
@@ -167,18 +160,30 @@ eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.loc
 --
 ====
 
+If you haven't already, you can xref:{eventing-repo}#eventing-watch-logs[watch logs] to see the ping job source sending an event every 2 minutes:
 
-You can xref:{eventing-repo}#eventing-watch-logs[watch logs] to see the ping job source sending an event every 2 minutes.
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+stern eventinghello -c user-container-n {tutorial-namespace} 
+----
 
-[#eventing-see-what-you-have-deployed]
-== See what you have deployed
+[.console-output]
+[source,bash,subs="quotes"]
+----
+...
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,427 INFO  [eventing-hello] (executor-thread-1) ce-id=4b59c201-56a3-4189-b042-4246d3f33504
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-source=/apis/v1/namespaces/user2-knativetutorial/pingsources/eventinghello-ping-source
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-specversion=1.0
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-time=2021-01-28T08:14:00.000224506Z
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) ce-type=dev.knative.sources.ping
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-type=application/json
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-length=47
+#eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) POST:{"message":"Thanks for doing Knative Tutorial"}#
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container I> No access restrictor found, access to any MBean is allowed
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container Jolokia: Agent started with URL https://10.129.4.97:8778/jolokia/
+----
 
-=== sources
-include::eventing:partial$knative-objects.adoc[tag=knative-event-ping-sources]
-
-=== services
-:svc-name: eventinghello
-include::eventing:partial$knative-objects.adoc[tag=knative-event-services]
 
 [#eventing-cleanup]
 == Cleanup
@@ -201,8 +206,8 @@ kn service delete -n {tutorial-namespace} eventinghello
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete -f eventinghello-source.yaml
-kubectl -n {tutorial-namespace} delete -f eventing-hello-sink.yaml
+{kubernetes-cli} -n {tutorial-namespace} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventinghello-source.yaml
+{kubernetes-cli} -n {tutorial-namespace} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventing-hello-sink.yaml
 ----
 --
 ====

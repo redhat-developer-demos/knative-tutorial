@@ -4,7 +4,6 @@
 ** xref:eventing-src-to-sink.adoc#eventing-sink-service[Sink Service]
 ** xref:eventing-src-to-sink.adoc#eventing-create-event-source[Create Event Source]
 ** xref:eventing-src-to-sink.adoc#eventing-verify-event-source[Verify]
-** xref:eventing-src-to-sink.adoc#eventing-see-what-you-have-deployed[See What You Have Deployed]
 ** xref:eventing-src-to-sink.adoc#eventing-cleanup[Cleanup]
 
 * xref:channel-and-subscribers.adoc[Channel and Subscribers]
