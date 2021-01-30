@@ -142,7 +142,7 @@ The above service definition creates three sub-routes(named after traffic **tags
 If you observe the resource YAML above, we have added a special tag `latest`. Since you have defined that all 100% of traffic need to go to `greeter-v1`, this tag can be  used to suppress the default behavior of Knative Service to route all 100% traffic to latest revision.
 ====
 
-Before you apply the resource `$TUTORIAL_HOME/basics/service-pinned.yaml`, call the `greeter` service again to verify that it is still providing the response from `greeter-v2` that includes `Namaste`.
+Before you apply the resource `$TUTORIAL_HOME/serving/service-pinned.yaml`, call the `greeter` service again to verify that it is still providing the response from `greeter-v2` that includes `Namaste`.
 
 [.console-input]
 [source,bash,subs="quotes,attributes+,+macros"]
