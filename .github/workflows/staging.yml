@@ -33,5 +33,5 @@ jobs:
           deploy_key: "${{ secrets.KNATIVE_TUTORIAL_STAGING }}"
           publish_dir: "${{ env.SITE_DIR }}"
           publish_branch: "gh-pages"
-          external_repository: redhat-developer-demos/tekton-tutorial-staging
+          external_repository: "${{ env.STAGING_REPO }}"
           full_commit_message: ${{ github.event.head_commit.message }}
