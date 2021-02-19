@@ -30,7 +30,7 @@ jobs:
         id: deploy_site
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: "${{ secrets.TKN_STAGING_SITE_DEPLOY }}"
+          deploy_key: "${{ secrets.KNATIVE_TUTORIAL_STAGING }}"
           publish_dir: "${{ env.SITE_DIR }}"
           publish_branch: "gh-pages"
           external_repository: redhat-developer-demos/tekton-tutorial-staging
