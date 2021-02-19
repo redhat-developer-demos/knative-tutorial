@@ -2,63 +2,36 @@ name: Knative Tutorial Staging
 
 on:
   push:
-    branches: 
-      - staging
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 env:
   SITE_DIR: 'gh-pages'
+  STAGING_REPO: 'redhat-developer-docs/knative-tutorial-staging'
+  STAGING_SITE_PLAYBOOK: 'staging.yml'
 jobs:
-  build_site:
-    name: "Build site with Antora"
-    runs-on: [ubuntu-latest]
+  stagingSite:
+    name: Build and Deploy Staging Site
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: "Generate site using antora site action"
-        uses: kameshsampath/antora-site-action@master
+      - name: Generate Site
+        uses: kameshsampath/antora-site-action@v0.2.4
         with:
-         antora_playbook: staging.yaml
-#       - name: "List folder"
-#         run: |
-#            ls -ltr $GITHUB_WORKSPACE/
-      - name: "Upload generated site"
-        uses: actions/upload-artifact@v1.0.0
+          antora_playbook: "${{ env.STAGING_SITE_PLAYBOOK }}"
+      - name: List Directory 
+        run: |
+          ls -ltr "${{ github.workspace }}"
+          ls -ltr "${{ env.SITE_DIR }}"
+      - name: Deploy Site
+        id: deploy_site
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: site
-          path: "${{ github.workspace }}/${{ env.SITE_DIR }}"
-  deploy_site:
-    runs-on: [ubuntu-latest]
-    needs: [build_site]
-    name: "Deploy to Staging"
-    steps:
-     - name: Checkout
-       uses: actions/checkout@v2
-       with:
-         repository: redhat-developer-docs/knative-tutorial-staging
-         path: knative-tutorial-staging
-     - name: Install SSH Client
-       uses: webfactory/ssh-agent@v0.2.0
-       with:
-        ssh-private-key: ${{ secrets.KNATIVE_TUTORIAL_STAGING }}
-     - name: Download generated site
-       uses: actions/download-artifact@v1
-       with:
-         name: site
-         path: "${{ github.workspace }}/knative-tutorial-staging/${{ env.SITE_DIR }}"
-     - name: Deploy to GitHub Pages       
-       working-directory: "${{ github.workspace }}/knative-tutorial-staging"
-       run: |
-         git config --global user.email "kamesh.sampath@hotmail.com"
-         git config --global user.name "Kamesh Sampath"
-     - name: Setup Node.js for use with actions
-       uses: actions/setup-node@v1.1.0
-       with:        
-        version: "12.x"
-     - name: Deploy to GitHub Pages       
-       working-directory: "${{ github.workspace }}/knative-tutorial-staging"
-       run: |
-         npm -g install gh-pages@2.2.0
-         touch $SITE_DIR/.nojekyll
-         gh-pages --dist=$SITE_DIR \
-         --repo="git@github.com:redhat-developer-docs/knative-tutorial-staging.git" \
-         --dotfiles='true' \
-         --message="Publish Staging Site, Build run: ${{github.run_number}} "
+          deploy_key: "${{ secrets.TKN_STAGING_SITE_DEPLOY }}"
+          publish_dir: "${{ env.SITE_DIR }}"
+          publish_branch: "gh-pages"
+          external_repository: redhat-developer-demos/tekton-tutorial-staging
+          full_commit_message: ${{ github.event.head_commit.message }}
