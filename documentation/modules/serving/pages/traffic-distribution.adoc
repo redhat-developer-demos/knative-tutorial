@@ -142,7 +142,7 @@ The above service definition creates three sub-routes(named after traffic **tags
 If you observe the resource YAML above, we have added a special tag `latest`. Since you have defined that all 100% of traffic need to go to `greeter-v1`, this tag can be  used to suppress the default behavior of Knative Service to route all 100% traffic to latest revision.
 ====
 
-Before you apply the resource `$TUTORIAL_HOME/basics/service-pinned.yaml`, call the `greeter` service again to verify that it is still providing the response from `greeter-v2` that includes `Namaste`.
+Before you apply the resource `$TUTORIAL_HOME/serving/service-pinned.yaml`, call the `greeter` service again to verify that it is still providing the response from `greeter-v2` that includes `Namaste`.
 
 [.console-input]
 [source,bash,subs="quotes,attributes+,+macros"]
@@ -156,20 +156,6 @@ $TUTORIAL_HOME/bin/call.sh
 Namaste  greeter => '9861675f8845' : 1
 ----
 
-[.console-input]
-[source,bash,subs="quotes,attributes+,+macros"]
-----
-kubectl get pods
-----
-
-[.console-output]
-[source,bash,subs="quotes,attributes+,+macros"]
-----
-NAME                                     READY   STATUS    RESTARTS   AGE
-greeter-v1-deployment-597f9f5b85-hgmqq   2/2     Running   0          48s
-greeter-v2-deployment-587786fc6b-9jvk5   2/2     Running   0          36s
-----
-
 Now apply the update Knative service configuration using the command as shown in following listing:
 
 :service-file: service-pinned.yaml
@@ -181,7 +167,7 @@ Let us list all revisions with tags:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn revision ls --namespace {tutorial-namespace}
+kn revision list --namespace {tutorial-namespace}
 ----
 
 Based on the revision tags that we created earlier, the output should be like:
@@ -189,9 +175,9 @@ Based on the revision tags that we created earlier, the output should be like:
 [.console-output]
 [source,bash,subs="quotes"]
 ----
-NAME         SERVICE   TRAFFIC   TAGS        GENERATION   AGE     CONDITIONS   READY   REASON
-greeter-v2   greeter   100%      #latest,v2#   2            4m45s   3 OK / 4     True
-greeter-v1   greeter             #v1#          1            4m56s   3 OK / 4     True
+NAME         SERVICE   TRAFFIC   TAGS        GENERATION   AGE   CONDITIONS   READY   REASON
+greeter-v2   greeter             #latest,v2#   2            10m   3 OK / 4     True    
+greeter-v1   greeter   100%      #v1#          1            10m   3 OK / 4     True
 ----
 
 Let us list the available sub-routes:
@@ -199,7 +185,7 @@ Let us list the available sub-routes:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get ksvc greeter -oyaml \
+{kubernetes-cli} -n {tutorial-namespace} get ksvc greeter -oyaml \
  | yq r - 'status.traffic[*].url'
 ----
 
@@ -207,9 +193,9 @@ The above command should return you three sub-routes for the main `greeter` rout
 
 [source,bash,subs="+macros,attributes"]
 ----
-- http://latest-greeter.knativetutorial.example.com #<1>
-- http://v1-greeter.knativetutorial.example.com #<2>
-- http://v2-greeter.knativetutorial.example.com #<3>
+- http://latest-greeter.{tutorial-namespace}.example.com #<1>
+- http://v1-greeter.{tutorial-namespace}.example.com #<2>
+- http://v2-greeter.{tutorial-namespace}.example.com #<3>
 ----
 
 <1> the sub route for the traffic tag `latest`
@@ -233,14 +219,15 @@ Hi  greeter => '9861675f8845' : 1
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl get pods
+{kubernetes-cli} get pods
 ----
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                     READY   STATUS    RESTARTS   AGE
-greeter-v2-deployment-587786fc6b-lmfzq   1/2     Running   0          6s
+NAME                                     READY   STATUS        RESTARTS   AGE
+#greeter-v1-deployment-5d677d888c-25x4r#   2/2     Running       0          12s
+greeter-v2-deployment-6cb545df65-ktqc2   0/2     Terminating   0          2m
 ----
 
 Since `greeter-v1` is the active revision now, the existing `greeter-v2` pod is getting terminated as no future requests will be served by it.
@@ -341,7 +328,7 @@ You should also notice that two pods are running representing both `greeter-v1` 
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch "kubectl get pods"
+watch "{kubernetes-cli} get pods"
 ----
 
 [.console-output]
@@ -362,6 +349,6 @@ As a challenge, adjust the traffic distribution and observe the responses while 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn -n {tutorial-namespace}  service delete greeter
+kn -n {tutorial-namespace} service delete greeter
 ----
 

@@ -12,9 +12,9 @@ spec:
           env:
             - name: MESSAGE_PREFIX
               value: Namaste
-          livenessProbe:
-            httpGet:
-              path: /healthz
-          readinessProbe:
-            httpGet:
-              path: /healthz
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthz
