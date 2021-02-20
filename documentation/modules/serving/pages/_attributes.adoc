@@ -1,3 +1,4 @@
+:icons: font
 :moduledir: ..
 :github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
 :basics-repo: serving
