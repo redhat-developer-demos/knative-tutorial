@@ -21,7 +21,7 @@ At the end of this chapter you will be able to :
 [#kn-install]
 == Install
 
-Download the https://github.com/knative/client/releases/tag/{kn-client-version}[{kn-client-version}] Knative Client and add it to your `PATH`.
+Download the https://github.com/knative/client/releases/tag/{kn-client-version}[{kn-client-version}^] Knative Client and add it to your `PATH`.
 
 Verify installation by running the command:
 
@@ -38,14 +38,14 @@ The above command will return a response like
 [.console-output]
 ----
 Version:      {kn-client-version}
-Build Date:   2020-08-26 11:08:52
-Git Revision: 8fcd25c3
+Build Date:   2020-11-25 18:27:45
+Git Revision: f128d045
 Supported APIs:
 * Serving
-  - serving.knative.dev/v1 (knative-serving {kn-client-version})
+  - serving.knative.dev/v1 (knative-serving v0.19.0)
 * Eventing
-  - sources.knative.dev/v1alpha2 (knative-eventing {kn-client-version})
-  - eventing.knative.dev/v1beta1 (knative-eventing {kn-client-version})
+  - sources.knative.dev/v1alpha2 (knative-eventing v0.19.0)
+  - eventing.knative.dev/v1beta1 (knative-eventing v0.19.0)
 ----
 
 [#kn-ksvc]
@@ -232,7 +232,7 @@ Conditions:
 To get the Knative service url use `describe` with `-o url` option:
 
 [.console-input]
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
 kn service describe --namespace {tutorial-namespace}  greeter -o url
 ----

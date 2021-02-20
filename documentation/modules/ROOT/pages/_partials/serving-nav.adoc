@@ -26,8 +26,10 @@ endif::[]
 ** xref:serving:basic-fundas.adoc#deploying-new-revision[Deploy a New Revision of a Service]
 ** xref:serving:basic-fundas.adoc#basics-cleanup[Cleanup]
 
-* xref:serving:traffic-distribution.adoc[Traffic Distribution]
-** xref:serving:traffic-distribution.adoc#deploying-revisions[Arbitrary Revision Names]
+* xref:serving:traffic-distribution.adoc[Revisions and Traffic Distribution]
+** xref:serving:traffic-distribution.adoc#deploy-colors-service[Deploy Colors Service]
+** xref:serving:traffic-distribution.adoc#deploying-new-revision[Deploy New Revision]
+** xref:serving:traffic-distribution.adoc#tag-service-revisions[Tagging Revisions]
 ** xref:serving:traffic-distribution.adoc#blue-green[Blue-Green Deployment]
 ** xref:serving:traffic-distribution.adoc#canary-release[Canary Release]
 

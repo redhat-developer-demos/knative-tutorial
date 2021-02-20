@@ -35,4 +35,4 @@ Now you are all set,
 - Prepare your changes in the respective documentation repository
 - Send the PR to respective repositories listed above
 
-We try to follow the Git commit messages using <http://karma-runner.github.io/4.0/dev/git-commit-msg.html> and thats not a hard rule ;)
+We try to follow the Git commit messages using <https://www.conventionalcommits.org/en/v1.0.0/> and thats not a hard rule ;)

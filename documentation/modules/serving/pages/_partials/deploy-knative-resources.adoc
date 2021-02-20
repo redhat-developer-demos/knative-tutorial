@@ -10,7 +10,7 @@ kn::
 [source,bash,subs="+macros,+attributes"]
 ----
 kn service create greeter \
-  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+  --image={greeter-image}
 ----
 #end::basic[]
 #tag::env[]
@@ -19,54 +19,45 @@ kn service create greeter \
 ----
 kn service update greeter \
   --env MESSAGE_PREFIX=Namaste \
-  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+  --image={greeter-image}
 ----
 #end::env[]
 #tag::td-rev1[]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service create greeter \
-  --revision-name greeter-v1 \
-  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+kn service create blue-green-canary \
+   --image=quay.io/rhdevelopers/blue-green-canary \
+   --env BLUE_GREEN_CANARY_COLOR="#6bbded" \
+   --env BLUE_GREEN_CANARY_MESSAGE="Hello"
 ----
 #end::td-rev1[]
 #tag::td-rev2[]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter \
-  --revision-name greeter-v2 \
-  --env MESSAGE_PREFIX=Namaste \
-  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+kn service update blue-green-canary \
+   --image=quay.io/rhdevelopers/blue-green-canary \
+   --env BLUE_GREEN_CANARY_COLOR="#5bbf45" \
+   --env BLUE_GREEN_CANARY_MESSAGE="Namaste"
 ----
 #end::td-rev2[]
+#tag::td-rev3[]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update blue-green-canary \
+   --image=quay.io/rhdevelopers/blue-green-canary \
+   --env BLUE_GREEN_CANARY_COLOR="#f2f25e" \
+   --env BLUE_GREEN_CANARY_MESSAGE="Bonjour"
+----
+#end::td-rev3[]
 #tag::td-pinned[]
-.Tag Revision v1
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kn service update greeter --tag greeter-v1=v1
-----
-.Tag Revision v2
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kn service update greeter --tag greeter-v2=v2
-----
-
-.Tag Revision latest
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kn service update greeter --tag @latest=latest
-----
-
 .Route all traffic to v1
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update greeter --traffic v1=100,v2=0,latest=0
+kn service update greeter --traffic blue=100,green=0,latest=0
 ----
 #end::td-pinned[]
 #tag::td-canary[]
@@ -103,7 +94,7 @@ kn service update prime-generator \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-{kubernetes-cli} apply -n tutorial-namespace} -f link:{github-repo}/{basics-repo}/{service-file}[pass:[${TUTORIAL_HOME}]/{basics-repo}/{service-file}]
+{kubernetes-cli} apply -n {tutorial-namespace} -f link:{github-repo}/{basics-repo}/{service-file}[pass:[$TUTORIAL_HOME]/{basics-repo}/{service-file}]
 ----
 --
 ====

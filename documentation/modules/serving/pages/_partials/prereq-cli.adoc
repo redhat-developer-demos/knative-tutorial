@@ -36,7 +36,7 @@ Server Version: {kubernetes-version}
 OpenShift::
 +
 --
-* OpenShift CLI should be v4.3+
+* OpenShift CLI should be {openshift-version}+
 
 [#oc-version]
 [.console-input]
@@ -47,12 +47,11 @@ oc version
 
 The output should be like
 
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 [.console-output]
 ----
-oc version
-Client Version: openshift-clients-4.3.0-201910250623-88-g6a937dfe
-Kubernetes Version: v1.16.2
+Client Version: 4.6.9
+Kubernetes Version: {kubernetes-version}
 ----
 
 * Make sure to be on `knativetutorial` OpenShift project
