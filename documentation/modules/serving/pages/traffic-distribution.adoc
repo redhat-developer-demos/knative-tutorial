@@ -410,14 +410,13 @@ As a challenge:
 
 - Create the tag called yellow, mapping to yellow revision of the service.
 
-- Update the traffic distribution to be 70% to blue, 20% to green and  10% to yellow.
+- Update the traffic distribution to be 70% to blue, 20% to green and 10% to yellow.
 ====
 
-//TODO add canary video
 [IMPORTANT,caption=OpenShift]
 [%hardbreaks]
 ====
-video::9KlHEwWaeIA[youtube,width=640,height=480]
+video::5cNU6vAAbXQ[youtube,width=640,height=480]
 ====
 
 [#basics-cleanup]
