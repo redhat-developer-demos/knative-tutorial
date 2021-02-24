@@ -11,14 +11,6 @@ content:
     - url: .
       branches: HEAD
       start_path: documentation
-    # - url: ../knative-tutorial-module-serving
-    #   branches: HEAD
-    # - url: ../knative-tutorial-module-eventing
-    #   branches: HEAD
-    # - url: ../knative-tutorial-module-camelk
-    #   branches: HEAD
-    # - url: ../knative-tutorial-module-advanced
-    #   branches: HEAD
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
