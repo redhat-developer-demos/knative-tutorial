@@ -187,7 +187,7 @@ Updating Service 'blue-green-canary' in namespace 'knativetutorial':
   0.303s Ready to serve.
 
 Service 'blue-green-canary' with latest revision 'blue-green-canary-yzrwq-2' (unchanged) is available at URL:
-http://blue-green-canary.knativetutorial.192.168.64.29.nip.io
+http://blue-green-canary.knativetutorial.192.168.64.13.nip.io
 ----
 
 === Tag Green
@@ -211,7 +211,7 @@ Updating Service 'blue-green-canary' in namespace 'knativetutorial':
   0.303s Ready to serve.
 
 Service 'blue-green-canary' with latest revision 'blue-green-canary-yzrwq-2' (unchanged) is available at URL:
-http://blue-green-canary.knativetutorial.192.168.64.29.nip.io
+http://blue-green-canary.knativetutorial.192.168.64.13.nip.io
 ----
 
 == Tag Latest
@@ -235,7 +235,7 @@ Updating Service 'blue-green-canary' in namespace 'knativetutorial':
   0.303s Ready to serve.
 
 Service 'blue-green-canary' with latest revision 'blue-green-canary-yzrwq-2' (unchanged) is available at URL:
-http://blue-green-canary.knativetutorial.192.168.64.29.nip.io
+http://blue-green-canary.knativetutorial.192.168.64.13.nip.io
 ----
 
 Let us query the Service Revisions again,
@@ -318,9 +318,9 @@ The above command should return you three sub-routes for the main `greeter` rout
 
 [source,bash,subs="+macros,attributes"]
 ----
-http://latest-blue-green-canary.knativetutorial.192.168.64.29.nip.io #<.>
-http://blue-blue-green-canary.knativetutorial.192.168.64.29.nip.io #<.>
-http://green-blue-green-canary.knativetutorial.192.168.64.29.nip.io  #<.>
+http://latest-blue-green-canary.knativetutorial.192.168.64.13.nip.io #<.>
+http://blue-blue-green-canary.knativetutorial.192.168.64.13.nip.io #<.>
+http://green-blue-green-canary.knativetutorial.192.168.64.13.nip.io  #<.>
 ----
 
 <1> the sub route for the traffic tag `latest`

@@ -11,7 +11,7 @@
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-http http://greeter.{tutorial-namespace}.{minikube-nip-io}
+http $(kn service describe greeter -n {tutorial-namespace} -o url)
 ----
 
 #end::call[]
