@@ -1,4 +1,5 @@
 * xref:eventing:eventing.adoc#eventing-prerequisite[Prerequisites]
+* xref:eventing:eventing.adoc#eventing-watch-logs[Watching Logs]
 * xref:eventing:eventing-src-to-sink.adoc[Source to Sink]
 ** xref:eventing:eventing-src-to-sink.adoc#eventing-source[Event Source]
 ** xref:eventing:eventing-src-to-sink.adoc#eventing-sink-service[Sink Service]
@@ -28,4 +29,3 @@
 ** xref:eventing:eventing-trigger-broker.adoc#eventing-trigger[Trigger]
 ** xref:eventing:eventing-trigger-broker.adoc#eventing-trigger-verification[Verification]
 ** xref:eventing:eventing-trigger-broker.adoc#eventing-cleanup[Cleanup]
-* xref:eventing:eventing.adoc#eventing-watch-logs[Watching Logs]
