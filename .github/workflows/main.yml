@@ -1,9 +1,9 @@
 name: Knative Tutorial
 
 on:
-  push:
-    tags:
-      - "v1.13"
+  pull_request:
+    branches:
+      - master
 env:
   SITE_DIR: "gh-pages"
 

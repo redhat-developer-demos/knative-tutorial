@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 env:
   SITE_DIR: 'gh-pages'
   STAGING_REPO: 'redhat-developer-docs/knative-tutorial-staging'
@@ -35,3 +32,9 @@ jobs:
           publish_branch: "gh-pages"
           external_repository: "${{ env.STAGING_REPO }}"
           full_commit_message: ${{ github.event.head_commit.message }}
+      - uses: GoogleCloudPlatform/release-please-action@v2.7.0
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: simple
+          bump-minor-pre-major: true

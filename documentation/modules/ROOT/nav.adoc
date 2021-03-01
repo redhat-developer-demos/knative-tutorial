@@ -12,6 +12,3 @@ include::ROOT:partial$camelk-nav.adoc[]
 
 .xref:advanced:index.adoc[Advanced]
 include::ROOT:partial$advanced-nav.adoc[]
-
-.Appendix
-* xref:serving:faq.adoc[Frequently Asked Questions]
