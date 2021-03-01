@@ -65,4 +65,3 @@ endif::[]
 *** xref:scaling.adoc#scaling-deploy-service-minscale[Deploy Service]
 ** xref:scaling.adoc#scaling-cleanup[Cleanup]
 
-* xref:faq.adoc[Frequently Asked Questions]
