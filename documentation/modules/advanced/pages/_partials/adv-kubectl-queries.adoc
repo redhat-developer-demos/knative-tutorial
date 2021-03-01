@@ -10,6 +10,6 @@ watch kubectl -n {tutorial-namespace} get pods
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl -n {tutorial-namespace} get ksvc
+kn -n {tutorial-namespace} service ls
 ----
 #end::kgksvc[]
