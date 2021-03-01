@@ -9,22 +9,26 @@ site:
 content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
-      tags: v1.11
+      tags: v1.13.0
+      branches: []
       start_path: documentation
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
-    branch: release/1.x
+    branch: v1.13.0
     workshop-domain: guru.devx.red
-    minikube-version: v1.14.1
+    minikube-version:  v1.17.1
     openshift-version: v4.6
     kubernetes-version: v1.19.0
-    knative-version: v0.17.0
-    knative-serving-version: v0.17.4
-    net-kourier-version: v0.17.2
-    knative-eventing-version: v0.17.8
-    knative-sources-version: v0.17.7
-    kn-client-version: v0.17.3
+    knative-version: v0.19.0
+    knative-serving-version: v0.19.0
+    net-kourier-version: v0.19.0
+    knative-eventing-version: v0.19.2
+    knative-sources-version: v0.19.0
+    kn-client-version: v0.19.1
+    camel-source-version: v0.19.0
+    kafka-source-version: v0.19.3
+    kamel-version: 1.3.1
     kubernetes-cli: kubectl
     release-version: master
     page-pagination: true

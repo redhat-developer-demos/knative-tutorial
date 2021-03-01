@@ -2,8 +2,8 @@ name: Knative Tutorial
 
 on:
   push:
-    tags:
-      - "v1.13"
+    branches:
+      - release-v1.13.*
 env:
   SITE_DIR: "gh-pages"
 
