@@ -165,7 +165,7 @@ If you haven't already, you can xref:{eventing-repo}#eventing-watch-logs[watch l
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-stern eventinghello -c user-container-n {tutorial-namespace} 
+stern eventinghello -c user-container -n {tutorial-namespace} 
 ----
 
 [.console-output]
