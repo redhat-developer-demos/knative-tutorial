@@ -29,7 +29,7 @@ To deploy CamelSource run the following command:
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 kubectl apply \
-  -f "https://github.com/knative/eventing-contrib/releases/download/{camel-source-version}/camel.yaml"
+  -f "{eventing-camel-repo}/releases/download/{camel-source-version}/camel.yaml"
 ----
 
 Once you deploy, thee following new pod showing up the `knative-sources` namespace, wait for the `camel-controller-manager-0` to be running:
@@ -77,10 +77,20 @@ In order for you to view the events drained from the CamelSource `timed-greeter`
 [.console-input]
 [#deploy-ce-event-display]
 [source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl apply \
-  -f https://github.com/knative/eventing-contrib/releases/download/{camel-source-version}/event-display.yaml
-----
+-----
+cat <<EOF | kubectl create -n {tutorial-namespace} -f -
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: event-display
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/knative-releases/knative.dev/eventing-contrib/cmd/event_display
+EOF
+-----
 
 A successful event display should show the following pod in the `{tutorial-namespace}`:
 

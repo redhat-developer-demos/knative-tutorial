@@ -24,8 +24,7 @@ Knative Eventing `KafkaSource` need to be used to have the Kafka messages to flo
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
 kubectl apply \
--f https://github.com/knative/eventing-contrib/\
-releases/download/{kafka-source-version}/kafka-source.yaml
+-f {knative-kafka-repo}/releases/download/{kafka-source-version}/source.yaml
 ----
 
 The previous step deploys Knative KafkaSource in the `knative-sources` namespace as well as a CRD, ServiceAccount, ClusterRole, etc.  Verify that knative-source namespace includes the `kafka-controller-manager-0` pod:
@@ -52,8 +51,8 @@ You should also deploy the Knative Kafka Channel that can be used to connect the
 [#kn-eventing-deploy-kafka-channel]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
-curl -L "https://github.com/knative/eventing-contrib/\
-releases/download/{kafka-source-version}/kafka-channel.yaml" \
+curl -L "{knative-kafka-repo}/\
+releases/download/{kafka-source-version}/channel-consolidated.yaml" \
  | sed 's/REPLACE_WITH_CLUSTER_URL/my-cluster-kafka-bootstrap.kafka:9092/' \
  | kubectl apply --filename -
 ----
@@ -121,12 +120,13 @@ The command should show the following APIs in `sources.eventing.knative.dev` :
 [.console-output]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
-NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
-apiserversources                sources.knative.dev   true         ApiServerSource
-containersources                sources.knative.dev   true         ContainerSource
-*kafkasources                    sources.knative.dev   true         KafkaSource*
-pingsources                     sources.knative.dev   true         PingSource
-sinkbindings                    sources.knative.dev   true         SinkBinding
+TYPE              NAME                                   DESCRIPTION
+ApiServerSource   apiserversources.sources.knative.dev   Watch and send Kubernetes API events to addressable
+CamelSource       camelsources.sources.knative.dev
+ContainerSource   containersources.sources.knative.dev   Generate events by Container image and send to addressable
+*KafkaSource       kafkasources.sources.knative.dev       Route events from Apache Kafka Server to addressable*
+PingSource        pingsources.sources.knative.dev        Send periodically ping events to addressable
+SinkBinding       sinkbindings.sources.knative.dev       Binding for connecting a PodSpecable to addressable
 ----
 
 include:
