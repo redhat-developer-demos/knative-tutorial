@@ -3,7 +3,7 @@ name: Knative Tutorial
 on:
   push:
     branches:
-      - release-v1.13.*
+      - release-v1.13.0
 env:
   SITE_DIR: "gh-pages"
 
