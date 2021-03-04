@@ -54,7 +54,10 @@
     <a class="nav-link" href="../setup/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="../setup/setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +94,6 @@
     <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +184,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +265,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +367,6 @@
     <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +502,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -522,7 +519,7 @@
     <li><a href="basic-fundas.html">Serving</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/serving/pages/basic-fundas.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/serving/pages/basic-fundas.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -535,13 +532,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Deploy a Knative service.</p>
+<p>Deploy a Knative service</p>
 </li>
 <li>
-<p>Deploy multiple revisions of a service.</p>
+<p>View the Kubernetes resources created by Knative</p>
 </li>
 <li>
-<p>Run different revisions of a service via traffic definition.</p>
+<p>Invoke the deployed Knative Service</p>
 </li>
 </ul>
 </div>
@@ -604,7 +601,7 @@ Server Version: v1.19.0</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>OpenShift CLI should be v4.3+</p>
+<p>OpenShift CLI should be v4.6+</p>
 </li>
 </ul>
 </div>
@@ -618,9 +615,8 @@ Server Version: v1.19.0</code></pre>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version
-Client Version: openshift-clients-4.3.0-201910250623-88-g6a937dfe
-Kubernetes Version: v1.16.2</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: 4.6.9
+Kubernetes Version: v1.19.0</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -663,7 +659,7 @@ Kubernetes Version: v1.16.2</code></pre>
 <p>The following snippet shows what a Knative service YAML looks like:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/service.yaml">service.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/service.yaml">service.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -708,43 +704,12 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/knative/service.yaml">service.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/service.yaml">$TUTORIAL_HOME/serving/service.yaml</a></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset3_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset3_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset3_kn">
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Creating service 'greeter' in namespace 'knativetutorial':
-
-  0.015s The Configuration is still working to reflect the latest desired specification.
-  0.076s The Route is still working to reflect the latest desired specification.
-  0.105s Configuration "greeter" is waiting for a Revision to become ready.
-  8.550s ...
-  8.607s Ingress has not yet been reconciled.
-  8.660s unsuccessfully observed a new generation
-  8.845s Ready to serve.
-
-Service 'greeter' created to latest revision 'greeter-sxnzq-1 ' is available at URL:
-http://greeter.knativetutorial.192.168.64.13.nip.io</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="paragraph">
 <p>After successful deployment of the service we should see a Kubernetes Deployment named similar to <code>greeter-nsrbr-deployment</code> available:</p>
 </div>
@@ -760,19 +725,32 @@ http://greeter.knativetutorial.192.168.64.13.nip.io</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The actual deployment name may vary in your setup</p>
-</li>
-</ul>
-</div>
+The actual deployment name may vary in your setup
 </td>
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="OpenShift"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are on <strong>OpenShift</strong>, then you can deploy a Knative service by just click of buttons via <strong>OpenShift</strong> web console.</p>
+</div>
+<div class="paragraph">
+<p>&nbsp;</p>
+</div>
+<div class="videoblock">
+<div class="content">
+<iframe width="640" height="480" src="https://www.youtube.com/embed/h9F6ynUQHaU?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 </div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -783,22 +761,22 @@ http://greeter.knativetutorial.192.168.64.13.nip.io</code></pre>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset4_minikube"></a>Minikube</p>
+<p><a id="tabset3_minikube"></a>Minikube</p>
 </li>
 <li>
-<p><a id="tabset4_openshift"></a>OpenShift</p>
+<p><a id="tabset3_openshift"></a>OpenShift</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset4_minikube">
+<div class="tab-pane" aria-labelledby="tabset3_minikube">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="bare">http://greeter.knativetutorial.192.168.64.13.nip.io</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -n knativetutorial -o url)</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset4_openshift">
+<div class="tab-pane" aria-labelledby="tabset3_openshift">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`kubectl get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
@@ -831,10 +809,10 @@ Sometimes the response might not be returned immediately especially when the pod
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics-see-what-you-have-deployed"><a class="anchor" href="#basics-see-what-you-have-deployed"></a>See what you have deployed</h2>
+<h2 id="basics-see-what-you-have-deployed"><a class="anchor" href="#basics-see-what-you-have-deployed"></a>Knative Resources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The service-based deployment strategy that we did now will create many Knative resources, the following commands will help you to query and find what has been deployed.</p>
+<p>The Knative service that we deployed now, creates many Knative resources, the following commands will help you to query and find those resources:</p>
 </div>
 <div class="sect2">
 <h3 id="basics-show-knative-services"><a class="anchor" href="#basics-show-knative-services"></a>service</h3>
@@ -842,15 +820,15 @@ Sometimes the response might not be returned immediately especially when the pod
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset5_kn"></a>kn</p>
+<p><a id="tabset4_kn"></a>kn</p>
 </li>
 <li>
-<p><a id="tabset5_kubectl"></a>kubectl</p>
+<p><a id="tabset4_kubectl"></a>kubectl</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_kn">
+<div class="tab-pane" aria-labelledby="tabset4_kn">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service list -n knativetutorial</code></pre>
@@ -863,7 +841,7 @@ greeter   http://greeter.knativetutorial.192.168.64.13.nip.io   greeter-sxnzq-1 
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset5_kubectl">
+<div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get services.serving.knative.dev greeter</code></pre>
@@ -899,15 +877,15 @@ greeter   greeter-sxnzq-1    greeter-sxnzq-1    True</code></pre>
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset6_kn"></a>kn</p>
+<p><a id="tabset5_kn"></a>kn</p>
 </li>
 <li>
-<p><a id="tabset6_kubectl"></a>kubectl</p>
+<p><a id="tabset5_kubectl"></a>kubectl</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset6_kn">
+<div class="tab-pane" aria-labelledby="tabset5_kn">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn route --namespace knativetutorial list</code></pre>
@@ -920,7 +898,7 @@ greeter   http://greeter.knativetutorial.192.168.64.13.nip.io   True</code></pre
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset6_kubectl">
+<div class="tab-pane" aria-labelledby="tabset5_kubectl">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get routes.serving.knative.dev greeter</code></pre>
@@ -942,22 +920,22 @@ greeter   <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="b
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset7_kn"></a>kn</p>
+<p><a id="tabset6_kn"></a>kn</p>
 </li>
 <li>
-<p><a id="tabset7_kubectl"></a>kubectl</p>
+<p><a id="tabset6_kubectl"></a>kubectl</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset7_kn">
+<div class="tab-pane" aria-labelledby="tabset6_kn">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list --namespace knativetutorial</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset7_kubectl">
+<div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
@@ -996,217 +974,28 @@ greeter-sxnzq-1    greeter       greeter-sxnzq-1       1            True</code><
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploying-new-revision"><a class="anchor" href="#deploying-new-revision"></a>Deploy a New Revision of a Service</h2>
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Twelve-factor app</div>
-<div class="paragraph">
-<p><a href="https://12factor.net/">12factor.net</a> defines the twelve-factor app as a methodology for building software-as-a-service apps that:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Use declarative formats for setup automation, to minimize time and cost for new developers joining the project;</p>
-</li>
-<li>
-<p>Have a clean contract with the underlying operating system, offering maximum portability between execution environments;</p>
-</li>
-<li>
-<p>Are suitable for deployment on modern cloud platforms, obviating the need for servers and systems administration;</p>
-</li>
-<li>
-<p>Minimize divergence between development and production, enabling continuous deployment for maximum agility;</p>
-</li>
-<li>
-<p>And can scale up without significant changes to tooling, architecture, or development practices.</p>
-</li>
-<li>
-<p>The twelve-factor methodology can be applied to apps written in any programming language, and which use any combination of backing services (database, queue, memory cache, etc).</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>To deploy a new revision of the greeter service, we will add an environment variable to the existing service as shown below:</p>
-</div>
-<div class="sect2">
-<h3 id="basics-service-rev2"><a class="anchor" href="#basics-service-rev2"></a>Service revision 2</h3>
-<div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/service-env.yaml">service-env.yaml</a></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: greeter
-spec:
-  template:
-    spec:
-      containers:
-      - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
-        env:
-        - name: MESSAGE_PREFIX
-          value: Namaste
-        livenessProbe:
-          httpGet:
-            path: /healthz
-        readinessProbe:
-          httpGet:
-            path: /healthz</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Adding an environment variable that will be used as the message prefix</p>
-</div>
-<div class="paragraph">
-<p>Let us deploy the new revision using the command:</p>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset8_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset8_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset8_kn">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update greeter \
-  --env MESSAGE_PREFIX=Namaste \
-  --image=quay.io/rhdevelopers/knative-tutorial-greeter:quarkus</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset8_kubectl">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/knative/service-env.yaml">service-env.yaml</a></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset9_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset9_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset9_kn">
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code>Updating Service 'greeter' in namespace 'knativetutorial':
-
-  0.026s The Configuration is still working to reflect the latest desired specification.
- 13.509s Traffic is not yet migrated to the latest revision.
- 13.554s Ingress has not yet been reconciled.
- 13.618s unsuccessfully observed a new generation
- 13.781s Ready to serve.
-
-Service 'greeter' updated to latest revision 'greeter-njxyx-2' is available at URL:
-<a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="bare">http://greeter.knativetutorial.192.168.64.13.nip.io</a></code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset9_kubectl">
-<div class="paragraph">
-<p>After successful deployment of the service we should see a Kubernetes deployment called <code>greeter-v2-deployment</code>.</p>
-</div>
-<div class="paragraph">
-<p>Now if you list revisions, you will see two of them, named similar to <code>greeter-v1</code> and <code>greeter-v2</code>.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="rev2-basics-show-knative-revisions"><a class="anchor" href="#rev2-basics-show-knative-revisions"></a>revisions</h3>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset10_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset10_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset10_kn">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list --namespace knativetutorial</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset10_kubectl">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
---selector=serving.knative.dev/service=greeter \
---sort-by="{.metadata.creationTimestamp}"</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
-greeter-njxyx-2   greeter   100%             2            3m50s   3 OK / 4     True
-greeter-sxnzq-1   greeter                    1            37m     3 OK / 4     True</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a href="#basics-invoke-service">Invoking Service</a> will now show an output like:</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Namaste  greeter =&gt; '6fee83923a9f' : 1**</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Where <em>Namaste</em> is the value we configured via environment variable in the Knative service resource file.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="basics-cleanup"><a class="anchor" href="#basics-cleanup"></a>Cleanup</h2>
 <div class="sectionbody">
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset11_kn"></a>kn</p>
+<p><a id="tabset7_kn"></a>kn</p>
 </li>
 <li>
-<p><a id="tabset11_kubectl"></a>kubectl</p>
+<p><a id="tabset7_kubectl"></a>kubectl</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset11_kn">
+<div class="tab-pane" aria-labelledby="tabset7_kn">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service -n knativetutorial delete greeter</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset11_kubectl">
+<div class="tab-pane" aria-labelledby="tabset7_kubectl">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
@@ -1219,7 +1008,7 @@ greeter-sxnzq-1   greeter                    1            37m     3 OK / 4     T
 </div>
 <nav class="pagination">
   <span class="prev"><a href="knative-client.html">Knative Client</a></span>
-  <span class="next"><a href="traffic-distribution.html">Traffic Distribution</a></span>
+  <span class="next"><a href="traffic-distribution.html">Revisions and Traffic Distribution</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

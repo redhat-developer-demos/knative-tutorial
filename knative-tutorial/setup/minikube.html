@@ -54,7 +54,10 @@
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +94,6 @@
     <a class="nav-link" href="openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +184,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../serving/traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="../serving/traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../serving/traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +265,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +367,6 @@
     <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +502,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../serving/faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -523,7 +520,7 @@
     <li><a href="minikube.html">Minikube</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/setup/pages/minikube.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/setup/pages/minikube.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -545,11 +542,11 @@
 <div class="listingblock console-output">
 <div class="title">Minikube starting</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">😄  [knativetutorial] minikube v1.14.1 on Darwin 10.15.7
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">😄  [knativetutorial] minikube v1.17.1 on Darwin 11.1
 ✨  Using the hyperkit driver based on user configuration
 👍  Starting control plane node knativetutorial in cluster knativetutorial
 🔥  Creating hyperkit VM (CPUs=6, Memory=8192MB, Disk=51200MB) ...
-🐳  Preparing Kubernetes v1.18.0 on Docker 19.03.12 ...
+🐳  Preparing Kubernetes v1.19.0 on Docker 20.10.2 ...
     &gt; kubelet.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
     &gt; kubectl.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
     &gt; kubeadm.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
@@ -585,8 +582,8 @@
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
-  --filename https://github.com/knative/serving/releases/download/v0.17.4/serving-crds.yaml \
-  --filename https://github.com/knative/eventing/releases/download/v0.17.8/eventing-crds.yaml</code></pre>
+  --filename https://github.com/knative/serving/releases/download/v0.19.0/serving-crds.yaml \
+  --filename https://github.com/knative/eventing/releases/download/v0.19.2/eventing-crds.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -678,7 +675,7 @@ sinkbindings                    sources.knative.dev   true         SinkBinding</
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-  https://github.com/knative/serving/releases/download/v0.17.4/serving-core.yaml</code></pre>
+  https://github.com/knative/serving/releases/download/v0.19.0/serving-core.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -717,7 +714,7 @@ webhook-59585cb6-wqldc        1/1     Running   0          11m</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-    https://github.com/knative/net-kourier/releases/download/v0.17.2/kourier.yaml</code></pre>
+    https://github.com/knative/net-kourier/releases/download/v0.19.0/kourier.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -735,8 +732,7 @@ kubectl rollout status deploy 3scale-kourier-gateway -n kourier-system</code></p
 <div class="listingblock console-input">
 <div class="title">Kourier pods</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kourier-cont
-rol)'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kourier-control)'</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -833,7 +829,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ksvc_domain="\"data\":{\""$(minikube ip)".nip.io\": \"\"}"
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ksvc_domain="\"data\":{\""$(minikube -p knativetutorial ip)".nip.io\": \"\"}"
 kubectl patch configmap/config-domain \
     -n knative-serving \
     --type merge \
@@ -852,11 +848,11 @@ kubectl patch configmap/config-domain \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-  https://github.com/knative/eventing/releases/download/v0.17.8/eventing-core.yaml \
+  https://github.com/knative/eventing/releases/download/v0.19.2/eventing-core.yaml \
   --filename \
-  https://github.com/knative/eventing/releases/download/v0.17.8/in-memory-channel.yaml \
+  https://github.com/knative/eventing/releases/download/v0.19.2/in-memory-channel.yaml \
   --filename \
-  https://github.com/knative/eventing/releases/download/v0.17.8/mt-channel-broker.yaml</code></pre>
+  https://github.com/knative/eventing/releases/download/v0.19.2/mt-channel-broker.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">

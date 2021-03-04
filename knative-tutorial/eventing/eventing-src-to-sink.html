@@ -54,7 +54,10 @@
     <a class="nav-link" href="../setup/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="../setup/setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +94,6 @@
     <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +184,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../serving/traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="../serving/traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../serving/traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +265,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +367,6 @@
     <a class="nav-link" href="eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +502,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../serving/faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -522,7 +519,7 @@
     <li><a href="eventing-src-to-sink.html">Source to Sink</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/eventing/pages/eventing-src-to-sink.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/eventing/pages/eventing-src-to-sink.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -566,7 +563,7 @@ sinkbindings      sources.knative.dev           true         SinkBinding</code><
 <p>Let&#8217;s see how a simple source, the <strong>PingSource</strong> looks like :</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
+<div class="title"><a href="{repo-base}/blob/v1.13.0/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1beta1
 kind: PingSource <i class="conum" data-value="1"></i><b>(1)</b>
@@ -603,7 +600,7 @@ spec: <i class="conum" data-value="2"></i><b>(2)</b>
 <p><strong>Knative Eventing Sink</strong> is how you specify the event receiver&#8201;&#8212;&#8201;that is the consumer of the event--. Sinks can be invoked directly in a point-to-point fashion by referencing them via the Event Source&#8217;s <code>sink</code> as shown below:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
+<div class="title"><a href="{repo-base}/blob/v1.13.0/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1beta1
 kind: PingSource
@@ -662,7 +659,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the cron expres
 <p>Run the following command to create the Knative service that will be used as the subscriber for the cron events:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></div>
+<div class="title"><a href="{repo-base}/blob/v1.13.0/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -709,7 +706,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/knative/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.13.0/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -742,6 +739,7 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping create eventinghello-ping-source \
   --namespace knativetutorial \
   --schedule "*/2 * * * *" \
+  --data '{"message": "Thanks for doing Knative Tutorial"}' \
   --sink ksvc:eventinghello</code></pre>
 </div>
 </div>
@@ -749,7 +747,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/eventing/knative/eventinghello-source.yaml">eventinghello-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.13.0/eventing/eventinghello-source.yaml">${TUTORIAL_HOME}/eventing/eventinghello-source.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -778,6 +776,15 @@ spec:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping list -n knativetutorial</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Running  the above command should return the following result:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
+eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True</code></pre>
+</div>
+</div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="listingblock console-input">
@@ -787,12 +794,46 @@ spec:
   eventinghello-ping-source</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Running  the above command should return the following result:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        SINK                                                     AGE   READY   REASON
+eventinghello-ping-source   <a href="http://eventinghello.knativetutorial.svc.cluster.local" class="bare">http://eventinghello.knativetutorial.svc.cluster.local</a>   47s   True</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Running  the above command should return the following result:</p>
+<p>If you haven&#8217;t already, you can <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a> to see the ping job source sending an event every 2 minutes:</p>
 </div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">stern eventinghello -c user-container -n knativetutorial</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">...
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,427 INFO  [eventing-hello] (executor-thread-1) ce-id=4b59c201-56a3-4189-b042-4246d3f33504
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-source=/apis/v1/namespaces/user2-knativetutorial/pingsources/eventinghello-ping-source
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-specversion=1.0
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-time=2021-01-28T08:14:00.000224506Z
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) ce-type=dev.knative.sources.ping
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-type=application/json
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-length=47
+<mark>eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) POST:{"message":"Thanks for doing Knative Tutorial"}</mark>
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container I> No access restrictor found, access to any MBean is allowed
+eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container Jolokia: Agent started with URL https://10.129.4.97:8778/jolokia/</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eventing-cleanup"><a class="anchor" href="#eventing-cleanup"></a>Cleanup</h2>
+<div class="sectionbody">
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -806,123 +847,6 @@ spec:
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset4_kn">
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
-eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset4_kubectl">
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        SINK                                                     AGE   READY   REASON
-eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.local   47s   True</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>You can <a href="eventing.html#eventing-watch-logs" class="page">watch logs</a> to see the ping job source sending an event every 2 minutes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="eventing-see-what-you-have-deployed"><a class="anchor" href="#eventing-see-what-you-have-deployed"></a>See what you have deployed</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_sources"><a class="anchor" href="#_sources"></a>sources</h3>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset5_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset5_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_kn">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping --namespace knativetutorial list</code></pre>
-</div>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        SCHEDULE      SINK                       AGE   CONDITIONS   READY   REASON
-event-greeter-ping-source   */2 * * * *   Channel:eventinghello-ch   10m   4 OK / 4     True</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset5_kubectl">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get --namespace knativetutorial pingsource.sources.knative.dev  event-greeter-ping-source</code></pre>
-</div>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        SINK                                                                   AGE   READY   REASON
-event-greeter-ping-source   http://eventinghello-ch-kn-channel.knativetutorial.svc.cluster.local   12m   True</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_services"><a class="anchor" href="#_services"></a>services</h3>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset6_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset6_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset6_kn">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service --namespace knativetutorial list</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset6_kubectl">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get service.serving.knative.dev eventinghello</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="eventing-cleanup"><a class="anchor" href="#eventing-cleanup"></a>Cleanup</h2>
-<div class="sectionbody">
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset7_kn"></a>kn</p>
-</li>
-<li>
-<p><a id="tabset7_kubectl"></a>kubectl</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset7_kn">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping delete -n knativetutorial eventinghello-ping-source
@@ -930,11 +854,11 @@ kn service delete -n knativetutorial eventinghello</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset7_kubectl">
+<div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete -f eventinghello-source.yaml
-kubectl -n knativetutorial delete -f eventing-hello-sink.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete -f ${TUTORIAL_HOME}/eventing/eventinghello-source.yaml
+kubectl -n knativetutorial delete -f ${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</code></pre>
 </div>
 </div>
 </div>

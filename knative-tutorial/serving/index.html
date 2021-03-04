@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Knative Serving :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/serving/index.html">
-    <link rel="prev" href="../setup/setup.html">
+    <link rel="prev" href="../setup/openshift.html">
     <link rel="next" href="knative-client.html">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -54,7 +54,10 @@
     <a class="nav-link" href="../setup/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="../setup/setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +94,6 @@
     <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +184,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +265,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +367,6 @@
     <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +502,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -521,7 +518,7 @@
     <li><a href="index.html">Knative Serving</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/serving/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/serving/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -534,7 +531,7 @@ Knative Serving exposes your service via an HTTP URL and has a lot of sane defau
 <p>In this chapter, we are going to deploy a Knative Serving service, see its use of Configuration and Revision, and practice a blue-green deployment and canary release.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../setup/setup.html">Development Environment</a></span>
+  <span class="prev"><a href="../setup/openshift.html">OpenShift</a></span>
   <span class="next"><a href="knative-client.html">Knative Client</a></span>
 </nav>
 </article>

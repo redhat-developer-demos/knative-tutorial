@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Download Tutorial Sources :: Knative Tutorial</title>
+    <title>Untitled :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/setup/tutorial-sources.html">
-    <link rel="prev" href="setup.html">
-    <link rel="next" href="kubernetes-cluster.html#kubernetes-cluster">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -54,7 +52,10 @@
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +92,6 @@
     <a class="nav-link" href="openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +182,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../serving/traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="../serving/traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../serving/traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +263,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +365,6 @@
     <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +500,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../serving/faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -516,20 +511,20 @@
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="../index.html">Knative Tutorial</a></li>
-    <li><a href="setup.html">Setup</a></li>
-    <li><a href="#download-tutorial-sources">Download Tutorial Sources</a></li>
-  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/setup/pages/tutorial-sources.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/setup/pages/tutorial-sources.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Download Tutorial Sources</h1>
+<div class="sect1">
+<h2 id="download-tutorial-sources"><a class="anchor" href="#download-tutorial-sources"></a>Download Tutorial Sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before we start setting up the environment, let&#8217;s clone the tutorial sources and set the <code>TUTORIAL_HOME</code> environment variable to point to the root directory of the tutorial:</p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone -b release/1.x <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone -b v1.13.0 <a href="https://github.com/redhat-developer-demos/knative-tutorial" class="bare">https://github.com/redhat-developer-demos/knative-tutorial</a>
 export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 </div>
 </div>
@@ -546,10 +541,10 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>Knative <code>v0.17.0</code></p>
+<p>Knative <code>v0.19.0</code></p>
 </li>
 <li>
-<p>Minikube <code>v1.14.1</code></p>
+<p>Minikube <code>v1.17.1</code></p>
 </li>
 <li>
 <p>OpenShift <code>v4.6</code></p>
@@ -560,10 +555,88 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 </tr>
 </table>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="setup.html">Setup</a></span>
-  <span class="next"><a href="kubernetes-cluster.html#kubernetes-cluster">Choose your Kubernetes Cluster</a></span>
-</nav>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tools"><a class="anchor" href="#tools"></a>Tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
+<th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Fedora</strong></th>
+<th class="tableblock halign-center valign-top"><strong>windows</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Git</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/mac">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/win">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://git-scm.com/download/linux">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-mac/install">Docker for Mac</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-windows/install">Docker for Windows</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>kubectl v1.19.0</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/darwin/amd64/kubectl">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/windows/amd64/kubectl.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.11.0/stern_windows_amd64.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq v2.4.1</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_darwin_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_linux_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_windows_amd64.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/doc#windows-etc" class="bare">https://httpie.org/doc#windows-etc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/rakyll/hey">hey</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/hey-release/hey_darwin_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/jblabs/dist/hey_linux_v0.1.2">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://storage.googleapis.com/jblabs/dist/hey_win_v0.1.2.exe">Download</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install procps-ng</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">kubectx and kubens</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install kubectx</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/ahmetb/kubectx" class="bare">https://github.com/ahmetb/kubectx</a></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

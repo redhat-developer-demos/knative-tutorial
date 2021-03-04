@@ -54,7 +54,10 @@
     <a class="nav-link" href="../setup/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="../setup/setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +94,6 @@
     <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +184,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +265,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +367,6 @@
     <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +502,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -522,7 +519,7 @@
     <li><a href="knative-client.html">Knative Client</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/serving/pages/knative-client.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/serving/pages/knative-client.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -564,7 +561,7 @@
 <p>Knative Client (<code>kn</code>) is still under aggressive development, so commands and options might change rapidly.</p>
 </li>
 <li>
-<p>As of writing the tutorial v0.17.3 was the latest version of the Knative Client</p>
+<p>As of writing the tutorial v0.19.1 was the latest version of the Knative Client</p>
 </li>
 </ul>
 </div>
@@ -578,7 +575,7 @@
 <h2 id="kn-install"><a class="anchor" href="#kn-install"></a>Install</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Download the <a href="https://github.com/knative/client/releases/tag/v0.17.3">v0.17.3</a> Knative Client and add it to your <code>PATH</code>.</p>
+<p>Download the <a href="https://github.com/knative/client/releases/tag/v0.19.1" target="_blank" rel="noopener">v0.19.1</a> Knative Client and add it to your <code>PATH</code>.</p>
 </div>
 <div class="paragraph">
 <p>Verify installation by running the command:</p>
@@ -593,15 +590,15 @@
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Version:      v0.17.3
-Build Date:   2020-08-26 11:08:52
-Git Revision: 8fcd25c3
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Version:      v0.19.1
+Build Date:   2020-11-25 18:27:45
+Git Revision: f128d045
 Supported APIs:
 * Serving
-  - serving.knative.dev/v1 (knative-serving v0.17.3)
+  - serving.knative.dev/v1 (knative-serving v0.19.0)
 * Eventing
-  - sources.knative.dev/v1alpha2 (knative-eventing v0.17.3)
-  - eventing.knative.dev/v1beta1 (knative-eventing v0.17.3)</code></pre>
+  - sources.knative.dev/v1alpha2 (knative-eventing v0.19.0)
+  - eventing.knative.dev/v1beta1 (knative-eventing v0.19.0)</code></pre>
 </div>
 </div>
 </div>
@@ -674,7 +671,7 @@ greeter   <mark>http://greeter.knativetutorial.192.168.64.13.nip.io</mark>  gree
 <div class="tab-pane" aria-labelledby="tabset1_minikube">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="bare">http://greeter.knativetutorial.192.168.64.13.nip.io</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -n knativetutorial -o url)</code></pre>
 </div>
 </div>
 </div>
@@ -816,7 +813,7 @@ Conditions:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe --namespace {tutorial-namespace}  greeter -o url</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe --namespace knativetutorial  greeter -o url</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">

@@ -54,7 +54,10 @@
     <a class="nav-link" href="../setup/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/tutorial-sources.html#download-tutorial-sources">Download Tutorial Sources</a>
+    <a class="nav-link" href="../setup/setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#tools">Tutorial Tools</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -91,9 +94,6 @@
     <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../setup/setup.html">Development Environment</a>
   </li>
 </ul>
   </li>
@@ -184,10 +184,16 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="traffic-distribution.html">Traffic Distribution</a>
+    <a class="nav-link" href="traffic-distribution.html">Revisions and Traffic Distribution</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="traffic-distribution.html#deploying-revisions">Arbitrary Revision Names</a>
+    <a class="nav-link" href="traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="traffic-distribution.html#blue-green">Blue-Green Deployment</a>
@@ -259,6 +265,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -358,9 +367,6 @@
     <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
   </li>
 </ul>
   </li>
@@ -496,15 +502,6 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Appendix</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="faq.html">Frequently Asked Questions</a>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
@@ -522,7 +519,7 @@
     <li><a href="scaling.html">Scaling</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/serving/pages/scaling.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/serving/pages/scaling.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -571,7 +568,7 @@
 <p>The following snippet shows what a Knative service YAML will look like:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/service.yaml">service.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/service.yaml">service.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -616,7 +613,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/knative/service.yaml">service.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/service.yaml">$TUTORIAL_HOME/serving/service.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -630,33 +627,9 @@ spec:
 <div class="sect1">
 <h2 id="scaling-invoke-service"><a class="anchor" href="#scaling-invoke-service"></a>Invoke Service</h2>
 <div class="sectionbody">
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset2_minikube"></a>Minikube</p>
-</li>
-<li>
-<p><a id="tabset2_openshift"></a>OpenShift</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset2_minikube">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="bare">http://greeter.knativetutorial.192.168.64.13.nip.io</a></code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset2_openshift">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`kubectl get rt greeter -o yaml | yq read - 'status.url'` &amp;&amp; \
-http $SVC_URL</code></pre>
-</div>
-</div>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -n knativetutorial -o url)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -668,7 +641,7 @@ http $SVC_URL</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Check <a href="#ROOT:basic-fundas.adoc#basics-see-what-you-have-deployed" class="page unresolved">deployed Knative resources</a> for more details on which Knative objects and resources have been created with the service deployment above.</p>
+<p>Check <a href="basic-fundas.html#basics-see-what-you-have-deployed" class="page">deployed Knative resources</a> for more details on which Knative objects and resources have been created with the service deployment above.</p>
 </div>
 </div>
 </div>
@@ -709,7 +682,7 @@ http $SVC_URL</code></pre>
 <div class="sect2">
 <h3 id="scaling-concurrency-10"><a class="anchor" href="#scaling-concurrency-10"></a>Service with concurrency of 10 requests</h3>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/scaling/service-10.yaml">service-10.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/scaling/service-10.yaml">service-10.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -742,15 +715,15 @@ spec:
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset3_kn"></a>kn</p>
+<p><a id="tabset2_kn"></a>kn</p>
 </li>
 <li>
-<p><a id="tabset3_kubectl"></a>kubectl</p>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset3_kn">
+<div class="tab-pane" aria-labelledby="tabset2_kn">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create prime-generator \
@@ -759,10 +732,10 @@ spec:
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/knative/service-10.yaml">service-10.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/service-10.yaml">$TUTORIAL_HOME/serving/service-10.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -786,40 +759,16 @@ spec:
 <div class="sect2">
 <h3 id="scaling-load-service"><a class="anchor" href="#scaling-load-service"></a>Load the service</h3>
 <div class="paragraph">
-<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 30s</code>)</p>
+<p>We will now send some load to the greeter service.  The command below sends 50 concurrent requests (<code>-c 50</code>) for the next 10s (<code>-z 10s</code>)</p>
 </div>
-<div class="tabset is-loading">
-<div class="ulist tabs">
-<ul>
-<li>
-<p><a id="tabset4_minikube"></a>Minikube</p>
-</li>
-<li>
-<p><a id="tabset4_openshift"></a>OpenShift</p>
-</li>
-</ul>
-</div>
-<div class="content">
-<div class="tab-pane" aria-labelledby="tabset4_minikube">
-<div id="scaling-run-siege" class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -c 50 -z 10s \
-  "http://prime-generator.knativetutorial.192.168.64.13.nip.io/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
-</div>
-</div>
-</div>
-<div class="tab-pane" aria-labelledby="tabset4_openshift">
 <div id="oc-scaling-run-siege" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -c 50 -z 10s \
-  "${SVC_URL}/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
-</div>
-</div>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=$(kn service describe prime-generator -nknativetutorial -url)
+hey -c 50 -z 10s "$SVC_URL/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After you&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to 7 automatically.</p>
+<p>After you&#8217;ve successfully run this small load test, you will notice the number of greeter service pods will have scaled to <strong>5</strong> or more pods automatically.</p>
 </div>
 <div class="paragraph">
 <p>The autoscale pods is computed using the formula:</p>
@@ -830,8 +779,8 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>By default the Knative Service utlization is set to <code>0.7</code>, hence
-with this current setting of <strong>concurrencyTarget=10</strong> and <strong>utilization=0.7</strong>, when you receive 140 requests(<strong>actualConcurrency</strong>) then Knative will scale upto <strong>20</strong> pods i.e. 140/10/0.7.</p>
+<p>By default the Knative Service utilization is set to <code>1.0</code>, hence
+with this current setting of <strong>concurrencyTarget=10</strong> and <strong>utilization=1.0</strong>, when you receive 50 requests(<strong>actualConcurrency</strong>) then Knative will scale upto <strong>5</strong> pods i.e. 50/10/1.0.</p>
 </div>
 <div class="paragraph">
 <p>For more clarity and understanding let us <a href="#scaling-cleanup">clean up</a> existing deployments before proceeding to next section.</p>
@@ -851,7 +800,7 @@ with this current setting of <strong>concurrencyTarget=10</strong> and <strong>u
 <div class="sect2">
 <h3 id="scaling-deploy-service-minscale"><a class="anchor" href="#scaling-deploy-service-minscale"></a>Deploy service</h3>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/scaling/service-min-max-scale.yaml">service-min-max-scale.yaml</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/scaling/service-min-max-scale.yaml">service-min-max-scale.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -890,28 +839,28 @@ spec:
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset5_kn"></a>kn</p>
+<p><a id="tabset3_kn"></a>kn</p>
 </li>
 <li>
-<p><a id="tabset5_kubectl"></a>kubectl</p>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
 </li>
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset5_kn">
+<div class="tab-pane" aria-labelledby="tabset3_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create prime-generator \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update prime-generator \
   --concurrency-target=10 \
   --scale-min=2 \
   --image=quay.io/rhdevelopers/prime-generator:v27-quarkus</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset5_kubectl">
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/release/1.x/serving/knative/service-min-max-scale.yaml">service-min-max-scale.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/service-min-max-scale.yaml">$TUTORIAL_HOME/serving/service-min-max-scale.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -929,7 +878,12 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Let us <a href="#scaling-load-service">send some load to the service</a> to trigger autoscaling.</p>
+<p>Let us send some load to the service to trigger autoscaling:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hey -c 50 -z 10s "$SVC_URL/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>When all requests are done and if we are beyond the <code>scale-to-zero-grace-period</code>, we will notice that Knative has terminated only 3 out 5 pods. This is because we have configured Knative to always run two pods via the annotation <code>autoscaling.knative.dev/minScale: "2"</code>.</p>
@@ -948,7 +902,7 @@ spec:
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="traffic-distribution.html">Traffic Distribution</a></span>
+  <span class="prev"><a href="traffic-distribution.html">Revisions and Traffic Distribution</a></span>
   <span class="next"><a href="../eventing/index.html">Knative Eventing</a></span>
 </nav>
 </article>
