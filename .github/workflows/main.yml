@@ -3,7 +3,7 @@ name: Knative Tutorial
 on:
   push:
     branches:
-      - release-v1.13.*
+      - release-v1.13.0
 env:
   SITE_DIR: "gh-pages"
 
@@ -22,7 +22,8 @@ jobs:
         id: deploy_site
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: "${{ secrets.TKN_STAGING_SITE_DEPLOY }}"
+          #deploy_key: "${{ secrets.TKN_STAGING_SITE_DEPLOY }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: "${{ env.SITE_DIR }}"
           publish_branch: "gh-pages"          
           full_commit_message: "[CI]${{ github.event.head_commit.message }}"
