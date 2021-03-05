@@ -310,7 +310,7 @@ Let us list the available sub-routes:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-{kubernetes-cli} -n {tutorial-namespace} get ksvc greeter -oyaml \
+{kubernetes-cli} -n {tutorial-namespace} get ksvc blue-green-canary -oyaml \
  | yq r - 'status.traffic[*].url'
 ----
 
