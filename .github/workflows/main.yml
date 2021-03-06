@@ -2,8 +2,7 @@ name: Knative Tutorial
 
 on:
   release: 
-    types:
-      - released
+    types: [created, published,released]
 env:
   SITE_DIR: "gh-pages"
 
