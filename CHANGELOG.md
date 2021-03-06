@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.13.1](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.0...v1.13.1) (2021-03-06)
+
+
+### Bug Fixes
+
+* typos and service names ([233276d](https://www.github.com/redhat-developer-demos/knative-tutorial/commit/233276d21e01612b572c9337a4b1fac7dd7539e5))
+* typos and service names ([43d3e3a](https://www.github.com/redhat-developer-demos/knative-tutorial/commit/43d3e3a17a9c7daab7905f30c8938125db2d54a0)), closes [#261](https://www.github.com/redhat-developer-demos/knative-tutorial/issues/261)
+
 ## [1.13.0](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.12.0...v1.13.0) (2021-03-01)
 
 
