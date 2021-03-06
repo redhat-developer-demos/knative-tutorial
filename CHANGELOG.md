@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.13.2](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.1...v1.13.2) (2021-03-06)
+
+
+### Bug Fixes
+
+* docs site use right tag ([6c9fcbf](https://www.github.com/redhat-developer-demos/knative-tutorial/commit/6c9fcbf104246abbf380d585154859fab58930e4))
+
 ### [1.13.1](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.0...v1.13.1) (2021-03-06)
 
 
