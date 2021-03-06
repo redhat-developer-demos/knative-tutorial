@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.13.4](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.3...v1.13.4) (2021-03-06)
+
+
+### Bug Fixes
+
+* trigger for main workflow ([754d08d](https://www.github.com/redhat-developer-demos/knative-tutorial/commit/754d08da1501943af934fcc98a204ce4a7d6f546))
+
 ### [1.13.3](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.2...v1.13.3) (2021-03-06)
 
 
