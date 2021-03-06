@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.13.3](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.2...v1.13.3) (2021-03-06)
+
+
+### Bug Fixes
+
+* release site CI to run on release ([93c69a0](https://www.github.com/redhat-developer-demos/knative-tutorial/commit/93c69a0f25629f7f9df0223b22b1642a9114a99a))
+
 ### [1.13.2](https://www.github.com/redhat-developer-demos/knative-tutorial/compare/v1.13.1...v1.13.2) (2021-03-06)
 
 
