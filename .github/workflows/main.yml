@@ -1,9 +1,8 @@
 name: Knative Tutorial
 
 on:
-  push:
-    branches:
-      - 'release-v1.13.*'
+  release: 
+    types: [published]
 env:
   SITE_DIR: "gh-pages"
 
@@ -26,5 +25,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: "${{ env.SITE_DIR }}"
           publish_branch: "gh-pages"          
-          full_commit_message: "[CI]${{ github.event.head_commit.message }}"
+          full_commit_message: "[Release]${{ github.event.head_commit.message }}"
      
