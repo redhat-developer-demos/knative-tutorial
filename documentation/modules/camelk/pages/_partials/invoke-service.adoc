@@ -10,31 +10,28 @@ We need to know the knative service `{svc-name}` domain name that needs to be pa
 kubectl::
 +
 --
-[#camelk-{doc-sec}-svc-by-k8s]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 SVC_URL=`kubectl -n {tutorial-namespace} get ksvc {svc-name} -ojsonpath='{.status.domain}'`
 ----
-copyToClipboard::camelk-{doc-sec}-svc-by-k8s[]
 --
 oc::
 +
 --
-[#camelk-{doc-sec}-svc-by-oc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 SVC_URL=`oc  -n {tutorial-namespace} get ksvc {svc-name} -ojsonpath='{.status.domain}'`
 ----
-copyToClipboard::camelk-{doc-sec}-svc-by-oc[]
 --
 ====
 #end::set-svc-url[]
 
 #tag::invoke-svc[]
-[#camelk-{file-name}-call-svc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 curl -v -H pass:["Host:${SVC_URL}"] -H 'fileName: {file-name}' $IP_ADDRESS
 ----
-copyToClipboard::camelk-{file-name}-call-svc[]
 #end::invoke-svc[]
