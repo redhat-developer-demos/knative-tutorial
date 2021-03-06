@@ -1,8 +1,12 @@
 name: Knative Tutorial
 
 on:
-  release: 
-    types: [created, published,released]
+  push:
+    paths:
+      - '**'
+      - '!.github/workflows/**'
+      - '.github/workflows/main.yml'
+      - '.github/workflows/site.yml'
 env:
   SITE_DIR: "gh-pages"
 
