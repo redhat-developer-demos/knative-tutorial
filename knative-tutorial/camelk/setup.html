@@ -372,26 +372,26 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Apache Camel-K</a>
+    <a class="nav-link" href="index.html">Apache Camel K</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#install-camel-k">Install Camel-K </a>
+    <a class="nav-link" href="#install-camel-k">Install Apache Camel K </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="camel-k-basics.html">Camel-K with Knative Serving</a>
+    <a class="nav-link" href="camel-k-basics.html">Camel K with Knative Serving</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel K integration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel K Knative Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
@@ -400,7 +400,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="camel-k-eventing.html">Camel-K with Knative Eventing</a>
+    <a class="nav-link" href="camel-k-eventing.html">Camel K with Knative Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="camel-k-eventing.html#deploy-camel-k-source">Deploy Knative CamelSource</a>
@@ -466,7 +466,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">EIP with Apache Camel-K</span>
+    <span class="nav-text">EIP with Apache Camel K</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -515,11 +515,11 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Knative Tutorial</a></li>
-    <li><a href="index.html">Apache Camel-K</a></li>
+    <li><a href="index.html">Apache Camel K</a></li>
     <li><a href="setup.html">Setup</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/camelk/pages/setup.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/documentation/modules/camelk/pages/setup.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -528,9 +528,9 @@
 <h2 id="camelk-setup"><a class="anchor" href="#camelk-setup"></a>Setup</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="install-camel-k"><a class="anchor" href="#install-camel-k"></a>Install Camel-k</h3>
+<h3 id="install-camel-k"><a class="anchor" href="#install-camel-k"></a>Install Apache Camel K</h3>
 <div class="paragraph">
-<p>Download the latest camel-k release from <a href="https://github.com/apache/camel-k/releases/latest">here</a>. Extract the content and add the binary <code>kamel</code> to the PATH.</p>
+<p>Download the latest Apache Camel K release from <a href="https://github.com/apache/camel-k/releases/latest">here</a>. Extract the content and add the binary <code>kamel</code> to the PATH.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -565,7 +565,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>As with other installations in this tutorial, this process will take a few minutes for the Camel-K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace <code>knativetutorial</code>.</p>
+<p>As with other installations in this tutorial, this process will take a few minutes for the Apache Camel K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace <code>knativetutorial</code>.</p>
 </div>
 <div id="camel-k-watch-pods" class="listingblock console-input">
 <div class="title">Camel K Pods</div>
@@ -581,14 +581,14 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The Camel-k install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.</p>
+<p>The Camel K install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>A successful camel-K setup will have the following pods running/completed in <code>knativetutorial</code> namespace:</p>
+<p>A successful Camel K setup will have the following pods running/completed in <code>knativetutorial</code> namespace:</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
@@ -599,10 +599,10 @@ camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s</code></
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_openshift">
 <div class="paragraph">
-<p>Camel-K is installed using its <a href="https://operatorhub.io/operator/camel-k">operator</a>.Use the Operator Hub in OpenShift webconsole to install the Camel-K operator.</p>
+<p>Camel K is installed using its <a href="https://operatorhub.io/operator/camel-k">operator</a>.Use the Operator Hub in OpenShift webconsole to install the Camel K operator.</p>
 </div>
 <div class="paragraph">
-<p>Once the operator is deployed successfully, run the following command to setup <code>Camel-K</code> in the namespace:</p>
+<p>Once the operator is deployed successfully, run the following command to setup <code>Camel K</code> in the namespace:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -617,7 +617,7 @@ camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s</code></
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In OpenShift, the <code>kamel install</code> command will not install Camel-K operator in each namespace, rather its done one time at cluster level when installing the Operator.</p>
+<p>In OpenShift, the <code>kamel install</code> command will not install Camel K operator in each namespace, rather its done one time at cluster level when installing the Operator.</p>
 </div>
 </td>
 </tr>
@@ -628,9 +628,9 @@ camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s</code></
 </div>
 </div>
 <div class="sect2">
-<h3 id="configure-maven-repo"><a class="anchor" href="#configure-maven-repo"></a>Configure Camel-k to build faster</h3>
+<h3 id="configure-maven-repo"><a class="anchor" href="#configure-maven-repo"></a>Configure Camel K to build faster</h3>
 <div class="paragraph">
-<p>Camel-K uses <a href="https://maven.apache.org">Apache Maven</a> to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap <code>camel-k-maven-settings</code> in the knativetutorial namespace. One of the ways to make the build faster is by using a maven repository manager such as <a href="https://www.sonatype.com/nexus-repository-oss">Sonatype Nexus</a>, the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.</p>
+<p>Camel K uses <a href="https://maven.apache.org">Apache Maven</a> to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap <code>camel-k-maven-settings</code> in the knativetutorial namespace. One of the ways to make the build faster is by using a maven repository manager such as <a href="https://www.sonatype.com/nexus-repository-oss">Sonatype Nexus</a>, the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.</p>
 </div>
 <div class="paragraph">
 <p>Edit the file <code>$TUTORIAL_HOME/install/utils/camel-k-maven-settings.xml</code> to adjust to your maven repository settings:</p>
@@ -646,7 +646,7 @@ camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s</code></
 </div>
 </div>
 <div class="paragraph">
-<p>Install or Update <code>Camel-K</code> and make it use the maven repository settings:</p>
+<p>Install or Update <code>Camel K</code> and make it use the maven repository settings:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -659,7 +659,7 @@ camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s</code></
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><code>--force</code> is used to update any existing <code>Camel-K</code> installs to use the new settings</td>
+<td><code>--force</code> is used to update any existing <code>Camel K</code> installs to use the new settings</td>
 </tr>
 </table>
 </div>
@@ -711,14 +711,14 @@ kubectl exec $NEXUS_POD -- cat /nexus-data/admin.password</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You will be able to reset it after the first login. You can then <a href="#configure-maven-repo">Configure Camel-k to build faster</a>.</p>
+<p>You will be able to reset it after the first login. You can then <a href="#configure-maven-repo">Configure Camel K to build faster</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Apache Camel-K</a></span>
-  <span class="next"><a href="camel-k-basics.html">Camel-K with Knative Serving</a></span>
+  <span class="prev"><a href="index.html">Apache Camel K</a></span>
+  <span class="next"><a href="camel-k-basics.html">Camel K with Knative Serving</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

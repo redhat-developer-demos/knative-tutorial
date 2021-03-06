@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Apache Camel-K :: Knative Tutorial</title>
+    <title>Apache Camel K :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/camelk/index.html">
     <link rel="prev" href="../eventing/eventing-trigger-broker.html">
     <link rel="next" href="setup.html">
@@ -372,26 +372,26 @@
   </li>
   <li class="nav-item is-current-page" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Apache Camel-K</a>
+    <a class="nav-link" href="index.html">Apache Camel K</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
+    <a class="nav-link" href="setup.html#install-camel-k">Install Apache Camel K </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="camel-k-basics.html">Camel-K with Knative Serving</a>
+    <a class="nav-link" href="camel-k-basics.html">Camel K with Knative Serving</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel K integration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel K Knative Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
@@ -400,7 +400,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="camel-k-eventing.html">Camel-K with Knative Eventing</a>
+    <a class="nav-link" href="camel-k-eventing.html">Camel K with Knative Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="camel-k-eventing.html#deploy-camel-k-source">Deploy Knative CamelSource</a>
@@ -466,7 +466,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">EIP with Apache Camel-K</span>
+    <span class="nav-text">EIP with Apache Camel K</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -515,14 +515,14 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Knative Tutorial</a></li>
-    <li><a href="index.html">Apache Camel-K</a></li>
+    <li><a href="index.html">Apache Camel K</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/camelk/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/documentation/modules/camelk/pages/index.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Apache Camel-K</h1>
+<h1 class="page">Apache Camel K</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -532,10 +532,10 @@
 <p><a href="https://camel.apache.org">Apache Camel</a> is open source framework that helps you integrate systems. Apache Camel allows the integrated system to produce and consume data between them. It provides over 300 components that include <a href="https://camel.apache.org/components/latest/index.html">integration connectors</a> to sources such as TCP, ActiveMQ, FTP, Salesforce.com, which makes it easier to integrate heterogenous systems . <a href="https://www.enterpriseintegrationpatterns.com/">Enterprise Integration Patterns(EIP)</a> provides solutions to many common integration problems, Apache Camel provides implementations of these patterns via its rich <a href="https://camel.apache.org/manual/latest/dsl.html">Domain Specific Language(DSL)</a>, thereby making it easier for the developers to apply the EIP easily.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://camel.apache.org/camel-k/latest/index.html">Apache Camel-K</a> aims at simplifying the programming and deployment model for Apache Camel integrations. By working with Apache Camel-K, the integration developers can now focus on writing their integrations using Camel DSL in Java,JavaScript,Groovy,XML or YAML, without the need to worry about how package and deploy them.</p>
+<p><a href="https://camel.apache.org/camel-k/latest/index.html">Apache Camel K</a> aims at simplifying the programming and deployment model for Apache Camel integrations. By working with Apache Camel K, the integration developers can now focus on writing their integrations using Camel DSL in Java,JavaScript,Groovy,XML or YAML, without the need to worry about how package and deploy them.</p>
 </div>
 <div class="paragraph">
-<p>Camel-K will enable you to craft a Kubernetes-native integration application. It also leverages serverless capabilities via Knative.</p>
+<p>Apache Camel K will enable you to craft a Kubernetes-native integration application. It also leverages serverless capabilities via Knative.</p>
 </div>
 </div>
 </div>
@@ -558,18 +558,18 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_camel_k_and_knative_serving"><a class="anchor" href="#_camel_k_and_knative_serving"></a>Camel-K and Knative Serving</h2>
+<h2 id="_camel_k_and_knative_serving"><a class="anchor" href="#_camel_k_and_knative_serving"></a>Camel K and Knative Serving</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With Camel-K we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.</p>
+<p>With Camel K we can deploy Apache Camel Routes as Knative Serving services i.e. the Apache Camel routes will then be auto scalable with the ability to automatically scale down to zero when not needed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_camel_k_and_knative_eventing"><a class="anchor" href="#_camel_k_and_knative_eventing"></a>Camel-K and Knative Eventing</h2>
+<h2 id="_camel_k_and_knative_eventing"><a class="anchor" href="#_camel_k_and_knative_eventing"></a>Camel K and Knative Eventing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With Camel-K we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into <a href="https://cloudevents.io"> Cloud Events</a> format and exchanged with other consumers.</p>
+<p>With Camel K we can also exchange Knative Eventing events via Apache Camel endpoints;where the exchange messages (event payloads) are automatically transformed into <a href="https://cloudevents.io"> Cloud Events</a> format and exchanged with other consumers.</p>
 </div>
 </div>
 </div>

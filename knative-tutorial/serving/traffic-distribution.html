@@ -372,26 +372,26 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../camelk/index.html">Apache Camel-K</a>
+    <a class="nav-link" href="../camelk/index.html">Apache Camel K</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../camelk/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../camelk/setup.html#install-camel-k">Install Camel-K </a>
+    <a class="nav-link" href="../camelk/setup.html#install-camel-k">Install Apache Camel K </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../camelk/camel-k-basics.html">Camel-K with Knative Serving</a>
+    <a class="nav-link" href="../camelk/camel-k-basics.html">Camel K with Knative Serving</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-integration">Deploy Camel K integration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel K Knative Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../camelk/camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
@@ -400,7 +400,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../camelk/camel-k-eventing.html">Camel-K with Knative Eventing</a>
+    <a class="nav-link" href="../camelk/camel-k-eventing.html">Camel K with Knative Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../camelk/camel-k-eventing.html#deploy-camel-k-source">Deploy Knative CamelSource</a>
@@ -466,7 +466,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">EIP with Apache Camel-K</span>
+    <span class="nav-text">EIP with Apache Camel K</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -519,7 +519,7 @@
     <li><a href="traffic-distribution.html">Revisions and Traffic Distribution</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/serving/pages/traffic-distribution.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/documentation/modules/serving/pages/traffic-distribution.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -560,7 +560,7 @@
 <p>To explore the goals of this chapter, we will be using a colors service called <strong>blue-green-canary</strong>.</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/colors-service-blue.yaml">blue</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-blue.yaml">blue</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -603,7 +603,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/colors-service-blue.yaml">$TUTORIAL_HOME/serving/colors-service-blue.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-blue.yaml">$TUTORIAL_HOME/serving/colors-service-blue.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -671,7 +671,7 @@ spec:
 <p>Let us now change the configuration of the service by updating the service environment variable <strong>BLUE_GREEN_CANARY_COLOR</strong> to make the browser display <strong>green</strong> color with greeting text as <strong>Namaste</strong>.</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/colors-service-green.yaml">green</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-green.yaml">green</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -714,7 +714,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/serving/colors-service-green.yaml">$TUTORIAL_HOME/serving/colors-service-green.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-green.yaml">$TUTORIAL_HOME/serving/colors-service-green.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -990,7 +990,7 @@ blue-green-canary-xjygh-1   blue-green-canary   <mark>100%</mark>      <mark>blu
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get ksvc greeter -oyaml \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get ksvc blue-green-canary -oyaml \
  | yq r - 'status.traffic[*].url'</code></pre>
 </div>
 </div>

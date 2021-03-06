@@ -372,26 +372,26 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../camelk/index.html">Apache Camel-K</a>
+    <a class="nav-link" href="../camelk/index.html">Apache Camel K</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../camelk/setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../camelk/setup.html#install-camel-k">Install Camel-K </a>
+    <a class="nav-link" href="../camelk/setup.html#install-camel-k">Install Apache Camel K </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../camelk/camel-k-basics.html">Camel-K with Knative Serving</a>
+    <a class="nav-link" href="../camelk/camel-k-basics.html">Camel K with Knative Serving</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-integration">Deploy Camel K integration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel K Knative Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../camelk/camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
@@ -400,7 +400,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../camelk/camel-k-eventing.html">Camel-K with Knative Eventing</a>
+    <a class="nav-link" href="../camelk/camel-k-eventing.html">Camel K with Knative Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../camelk/camel-k-eventing.html#deploy-camel-k-source">Deploy Knative CamelSource</a>
@@ -466,7 +466,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">EIP with Apache Camel-K</span>
+    <span class="nav-text">EIP with Apache Camel K</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -519,7 +519,7 @@
     <li><a href="eventing-src-to-sink.html">Source to Sink</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/eventing/pages/eventing-src-to-sink.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/documentation/modules/eventing/pages/eventing-src-to-sink.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -563,7 +563,7 @@ sinkbindings      sources.knative.dev           true         SinkBinding</code><
 <p>Let&#8217;s see how a simple source, the <strong>PingSource</strong> looks like :</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="{repo-base}/blob/v1.13.0/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
+<div class="title"><a href="{repo-base}/blob/v1.13.4/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1beta1
 kind: PingSource <i class="conum" data-value="1"></i><b>(1)</b>
@@ -600,7 +600,7 @@ spec: <i class="conum" data-value="2"></i><b>(2)</b>
 <p><strong>Knative Eventing Sink</strong> is how you specify the event receiver&#8201;&#8212;&#8201;that is the consumer of the event--. Sinks can be invoked directly in a point-to-point fashion by referencing them via the Event Source&#8217;s <code>sink</code> as shown below:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="{repo-base}/blob/v1.13.0/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
+<div class="title"><a href="{repo-base}/blob/v1.13.4/eventing/eventinghello-source.yaml">eventinghello-source.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1beta1
 kind: PingSource
@@ -659,7 +659,7 @@ spec.  In the above example it defines <strong>schedule</strong>(the cron expres
 <p>Run the following command to create the Knative service that will be used as the subscriber for the cron events:</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="{repo-base}/blob/v1.13.0/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></div>
+<div class="title"><a href="{repo-base}/blob/v1.13.4/eventing/eventing-hello-sink.yaml">eventing-hello-sink.yaml</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -706,7 +706,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.13.0/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.13.4/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -747,7 +747,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.13.0/eventing/eventinghello-source.yaml">${TUTORIAL_HOME}/eventing/eventinghello-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.13.4/eventing/eventinghello-source.yaml">${TUTORIAL_HOME}/eventing/eventinghello-source.yaml</a></code></pre>
 </div>
 </div>
 </div>

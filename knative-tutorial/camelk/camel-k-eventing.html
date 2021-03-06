@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Camel-K Eventing :: Knative Tutorial</title>
+    <title>Camel K Eventing :: Knative Tutorial</title>
     <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/camelk/camel-k-eventing.html">
     <link rel="prev" href="camel-k-basics.html">
     <link rel="next" href="../advanced/index.html">
@@ -372,26 +372,26 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Apache Camel-K</a>
+    <a class="nav-link" href="index.html">Apache Camel K</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup.html">Setup</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup.html#install-camel-k">Install Camel-K </a>
+    <a class="nav-link" href="setup.html#install-camel-k">Install Apache Camel K </a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="camel-k-basics.html">Camel-K with Knative Serving</a>
+    <a class="nav-link" href="camel-k-basics.html">Camel K with Knative Serving</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel-K integration</a>
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-integration">Deploy Camel K integration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel-K Knative Integration</a>
+    <a class="nav-link" href="camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel K Knative Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
@@ -400,7 +400,7 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="camel-k-eventing.html">Camel-K with Knative Eventing</a>
+    <a class="nav-link" href="camel-k-eventing.html">Camel K with Knative Eventing</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#deploy-camel-k-source">Deploy Knative CamelSource</a>
@@ -466,7 +466,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">EIP with Apache Camel-K</span>
+    <span class="nav-text">EIP with Apache Camel K</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -515,15 +515,15 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Knative Tutorial</a></li>
-    <li><a href="index.html">Apache Camel-K</a></li>
-    <li><a href="camel-k-eventing.html">Camel-K with Knative Eventing</a></li>
+    <li><a href="index.html">Apache Camel K</a></li>
+    <li><a href="camel-k-eventing.html">Camel K with Knative Eventing</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.0/documentation/modules/camelk/pages/camel-k-eventing.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/documentation/modules/camelk/pages/camel-k-eventing.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Camel-K Eventing</h1>
+<h1 class="page">Camel K Eventing</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -532,13 +532,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>How to use Knative Eventing Channels with Camel-K</p>
+<p>How to use Knative Eventing Channels with Apache Camel K</p>
 </li>
 <li>
 <p>Using Knative CamelSource</p>
 </li>
 <li>
-<p>Connect Camel-K source to Sink</p>
+<p>Connect Apache Camel K source to Sink</p>
 </li>
 </ul>
 </div>
@@ -556,7 +556,7 @@
 <h2 id="deploy-camel-k-source"><a class="anchor" href="#deploy-camel-k-source"></a>Deploy Knative Eventing CamelSource</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>CamelSource</code> allows you use a Camel-K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel-K integration act as a <a href="https://knative.dev/docs/eventing/sources/">Knative Event Source</a> and  send the Camel exchanges (OUT) through a Knative Event Sink.</p>
+<p>The <code>CamelSource</code> allows you use a Camel K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel K integration act as a <a href="https://knative.dev/docs/eventing/sources/">Knative Event Source</a> and  send the Camel exchanges (OUT) through a Knative Event Sink.</p>
 </div>
 <div class="paragraph">
 <p>To deploy CamelSource run the following command:</p>
@@ -711,7 +711,7 @@ spec:
           period: 10000
         steps:
           - set-body:
-              constant: "Welcome to Apache Camel-K"
+              constant: "Welcome to Apache Camel K"
           - set-header:
               name: ContentType
               simple: text/plain
@@ -734,11 +734,11 @@ spec:
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The CamelSource spec has two main sections: <code>integration</code> and <code>source</code>. The <code>integration</code> block is used to configure the Camel-K integration specific properties such as dependencies, traits, etc. In this example we add the required dependencies such as <code>camel:log</code>, it is the dependency that you earlier passed via <code>kamel</code> CLI.</td>
+<td>The CamelSource spec has two main sections: <code>integration</code> and <code>source</code>. The <code>integration</code> block is used to configure the Camel K integration specific properties such as dependencies, traits, etc. In this example we add the required dependencies such as <code>camel:log</code>, it is the dependency that you earlier passed via <code>kamel</code> CLI.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The <code>source</code> block is used to define the Camel-K integration definition. The <code>flow</code> attribute of the <code>source</code> block allows you define the Camel route.</td>
+<td>The <code>source</code> block is used to define the Camel K integration definition. The <code>flow</code> attribute of the <code>source</code> block allows you define the Camel route.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -826,7 +826,7 @@ kubectl -n knativetutorial delete camelsource timed-greeter</code></pre>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="camel-k-basics.html">Camel-K with Knative Serving</a></span>
+  <span class="prev"><a href="camel-k-basics.html">Camel K with Knative Serving</a></span>
   <span class="next"><a href="../advanced/index.html">Advanced</a></span>
 </nav>
 </article>
