@@ -7,7 +7,7 @@ include::ROOT:partial$serving-nav.adoc[]
 .xref:eventing:index.adoc[Knative Eventing]
 include::ROOT:partial$eventing-nav.adoc[]
 
-.xref:camelk:index.adoc[Apache Camel-K]
+.xref:camelk:index.adoc[Apache Camel K]
 include::ROOT:partial$camelk-nav.adoc[]
 
 .xref:advanced:index.adoc[Advanced]

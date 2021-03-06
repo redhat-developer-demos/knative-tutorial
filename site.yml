@@ -9,7 +9,7 @@ site:
 content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
-      tags: v1.13.0
+      tags: v1.13.1
       branches: []
       start_path: documentation
 asciidoc:

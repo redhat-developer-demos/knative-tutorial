@@ -9,7 +9,7 @@
 *** xref:advanced:eventing-with-kafka.adoc#kn-eventing-kafka-source-to-sink[Kafka Source to Sink]
 *** xref:advanced:eventing-with-kafka.adoc#kn-eventing-kafka-auto-scaling[Auto Scaling with Kafka]
 ** xref:advanced:eventing-with-kafka.adoc#kn-kafka-src-cleanup[Cleanup]
-*  EIP with Apache Camel-K
+*  EIP with Apache Camel K
 ** xref:advanced:camel-k-cbr.adoc[Content Based Routing]
 *** xref:advanced:camel-k-cbr.adoc#cbr-app-overview[Application Overview]
 *** xref:advanced:camel-k-cbr.adoc#label-namespace-for-default-broker[Create Broker]

@@ -2,10 +2,9 @@
 [it-name='']
 
 #tag::integration-status[]
-[#camelk-{it-name}-{k8s-cli}-get-int-status]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 {k8s-cli} -n {kube-ns} get integrations.camel.apache.org {it-name}
 ----
-copyToClipboard::camelk-{it-name}-{k8s-cli}-get-int-status[]
 #end::integration-status[]

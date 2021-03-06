@@ -4,22 +4,20 @@
 kubectl::
 +
 --
-[#camelk-get-k8s-int]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace}  get integrations.camel.apache.org
 ----
-copyToClipboard::camelk-get-k8s-int[]
 --
 oc::
 +
 --
-[#camelk-oc-get-k8s-int]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
-----
+-----
 oc -n {tutorial-namespace}  get get integrations.camel.apache.org
-----
-copyToClipboard::camelk-oc-get-k8s-int[]
+-----
 --
 ====
 #end::integrations[]
@@ -30,17 +28,16 @@ copyToClipboard::camelk-oc-get-k8s-int[]
 kubectl::
 +
 --
-[#camelk-get-k8s-svc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace}  get svc
 ----
-copyToClipboard::camelk-get-k8s-svc[]
 --
 oc::
 +
 --
-[#camelk-oc-get-k8s-svc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace}  get svc
@@ -56,22 +53,20 @@ copyToClipboard::camelk-oc-get-k8s-svc[]
 kubectl::
 +
 --
-[#camelk-get-k8s-dc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {tutorial-namespace}  get deployments
 ----
-copyToClipboard::camelk-get-k8s-dc[]
 --
 oc::
 +
 --
-[#camelk-oc-get-k8s-dc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n {tutorial-namespace}  get get deployments
 ----
-copyToClipboard::camelk-oc-get-k8s-dc[]
 --
 ====
 #end::deployments[]

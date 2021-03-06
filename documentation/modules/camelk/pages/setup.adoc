@@ -5,9 +5,9 @@ include::_attributes.adoc[]
 == Setup
 
 [#install-camel-k]
-=== Install Camel-k
+=== Install Apache Camel K
 
-Download the latest camel-k release from https://github.com/apache/camel-k/releases/latest[here]. Extract the content and add the binary `kamel` to the PATH.
+Download the latest Apache Camel K release from https://github.com/apache/camel-k/releases/latest[here]. Extract the content and add the binary `kamel` to the PATH.
 
 [IMPORTANT]
 ====
@@ -26,7 +26,7 @@ Minikube::
 kamel install --namespace {tutorial-namespace} --olm=false --wait
 -----
 
-As with other installations in this tutorial, this process will take a few minutes for the Camel-K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace `{tutorial-namespace}`.
+As with other installations in this tutorial, this process will take a few minutes for the Apache Camel K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace `{tutorial-namespace}`.
 
 .Camel K Pods
 [.console-input]
@@ -38,10 +38,10 @@ watch "kubectl -n {tutorial-namespace} get pods"
 
 [NOTE]
 =====
-The Camel-k install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.
+The Camel K install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.
 =====
 
-A successful camel-K setup will have the following pods running/completed in `{tutorial-namespace}` namespace:
+A successful Camel K setup will have the following pods running/completed in `{tutorial-namespace}` namespace:
 
 [.console-output]
 [source,bash,subs="+macros,+attributes"]
@@ -54,9 +54,9 @@ OpenShift::
 +
 --
 
-Camel-K is installed using its https://operatorhub.io/operator/camel-k[operator].Use the Operator Hub in OpenShift webconsole to install the Camel-K operator.
+Camel K is installed using its https://operatorhub.io/operator/camel-k[operator].Use the Operator Hub in OpenShift webconsole to install the Camel K operator.
 
-Once the operator is deployed successfully, run the following command to setup `Camel-K` in the namespace:
+Once the operator is deployed successfully, run the following command to setup `Camel K` in the namespace:
 
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
@@ -65,15 +65,15 @@ kamel install --cluster-setup --skip-operator-setup
 
 [NOTE]
 ======
-In OpenShift, the `kamel install` command will not install Camel-K operator in each namespace, rather its done one time at cluster level when installing the Operator.
+In OpenShift, the `kamel install` command will not install Camel K operator in each namespace, rather its done one time at cluster level when installing the Operator.
 ======
 --
 ====
 
 [#configure-maven-repo]
-=== Configure Camel-k to build faster 
+=== Configure Camel K to build faster 
 
-Camel-K uses https://maven.apache.org[Apache Maven] to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap `camel-k-maven-settings` in the {tutorial-namespace} namespace. One of the ways to make the build faster is by using a maven repository manager such as https://www.sonatype.com/nexus-repository-oss[Sonatype Nexus], the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.
+Camel K uses https://maven.apache.org[Apache Maven] to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap `camel-k-maven-settings` in the {tutorial-namespace} namespace. One of the ways to make the build faster is by using a maven repository manager such as https://www.sonatype.com/nexus-repository-oss[Sonatype Nexus], the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.
 
 Edit the file `$TUTORIAL_HOME/install/utils/camel-k-maven-settings.xml` to adjust to your maven repository settings:
 
@@ -89,7 +89,7 @@ kubectl create configmap \
   --from-file=settings.xml="$TUTORIAL_HOME/install/utils/camel-k-maven-settings.xml"
 ----
 
-Install or Update `Camel-K` and make it use the maven repository settings:
+Install or Update `Camel K` and make it use the maven repository settings:
 
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
@@ -98,7 +98,7 @@ kamel install --force \#<.>
   --maven-settings="configmap:my-camel-k-maven-settings/settings.xml" \
   --wait
 ----
-<.> `--force` is used to update any existing `Camel-K` installs to use the new settings
+<.> `--force` is used to update any existing `Camel K` installs to use the new settings
 
 
 === Deploy Nexus to Local Cluster (Optional)

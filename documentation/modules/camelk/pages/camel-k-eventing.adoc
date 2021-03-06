@@ -1,12 +1,12 @@
 [[camel-k-eventing]]
-= Camel-K Eventing
+= Camel K Eventing
 include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
 
-- How to use Knative Eventing Channels with Camel-K
+- How to use Knative Eventing Channels with Apache Camel K
 - Using Knative CamelSource
-- Connect Camel-K source to Sink
+- Connect Apache Camel K source to Sink
 
 Navigate to the tutorial chapter's folder {camelk-repo}:
 
@@ -20,7 +20,7 @@ cd $TUTORIAL_HOME/{camelk-repo}
 [#deploy-camel-k-source]
 == Deploy Knative Eventing CamelSource
 
-The `CamelSource` allows you use a Camel-K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel-K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and  send the Camel exchanges (OUT) through a Knative Event Sink.
+The `CamelSource` allows you use a Camel K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and  send the Camel exchanges (OUT) through a Knative Event Sink.
 
 To deploy CamelSource run the following command:
 
@@ -169,7 +169,7 @@ spec:
           period: 10000
         steps:
           - set-body:
-              constant: "Welcome to Apache Camel-K"
+              constant: "Welcome to Apache Camel K"
           - set-header:
               name: ContentType
               simple: text/plain
@@ -185,8 +185,8 @@ spec:
 
 ----
 <1> The CamelSource is provided by the API `sources.knative.dev`, it is now available as a result of deploying the CamelSource event source.
-<2> The CamelSource spec has two main sections: `integration` and `source`. The `integration` block is used to configure the Camel-K integration specific properties such as dependencies, traits, etc. In this example we add the required dependencies such as `camel:log`, it is the dependency that you earlier passed via `kamel` CLI.
-<3> The `source` block is used to define the Camel-K integration definition. The `flow` attribute of the `source` block allows you define the Camel route.
+<2> The CamelSource spec has two main sections: `integration` and `source`. The `integration` block is used to configure the Camel K integration specific properties such as dependencies, traits, etc. In this example we add the required dependencies such as `camel:log`, it is the dependency that you earlier passed via `kamel` CLI.
+<3> The `source` block is used to define the Camel K integration definition. The `flow` attribute of the `source` block allows you define the Camel route.
 <4> The event sink for messages from the Camel event source. The sink could be either a Knative Service, Knative Event Channel or Knative Event Broker. In this case it is configured to be the `event-display` Knative Service.
 
 To deploy the CamelSource run the following command:
