@@ -114,7 +114,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 [.console-input]
 [source,bash,subs="attributes+,+macros",linenums]
 ----
-export SVC_URL=$(kn service describe prime-generator -n{tutorial-namespace} -url)
+export SVC_URL=$(kn service describe prime-generator -n {tutorial-namespace} -o url)
 hey -c 50 -z 10s "pass:[$SVC_URL]/?sleep=3&upto=10000&memload=100"
 ----
 
