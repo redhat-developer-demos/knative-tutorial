@@ -27,7 +27,7 @@ Kubernetes Version: {kubernetes-version}
 
 video::eOwJjC9u4aM[youtube,width=640,height=480]
 
-For more information on OpenShift Servertless, consult the https://docs.openshift.com/container-platform/4.6/serverless/installing_serverless/installing-openshift-serverless.html[OpenShift^] documentation.
+For more information on OpenShift Servertless, consult the https://docs.openshift.com/container-platform/4.6/serverless/admin_guide/installing-openshift-serverless.html#installing-openshift-serverless[OpenShift^] documentation.
 
 **Navigate to tutorial project**
 
