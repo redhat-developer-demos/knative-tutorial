@@ -230,7 +230,7 @@ spec:
               json: {} #<2>
           - choice: #<3>
               when:
-                - simple: "${body[nutritions][sugar]} <= 5"
+                - simple: "${body[nutritions][sugar]} <= 5.0"
                   steps:
                     - remove-headers: "*"
                     - marshal:
@@ -242,7 +242,7 @@ spec:
                         name: fruit-sugar-level
                         constant: low
                     - to: "log:low?showAll=true&multiline=true"
-                - simple: "${body[nutritions][sugar]} > 5 || ${body[nutritions][sugar]} <= 10"
+                - simple: "${body[nutritions][sugar]} > 5.0 && ${body[nutritions][sugar]} <= 10.0"
                   steps:
                     - remove-headers: "*"
                     - marshal:
