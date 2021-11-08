@@ -36,13 +36,13 @@ Let's see how a simple source, the *PingSource* looks like :
 .link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1beta1
+apiVersion: sources.knative.dev/v1
 kind: PingSource #<1>
 metadata:
   name: eventinghello-ping-source
 spec: #<2>
   schedule: "*/2 * * * *"
-  jsonData: '{"key": "every 2 mins"}'
+  data: '{"key": "every 2 mins"}'
   sink:
     ref:
       apiVersion: serving.knative.dev/v1
@@ -61,13 +61,13 @@ spec: #<2>
 .link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1beta1
+apiVersion: sources.knative.dev/v1
 kind: PingSource
 metadata:
   name: eventinghello-ping-source
 spec:
   schedule: "*/2 * * * *"
-  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:  #<1>
     ref:
       apiVersion: serving.knative.dev/v1 #<2>

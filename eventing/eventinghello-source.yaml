@@ -1,9 +1,9 @@
-apiVersion: sources.knative.dev/v1alpha2
+apiVersion: sources.knative.dev/v1
 kind: PingSource
 metadata:
   name: eventinghello-ping-source
 spec:
-  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  data: '{"message": "Thanks for doing Knative Tutorial"}'
   schedule: '*/2 * * * *'
   sink:
     ref:
