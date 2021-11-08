@@ -9,13 +9,13 @@ site:
 content:
   sources:
     - url: git@github.com:redhat-developer-demos/knative-tutorial.git
-      tags: v1.13.4
+      tags: v1.18
       branches: []
       start_path: documentation
 asciidoc:
   attributes:
     tutorial-namespace: knativetutorial
-    branch: v1.13.4
+    branch: v1.18
     workshop-domain: guru.devx.red
     minikube-version:  v1.17.1
     openshift-version: v4.6
