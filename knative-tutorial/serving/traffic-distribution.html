@@ -519,7 +519,7 @@
     <li><a href="traffic-distribution.html">Revisions and Traffic Distribution</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/documentation/modules/serving/pages/traffic-distribution.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/documentation/modules/serving/pages/traffic-distribution.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -560,7 +560,7 @@
 <p>To explore the goals of this chapter, we will be using a colors service called <strong>blue-green-canary</strong>.</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-blue.yaml">blue</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-blue.yaml">blue</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -603,7 +603,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-blue.yaml">$TUTORIAL_HOME/serving/colors-service-blue.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-blue.yaml">$TUTORIAL_HOME/serving/colors-service-blue.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -671,7 +671,7 @@ spec:
 <p>Let us now change the configuration of the service by updating the service environment variable <strong>BLUE_GREEN_CANARY_COLOR</strong> to make the browser display <strong>green</strong> color with greeting text as <strong>Namaste</strong>.</p>
 </div>
 <div class="listingblock">
-<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-green.yaml">green</a></div>
+<div class="title"><a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-green.yaml">green</a></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: serving.knative.dev/v1
 kind: Service
@@ -714,7 +714,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.13.4/serving/colors-service-green.yaml">$TUTORIAL_HOME/serving/colors-service-green.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-green.yaml">$TUTORIAL_HOME/serving/colors-service-green.yaml</a></code></pre>
 </div>
 </div>
 </div>
