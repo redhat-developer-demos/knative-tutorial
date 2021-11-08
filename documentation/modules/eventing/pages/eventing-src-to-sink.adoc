@@ -125,7 +125,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping list -n {tutorial-namespace}
+kn source ping list
 ----
 
 Running  the above command should return the following result:
@@ -144,8 +144,7 @@ eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4   
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get \
-  pingsources.sources.knative.dev \
+kubectl get pingsources.sources.knative.dev \
   eventinghello-ping-source
 ----
 
@@ -196,8 +195,8 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping delete -n {tutorial-namespace} eventinghello-ping-source 
-kn service delete -n {tutorial-namespace} eventinghello
+kn source ping delete eventinghello-ping-source 
+kn service delete eventinghello
 ----
 --
 {kubernetes-cli}::
@@ -206,8 +205,8 @@ kn service delete -n {tutorial-namespace} eventinghello
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-{kubernetes-cli} -n {tutorial-namespace} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventinghello-source.yaml
-{kubernetes-cli} -n {tutorial-namespace} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventing-hello-sink.yaml
+{kubernetes-cli} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventinghello-source.yaml
+{kubernetes-cli} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventing-hello-sink.yaml
 ----
 --
 ====

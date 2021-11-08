@@ -11,7 +11,7 @@
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-http $(kn service describe greeter -n {tutorial-namespace} -o url)
+http $(kn service describe greeter -o url)
 ----
 
 #end::call[]
