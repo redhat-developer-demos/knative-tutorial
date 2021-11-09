@@ -173,7 +173,7 @@ Let us tag `blue-green-canary-xjygh-1` which shows *blue* browser page with tag 
 [.console-input]
 [source,bash,subs="+macros,attributes+,+quotes"]
 ----
-kn service update -n {tutorial-namespace} blue-green-canary --tag=#blue-green-canary-xjygh-1#=blue
+kn service update blue-green-canary --tag=#blue-green-canary-xjygh-1#=blue
 ----
 
 [.console-output]
@@ -197,7 +197,7 @@ Let us tag `blue-green-canary-yzrwq-2` which shows *green* browser page with tag
 [.console-input]
 [source,bash,subs="+macros,attributes+,+quotes"]
 ----
-kn service update -n {tutorial-namespace} blue-green-canary --tag=#blue-green-canary-yzrwq-2#=green
+kn service update blue-green-canary --tag=#blue-green-canary-yzrwq-2#=green
 ----
 
 [.console-output]
@@ -221,7 +221,7 @@ Lets tag whatever revision that is latest to be tagged as *latest*.
 [.console-input]
 [source,bash,subs="+macros,attributes+,+quotes"]
 ----
-kn service update -n {tutorial-namespace} blue-green-canary --tag=@latest=latest
+kn service update blue-green-canary --tag=@latest=latest
 ----
 
 [.console-output]
@@ -424,6 +424,6 @@ video::5cNU6vAAbXQ[youtube,width=640,height=480]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn -n {tutorial-namespace} service delete blue-green-canary
+kn service delete blue-green-canary
 ----
 

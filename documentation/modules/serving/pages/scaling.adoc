@@ -70,7 +70,7 @@ For better clarity and understanding let us <<scaling-cleanup,clean up>> the dep
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn -n {tutorial-namespace}  service delete greeter
+kn service delete greeter
 ----
 
 :service-file: service-10.yaml
@@ -114,7 +114,7 @@ We will now send some load to the greeter service.  The command below sends 50 c
 [.console-input]
 [source,bash,subs="attributes+,+macros",linenums]
 ----
-export SVC_URL=$(kn service describe prime-generator -n{tutorial-namespace} -url)
+export SVC_URL=$(kn service describe prime-generator -o url)
 hey -c 50 -z 10s "pass:[$SVC_URL]/?sleep=3&upto=10000&memload=100"
 ----
 
@@ -175,5 +175,5 @@ When all requests are done and if we are beyond the `scale-to-zero-grace-period`
 [source,bash,subs="attributes+,+macros"]
 [.console-input]
 ----
-kn service delete -n {tutorial-namespace} prime-generator
+kn service delete prime-generator
 ----

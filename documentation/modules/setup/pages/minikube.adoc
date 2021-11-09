@@ -377,6 +377,14 @@ All the tutorial exercises will be deployed in namespace called `{tutorial-names
 kubectl create namespace {tutorial-namespace}
 ----
 
+In order not to worry about the namespace used, will set it up as as current context:
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl config set-context --current --namespace={tutorial-namespace}
+----
+
+
 [TIP]
 =====
 The https://github.com/ahmetb/kubens[kubens] utility installed as part of https://github.com/ahmetb/kubectx[kubectx] allows for easy switching between Kubernetes namespaces.

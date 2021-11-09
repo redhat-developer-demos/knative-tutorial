@@ -7,7 +7,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn broker -n {tutorial-namespace} list
+kn broker list
 ----
 
 [.console-output]
@@ -44,7 +44,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn channel list --namespace {tutorial-namespace}
+kn channel list
 ----
 
 [.console-output]
@@ -60,7 +60,7 @@ eventinghello-ch   InMemoryChannel   http://eventinghello-ch-kn-channel.knativet
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl get --namespace {tutorial-namespace} channels.messaging.knative.dev eventinghello-ch
+kubectl get channels.messaging.knative.dev eventinghello-ch
 ----
 
 [.console-output]
@@ -82,7 +82,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping --namespace {tutorial-namespace} list
+kn source ping list
 ----
 
 [.console-output]
@@ -99,7 +99,7 @@ event-greeter-ping-source   */2 * * * *   Channel:eventinghello-ch   10m   4 OK 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl get --namespace {tutorial-namespace} pingsource.sources.knative.dev  event-greeter-ping-source
+kubectl get pingsource.sources.knative.dev  event-greeter-ping-source
 ----
 
 [.console-output]
@@ -121,7 +121,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn subscription list --namespace {tutorial-namespace}
+kn subscription list
 ----
 
 [.console-output]
@@ -138,7 +138,7 @@ eventinghellob-sub   Channel:eventinghello-ch   ksvc:eventinghellob             
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} get subscriptions.messaging.knative.dev 
+kubectl get subscriptions.messaging.knative.dev 
 ----
 
 [.console-output]
@@ -162,7 +162,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service --namespace {tutorial-namespace} list
+kn service list
 ----
 --
 {kubernetes-cli}::
@@ -171,7 +171,7 @@ kn service --namespace {tutorial-namespace} list
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} get service.serving.knative.dev eventinghello  
+kubectl get service.serving.knative.dev eventinghello  
 ----
 --
 ====
@@ -187,7 +187,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn trigger list --namespace {tutorial-namespace}
+kn trigger list
 ----
 
 [.console-output]
@@ -204,7 +204,7 @@ hellobonjour   default   ksvc:eventingbonjour   11m   5 OK / 5     True
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace}  get triggers.eventing.knative.dev
+kubectl get triggers.eventing.knative.dev
 ----
 
 [.console-output]
@@ -229,7 +229,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping --namespace {tutorial-namespace} list
+kn source ping list
 ----
 --
 {kubernetes-cli}::
@@ -238,7 +238,7 @@ kn source ping --namespace {tutorial-namespace} list
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl --namespace {tutorial-namespace} get containersources.sources.knative.dev heartbeat-event-source
+kubectl get containersources.sources.knative.dev heartbeat-event-source
 ----
 --
 ====
