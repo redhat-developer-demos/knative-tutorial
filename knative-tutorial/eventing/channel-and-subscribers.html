@@ -1236,24 +1236,24 @@ Add <code>-oyaml</code> to the above commands to get more details about each obj
 <div class="tab-pane" aria-labelledby="tabset13_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete -n knativetutorial eventinghelloa
-kn subscription delete eventinghelloa-sub --namespace knativetutorial
-kn service delete -n knativetutorial  eventinghellob
-kn subscription delete eventinghellob-sub --namespace knativetutorial
-kn source ping delete -n knativetutorial event-greeter-ping-source
-kn channel delete -n knativetutorial eventinghello-ch</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete eventinghelloa
+kn subscription delete eventinghelloa-sub
+kn service delete eventinghellob
+kn subscription delete eventinghellob-sub
+kn source ping delete event-greeter-ping-source
+kn channel delete eventinghello-ch</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset13_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete -f eventing-helloa-sink.yaml
-kubectl -n knativetutorial delete -f eventing-helloa-sub.yaml
-kubectl -n knativetutorial delete -f eventing-hellob-sink.yaml
-kubectl -n knativetutorial delete -f eventing-hellob-sub.yaml
-kubectl -n knativetutorial delete -f event-source.yaml
-kubectl -n knativetutorial delete -f channel.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f eventing-helloa-sink.yaml
+kubectl delete -f eventing-helloa-sub.yaml
+kubectl delete -f eventing-hellob-sink.yaml
+kubectl delete -f eventing-hellob-sub.yaml
+kubectl delete -f event-source.yaml
+kubectl delete -f channel.yaml</code></pre>
 </div>
 </div>
 </div>
