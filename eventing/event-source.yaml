@@ -4,7 +4,7 @@ metadata:
   name: event-greeter-ping-source
 spec:
   schedule: "*/2 * * * *"
-  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:
     ref:
       apiVersion: messaging.knative.dev/v1
