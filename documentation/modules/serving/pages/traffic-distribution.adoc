@@ -102,7 +102,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision list --namespace {tutorial-namespace}
+kn revision list
 ----
 
 [.console-output]
@@ -120,7 +120,7 @@ blue-green-canary-xjygh-1   blue-green-canary                    1            30
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kubectl --namespace {tutorial-namespace} get rev \
+kubectl get rev \
   --selector=serving.knative.dev/service=blue-green-canary \
   --sort-by="{.metadata.creationTimestamp}"
 ----
@@ -292,7 +292,7 @@ Let us list all revisions with tags:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn revision list --namespace {tutorial-namespace}
+kn revision list
 ----
 
 Based on the revision tags that we created earlier, the output should be like:
@@ -375,7 +375,7 @@ To roll out the greeter canary deployment use the following command:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service update blue-green-canary -n {tutorial-namespace} \
+kn service update blue-green-canary \
   --traffic="blue=80" \
   --traffic="green=20" 
 ----
