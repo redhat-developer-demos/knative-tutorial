@@ -559,15 +559,14 @@ metadata:
 <div class="tab-pane" aria-labelledby="tabset1_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker create default \
-  --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker create default</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/default-broker.yaml">${TUTORIAL_HOME}/eventing/default-broker.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/default-broker.yaml">${TUTORIAL_HOME}/eventing/default-broker.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -591,7 +590,7 @@ metadata:
 <div class="tab-pane" aria-labelledby="tabset2_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker -n knativetutorial list</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -697,7 +696,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventingaloha \
-  --namespace knativetutorial \
   --concurrency-target=1 \
   --revision-name=eventingaloha-v1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
@@ -707,7 +705,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-aloha-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-aloha-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-aloha-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-aloha-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -732,7 +730,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventingbonjour \
-  --namespace knativetutorial \
   --concurrency-target=1 \
   --revision-name=eventingbonjour-v1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
@@ -742,7 +739,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-bonjour-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-bonjour-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-bonjour-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-bonjour-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -809,7 +806,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn trigger create helloaloha \
-  --namespace knativetutorial \
   --broker=default \
   --sink=ksvc:eventingaloha \
   --filter=type=greeting</code></pre>
@@ -819,7 +815,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset5_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/trigger-helloaloha.yaml">${TUTORIAL_HOME}/eventing/trigger-helloaloha.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/trigger-helloaloha.yaml">${TUTORIAL_HOME}/eventing/trigger-helloaloha.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -869,7 +865,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn trigger create hellobonjour \
-  --namespace knativetutorial \
   --broker=default \
   --sink=ksvc:eventingbonjour \
   --filter=type=greeting</code></pre>
@@ -879,7 +874,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/trigger-hellobonjour.yaml">${TUTORIAL_HOME}/eventing/trigger-hellobonjour.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/trigger-hellobonjour.yaml">${TUTORIAL_HOME}/eventing/trigger-hellobonjour.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -903,7 +898,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset7_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn trigger list --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn trigger list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -917,7 +912,7 @@ hellobonjour   default   ksvc:eventingbonjour   11m   5 OK / 5     True</code></
 <div class="tab-pane" aria-labelledby="tabset7_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get triggers.eventing.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get triggers.eventing.knative.dev</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1178,24 +1173,24 @@ eventingbonjour-1-deployment-fc7858b5b-btdcr 2/2   Running 6s</code></pre>
 <div class="tab-pane" aria-labelledby="tabset8_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete eventingbonjour -n knativetutorial
-kn service delete eventingaloha -n knativetutorial
-kn trigger delete helloaloha -n knativetutorial
-kn trigger delete hellobonjour -n knativetutorial
-kubectl -n knativetutorial delete pod curler
-kn broker delete default -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete eventingbonjour
+kn service delete eventingaloha
+kn trigger delete helloaloha
+kn trigger delete hellobonjour
+kubectl delete pod curler
+kn broker delete default</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset8_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete -f eventing-aloha-sink.yaml
-kubectl -n knativetutorial delete -f eventing-bonjour-sink.yaml
-kubectl -n knativetutorial delete -f trigger-helloaloha.yaml
-kubectl -n knativetutorial delete -f trigger-hellobonjour.yaml
-kubectl -n knativetutorial delete -f curler.yaml
-kubectl -n knativetutorial delete -f default-broker.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f eventing-aloha-sink.yaml
+kubectl delete -f eventing-bonjour-sink.yaml
+kubectl delete -f trigger-helloaloha.yaml
+kubectl delete -f trigger-hellobonjour.yaml
+kubectl delete -f curler.yaml
+kubectl delete -f default-broker.yaml</code></pre>
 </div>
 </div>
 </div>

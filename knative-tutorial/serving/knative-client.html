@@ -671,7 +671,7 @@ greeter   <mark>http://greeter.knativetutorial.192.168.64.13.nip.io</mark>  gree
 <div class="tab-pane" aria-labelledby="tabset1_minikube">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -n knativetutorial -o url)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -o url)</code></pre>
 </div>
 </div>
 </div>
@@ -713,8 +713,7 @@ http $SVC_URL</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update greeter --namespace knativetutorial \
-  --env "MESSAGE_PREFIX=Namaste"</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update greeter --env "MESSAGE_PREFIX=Namaste"</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -747,7 +746,7 @@ Service 'greeter' updated to latest revision 'greeter-tmvxm-2' is available at U
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe --namespace knativetutorial greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe greeter</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -778,7 +777,7 @@ Conditions:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code>kn service describe --namespace knativetutorial greeter -v</code></pre>
+<pre class="highlightjs highlight"><code>kn service describe greeter -v</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -813,7 +812,7 @@ Conditions:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe --namespace knativetutorial  greeter -o url</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service describe greeter -o url</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -838,7 +837,7 @@ Conditions:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -856,7 +855,7 @@ greeter-twpgf-1   greeter                    1            11h   3 OK / 4     Tru
 </div>
 <div id="run-kn-desc-rev" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision describe --namespace knativetutorial greeter-twpgf-1</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision describe greeter-twpgf-1</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -883,7 +882,7 @@ Conditions:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision delete --namespace knativetutorial greeter-twpgf-1</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision delete greeter-twpgf-1</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -924,7 +923,7 @@ greeter   <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="b
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete --namespace knativetutorial greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete greeter</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">

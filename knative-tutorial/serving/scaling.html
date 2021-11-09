@@ -613,7 +613,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service.yaml">$TUTORIAL_HOME/serving/service.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service.yaml">$TUTORIAL_HOME/serving/service.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -629,7 +629,7 @@ spec:
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -n knativetutorial -o url)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -o url)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -665,7 +665,7 @@ spec:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn -n knativetutorial  service delete greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete greeter</code></pre>
 </div>
 </div>
 </div>
@@ -735,7 +735,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service-10.yaml">$TUTORIAL_HOME/serving/service-10.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service-10.yaml">$TUTORIAL_HOME/serving/service-10.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -763,7 +763,7 @@ spec:
 </div>
 <div id="oc-scaling-run-siege" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=$(kn service describe prime-generator -nknativetutorial -url)
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=$(kn service describe prime-generator -o url)
 hey -c 50 -z 10s "$SVC_URL/?sleep=3&amp;upto=10000&amp;memload=100"</code></pre>
 </div>
 </div>
@@ -860,7 +860,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service-min-max-scale.yaml">$TUTORIAL_HOME/serving/service-min-max-scale.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service-min-max-scale.yaml">$TUTORIAL_HOME/serving/service-min-max-scale.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -896,7 +896,7 @@ spec:
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete -n knativetutorial prime-generator</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete prime-generator</code></pre>
 </div>
 </div>
 </div>

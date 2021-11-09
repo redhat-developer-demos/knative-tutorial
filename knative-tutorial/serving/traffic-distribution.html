@@ -603,7 +603,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-blue.yaml">$TUTORIAL_HOME/serving/colors-service-blue.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-blue.yaml">$TUTORIAL_HOME/serving/colors-service-blue.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -714,7 +714,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-green.yaml">$TUTORIAL_HOME/serving/colors-service-green.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/colors-service-green.yaml">$TUTORIAL_HOME/serving/colors-service-green.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -831,7 +831,7 @@ blue-green-canary-xjygh-1   blue-green-canary                    1            51
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update -n knativetutorial blue-green-canary --tag=<mark>blue-green-canary-xjygh-1</mark>=blue</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update blue-green-canary --tag=<mark>blue-green-canary-xjygh-1</mark>=blue</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -855,7 +855,7 @@ http://blue-green-canary.knativetutorial.192.168.64.13.nip.io</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update -n knativetutorial blue-green-canary --tag=<mark>blue-green-canary-yzrwq-2</mark>=green</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update blue-green-canary --tag=<mark>blue-green-canary-yzrwq-2</mark>=green</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -882,7 +882,7 @@ http://blue-green-canary.knativetutorial.192.168.64.13.nip.io</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update -n knativetutorial blue-green-canary --tag=@latest=latest</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service update blue-green-canary --tag=@latest=latest</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1176,7 +1176,7 @@ blue-green-canary-yzrwq-2-deployment-8564bf5b5b-gtvh4   2/2     Running   0     
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn -n knativetutorial service delete blue-green-canary</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete blue-green-canary</code></pre>
 </div>
 </div>
 </div>

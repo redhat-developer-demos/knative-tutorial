@@ -583,15 +583,14 @@ metadata:
 <div class="tab-pane" aria-labelledby="tabset1_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel create eventinghello-ch \
-  --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel create eventinghello-ch</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/channel.yaml">${TUTORIAL_HOME}/eventing/channel.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/channel.yaml">${TUTORIAL_HOME}/eventing/channel.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -614,15 +613,14 @@ metadata:
 <div class="tab-pane" aria-labelledby="tabset2_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel list -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel list</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get \
-  channels.messaging.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get channels.messaging.knative.dev</code></pre>
 </div>
 </div>
 </div>
@@ -696,9 +694,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset3_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping create \
-  event-greeter-ping-source \
-  --namespace knativetutorial \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping create event-greeter-ping-source \
   --schedule "*/2 * * * *" \
   --sink channel:eventinghello-ch</code></pre>
 </div>
@@ -707,7 +703,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/event-source.yaml">${TUTORIAL_HOME}/eventing/event-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/event-source.yaml">${TUTORIAL_HOME}/eventing/event-source.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -730,7 +726,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset4_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping -n knativetutorial list</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping list</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -746,7 +742,7 @@ event-greeter-ping-source   */2 * * * *   Channel:eventinghello-ch   24s   4 OK 
 <div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get pingsource.sources.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pingsource.sources.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -843,7 +839,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventinghelloa \
-  --namespace knativetutorial \
   --concurrency-target=1 \
   --revision-name=eventinghelloa-v1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
@@ -853,7 +848,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset5_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-helloa-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-helloa-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-helloa-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-helloa-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -878,7 +873,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventinghellob \
-  --namespace knativetutorial \
   --concurrency-target=1 \
   --revision-name=eventinghellob-v1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
@@ -888,7 +882,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-hellob-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hellob-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-hellob-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hellob-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -957,9 +951,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset7_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription create \
-  eventinghelloa-sub \
-  --namespace knativetutorial \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription create eventinghelloa-sub \
   --channel eventinghello-ch \
   --sink eventinghelloa</code></pre>
 </div>
@@ -968,7 +960,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset7_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-helloa-sub.yaml">${TUTORIAL_HOME}/eventing/eventing-helloa-sub.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-helloa-sub.yaml">${TUTORIAL_HOME}/eventing/eventing-helloa-sub.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -992,9 +984,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset8_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription create \
-  eventinghellob-sub \
-  --namespace knativetutorial \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription create eventinghellob-sub \
   --channel eventinghello-ch \
   --sink eventinghellob</code></pre>
 </div>
@@ -1003,7 +993,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset8_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-hellob-sub.yaml">${TUTORIAL_HOME}/eventing/eventing-hellob-sub.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-hellob-sub.yaml">${TUTORIAL_HOME}/eventing/eventing-hellob-sub.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -1027,7 +1017,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset9_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription -n knativetutorial list</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription list</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1044,8 +1034,7 @@ eventinghellob-sub   Channel:eventinghello-ch   ksvc:eventinghellob             
 <div class="tab-pane" aria-labelledby="tabset9_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial \
-   get subscription.messaging.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get subscription.messaging.knative.dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1101,7 +1090,7 @@ eventinghellob-v1-deployment-5c986c7586-4clpb              2/2   Running 5s</cod
 <div class="tab-pane" aria-labelledby="tabset10_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel list --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1114,7 +1103,7 @@ eventinghello-ch   InMemoryChannel   http://eventinghello-ch-kn-channel.knativet
 <div class="tab-pane" aria-labelledby="tabset10_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get --namespace knativetutorial channels.messaging.knative.dev eventinghello-ch</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get channels.messaging.knative.dev eventinghello-ch</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1144,7 +1133,7 @@ eventinghello-ch   http://eventinghello-ch-kn-channel.knativetutorial.svc.cluste
 <div class="tab-pane" aria-labelledby="tabset11_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping --namespace knativetutorial list</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1157,7 +1146,7 @@ event-greeter-ping-source   */2 * * * *   Channel:eventinghello-ch   10m   4 OK 
 <div class="tab-pane" aria-labelledby="tabset11_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get --namespace knativetutorial pingsource.sources.knative.dev  event-greeter-ping-source</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pingsource.sources.knative.dev  event-greeter-ping-source</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1187,7 +1176,7 @@ event-greeter-ping-source   http://eventinghello-ch-kn-channel.knativetutorial.s
 <div class="tab-pane" aria-labelledby="tabset12_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription list --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn subscription list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -1201,7 +1190,7 @@ eventinghellob-sub   Channel:eventinghello-ch   ksvc:eventinghellob             
 <div class="tab-pane" aria-labelledby="tabset12_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get subscriptions.messaging.knative.dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get subscriptions.messaging.knative.dev</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">

@@ -697,7 +697,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventinghello \
-  --namespace knativetutorial \
   --concurrency-target=1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
 </div>
@@ -706,7 +705,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -737,7 +736,6 @@ spec:
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping create eventinghello-ping-source \
-  --namespace knativetutorial \
   --schedule "*/2 * * * *" \
   --data '{"message": "Thanks for doing Knative Tutorial"}' \
   --sink ksvc:eventinghello</code></pre>
@@ -747,7 +745,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="{repo-base}/blob/v1.18/eventing/eventinghello-source.yaml">${TUTORIAL_HOME}/eventing/eventinghello-source.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="{repo-base}/blob/v1.18/eventing/eventinghello-source.yaml">${TUTORIAL_HOME}/eventing/eventinghello-source.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -773,7 +771,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset3_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping list -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping list</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -789,8 +787,7 @@ eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4   
 <div class="tab-pane" aria-labelledby="tabset3_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get \
-  pingsources.sources.knative.dev \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pingsources.sources.knative.dev \
   eventinghello-ping-source</code></pre>
 </div>
 </div>
@@ -849,16 +846,16 @@ eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container Jolokia: Agent sta
 <div class="tab-pane" aria-labelledby="tabset4_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping delete -n knativetutorial eventinghello-ping-source
-kn service delete -n knativetutorial eventinghello</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source ping delete eventinghello-ping-source
+kn service delete eventinghello</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete -f ${TUTORIAL_HOME}/eventing/eventinghello-source.yaml
-kubectl -n knativetutorial delete -f ${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f ${TUTORIAL_HOME}/eventing/eventinghello-source.yaml
+kubectl delete -f ${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</code></pre>
 </div>
 </div>
 </div>

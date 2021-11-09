@@ -640,15 +640,14 @@ metadata:
 <div class="tab-pane" aria-labelledby="tabset1_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker create default \
-  --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker create default</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset1_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/eventing/default-broker.yaml">${TUTORIAL_HOME}/eventing/default-broker.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/eventing/default-broker.yaml">${TUTORIAL_HOME}/eventing/default-broker.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -672,7 +671,7 @@ metadata:
 <div class="tab-pane" aria-labelledby="tabset2_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker -n knativetutorial list</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn broker list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">

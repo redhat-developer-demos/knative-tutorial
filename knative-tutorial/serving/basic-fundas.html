@@ -704,7 +704,7 @@ spec:
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service.yaml">$TUTORIAL_HOME/serving/service.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/serving/service.yaml">$TUTORIAL_HOME/serving/service.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -715,7 +715,7 @@ spec:
 </div>
 <div id="basics-run-get-deployments" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get deployments -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get deployments</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -772,7 +772,7 @@ The actual deployment name may vary in your setup
 <div class="tab-pane" aria-labelledby="tabset3_minikube">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -n knativetutorial -o url)</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http $(kn service describe greeter -o url)</code></pre>
 </div>
 </div>
 </div>
@@ -831,7 +831,7 @@ Sometimes the response might not be returned immediately especially when the pod
 <div class="tab-pane" aria-labelledby="tabset4_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service list -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service list</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -844,7 +844,7 @@ greeter   http://greeter.knativetutorial.192.168.64.13.nip.io   greeter-sxnzq-1 
 <div class="tab-pane" aria-labelledby="tabset4_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial  get services.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -861,7 +861,7 @@ greeter   <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="b
 <h3 id="basics-show-knative-configs"><a class="anchor" href="#basics-show-knative-configs"></a>configuration</h3>
 <div id="knative-configs" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get configurations.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get configurations.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -901,7 +901,7 @@ greeter   http://greeter.knativetutorial.192.168.64.13.nip.io   True</code></pre
 <div class="tab-pane" aria-labelledby="tabset5_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get routes.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get routes.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 <div class="listingblock console-output">
@@ -931,14 +931,14 @@ greeter   <a href="http://greeter.knativetutorial.192.168.64.13.nip.io" class="b
 <div class="tab-pane" aria-labelledby="tabset6_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn revision list</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset6_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl --namespace knativetutorial get rev \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get rev \
 --selector=serving.knative.dev/service=greeter \
 --sort-by="{.metadata.creationTimestamp}"</code></pre>
 </div>
@@ -991,14 +991,14 @@ greeter-sxnzq-1    greeter       greeter-sxnzq-1       1            True</code><
 <div class="tab-pane" aria-labelledby="tabset7_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service -n knativetutorial delete greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service delete greeter</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset7_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial delete services.serving.knative.dev greeter</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete services.serving.knative.dev greeter</code></pre>
 </div>
 </div>
 </div>

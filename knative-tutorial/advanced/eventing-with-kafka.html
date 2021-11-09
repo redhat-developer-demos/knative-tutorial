@@ -776,15 +776,14 @@ data:
 <div class="tab-pane" aria-labelledby="tabset2_kn">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel create my-events-ch \
-  --namespace knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn channel create my-events-ch</code></pre>
 </div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/eventing/default-kafka-channel.yaml">${TUTORIAL_HOME}/eventing/default-kafka-channel.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/eventing/default-kafka-channel.yaml">${TUTORIAL_HOME}/eventing/default-kafka-channel.yaml</a></code></pre>
 </div>
 </div>
 </div>
@@ -945,7 +944,6 @@ mt-broker-controller-6d66c4c6f6-56s9s   1/1     Running   0          19h</code><
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn service create eventinghello \
-  --namespace knativetutorial \
   --concurrency-target=1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2</code></pre>
 </div>
@@ -954,7 +952,7 @@ mt-broker-controller-6d66c4c6f6-56s9s   1/1     Running   0          19h</code><
 <div class="tab-pane" aria-labelledby="tabset5_kubectl">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f <a href="https://github.com/redhat-developer-demos/knative-tutorial/blob/v1.18/eventing/eventing-hello-sink.yaml">${TUTORIAL_HOME}/eventing/eventing-hello-sink.yaml</a></code></pre>
 </div>
 </div>
 </div>
