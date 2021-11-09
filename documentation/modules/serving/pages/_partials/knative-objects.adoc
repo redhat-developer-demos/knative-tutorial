@@ -56,7 +56,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn route --namespace {tutorial-namespace} list
+kn route list
 ----
 
 [.console-output]
