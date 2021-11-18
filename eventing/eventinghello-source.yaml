@@ -4,7 +4,7 @@ metadata:
   name: eventinghello-ping-source
 spec:
   data: '{"message": "Thanks for doing Knative Tutorial"}'
-  schedule: '*/2 * * * *'
+  schedule: '*/1 * * * *'
   sink:
     ref:
       apiVersion: serving.knative.dev/v1
