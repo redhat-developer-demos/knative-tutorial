@@ -24,11 +24,11 @@ kubectl api-resources --api-group='sources.knative.dev'
 [.console-output]
 [source,bash]
 ----
-NAME              APIGROUP                      NAMESPACED   KIND
-apiserversources  sources.knative.dev           true         ApiServerSource
-containersources  sources.knative.dev           true         ContainerSource
-pingsources       sources.knative.dev           true         PingSource
-sinkbindings      sources.knative.dev           true         SinkBinding
+NAME               SHORTNAMES   APIVERSION               NAMESPACED   KIND
+apiserversources                sources.knative.dev/v1   true         ApiServerSource
+containersources                sources.knative.dev/v1   true         ContainerSource
+pingsources                     sources.knative.dev/v1   true         PingSource
+sinkbindings                    sources.knative.dev/v1   true         SinkBinding
 ----
 
 Let's see how a simple source, the *PingSource* looks like : 
@@ -134,7 +134,7 @@ Running  the above command should return the following result:
 [source,bash]
 ----
 NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
-eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True
+eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   9s    3 OK / 3     True 
 ----
 
 --
@@ -171,16 +171,16 @@ stern eventinghello -c user-container -n {tutorial-namespace}
 [source,bash,subs="quotes"]
 ----
 ...
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,427 INFO  [eventing-hello] (executor-thread-1) ce-id=4b59c201-56a3-4189-b042-4246d3f33504
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-source=/apis/v1/namespaces/user2-knativetutorial/pingsources/eventinghello-ping-source
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-specversion=1.0
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-time=2021-01-28T08:14:00.000224506Z
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) ce-type=dev.knative.sources.ping
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-type=application/json
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-length=47
-#eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) POST:{"message":"Thanks for doing Knative Tutorial"}#
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container I> No access restrictor found, access to any MBean is allowed
-eventinghello-2m4hn-deployment-c8f4f6758-qrjm6 user-container Jolokia: Agent started with URL https://10.129.4.97:8778/jolokia/
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,427 INFO  [eventing-hello] (executor-thread-1) ce-id=4b59c201-56a3-4189-b042-4246d3f33504
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-source=/apis/v1/namespaces/user2-knativetutorial/pingsources/eventinghello-ping-source
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-specversion=1.0
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-time=2021-01-28T08:14:00.000224506Z
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) ce-type=dev.knative.sources.ping
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-type=application/json
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-length=47
+#eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) POST:{"message":"Thanks for doing Knative Tutorial"}#
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container I> No access restrictor found, access to any MBean is allowed
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container Jolokia: Agent started with URL https://10.129.4.97:8778/jolokia/
 ----
 
 

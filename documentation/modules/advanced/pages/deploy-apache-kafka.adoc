@@ -65,17 +65,16 @@ The command should show the following output:
 [.console-output]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
-NAME                 SHORTNAMES   APIGROUP           NAMESPACED   KIND
-kafkabridges         kb           kafka.strimzi.io   true         KafkaBridge
-kafkaconnectors      kctr         kafka.strimzi.io   true         KafkaConnector
-kafkaconnects        kc           kafka.strimzi.io   true         KafkaConnect
-kafkaconnects2is     kcs2i        kafka.strimzi.io   true         KafkaConnectS2I
-kafkamirrormaker2s   kmm2         kafka.strimzi.io   true         KafkaMirrorMaker2
-kafkamirrormakers    kmm          kafka.strimzi.io   true         KafkaMirrorMaker
-kafkarebalances      kr           kafka.strimzi.io   true         KafkaRebalance
-kafkas               k            kafka.strimzi.io   true         Kafka
-kafkatopics          kt           kafka.strimzi.io   true         KafkaTopic
-kafkausers           ku           kafka.strimzi.io   true         KafkaUser
+NAME                 SHORTNAMES   APIVERSION                 NAMESPACED   KIND
+kafkabridges         kb           kafka.strimzi.io/v1beta2   true         KafkaBridge
+kafkaconnectors      kctr         kafka.strimzi.io/v1beta2   true         KafkaConnector
+kafkaconnects        kc           kafka.strimzi.io/v1beta2   true         KafkaConnect
+kafkamirrormaker2s   kmm2         kafka.strimzi.io/v1beta2   true         KafkaMirrorMaker2
+kafkamirrormakers    kmm          kafka.strimzi.io/v1beta2   true         KafkaMirrorMaker
+kafkarebalances      kr           kafka.strimzi.io/v1beta2   true         KafkaRebalance
+kafkas               k            kafka.strimzi.io/v1beta2   true         Kafka
+kafkatopics          kt           kafka.strimzi.io/v1beta2   true         KafkaTopic
+kafkausers           ku           kafka.strimzi.io/v1beta2   true         KafkaUser
 ----
 
 Now with the Apache Kafka operator running, you can deploy and verify a single node Apache Kafka cluster by running the command:
@@ -101,13 +100,10 @@ Watch the `kafka` namespace for the cluster deployment:
 [.console-output]
 [source,bash,subs="+quotes,attributes+,+macros"]
 ----
-NAME                                         READY  STATUS   AGE
-my-cluster-entity-operator-7d677bdf7b-jpws7  3/3    Running  85s
-my-cluster-kafka-0                           2/2    Running  110s
-my-cluster-zookeeper-0                       2/2    Running  2m22s
-my-cluster-zookeeper-1                       2/2    Running  2m22s
-my-cluster-zookeeper-2                       2/2    Running  2m22s
-strimzi-cluster-operator-85f596bfc7-7dgds    1/1    Running  4m22s
+my-cluster-entity-operator-6cb88758b7-hhxq7   3/3     Running   0              31s
+my-cluster-kafka-0                            1/1     Running   0              54s
+my-cluster-zookeeper-0                        1/1     Running   2 (104s ago)   118s
+strimzi-cluster-operator-787d48b5bc-649jb     1/1     Running   2 (2m7s ago)   41m
 ----
 
 The Kubernetes CRD resource `$TUTORIAL_HOME/eventing/kafka-broker-my-cluster.yaml`, will deploy a single *Zookeeper*, *Kafka Broker* and a *Entity-Operator*.  The *Entity-Operator* is responsible for managing different custom resources such as KafkaTopic and KafkaUser.
@@ -117,7 +113,7 @@ Now that you have an Apache Kafka cluster deployed, you can create a Kafka Topic
 .Create Kafka Topic my-topic
 [source,yaml]
 ----
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: my-topic

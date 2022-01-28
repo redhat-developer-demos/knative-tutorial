@@ -186,14 +186,14 @@ The command above shows the following output:
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                   SHORTNAMES   APIGROUP           NAMESPACED   KIND
-builds                 ikb          camel.apache.org   true         Build
-camelcatalogs          cc           camel.apache.org   true         CamelCatalog
-integrationkits        ik           camel.apache.org   true         IntegrationKit
-integrationplatforms   ip           camel.apache.org   true         IntegrationPlatform
-integrations           it           camel.apache.org   true         Integration
-kameletbindings        klb          camel.apache.org   true         KameletBinding
-kamelets               kl           camel.apache.org   true         Kamelet
+NAME                   SHORTNAMES   APIVERSION                  NAMESPACED   KIND
+builds                 ikb          camel.apache.org/v1         true         Build
+camelcatalogs          cc           camel.apache.org/v1         true         CamelCatalog
+integrationkits        ik           camel.apache.org/v1         true         IntegrationKit
+integrationplatforms   ip           camel.apache.org/v1         true         IntegrationPlatform
+integrations           it           camel.apache.org/v1         true         Integration
+kameletbindings        klb          camel.apache.org/v1alpha1   true         KameletBinding
+kamelets               kl           camel.apache.org/v1alpha1   true         Kamelet
 ----
 
 [#camel-k-list-int]

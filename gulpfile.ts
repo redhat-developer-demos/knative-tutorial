@@ -7,7 +7,7 @@ const buildConfig = yargs.options("playbook", {
   describe: 'Antora Playbook file to use to build the site'
 }).options("srcDir", {
   alias: 's',
-  default: '/usr/src/app',
+  default: '/Users/amihalce/Documents/deepdives/knative-tutorial',
   describe: 'The documentation source root'
 }).options("outputDir", {
   alias: 'o',

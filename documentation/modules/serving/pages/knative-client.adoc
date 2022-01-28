@@ -38,14 +38,14 @@ The above command will return a response like
 [.console-output]
 ----
 Version:      {kn-client-version}
-Build Date:   2020-11-25 18:27:45
-Git Revision: f128d045
+Build Date:   2021-12-14T12:31:50Z
+Git Revision: 530841f1
 Supported APIs:
 * Serving
-  - serving.knative.dev/v1 (knative-serving v0.19.0)
+  - serving.knative.dev/v1 (knative-serving )
 * Eventing
-  - sources.knative.dev/v1alpha2 (knative-eventing v0.19.0)
-  - eventing.knative.dev/v1beta1 (knative-eventing v0.19.0)
+  - sources.knative.dev/v1 (knative-eventing )
+  - eventing.knative.dev/v1 (knative-eventing )
 ----
 
 [#kn-ksvc]
@@ -261,10 +261,9 @@ kn revision list
 [.console-output]
 [source,bash]
 ----
-NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
-greeter-tjtpm-2   greeter   100%             2            98s   4 OK / 4     True    
-greeter-twpgf-1   greeter                    1            11h   3 OK / 4     True    
-
+NAME            SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
+greeter-00002   greeter   100%             2            3m37s   3 OK / 4     True    
+greeter-00001   greeter                    1            16m     3 OK / 4     True
 ----
 
 [#kn-revisions-desc]
@@ -276,25 +275,25 @@ To get the details about a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision describe greeter-twpgf-1
+kn revision describe greeter-00001
 ----
 
 [.console-output]
 [source,bash]
 ----
-Name:       greeter-twpgf-1
+Name:       greeter-00001
 Namespace:  knativetutorial
-Age:        10m
+Age:        17m
 Image:      quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+Replicas:   0/0
 Service:    greeter
 
 Conditions:  
   OK TYPE                  AGE REASON
-  ++ Ready                  9m 
-  ++ ContainerHealthy       9m 
-  ++ ResourcesAvailable     9m 
-   I Active                 8m NoTraffic
-
+  ++ Ready                 17m 
+  ++ ContainerHealthy      17m 
+  ++ ResourcesAvailable    17m 
+   I Active                16m NoTraffic
 ----
 
 [#kn-revisions-delete]
@@ -305,13 +304,13 @@ To delete a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision delete greeter-twpgf-1
+kn revision delete greeter-00001
 ----
 
 [.console-output]
 [source,bash]
 ----
-Revision 'greeter-twpgf-1' successfully deleted in namespace 'knativetutorial'.
+Revision 'greeter-00001' successfully deleted in namespace 'knativetutorial'.
 ----
 
 [#kn-routes]

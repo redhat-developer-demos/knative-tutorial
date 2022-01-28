@@ -29,8 +29,8 @@ kubectl get services.serving.knative.dev greeter
 [.console-output]
 [source,bash,subs="+macros,+attributes"]
 ----
-NAME      URL                                                   LATESTCREATED     LATESTREADY       READY   REASON
-greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   greeter-sxnzq-1   greeter-sxnzq-1   True
+NAME      LATESTCREATED   LATESTREADY     READY   REASON
+greeter   greeter-00001   greeter-00001   True 
 ----
 --
 ====
@@ -63,7 +63,7 @@ kn route list
 [source,bash,subs="+attributes"]
 ----
 NAME      URL                                          READY
-greeter   http://greeter.{tutorial-namespace}.{minikube-nip-io}   True
+greeter   http://greeter.knativetutorial.example.com   True
 ----
 
 --

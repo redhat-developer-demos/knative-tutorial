@@ -116,8 +116,8 @@ kn service -n {tutorial-namespace} ls
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME            URL                                                LATEST                AGE   CONDITIONS   READY   REASON
-event-display   http://event-display.knativetutorial.example.com   event-display-7jvmm   85s   3 OK / 3     True
+NAME            URL                                                          LATEST                AGE   CONDITIONS   READY   REASON
+event-display   http://event-display.knativetutorial.192.168.59.101.nip.io   event-display-00001   24s   3 OK / 3     True
 ----
 
 --

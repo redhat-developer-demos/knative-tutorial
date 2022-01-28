@@ -114,8 +114,8 @@ include::serving:partial$knative-objects.adoc[tag=knative-configs]
 [.console-output]
 [source,bash]
 ----
-NAME      LATESTCREATED      LATESTREADY       READY
-greeter   greeter-sxnzq-1    greeter-sxnzq-1    True
+NAME      LATESTCREATED   LATESTREADY     READY   REASON
+greeter   greeter-00001   greeter-00001   True    
 ----
 
 [#basics-show-knative-routes]
@@ -131,8 +131,8 @@ include::serving:partial$knative-objects.adoc[tag=knative-revisions]
 [.console-output]
 [source,bash]
 ----
-NAME            CONFIG NAME   K8S SERVICE NAME   GENERATION   READY 
-greeter-sxnzq-1    greeter       greeter-sxnzq-1       1            True
+NAME            SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
+greeter-00001   greeter   100%             1            9m37s   3 OK / 4     True
 ----
 
 [TIP]

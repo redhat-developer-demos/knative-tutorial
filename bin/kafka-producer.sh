@@ -9,7 +9,7 @@ KAFKA_CLUSTER_NAME=${3:-'my-cluster'}
 
 
 kubectl -n $KAFKA_CLUSTER_NS run kafka-producer -ti \
- --image=strimzi/kafka:0.15.0-kafka-2.3.1 \
+ --image=quay.io/strimzi/kafka:0.26.1-kafka-3.0.0 \
  --rm=true --restart=Never \
  -- bin/kafka-console-producer.sh\
  --broker-list $KAFKA_CLUSTER_NAME-$KAFKA_CLUSTER_NS-bootstrap:9092 \
