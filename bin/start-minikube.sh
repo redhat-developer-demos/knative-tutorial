@@ -3,8 +3,8 @@
 set -eu
 
 PROFILE_NAME=${PROFILE_NAME:-knativetutorial}
-MEMORY=${MEMORY:-4096}
-CPUS=${CPUS:-5}
+MEMORY=${MEMORY:-8192}
+CPUS=${CPUS:-6}
 
 unamestr=$(uname)
 
