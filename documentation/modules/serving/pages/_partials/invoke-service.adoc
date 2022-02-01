@@ -21,7 +21,7 @@ http $(kn service describe greeter -o url)
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-export SVC_URL=`{kubernetes-cli} get rt greeter -o yaml | yq read - 'status.url'` && \
+export SVC_URL=`{kubernetes-cli} get rt greeter -o jsonpath={.status.url} && \
 http $SVC_URL
 ----
 
@@ -32,7 +32,7 @@ http $SVC_URL
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-export SVC_URL=`{kubernetes-cli} get rt greeter -o yaml | yq read - 'status.url'` && \
+export SVC_URL=`{kubernetes-cli} get rt greeter -o jsonpath={.status.url} && \
 http $SVC_URL/{svc-params}
 ----
 

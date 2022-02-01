@@ -27,7 +27,7 @@ copyToClipboard::{doc-sec}-{k8s-cli}-svc-call[]
 [#{doc-sec}-{k8s-env}-{k8s-cli}-svc-call]
 [source,bash,subs="+macros,+attributes"]
 ----
-export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` && \
+export SVC_URL=`oc get rt greeter -o jsonpath={.status.url} && \
 http $SVC_URL
 ----
 
@@ -40,7 +40,7 @@ copyToClipboard::{doc-sec}-{k8s-env}-{k8s-cli}-svc-call[]
 [#{doc-sec}-{k8s-cli}-svc-call-params]
 [source,bash,subs="+macros,+attributes"]
 ----
-export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` && \
+export SVC_URL=`oc get rt greeter -o jsonpath={.status.url} && \
 http $SVC_URL/{svc-params}
 ----
 
