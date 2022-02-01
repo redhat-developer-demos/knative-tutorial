@@ -30,7 +30,7 @@ The application has following components,
 - *Event Subscriber(Fruits UI)*: The https://quarkus.io[Quarkus] Java application, that will display the processed data from the Data Processor
 - *Event Trigger*: This is xref:knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc[Knative Event Trigger] that apply a filter on the processed data, to send to the Event Subscriber
 
-The upcoming recipes will deploy these individual components and finally we test the integration by wiring them all together.
+The upcoming samples will deploy these individual components and finally we test the integration by wiring them all together.
 
 Just make sure:
 
@@ -80,43 +80,30 @@ cd $TUTORIAL_HOME/{camelk-repo}
 
 Knative Camel-K integration called `fruits-producer` which will use a public http://fruityvice.com[fruits API] to retrieve the information about fruits and stream the data to Apache Kafka. The `fruits-producer` service retrieves the data from the fruits API, splits it using the https://camel.apache.org/manual/latest/split-eip.html[Split EIP] and then sends the data to a Kafka topic called `fruits`.
 
-As the Fruityvice services self-signed certificates which Quarkus does not allow out of the box, we will use a proxy that skips SSL check.
-
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl apply -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/fruityvice-proxy.yaml
-----
-
-Wait for the frutiyvice proxy to be running:
-
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl rollout status deploy fruityvice-proxy
-----
-
 .Fruits producer
 [source,yaml]
 ----
 - from:
-    uri: "knative:endpoint/fruits-producer"
+    uri: timer:tick
+    parameters:
+      period: 5000
     steps:
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "http:fruityvice-proxy:8080/api/fruit/all?bridgeEndpoint=true" # <1>
+      - to: "https://www.fruityvice.com/api/fruit/all"#<1>
       - split:
-          jsonpath: "$.[*]" # <2>
+          jsonpath: "$.[*]"#<2>
       - marshal:
           json: {}
       - log:
           message: "${body}"
-      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092" # <3>
+      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"#<3>
+
 ----
 
-<1> Call the external REST API http://fruityvice.com to get the list of fruits to simulate the data streaming
-<2> Apply the Camel Split EIP to split the JSON array to individual records
+<1> Poll every 5 seconds from the REST API http://fruityvice.com.
+<2> Call the external REST API http://fruityvice.com to get the list of fruits to simulate the data streaming
 <3> Send the processed data i.e. the individual fruit record as JSON to Apache Kafka Topic
 
 Run the following command to deploy the `fruit-producer` integration:
@@ -152,7 +139,6 @@ A successful deploy will show the following pods:
 ----
 NAME                                                READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz                   1/1     Running   4h4m
-fruityvice-proxy-76d6ff5f7f-rlrqh                   1/1     Running   4m1
 *_fruits-producer-nfngm-deployment-759c797c44-d6r52   2/2     Running   70s_*
 ----
 
@@ -168,15 +154,6 @@ fruits-producer   http://fruits-producer.{tutorial-namespace}.{minikube-nip-io} 
 
 [[kamel-cbr-fp-verify]]
 === Verify Fruit Producer
-
-Run the `$TUTORIAL_HOME/bin/call.sh` with the parameter `fruits-producer`. 
-
-[.console-input]
-[#kamel-cbr-call-fp]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-$TUTORIAL_HOME/bin/call.sh fruits-producer ''
-----
 
 Open a new terminal and run the start Kafka consumer using the script `$TUTORIAL_HOME/bin/kafka-consumer.sh` with parameter `fruits`:
 
@@ -203,90 +180,149 @@ Since the fruits API returns a static set of fruit data consistently, you can ca
 [[camel-k-cbr-data-processor]]
 == Deploy Data Processor
 
-Let us now deploy a CamelSource called `fruits-processor`, that can  handle and process the streaming data from the Kafka topic `fruits`. The `fruits-processor` CamelSource applies the *Content Based Router* EIP to process the data. The following listing describes the `fruits-processor` CamelSource:
+Let us now deploy a Kamelet called `fruits-processor`, that can  handle and process the streaming data from the Kafka topic `fruits`. 
+The `fruits-processor` Kamelet applies the *Content Based Router* EIP to process the data:
 
-.CamelSource fruits-processor
+.Kamelet fruits-processor
 [source,yaml]
 ----
-apiVersion: sources.eventing.knative.dev/v1alpha1
-kind: CamelSource
+apiVersion: camel.apache.org/v1alpha1
+kind: Kamelet
 metadata:
   name: fruits-processor
+  annotations:
+    camel.apache.org/kamelet.support.level: "Preview"
+    camel.apache.org/catalog.version: "main-SNAPSHOT"
+    camel.apache.org/provider: "Apache Software Foundation"
+    camel.apache.org/kamelet.group: "Kafka"
+  labels:
+    camel.apache.org/kamelet.type: "source"
 spec:
-  source:
-    integration:
-      dependencies:
-        - camel:log
-        - camel:kafka
-        - camel:jackson
-        - camel:bean
-    flow:
-      from:
-        uri: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092" #<1>
-        steps:
-          - log:
-              message: "Received Body ${body}"
-          - unmarshal:
-              json: {} #<2>
-          - choice: #<3>
-              when:
-                - simple: "${body[nutritions][sugar]} <= 5"
-                  steps:
-                    - remove-headers: "*"
-                    - marshal:
-                        json: {}
-                    - set-header: #<4>
-                        name: ce-type
-                        constant: low-sugar
-                    - set-header:
-                        name: fruit-sugar-level
-                        constant: low
-                    - to: "log:low?showAll=true&multiline=true"
-                - simple: "${body[nutritions][sugar]} > 5 && ${body[nutritions][sugar]} <= 10"
-                  steps:
-                    - remove-headers: "*"
-                    - marshal:
-                        json: {}
-                    - set-header:
-                        name: ce-type
-                        constant: medium-sugar
-                    - set-header:
-                        name: fruit-sugar-level
-                        constant: medium
-                    - to: "log:medium?showAll=true&multiline=true"
-              otherwise:
+  definition:
+    title: "Kafka Not Secured Source"
+    description: |-
+      Receive data from Kafka topics on an insecure broker.
+    required:
+      - topic
+      - brokers
+    type: object
+    properties:
+      topic:
+        title: Topic Names
+        description: Comma separated list of Kafka topic names
+        type: string
+      brokers:
+        title: Brokers
+        description: Comma separated list of Kafka Broker URLs
+        type: string
+  dependencies:
+    - "github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT"
+    - "camel:kafka"
+    - "camel:kamelet"
+    - "camel:jackson"
+    - "camel:core"
+    - "camel:log"
+  flow:
+    from:
+      uri: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"#<1>
+      steps:
+        - log:
+            message: "Received Body ${body}"
+        - unmarshal:
+            json: {}#<2>
+        - choice: #<3>
+            when:
+              - simple: "${body[nutritions][sugar]} <= 5"
+                steps:
+                  - remove-headers: "*"
+                  - marshal:
+                      json: {}
+                  - set-header: #<4>
+                      name: ce-type
+                      constant: low-sugar
+                  - set-header:
+                      name: fruit-sugar-level
+                      constant: low
+                  - to: "log:low?showAll=true&multiline=true"
+              - simple: "${body[nutritions][sugar]} > 5 || ${body[nutritions][sugar]} <= 10"
                 steps:
                   - remove-headers: "*"
                   - marshal:
                       json: {}
                   - set-header:
                       name: ce-type
-                      constant: high-sugar
+                      constant: medium-sugar
                   - set-header:
                       name: fruit-sugar-level
-                      constant: high
-                  - to: "log:high?showAll=true&multiline=true"
-  sink: #<5>
-    ref:
-      apiVersion: eventing.knative.dev/v1alpha1
-      kind: Broker
-      name: default
+                      constant: medium
+                  - to: "log:medium?showAll=true&multiline=true"
+            otherwise:
+              steps:
+                - remove-headers: "*"
+                - marshal:
+                    json: {}
+                - set-header:
+                    name: ce-type
+                    constant: high-sugar
+                - set-header:
+                    name: fruit-sugar-level
+                    constant: high
+                - to: "log:high?showAll=true&multiline=true"
 ----
 
 <1> The Camel route connects to Apache Kafka broker and the topic `fruits`.
 <2> Once the data is received it is transformed into a JSON payload.
 <3> The `Content Based Router` pattern using the https://camel.apache.org/manual/latest/choice-eip.html[Choice EIP]. In the data processing you classify the fruits as low (sugar pass:[&lt;=] 5), medium(sugar between 5 to 10) and high(sugar > 10) based on the sugar level present in their nutritions data.
 <4> Based on the data classification you will be setting the https://cloudevents.io[CloudEvents] `type` header to be `low-high`, `medium-sugar` and `high-sugar`. This header is used as one of the filter attributes in the Knative Eventing Trigger.
-<5> The last step is to send the processed data to the Knative Eventing Broker named `default`.
+
+Let's deploy the Kamelet using the following command:
 
 [.console-input]
 [#kamel-deploy-data-processor]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl apply -n {tutorial-namespace} -f eip/fruits-processor.yaml
+kubectl apply -n {tutorial-namespace} -f eip/fruits-processor-kamelet.yaml
 ----
 
-As the Camel-K controller takes few minutes to deploy the CamelSource, you can watch the pods of the `{tutorial-namespace}` namespace for its status:
+The last step is to send the processed data to the Knative Eventing Broker named `default`.
+We can do that by using a `KameletBinding`:
+
+.KameletBinding fruits-processor
+[source,yaml]
+----
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: fruits-processor-to-knative
+spec:
+  source:
+    ref: #<1>
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: fruits-processor
+    properties:
+      topic: "fruits"
+      brokers: "my-cluster-kafka-bootstrap.kafka:9092"
+  sink: #<2>
+    ref: 
+      kind: Broker
+      apiVersion: eventing.knative.dev/v1
+      name: default
+----
+
+<1> Kubernetes reference to the previously created Kamelet.
+<2> Sink the input to the default broker.
+
+Let's deploy the KameletBinding using:
+
+[.console-input]
+[#kamel-deploy-data-binding]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl apply -n {tutorial-namespace} -f eip/fruits-processor-to-knative.yaml
+----
+
+As the Camel-K controller takes few minutes to deploy the KameletBinding, you can watch the pods of the `{tutorial-namespace}` namespace for its status:
 
 include::advanced:partial$adv-kubectl-queries.adoc[tags="kgpow"]
 
@@ -294,13 +330,10 @@ include::advanced:partial$adv-kubectl-queries.adoc[tags="kgpow"]
 .fruit-processor Knative service pods
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                      READY   STATUS    AGE
-camel-k-operator-5d74595cdf-4v9qz         1/1     Running   4h17m
-*_fruits-processor-h45f7-6fdfd74cf9-nmfkn   1/1     Running   29s_*
-fruityvice-proxy-76d6ff5f7f-rlrqh         1/1     Running   24m
+NAME                                               READY   STATUS    AGE
+camel-k-operator-5d74595cdf-4v9qz                  1/1     Running   4h17m
+*fruits-processor-to-knative-595945f8d7-wc9qz      1/1     Running   4h42m*
 ----
-
-A successful `fruit-processor` is deploy will show the following pods in `{tutorial-namespace}`
 
 [NOTE]
 ====
@@ -309,20 +342,21 @@ Wondering why `fruit-producer` is not listed ?
 `fruit-producer` is a Knative service, hence it wil be scaled down to zero in 60-90 seconds.
 ====
 
+You can check if your `KameletBinding` is `Ready` by running: 
 [.console-input]
 [#kamel-cbr-query-camelsources]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch kubectl get  -n {tutorial-namespace} camelsources
+kn source kamelet binding list -n {tutorial-namespace}
 ----
 
-When the CamelSource deployment is successful you will see it in `READY` state as shown:
+When the KamelBinding is successful you will see it in `READY` state as shown:
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME               READY   REASON   AGE
-fruits-processor   True             2m22s
+NAME                           READY   REASON   AGE
+fruits-processor-to-knative    True             2m22s
 ----
 
 [[camel-k-cbr-event-subscriber]]
@@ -354,7 +388,6 @@ NAME                                       READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz          1/1     Running   4h21m
 *_fruit-events-display-8d47bc98f-6r7zt       1/1     Running   15s_*
 fruits-processor-h45f7-6fdfd74cf9-nmfkn    1/1     Running   4m12s
-fruityvice-proxy-76d6ff5f7f-rlrqh          1/1     Running   24m
 ----
 
 The web `fruit-events-display` application will refresh its UI as and when it receives the processed data, you need you open the web application in your browser.
@@ -479,10 +512,10 @@ image::cbr_app_ui_with_data.png[align="center"]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 kamel delete  -n {tutorial-namespace} fruits-producer
-kubectl delete  -n {tutorial-namespace} -f eip/fruits-processor.yaml
+kubectl delete  -n {tutorial-namespace} -f eip/fruits-processor-kamelet.yaml
+kubectl delete  -n {tutorial-namespace} -f eip/fruits-processor-to-knative.yaml
 kubectl delete  -n {tutorial-namespace} -f eip/sugary-fruits.yaml
 kubectl delete -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/fruit-events-display.yaml
-kubectl delete -n {tutorial-namespace} -f $TUTORIAL_HOME/install/utils/fruityvice-proxy.yaml
 kn broker delete  -n {tutorial-namespace} default
 kamel -n {tutorial-namespace} reset
 kamel -n {tutorial-namespace} uninstall

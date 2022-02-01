@@ -17,15 +17,18 @@ asciidoc:
     tutorial-namespace: knativetutorial
     branch: master
     workshop-domain: guru.devx.red
-    minikube-version:  v1.17.1
-    openshift-version: v4.6
-    kubernetes-version: v1.19.0
-    knative-version: v0.19.0
-    knative-serving-version: v0.19.0
-    net-kourier-version: v0.19.0
-    knative-eventing-version: v0.19.2
-    knative-sources-version: v0.19.0
-    kn-client-version: v0.19.1
+    minikube-version:  v1.25.1
+    openshift-version: v4.8
+    kubernetes-version: v1.23.0
+    knative-version: v1.1.0
+    knative-serving-version: v1.1.0
+    net-kourier-version: v1.1.0
+    knative-eventing-version: v1.1.0
+    knative-sources-version: v1.1.0
+    kn-client-version: v1.1.0
+    camel-source-version: v0.24.0
+    kafka-source-version: v1.1.0
+    kamel-version: 1.3.1
     kubernetes-cli: kubectl
     release-version: master
     page-pagination: true

@@ -56,8 +56,8 @@ minikube -p {tutorial-namespace} addons enable registry
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl apply \
-  --filename {knative-serving-repo}/{knative-serving-version}/serving-crds.yaml \
-  --filename {knative-eventing-repo}/{knative-eventing-version}/eventing-crds.yaml
+  --filename {knative-serving-repo}/knative-{knative-serving-version}/serving-crds.yaml \
+  --filename {knative-eventing-repo}/knative-{knative-eventing-version}/eventing-crds.yaml
 ----
 
 Now that you have installed the Knative Serving and Eventing CRDs, the following sections we will verify the CRDs by querying the `api-resources`.
@@ -73,11 +73,12 @@ kubectl api-resources --api-group='serving.knative.dev'
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME             SHORTNAMES      APIGROUP              NAMESPACED   KIND
-configurations   config,cfg      serving.knative.dev   true         Configuration
-revisions        rev             serving.knative.dev   true         Revision
-routes           rt              serving.knative.dev   true         Route
-services         kservice,ksvc   serving.knative.dev   true         Service
+NAME             SHORTNAMES      APIVERSION                    NAMESPACED   KIND
+configurations   config,cfg      serving.knative.dev/v1        true         Configuration
+domainmappings   dm              serving.knative.dev/v1beta1   true         DomainMapping
+revisions        rev             serving.knative.dev/v1        true         Revision
+routes           rt              serving.knative.dev/v1        true         Route
+services         kservice,ksvc   serving.knative.dev/v1        true         Service
 ----
 
 All *Knative Eventing* resources will be under the one of following API groups:
@@ -95,9 +96,9 @@ kubectl api-resources --api-group='messaging.knative.dev'
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME               SHORTNAMES   APIGROUP                NAMESPACED   KIND
-channels           ch           messaging.knative.dev   true         Channel
-subscriptions      sub          messaging.knative.dev   true         Subscription
+NAME            SHORTNAMES   APIVERSION                 NAMESPACED   KIND
+channels        ch           messaging.knative.dev/v1   true         Channel
+subscriptions   sub          messaging.knative.dev/v1   true         Subscription
 ----
 
 .eventing.knative.dev
@@ -109,10 +110,10 @@ kubectl api-resources --api-group='eventing.knative.dev'
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME         SHORTNAMES   APIGROUP               NAMESPACED   KIND
-brokers                   eventing.knative.dev   true         Broker
-eventtypes                eventing.knative.dev   true         EventType
-triggers                  eventing.knative.dev   true         Trigger
+NAME         SHORTNAMES   APIVERSION                     NAMESPACED   KIND
+brokers                   eventing.knative.dev/v1        true         Broker
+eventtypes                eventing.knative.dev/v1beta1   true         EventType
+triggers                  eventing.knative.dev/v1        true         Trigger
 ----
 
 .sources.knative.dev
@@ -125,11 +126,11 @@ kubectl api-resources --api-group='sources.knative.dev'
 [source,bash,subs="+quotes,+attributes,+macros"]
 [.console-output]
 ----
-NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
-apiserversources                sources.knative.dev   true         ApiServerSource
-containersources                sources.knative.dev   true         ContainerSource
-pingsources                     sources.knative.dev   true         PingSource
-sinkbindings                    sources.knative.dev   true         SinkBinding
+NAME               SHORTNAMES   APIVERSION               NAMESPACED   KIND
+apiserversources                sources.knative.dev/v1   true         ApiServerSource
+containersources                sources.knative.dev/v1   true         ContainerSource
+pingsources                     sources.knative.dev/v1   true         PingSource
+sinkbindings                    sources.knative.dev/v1   true         SinkBinding
 ----
 
 The Knative has two main infrastructure components: https://kubernetes.io/docs/concepts/architecture/controller/[controller] and https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/[webhook] helps in translating the Knative CRDs which are usually written YAML files, into Kubernetes objects like Deployment and Service. Apart from the controller and webhook, the Knative Serving and Eventing also install their respective functional components which are listed in the upcoming sections.
@@ -142,7 +143,7 @@ The Knative has two main infrastructure components: https://kubernetes.io/docs/c
 ----
 kubectl apply \
   --filename \
-  {knative-serving-repo}/{knative-serving-version}/serving-core.yaml
+  {knative-serving-repo}/knative-{knative-serving-version}/serving-core.yaml
 ----
 
 Wait for the Knative Serving deployment to complete:
@@ -168,11 +169,13 @@ kubectl get pods -n knative-serving
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                          READY   STATUS    RESTARTS   AGE
-activator-6b49796b46-g66z2    1/1     Running   0          11m
-autoscaler-7b46fcb475-cnbrm   1/1     Running   0          11m
-controller-65f4f4bcb4-mrkgs   1/1     Running   0          11m
-webhook-59585cb6-wqldc        1/1     Running   0          11m
+NAME                                     READY   STATUS    RESTARTS   AGE
+activator-6fb68fff7b-24bsp               1/1     Running   0          23s
+autoscaler-54f48f5bb7-mvvrd              1/1     Running   0          23s
+controller-66cb4b556b-n8n99              1/1     Running   0          23s
+domain-mapping-66f8d5bc4c-9f9c7          1/1     Running   0          23s
+domainmapping-webhook-55bdf595dd-4t4w2   1/1     Running   0          23s
+webhook-6d5c77f989-lf2sm                 1/1     Running   0          23s
 ----
 
 [#install-kourier-ingress-gateway]
@@ -183,7 +186,7 @@ webhook-59585cb6-wqldc        1/1     Running   0          11m
 ----
 kubectl apply \
   --filename \
-    +https://github.com/knative/net-kourier/releases/download/+{net-kourier-version}/kourier.yaml
+    https://github.com/knative/net-kourier/releases/download/knative-{net-kourier-version}/kourier.yaml
 ----
 
 Wait for the Ingress Gateway  deployment to complete:
@@ -208,7 +211,6 @@ kubectl get pods --all-namespaces -l 'app in(3scale-kourier-gateway,3scale-kouri
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 NAMESPACE         NAME                                      READY   STATUS    RESTARTS   AGE
-knative-serving   3scale-kourier-control-6f9f49f99b-q7nn4   1/1     Running   1          3d10h
 kourier-system    3scale-kourier-gateway-79898dffd4-qsc65   1/1     Running   1          3d10h
 ----
 
@@ -257,11 +259,10 @@ kubectl get pods -n projectcontour
 [.console-output]
 [source,bash,subs="+macros,+attributes"]
 ----
-AME                            READY   STATUS      RESTARTS   AGE
-contour-5475898957-6d9xl        1/1     Running     1          34h
-contour-5475898957-h6hxb        1/1     Running     1          34h
-contour-certgen-v1.10.0-x69qz   0/1     Completed   0          34h
-envoy-ft8ct                     2/2     Running     2          34h
+NAME                       READY   STATUS    RESTARTS   AGE
+contour-76bb4ff6cc-8666g   1/1     Running   0          89s
+contour-76bb4ff6cc-wvtpx   1/1     Running   0          89s
+envoy-dszgl                2/2     Running   0          89s
 ----
 
 [#configure-ingress-to-gateway]
@@ -323,11 +324,11 @@ configmap/config-domain patched
 ----
 kubectl apply \
   --filename \
-  {knative-eventing-repo}/{knative-eventing-version}/eventing-core.yaml \
+  {knative-eventing-repo}/knative-{knative-eventing-version}/eventing-core.yaml \
   --filename \
-  {knative-eventing-repo}/{knative-eventing-version}/in-memory-channel.yaml \
+  {knative-eventing-repo}/knative-{knative-eventing-version}/in-memory-channel.yaml \
   --filename \
-  {knative-eventing-repo}/{knative-eventing-version}/mt-channel-broker.yaml
+  {knative-eventing-repo}/knative-{knative-eventing-version}/mt-channel-broker.yaml
 ----
 
 Like Knative Serving deployment, Knative Eventing deployment will also take few minutes to complete, check the status of the deployment using:
@@ -356,14 +357,14 @@ kubectl get pods -n knative-eventing
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                   READY   STATUS    RESTARTS   AGE
-eventing-controller-75b7567ddc-dp5q7   1/1     Running   0          96s
-eventing-webhook-5b859fd7f-mzvbh       1/1     Running   0          96s
-imc-controller-7d465bddc5-2ckww        1/1     Running   0          95s
-imc-dispatcher-f64dcc94d-ztnnx         1/1     Running   0          95s
-mt-broker-controller-d5f96b5b5-2xr9z   1/1     Running   0          95s
-mt-broker-filter-5d994fb97f-kpm5z      1/1     Running   0          95s
-mt-broker-ingress-769b458fd-ghmnc      1/1     Running   0          95s
+NAME                                    READY   STATUS    RESTARTS   AGE
+eventing-controller-56ccd89cd8-w9wmm    1/1     Running   0          26s
+eventing-webhook-76b66cd56c-n2dqj       1/1     Running   0          26s
+imc-controller-6c8cfbb558-zvglm         1/1     Running   0          25s
+imc-dispatcher-b8bf96b6d-mpltl          1/1     Running   0          25s
+mt-broker-controller-7dfb75f5cc-zv5jr   1/1     Running   0          25s
+mt-broker-filter-8799894b4-fhk5z        1/1     Running   0          25s
+mt-broker-ingress-685f5554c-mbpbd       1/1     Running   0          25s
 ----
 
 [#create-tutorial-namespace]

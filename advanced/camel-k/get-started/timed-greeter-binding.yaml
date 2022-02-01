@@ -1,0 +1,15 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: timed-greeter-binding
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: timed-greeter
+    properties:
+      period: 5000
+      message: Welcome to Apache Camel K
+  sink:
+    uri: http://event-display-knativetutorial.<example>.com 
