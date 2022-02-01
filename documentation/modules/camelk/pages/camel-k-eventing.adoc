@@ -20,7 +20,9 @@ cd $TUTORIAL_HOME/{camelk-repo}
 [#install-camel-k-plugin]
 == Install the kn kamelet source plugin
 
-The `Kamelet` allows you use a Camel K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and  send the Camel exchanges (OUT) through a Knative Event Sink.
+You can use the Camel K integration as part of the Knative Eventing architecture via a `Kamelet`. 
+Simply speaking, you can make the Camel K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and send the Camel exchanges (OUT) through a Knative Event Sink.
+To start working with Kamelets you will need to add the kamelet source plugin to `kn` CLI.
 
 As you probably already installed the `kn` CLI tooling, you can simply load the https://github.com/knative-sandbox/kn-plugin-source-kamelet/releases[Kamelet source plugin binaries] in order to add the commands for managing Kamelets as event sources.
 To verify your installation, please run the following command:

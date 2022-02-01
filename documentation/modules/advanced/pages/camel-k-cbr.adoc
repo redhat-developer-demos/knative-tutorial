@@ -275,7 +275,7 @@ spec:
 <3> The `Content Based Router` pattern using the https://camel.apache.org/manual/latest/choice-eip.html[Choice EIP]. In the data processing you classify the fruits as low (sugar pass:[&lt;=] 5), medium(sugar between 5 to 10) and high(sugar > 10) based on the sugar level present in their nutritions data.
 <4> Based on the data classification you will be setting the https://cloudevents.io[CloudEvents] `type` header to be `low-high`, `medium-sugar` and `high-sugar`. This header is used as one of the filter attributes in the Knative Eventing Trigger.
 
-Let's deplot the Kamelet using the following command:
+Let's deploy the Kamelet using the following command:
 
 [.console-input]
 [#kamel-deploy-data-processor]
