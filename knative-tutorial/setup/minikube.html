@@ -542,11 +542,11 @@
 <div class="listingblock console-output">
 <div class="title">Minikube starting</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">😄  [knativetutorial] minikube v1.17.1 on Darwin 11.1
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">😄  [knativetutorial] minikube v1.25.1 on Darwin 11.1
 ✨  Using the hyperkit driver based on user configuration
 👍  Starting control plane node knativetutorial in cluster knativetutorial
 🔥  Creating hyperkit VM (CPUs=6, Memory=8192MB, Disk=51200MB) ...
-🐳  Preparing Kubernetes v1.22.0 on Docker 20.10.2 ...
+🐳  Preparing Kubernetes v1.23.0 on Docker 20.10.2 ...
     &gt; kubelet.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
     &gt; kubectl.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
     &gt; kubeadm.sha256: 65 B / 65 B [--------------------------] 100.00% ? p/s 0s
@@ -582,8 +582,8 @@
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
-  --filename https://github.com/knative/serving/releases/download/v0.24.0/serving-crds.yaml \
-  --filename https://github.com/knative/eventing/releases/download/v0.24.0/eventing-crds.yaml</code></pre>
+  --filename https://github.com/knative/serving/releases/download/v1.1.0/serving-crds.yaml \
+  --filename https://github.com/knative/eventing/releases/download/v1.1.0/eventing-crds.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -675,7 +675,7 @@ sinkbindings                    sources.knative.dev   true         SinkBinding</
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-  https://github.com/knative/serving/releases/download/v0.24.0/serving-core.yaml</code></pre>
+  https://github.com/knative/serving/releases/download/v1.1.0/serving-core.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -714,7 +714,7 @@ webhook-59585cb6-wqldc        1/1     Running   0          11m</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-    https://github.com/knative/net-kourier/releases/download/v0.24.0/kourier.yaml</code></pre>
+    https://github.com/knative/net-kourier/releases/download/v1.1.0/kourier.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -848,11 +848,11 @@ kubectl patch configmap/config-domain \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-  https://github.com/knative/eventing/releases/download/v0.24.0/eventing-core.yaml \
+  https://github.com/knative/eventing/releases/download/v1.1.0/eventing-core.yaml \
   --filename \
-  https://github.com/knative/eventing/releases/download/v0.24.0/in-memory-channel.yaml \
+  https://github.com/knative/eventing/releases/download/v1.1.0/in-memory-channel.yaml \
   --filename \
-  https://github.com/knative/eventing/releases/download/v0.24.0/mt-channel-broker.yaml</code></pre>
+  https://github.com/knative/eventing/releases/download/v1.1.0/mt-channel-broker.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">

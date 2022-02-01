@@ -559,7 +559,7 @@
 <div id="kn-eventing-adv-deploy-kafkasource" class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
--f <a href="https://github.com/knative-sandbox/eventing-kafka/releases/download/v0.24.0/source.yaml" class="bare">https://github.com/knative-sandbox/eventing-kafka/releases/download/v0.24.0/source.yaml</a></code></pre>
+-f <a href="https://github.com/knative-sandbox/eventing-kafka/releases/download/v1.1.0/source.yaml" class="bare">https://github.com/knative-sandbox/eventing-kafka/releases/download/v1.1.0/source.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -585,7 +585,7 @@ kafka-controller-manager-0   1/1     Running   1m17s</code></pre>
 <div id="kn-eventing-deploy-kafka-channel" class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -L "https://github.com/knative-sandbox/eventing-kafka/\
-releases/download/v0.24.0/channel-consolidated.yaml" \
+releases/download/v1.1.0/channel-consolidated.yaml" \
  | sed 's/REPLACE_WITH_CLUSTER_URL/my-cluster-kafka-bootstrap.kafka:9092/' \
  | kubectl apply --filename -</code></pre>
 </div>
