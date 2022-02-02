@@ -100,7 +100,7 @@ kamel install --force \#<.>
 <.> `--force` is used to update any existing `Camel K` installs to use the new settings
 
 
-=== Deploy Nexus to Local Cluster (Optional)
+== Deploy Nexus to Local Cluster (Optional)
 
 If you don't have a https://www.sonatype.com/download-oss-sonatype[Sonatype Nexus Repository^,role="ext-link"], you can deploy one into the cluster using the deployment `$TUTORIAL_HOME/install/utils/nexus/app.yaml`.
 

@@ -1,5 +1,4 @@
 * xref:camelk:setup.adoc[Setup]
-** xref:camelk:setup.adoc#install-camel-k[Install Camel K ]
 * xref:camelk:camel-k-basics.adoc[Camel K with Knative Serving]
 ** xref:camelk:camel-k-basics.adoc#deploy-camel-k-integration[Deploy Camel K integration]
 ** xref:camelk:camel-k-basics.adoc#deploy-camel-k-kn-integration[Deploy Camel K Knative Integration]
