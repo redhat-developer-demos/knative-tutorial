@@ -3,9 +3,10 @@ kind: Trigger
 metadata:
   name: helloaloha
 spec:
+  broker: default
   filter:
     attributes:
-      type: greeting
+      type: aloha
   subscriber:
     ref:
      apiVersion: serving.knative.dev/v1

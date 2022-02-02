@@ -83,7 +83,7 @@ spec:
   broker: default
   filter:
     attributes:
-      type: greeting # <1>
+      type: aloha # <1>
   subscriber:
     ref:
      apiVersion: serving.knative.dev/v1
@@ -98,12 +98,14 @@ Now create the the trigger for `eventingaloha` that will associate the filtered 
 :service-file: trigger-helloaloha.yaml
 :trigger-name: helloaloha
 :trigger-sub-name: eventingaloha
+:trigger-event: aloha
 === Create Aloha Trigger
 include::eventing:partial$deploy-knative-resources.adoc[tags=tab-1;eventing-trigger-sub;tab-2]
 
 :service-file: trigger-hellobonjour.yaml
 :trigger-name: hellobonjour
 :trigger-sub-name: eventingbonjour
+:trigger-event: bonjour
 === Create Bonjour Trigger
 Now create the the trigger for `eventingbonjour` that will associate the filtered events to a service:
 
@@ -124,39 +126,7 @@ include::eventing:partial$knative-objects.adoc[tag=knative-triggers]
 [#eventing-trigger-verification]
 == Verification
 
-Pull out the subscriberUri for `eventhingaloha`:
-
-[#eventing-triggers-verify-sub1]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl get trigger helloaloha -o jsonpath='{.status.subscriberUri}'
-----
-
-The command should show the output as: 
-[.console-output]
-[source,bash]
-----
-http://eventingaloha.knativetutorial.svc.cluster.local
-----
-
-Pull out the subscriberUri for `eventhingbonjour`:
-
-[#eventing-triggers-verify-sub2]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl get trigger hellobonjour -o jsonpath='{.status.subscriberUri}'
-----
-
-The command should show the output as: 
-[.console-output]
-[source,bash]
-----
-http://eventingbonjour.knativetutorial.svc.cluster.local
-----
-
-As well as broker's subscriberUri:
+Pull out the broker URI:
 
 [#eventing-triggers-verify-sub3]
 [.console-input]
@@ -172,7 +142,7 @@ The command should show the output as:
 http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default
 ----
 
-You should notice that the subscriberURIs are Kubernetes services with the suffix of `{tutorial-namespace}.svc.cluster.local`.  This means they can be interacted with from another pod within the Kubernetes cluster.
+You should notice that the broker URI is a Kubernetes services with the suffix of `{tutorial-namespace}.svc.cluster.local`.  This means they can be interacted with from another pod within the Kubernetes cluster.
 
 Now that you have setup the Broker and Triggers you need to send in some test messages to see the behavior.
 
@@ -221,12 +191,12 @@ Exec into the `curler` pod:
 kubectl -n {tutorial-namespace} exec -it curler -- /bin/bash
 ----
 
-Using the `curler` pod's shell, curl the subcriberURI for eventingaloha:
+Using the `curler` pod's shell, curl the broker URI for eventingaloha:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://eventingaloha.{tutorial-namespace}.svc.cluster.local" \
+curl -v "http://broker-ingress.{tutorial-namespace}.svc.cluster.local" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \
@@ -255,12 +225,12 @@ curler                                      1/1   Running 59s
 eventingaloha-1-deployment-6cdc888d9d-9xnnn 2/2   Running 30s
 -----
 
-Next, curl the subcriberURI for `eventingbonjour`:
+Next, curl the broker URI for `eventingbonjour`:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://eventingbonjour.{tutorial-namespace}.svc.cluster.local" \
+curl -v "http://broker-ingress.{tutorial-namespace}.svc.cluster.local" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \
@@ -290,46 +260,7 @@ eventingaloha-1-deployment-6cdc888d9d-9xnnn  2/2   Running 53s
 eventingbonjour-1-deployment-fc7858b5b-s9prj 2/2   Running 5s
 -----
 
-Now, trigger both `eventingaloha` and `eventingbonjour` by curling the subcriberURI for the broker:
-
-[#trigger-verify-trigger-all]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
--X POST \
--H "Ce-Id: say-hello" \
--H "Ce-Specversion: 1.0" \
--H "Ce-Type: greeting" \
--H "Ce-Source: mycurl" \
--H "Content-Type: application/json" \
--d '{"key":"from a curl"}'
-----
-
-[NOTE]
-====
-"Ce-Type: greeting" is the key to insuring that both aloha and bonjour respond to this event
-====
-
-And by watching the *{tutorial-namespace}* namespace, you will see both `eventingaloha` and `eventingbonjour` will come to life:
-
-[#trigger-watch-all-scale]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
------
-watch kubectl get pods
------
-
-The command above should show the following output:
-
-[.console-output]
-[source,bash]
------
-NAME                                         READY STATUS  AGE
-curler                                       1/1   Running 3m21s
-eventingaloha-1-deployment-6cdc888d9d-nlpm8  2/2   Running 6s
-eventingbonjour-1-deployment-fc7858b5b-btdcr 2/2   Running 6s
------
+It was verified how each payload configured with either `type: aloha` or `type: bonjour` sent to the broker, then each trigger was able to filter each incoming message and send to the designated service set in the trigger.
 
 You can experiment by using different type filters in the Subscription to see how the different subscribed services respond. `Filters` may use an link:https://cloudevents.io/[CloudEvent] attribute for its criteria.
 
