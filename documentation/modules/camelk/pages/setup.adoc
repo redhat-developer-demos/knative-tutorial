@@ -1,11 +1,10 @@
-= Page Title
+[#camelk-setup]
+= Setup
 include::_attributes.adoc[]
 
-[#camelk-setup]
-== Setup
 
 [#install-camel-k]
-=== Install Apache Camel K
+== Install Apache Camel K
 
 Download the latest Apache Camel K release from https://github.com/apache/camel-k/releases/latest[here]. Extract the content and add the binary `kamel` to the PATH.
 
@@ -71,7 +70,7 @@ In OpenShift, the `kamel install` command will not install Camel K operator in e
 ====
 
 [#configure-maven-repo]
-=== Configure Camel K to build faster 
+== Configure Camel K to build faster 
 
 Camel K uses https://maven.apache.org[Apache Maven] to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap `camel-k-maven-settings` in the {tutorial-namespace} namespace. One of the ways to make the build faster is by using a maven repository manager such as https://www.sonatype.com/nexus-repository-oss[Sonatype Nexus], the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.
 
