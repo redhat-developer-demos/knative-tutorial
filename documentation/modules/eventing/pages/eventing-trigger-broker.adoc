@@ -126,7 +126,39 @@ include::eventing:partial$knative-objects.adoc[tag=knative-triggers]
 [#eventing-trigger-verification]
 == Verification
 
-Pull out the broker URI:
+Pull out the subscriberUri for `eventhingaloha`:
+
+[#eventing-triggers-verify-sub1]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get trigger helloaloha -o jsonpath='{.status.subscriberUri}'
+----
+
+The command should show the output as: 
+[.console-output]
+[source,bash]
+----
+http://eventingaloha.knativetutorial.svc.cluster.local
+----
+
+Pull out the subscriberUri for `eventhingbonjour`:
+
+[#eventing-triggers-verify-sub2]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kubectl get trigger hellobonjour -o jsonpath='{.status.subscriberUri}'
+----
+
+The command should show the output as: 
+[.console-output]
+[source,bash]
+----
+http://eventingbonjour.knativetutorial.svc.cluster.local
+----
+
+As well as broker's subscriberUri:
 
 [#eventing-triggers-verify-sub3]
 [.console-input]
@@ -142,7 +174,7 @@ The command should show the output as:
 http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default
 ----
 
-You should notice that the broker URI is a Kubernetes services with the suffix of `{tutorial-namespace}.svc.cluster.local`.  This means they can be interacted with from another pod within the Kubernetes cluster.
+You should notice that the subscriberURIs are Kubernetes services with the suffix of `{tutorial-namespace}.svc.cluster.local`.  This means they can be interacted with from another pod within the Kubernetes cluster.
 
 Now that you have setup the Broker and Triggers you need to send in some test messages to see the behavior.
 
@@ -196,11 +228,11 @@ Using the `curler` pod's shell, curl the broker URI for eventingaloha:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://broker-ingress.{tutorial-namespace}.svc.cluster.local" \
+curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \
--H "Ce-Type: greeting" \
+-H "Ce-Type: aloha" \
 -H "Ce-Source: mycurl" \
 -H "Content-Type: application/json" \
 -d '{"key":"from a curl"}'
@@ -230,11 +262,11 @@ Next, curl the broker URI for `eventingbonjour`:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://broker-ingress.{tutorial-namespace}.svc.cluster.local" \
+curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \
--H "Ce-Type: greeting" \
+-H "Ce-Type: bonjour" \
 -H "Ce-Source: mycurl" \
 -H "Content-Type: application/json" \
 -d '{"key":"from a curl"}'
@@ -256,13 +288,14 @@ The command above should show the following output:
 -----
 NAME                                         READY STATUS  AGE
 curler                                       1/1   Running 82s
-eventingaloha-1-deployment-6cdc888d9d-9xnnn  2/2   Running 53s
 eventingbonjour-1-deployment-fc7858b5b-s9prj 2/2   Running 5s
 -----
 
-It was verified how each payload configured with either `type: aloha` or `type: bonjour` sent to the broker, then each trigger was able to filter each incoming message and send to the designated service set in the trigger.
+In the previous examples you sent to the broker a payload configured with `Ce-Type: aloha` or `Ce-Type: bonjour`.
+Each trigger filtered the incoming message and sent it to the configured Sink Service in case of a match.
 
-You can experiment by using different type filters in the Subscription to see how the different subscribed services respond. `Filters` may use an link:https://cloudevents.io/[CloudEvent] attribute for its criteria.
+You can experiment by using different type filters in the Subscription to see how the different subscribed services respond.
+`Filters` may use an link:https://cloudevents.io/[CloudEvent] attribute for its criteria.
 
 [#eventing-cleanup]
 == Cleanup

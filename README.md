@@ -20,7 +20,7 @@
 
 ## Devlopment Site
 
-If you like to try the latest development updates,check the [staging site](https://redhat-developer-docs.github.io/knative-tutorial-staging).
+ If you like to try the latest development updates,check the [staging site](https://redhat-developer-docs.github.io/knative-tutorial-staging).
 
 ## Contributing
 
