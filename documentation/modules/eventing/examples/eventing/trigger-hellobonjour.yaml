@@ -6,7 +6,7 @@ spec:
   broker: default
   filter:
     attributes:
-      type: greeting
+      type: bonjour
   subscriber:
     ref:
      apiVersion: serving.knative.dev/v1
