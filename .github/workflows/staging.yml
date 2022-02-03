@@ -19,7 +19,8 @@ jobs:
          antora_playbook: staging.yaml
          # ACCESS_TOKEN: # optional
          GITHUB_TOKEN: "${{ github.token}}"
-#       - name: "List folder"
+         FOLDER: "${{ env.SITE_DIR }}"      
+      #       - name: "List folder"
 #         run: |
 #            ls -ltr $GITHUB_WORKSPACE/
       - name: "Upload generated site"
