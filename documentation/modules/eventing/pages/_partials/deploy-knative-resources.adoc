@@ -88,7 +88,7 @@ kn subscription create eventinghellob-sub \
 kn trigger create {trigger-name} \
   --broker=default \
   --sink=ksvc:{trigger-sub-name} \
-  --filter=type=greeting
+  --filter=type={trigger-event}
 ----
 #end::eventing-trigger-sub[]
 #tag::tab-2[]
