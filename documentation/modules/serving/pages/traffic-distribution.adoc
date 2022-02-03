@@ -1,11 +1,13 @@
 = Traffic Distribution
 include::_attributes.adoc[]
 
-:revision-v1: greeter-v1
-:revision-file-v1: greeter-v1-service.yaml
-:revision-v2: greeter-v2
-:revision-file-v2: greeter-v2-service.yaml
-:service-file: greeter-v1-service.yaml
+:revision-v1: blue
+:revision-file-v1: colors-service-blue.yaml
+:revision-v2: green
+:revision-file-v2: colors-service-green.yaml
+:service-file: colors-service-blue.yaml
+:revision-v3: canary
+:revision-file-v3: colors-service-canary.yaml
 
 At the end of this chapter you will be able to :
 
@@ -16,17 +18,20 @@ At the end of this chapter you will be able to :
 * Reduce the service visibility
 
 
-As you noticed, Knative service always routes traffic to the **latest** revision of the service deployment. It is possible to split the traffic amongst the available revisions. 
+As you learnt from previous chapter, Knative always routes traffic to the **latest** revision of the service. It is possible to split the traffic amongst the available revisions.
 
-[[deploying-revisions]]
-== Arbitrary Revision Names
+// [[deploying-revisions]]
+// == Arbitrary Revision Names
 
-By default Knative generates a random revision names for the service based with Knative service's `metadata.name` as prefix. 
+// By default Knative generates a random revision names for the service based with Knative service's `metadata.name` as prefix. 
 
-The following service deployments will show how to use an arbitrary revision names for the services. The service are exactly same `greeter` service except that their Revision name is specified using the service revision template spec. 
+// The following service deployments will show how to use an arbitrary revision names for the services. The service are exactly same `greeter` service except that their Revision name is specified using the service revision template spec. 
 
-:service-file: greeter-v1-service.yaml
-=== Deploy greeter service revision v1
+:service-file: colors-service-blue.yaml
+[#deploy-colors-service]
+== Deploy colors service
+
+To explore the goals of this chapter, we will be using a colors service called *blue-green-canary*.
 
 .link:{github-repo}/{basics-repo}/{revision-file-v1}[{revision-v1}]
 [source,yaml,subs="attributes+,+macros"]
@@ -36,8 +41,40 @@ include::serving:example${basics-repo}/{revision-file-v1}[]
 
 include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-rev1;tab-2]
 
-:service-file: greeter-v2-service.yaml
-=== Deploy greeter service revision v2
+=== Invoke the Service
+
+Get the service URL,
+
+[.console-input]
+[source,bash]
+----
+kn service describe blue-green-canary -o url
+----
+
+Use the URL to open the service in a browser window.If the service was deployed correctly you should see blue background browser page, with greeting as *Hello*.
+
+.Blue Green Canary::Blue
+image::blue-green-canary-blue.png[]
+
+:service-file: colors-service-green.yaml
+[#deploying-new-revision]
+== Deploy a New Revision of a Service
+
+.Twelve-factor app
+****
+https://12factor.net/[12factor.net] defines the twelve-factor app as a methodology for building software-as-a-service apps that:
+
+- Use declarative formats for setup automation, to minimize time and cost for new developers joining the project;
+- Have a clean contract with the underlying operating system, offering maximum portability between execution environments;
+- Are suitable for deployment on modern cloud platforms, obviating the need for servers and systems administration;
+- Minimize divergence between development and production, enabling continuous deployment for maximum agility;
+- And can scale up without significant changes to tooling, architecture, or development practices.
+- The twelve-factor methodology can be applied to apps written in any programming language, and which use any combination of backing services (database, queue, memory cache, etc).
+****
+
+In line with *12-Factor* principle, Knative rolls out new deployment whenever the Service *Configuration* changes, and creates immutable version of code and configuration called *revision*. An example of configuration change could for e.g. an update of Service image, a change to environment variables or add liveness/readiness probes.
+
+Let us now change the configuration of the service by updating the service environment variable *BLUE_GREEN_CANARY_COLOR* to make the browser display *green* color with greeting text as *Namaste*. 
 
 .link:{github-repo}/{basics-repo}/{revision-file-v2}[{revision-v2}]
 [source,yaml,subs="attributes+,+macros"]
@@ -47,151 +84,225 @@ include::serving:example${basics-repo}/{revision-file-v2}[]
 
 include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-rev2;tab-2]
 
-Check to ensure you have two revisions of the greeter service:
+Now invoking the service again using the service URL, will show a green color browser page with greeting *Namaste*.
+
+.Blue Green Canary::Green
+image::blue-green-canary-green.png[]
 
 [#rev1-basics-show-knative-revisions]
 === revisions
-:doc-sec: td-all-revs
-include::serving:partial$knative-objects.adoc[tag=knative-revisions]
 
-The command above should list two revisions namely `greeter-v1` and `greeter-v2`.
+Check to ensure you have two revisions of the blue-green-canary service:
 
 [tabs]
 ====
 kn::
 +
 --
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn revision list
+----
+
 [.console-output]
 [source,bash]
 ----
-NAME         SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
-greeter-v2   greeter   100%             2            11s   4 OK / 4     True
-greeter-v1   greeter                    1            28s   4 OK / 4     True
+NAME                        SERVICE             TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
+blue-green-canary-00002   blue-green-canary   100%             2            2m33s   3 OK / 4     True
+blue-green-canary-00001   blue-green-canary                    1            30m     3 OK / 4     True
 ----
-
 --
 {kubernetes-cli}::
 +
 --
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kubectl get rev \
+  --selector=serving.knative.dev/service=blue-green-canary \
+  --sort-by="{.metadata.creationTimestamp}"
+----
+
 [.console-output]
 [source,bash]
 ----
-NAME         CONFIG NAME   K8S SERVICE NAME   GENERATION   READY   REASON
-greeter-v1   greeter       greeter-v1         1            True
-greeter-v2   greeter       greeter-v2         2            True
+NAME                        CONFIG NAME         K8S SERVICE NAME            GENERATION   READY   REASON
+blue-green-canary-00001   blue-green-canary   blue-green-canary-00001   1            True
+blue-green-canary-00002   blue-green-canary   blue-green-canary-00002   2            True
 ----
 --
 ====
 
-[TIP]
+[IMPORTANT,caption=OpenShift]
+[%hardbreaks]
 ====
-* add `-oyaml` to the commands above to see more detail
+video::KAeDG4j5fr8[youtube,width=640,height=480]
 ====
+
+[#tag-service-revisions]
+== Tag Revisions
+
+As you had observed that the Knative service `blue-green-canary` now has two revisions namely *blue-green-canary-00001* and *blue-green-canary-00002*. As the Revision names are autogenerated it is hard to comprehend to which code/configuration set it corresponds to. To overcome this problem Knative provides *tagging* of revision names that allows one to tag a revision name to a logical human understanable names called *tags*.
+
+As our colors service shows different colors on the browser let us tag the revisions with color,
+
+List the existing revisions,
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn revision list -s blue-green-canary
+----
+
+[.console-output]
+[source,bash]
+----
+NAME                        SERVICE             TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
+blue-green-canary-00002   blue-green-canary   100%             2            23m   3 OK / 4     True
+blue-green-canary-00001   blue-green-canary                    1            51m   3 OK / 4     True
+----
+
+When Knative rolls out a new revision, it increments the `GENERATION` by *1* and then routes *100%* of the `TRAFFIC` to it, hence we can use the `GENERATION` or `TRAFFIC` to identify the latest reivsion. 
+
+=== Tag Blue
+
+Let us tag `blue-green-canary-00001` which shows *blue* browser page with tag name `blue`.
+
+[.console-input]
+[source,bash,subs="+macros,attributes+,+quotes"]
+----
+kn service update blue-green-canary --tag=#blue-green-canary-00001#=blue
+----
+
+[.console-output]
+[source,bash]
+----
+Updating Service 'blue-green-canary' in namespace 'knativetutorial':
+
+  0.037s The Route is still working to reflect the latest desired specification.
+  0.126s Ingress has not yet been reconciled.
+  0.162s Waiting for load balancer to be ready
+  0.303s Ready to serve.
+
+Service 'blue-green-canary' with latest revision 'blue-green-canary-00002' (unchanged) is available at URL:
+http://blue-green-canary.knativetutorial.192.168.64.13.nip.io
+----
+
+=== Tag Green
+
+Let us tag `blue-green-canary-00002` which shows *green* browser page with tag name `green`.
+
+[.console-input]
+[source,bash,subs="+macros,attributes+,+quotes"]
+----
+kn service update blue-green-canary --tag=#blue-green-canary-00002#=green
+----
+
+[.console-output]
+[source,bash]
+----
+Updating Service 'blue-green-canary' in namespace 'knativetutorial':
+
+  0.037s The Route is still working to reflect the latest desired specification.
+  0.126s Ingress has not yet been reconciled.
+  0.162s Waiting for load balancer to be ready
+  0.303s Ready to serve.
+
+Service 'blue-green-canary' with latest revision 'blue-green-canary-00002' (unchanged) is available at URL:
+http://blue-green-canary.knativetutorial.192.168.64.13.nip.io
+----
+
+== Tag Latest
+
+Lets tag whatever revision that is latest to be tagged as *latest*.
+
+[.console-input]
+[source,bash,subs="+macros,attributes+,+quotes"]
+----
+kn service update blue-green-canary --tag=@latest=latest
+----
+
+[.console-output]
+[source,bash]
+----
+Updating Service 'blue-green-canary' in namespace 'knativetutorial':
+
+  0.037s The Route is still working to reflect the latest desired specification.
+  0.126s Ingress has not yet been reconciled.
+  0.162s Waiting for load balancer to be ready
+  0.303s Ready to serve.
+
+Service 'blue-green-canary' with latest revision 'blue-green-canary-00002' (unchanged) is available at URL:
+http://blue-green-canary.knativetutorial.192.168.64.13.nip.io
+----
+
+Let us query the Service Revisions again,
+
+[.console-input]
+[source,bash,subs="+macros,attributes+"]
+----
+kn revision list -s blue-green-canary
+----
+
+[.console-output]
+[source,bash,subs="+quotes"]
+----
+NAME                        SERVICE             TRAFFIC   TAGS    GENERATION   AGE   CONDITIONS   READY   REASON
+blue-green-canary-00002   blue-green-canary   100%      #latest,green#   2            29m   3 OK / 4     True
+blue-green-canary-00001   blue-green-canary             #blue#    1            57m   3 OK / 4     True
+----
+
+As *green* happend to be latest revision it has been tagged with name `lastest` in addition to `green`.
+
+Let us use the tag names for easier identification of the revision and perform traffic distribution amongst them.
 
 [[blue-green]]
 == Applying Blue-Green Deployment Pattern
 
 Knative offers a simple way of switching 100% of the traffic from one Knative service revision (blue) to another newly rolled out revision (green). If the new revision (e.g. green) has erroneous behavior then it is easy to rollback the change.
 
-In this exercise you will applying theBlue/Green deployment pattern with the Knative Service called greeter. You have already deployed two <<deploying-revisions,revisions>> of greeter named `greeter-v1` and `greeter-v2` earlier in this chapter.
+In this exercise you will applying the Blue/Green deployment pattern with the Knative Service called greeter. You have already deployed two <<deploying-revisions,revisions>> of blue-green-canary identified using the tags  `blue` and `green`.
 
-With the deployment of `greeter-v2` you noticed that Knative automatically started to routing 100% of the traffic to `greeter-v2`. Now let us assume that we need to roll back `greeter-v2` to `greeter-v1` for some critical reason.
+With the deployment of *green* revison you noticed that Knative automatically started to routing 100% of the traffic to `blue-green-canary-00002`. 
 
-The following Knative Service YAML is identical to the previously deployed `greeter-v2` except that we have added the _traffic_ section to indicate that 100% of the traffic should be routed to `greeter-v1`.
+Now let us assume, due to a critical bug  we need to roll back `green` to `blue`.
 
-.All traffic to greeter-v1
-[source,yaml]
-----
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: greeter
-spec:
-  template:
-    metadata:
-      name: greeter-v1
-    spec:
-      containers:
-        - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
-          livenessProbe:
-            httpGet:
-              path: /healthz
-          readinessProbe:
-            httpGet:
-              path: /healthz
-  traffic:
-    - tag: v1
-      revisionName: greeter-v1
-      percent: 100
-    - tag: v2
-      revisionName: greeter-v2
-      percent: 0
-    - tag: latest
-      latestRevision: true
-      percent: 0
-----
+The following Knative Service YAML is identical to the previously deployed `green` except that we have added the _traffic_ section to indicate that 100% of the traffic should be routed to `blue`.
 
-The above service definition creates three sub-routes(named after traffic **tags**) to existing `greeter` route.
-
-- **v1** - The revision is going to have all 100% traffic distribution
-- **v2** - The previously active revision, which will now have zero traffic 
-- **latest** - The route pointing to any latest service deployment, by setting to zero we are making sure the latest revision is not picked up automatically.
-
-[NOTE]
-====
-If you observe the resource YAML above, we have added a special tag `latest`. Since you have defined that all 100% of traffic need to go to `greeter-v1`, this tag can be  used to suppress the default behavior of Knative Service to route all 100% traffic to latest revision.
-====
-
-Before you apply the resource `$TUTORIAL_HOME/basics/service-pinned.yaml`, call the `greeter` service again to verify that it is still providing the response from `greeter-v2` that includes `Namaste`.
-
-[.console-input]
-[source,bash,subs="quotes,attributes+,+macros"]
-----
-$TUTORIAL_HOME/bin/call.sh
-----
-
-[.console-output]
-[source,bash,subs="quotes,attributes+,+macros"]
-----
-Namaste  greeter => '9861675f8845' : 1
-----
-
-[.console-input]
-[source,bash,subs="quotes,attributes+,+macros"]
-----
-kubectl get pods
-----
-
-[.console-output]
-[source,bash,subs="quotes,attributes+,+macros"]
-----
-NAME                                     READY   STATUS    RESTARTS   AGE
-greeter-v1-deployment-597f9f5b85-hgmqq   2/2     Running   0          48s
-greeter-v2-deployment-587786fc6b-9jvk5   2/2     Running   0          36s
-----
+Before you rollback the revision, refresh the browser window where you have opened the blue-green-canary service, to make sure it is still showing *green* browser page with greeting *Namaste*.
 
 Now apply the update Knative service configuration using the command as shown in following listing:
 
-:service-file: service-pinned.yaml
-=== Create greeter deployment (blue)
-include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-pinned;tab-2]
+=== Rollback to blue
+
+Route all the traffic of service `blue-green-canary` to blue revision of the service:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn service update blue-green-canary --traffic blue=100,green=0,latest=0
+----
+
+NOTE: We use the tag names to identify the revisions
 
 Let us list all revisions with tags:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn revision ls --namespace {tutorial-namespace}
+kn revision list
 ----
 
 Based on the revision tags that we created earlier, the output should be like:
 
 [.console-output]
-[source,bash,subs="quotes"]
+[source,text,subs="quotes"]
 ----
-NAME         SERVICE   TRAFFIC   TAGS        GENERATION   AGE     CONDITIONS   READY   REASON
-greeter-v2   greeter   100%      #latest,v2#   2            4m45s   3 OK / 4     True
-greeter-v1   greeter             #v1#          1            4m56s   3 OK / 4     True
+NAME                        SERVICE             TRAFFIC   TAGS           GENERATION   AGE   CONDITIONS   READY   REASON
+blue-green-canary-00002   blue-green-canary             latest,green   2            56m   4 OK / 4     True
+blue-green-canary-00001   blue-green-canary   #100%#      #blue#           1            83m   4 OK / 4     True
 ----
 
 Let us list the available sub-routes:
@@ -199,7 +310,7 @@ Let us list the available sub-routes:
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get ksvc greeter -oyaml \
+{kubernetes-cli} -n {tutorial-namespace} get ksvc blue-green-canary -oyaml \
  | yq r - 'status.traffic[*].url'
 ----
 
@@ -207,154 +318,105 @@ The above command should return you three sub-routes for the main `greeter` rout
 
 [source,bash,subs="+macros,attributes"]
 ----
-- http://latest-greeter.knativetutorial.example.com #<1>
-- http://v1-greeter.knativetutorial.example.com #<2>
-- http://v2-greeter.knativetutorial.example.com #<3>
+http://latest-blue-green-canary.knativetutorial.192.168.64.13.nip.io #<.>
+http://blue-blue-green-canary.knativetutorial.192.168.64.13.nip.io #<.>
+http://green-blue-green-canary.knativetutorial.192.168.64.13.nip.io  #<.>
 ----
 
 <1> the sub route for the traffic tag `latest`
-<2> the sub route for the traffic tag `v1`
-<3> the sub route for the traffic tag `v2`
+<2> the sub route for the traffic tag `blue`
+<3> the sub route for the traffic tag `green`
 
-You will notice that the command does not create any new configuration/revision/deployment as there was no application update (e.g. image tag, env var, etc), but when you call the service, Knative scales up the `greeter-v1` and the service responds with the text **Hi  greeter => '9861675f8845' : 1**.
+You will notice that the command does not create any new configuration/revision/deployment as there was no application update (e.g. image tag, env var, etc), but when you call the service, Knative scales up the `blue` that shows *blue* browser page with greeting *Hello*.
+
+.Blue Green Canary::Blue
+image::blue-green-canary-blue.png[]
 
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-$TUTORIAL_HOME/bin/call.sh
+{kubernetes-cli} get pods
 ----
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-Hi  greeter => '9861675f8845' : 1
+NAME                                     READY   STATUS        RESTARTS   AGE
+#blue-green-canary-00001-deployment-54597d94b9-25x4r#   2/2     Running       0          12s
+blue-green-canary-00002-deployment-6cb545df65-ktqc2   0/2     Terminating   0          2m
 ----
 
-[.console-input]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl get pods
-----
-
-[.console-output]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-NAME                                     READY   STATUS    RESTARTS   AGE
-greeter-v2-deployment-587786fc6b-lmfzq   1/2     Running   0          6s
-----
-
-Since `greeter-v1` is the active revision now, the existing `greeter-v2` pod is getting terminated as no future requests will be served by it.
+Since `blue` is the active revision now, the existing `green` pod is getting terminated as no future requests will be served by it.
 
 [TIP]
 ====
-As an exercise, flip all the traffic back to `greeter-v2` (green). You need to edit the traffic block of the service-pinned.yaml and update the revision name to `greeter-v2`. After you redeploy the `service-pinned.yaml`, try calling the service again to notice the difference. If everything went smooth you will notice the service calls will now go to only `greeter-v2`.
+As an exercise, flip all the traffic back to `green` using `kn` command.
+====
+
+[IMPORTANT,caption=OpenShift]
+[%hardbreaks]
+====
+video::9KlHEwWaeIA[youtube,width=640,height=480]
 ====
 
 [[canary-release]]
-:service-file: service-canary.yaml
 == Applying Canary Release Pattern
 
 A Canary release is more effective when you want to reduce the risk of introducing new feature. It allows you a more effective feature-feedback loop before rolling out the change to your entire user base.
 
 Knative allows you to split the traffic between revisions in increments as small as 1%.
 
-To see this in action, apply the following Knative service definition that will split the traffic 80% to 20% between `greeter-v1` and `greeter-v2`.
-
-.Canary between greeter v1 and v2
-[source,yaml]
-----
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: greeter
-spec:
-  template:
-    metadata:
-      name: greeter-v2
-    spec:
-      containers:
-        - image: quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
-          env:
-            - name: MESSAGE_PREFIX
-              value: Namaste
-          livenessProbe:
-            httpGet:
-              path: /healthz
-          readinessProbe:
-            httpGet:
-              path: /healthz
-  traffic:
-    - tag: v1
-      revisionName: greeter-v1
-      percent: 80
-    - tag: v2
-      revisionName: greeter-v2
-      percent: 20
-    - tag: latest
-      latestRevision: true
-      percent: 0
-----
+To see this in action, apply the following Knative service definition that will split the traffic 80% to 20% between `blue` and `green`.
 
 To roll out the greeter canary deployment use the following command:
 
 .Create greeter canary Deployment
-include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;td-canary;tab-2]
 
-As in the previous section on <<blue-green>> deployments, the command will not create any new configuration/revision/deployment. To observe the traffic distribution you need to run the script `$TUTORIAL_HOME/bin/poll.sh`, which is almost identical to `$TUTORIAL_HOME/bin/call.sh` but will invoke the Knative service in a loop.
-
-.Verify Canary rollout
 [.console-input]
-[source,bash,subs="quotes,attributes+,+macros"]
+[source,bash,subs="+macros,+attributes"]
 ----
-$TUTORIAL_HOME/bin/poll.sh
-----
-
-With the poll.sh script running you will see that approximately 80% of the responses are returned from `greeter-v1` and approximately 20% from `greeter-v2`. See the listing below for sample output:
-
-.Sample greeter Canary roll out output
-[.console-output]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-Hi  greeter => '9861675f8845' : 1
-Hi  greeter => '9861675f8845' : 2
-Namaste  greeter => '9861675f8845' : 1
-Hi  greeter => '9861675f8845' : 3
-Hi  greeter => '9861675f8845' : 4
-Hi  greeter => '9861675f8845' : 5
-Hi  greeter => '9861675f8845' : 6
-Hi  greeter => '9861675f8845' : 7
-Hi  greeter => '9861675f8845' : 8
-Hi  greeter => '9861675f8845' : 9
-Hi  greeter => '9861675f8845' : 10
-Hi  greeter => '9861675f8845' : 11
-Namaste  greeter => '9861675f8845' : 2
-Hi  greeter => '9861675f8845' : 12
-Hi  greeter => '9861675f8845' : 13
-Hi  greeter => '9861675f8845' : 14
-Hi  greeter => '9861675f8845' : 15
-Hi  greeter => '9861675f8845' : 16
-...
+kn service update blue-green-canary \
+  --traffic="blue=80" \
+  --traffic="green=20" 
 ----
 
-You should also notice that two pods are running representing both `greeter-v1` and `greeter-v2`:
+As in the previous section on <<blue-green>> deployments, the command will not create any new configuration/revision/deployment. To observe the traffic distribution, open the Service Route URL in your browser window. 
+
+You will notice the browser alternating betwee green and blue color, with majority of the time staying with blue.
+
+image::blue-green-canary.gif[]
+
+You should also notice that two pods are running representing both `blue` and `green`:
 
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch "kubectl get pods"
+watch "{kubernetes-cli} get pods -n {tutorial-namespace}"
 ----
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                     READY   STATUS    AGE
-greeter-v1-deployment-6f75dfd9d8-86q89   2/2     Running   12s
-greeter-v2-deployment-9984bb56d-n7xvm    2/2     Running   2s
+NAME                                                    READY   STATUS    RESTARTS   AGE
+blue-green-canary-00001-deployment-54597d94b9-q8c57   2/2     Running   0          79s
+blue-green-canary-00002-deployment-8564bf5b5b-gtvh4   2/2     Running   0          14s
 ----
 
 [NOTE,caption=Challenge]
 ====
-As a challenge, adjust the traffic distribution and observe the responses while the poll.sh script is actively running.
+As a challenge:
+
+- Deploy a new revision called "yellow" which will show Yellow Color browser page (Hex for yellow is `#f2f25e`) and a greeting text `Bonjour`.
+
+- Create the tag called yellow, mapping to yellow revision of the service.
+
+- Update the traffic distribution to be 70% to blue, 20% to green and 10% to yellow.
+====
+
+[IMPORTANT,caption=OpenShift]
+[%hardbreaks]
+====
+video::5cNU6vAAbXQ[youtube,width=640,height=480]
 ====
 
 [#basics-cleanup]
@@ -362,6 +424,6 @@ As a challenge, adjust the traffic distribution and observe the responses while 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn -n {tutorial-namespace}  service delete greeter
+kn service delete blue-green-canary
 ----
 

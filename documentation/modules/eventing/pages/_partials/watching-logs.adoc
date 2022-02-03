@@ -1,23 +1,23 @@
-ifndef::workshop[]
-[kube-ns='knativetutorial']
-[kube-svc='']
+
+:kube-svc: eventing-hello
 
 In the eventing related subsections of this tutorial, event sources are configured to emit events every minute with a `PingSource` or with a `ContainerSource`.  
 
 The logs could be watched using the command:
 
-[source,yaml,subs="attributes+,+macros"]
+[source,yaml,subs="+attributes,+macros"]
 ----
-kubectl logs -n {kube-ns} -f <pod-name> -c user-container
+{kubernetes-cli} logs -n {tutorial-namespace} -f <pod-name> -c user-container
 ----
 
 [TIP]
 ====
 * Using stern with the command `stern  -n {kube-ns} {kube-svc}`, to filter the logs further add `-c user-container` to the stern command.
 
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-stern -n {kube-ns} -c user-container {kube-svc} 
+stern -n {tutorial-namespace} -c user-container {kube-svc} 
 ----
 ====
 

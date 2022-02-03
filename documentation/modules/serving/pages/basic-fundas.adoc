@@ -6,9 +6,9 @@ include::_attributes.adoc[]
 
 At the end of this chapter you will be able to :
 
-* Deploy a Knative service.
-* Deploy multiple revisions of a service.
-* Run different revisions of a service via traffic definition.
+* Deploy a Knative service
+* View the Kubernetes resources created by Knative
+* Invoke the deployed Knative Service
 
 ifndef::workshop[]
 [#basics-prerequisite]
@@ -42,45 +42,26 @@ The service can be deployed using the following command:
 
 include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;basic;tab-2]
 
-[tabs]
-====
-kn::
-+
---
-[.console-output]
-[source,bash,subs="attributes+"]
-----
-Creating service 'greeter' in namespace 'knativetutorial':
-
-  0.015s The Configuration is still working to reflect the latest desired specification.
-  0.076s The Route is still working to reflect the latest desired specification.
-  0.105s Configuration "greeter" is waiting for a Revision to become ready.
-  8.550s ...
-  8.607s Ingress has not yet been reconciled.
-  8.660s unsuccessfully observed a new generation
-  8.845s Ready to serve.
-
-Service 'greeter' created to latest revision 'greeter-sxnzq-1 ' is available at URL:
-http://greeter.{tutorial-namespace}.{minikube-nip-io}
-----
---
-{kubernetes-cli}::
-+
---
 After successful deployment of the service we should see a Kubernetes Deployment named similar to `greeter-nsrbr-deployment` available:
 
 [#basics-run-get-deployments]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl get deployments -n {tutorial-namespace}
+kubectl get deployments
 ----
 
-[NOTE]
-=====
-* The actual deployment name may vary in your setup
-=====
---
+NOTE: The actual deployment name may vary in your setup
+
+// TODO: show this with OpenShift logo
+[IMPORTANT,caption=OpenShift]
+[%hardbreaks]
+====
+If you are on *OpenShift*, then you can deploy a Knative service by just click of buttons via *OpenShift* web console.
+
+&nbsp;
+
+video::h9F6ynUQHaU[youtube,width=640,height=480]
 ====
 
 [#basics-invoke-service]
@@ -116,9 +97,9 @@ Hi  greeter => '6fee83923a9f' : 1
 NOTE: Sometimes the response might not be returned immediately especially when the pod is coming up from dormant state. In that case, repeat service invocation.
 
 [#basics-see-what-you-have-deployed]
-== See what you have deployed
+== Knative Resources
 
-The service-based deployment strategy that we did now will create many Knative resources, the following commands will help you to query and find what has been deployed.
+The Knative service that we deployed now, creates many Knative resources, the following commands will help you to query and find those resources:
 
 [#basics-show-knative-services]
 === service 
@@ -133,8 +114,8 @@ include::serving:partial$knative-objects.adoc[tag=knative-configs]
 [.console-output]
 [source,bash]
 ----
-NAME      LATESTCREATED      LATESTREADY       READY
-greeter   greeter-sxnzq-1    greeter-sxnzq-1    True
+NAME      LATESTCREATED   LATESTREADY     READY   REASON
+greeter   greeter-00001   greeter-00001   True    
 ----
 
 [#basics-show-knative-routes]
@@ -150,98 +131,14 @@ include::serving:partial$knative-objects.adoc[tag=knative-revisions]
 [.console-output]
 [source,bash]
 ----
-NAME            CONFIG NAME   K8S SERVICE NAME   GENERATION   READY 
-greeter-sxnzq-1    greeter       greeter-sxnzq-1       1            True
+NAME            SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
+greeter-00001   greeter   100%             1            9m37s   3 OK / 4     True
 ----
 
 [TIP]
 ====
 * add `-oyaml` to the commands above to see more details
 ====
-
-[#deploying-new-revision]
-== Deploy a New Revision of a Service
-
-.Twelve-factor app
-****
-https://12factor.net/[12factor.net] defines the twelve-factor app as a methodology for building software-as-a-service apps that:
-
-- Use declarative formats for setup automation, to minimize time and cost for new developers joining the project;
-- Have a clean contract with the underlying operating system, offering maximum portability between execution environments;
-- Are suitable for deployment on modern cloud platforms, obviating the need for servers and systems administration;
-- Minimize divergence between development and production, enabling continuous deployment for maximum agility;
-- And can scale up without significant changes to tooling, architecture, or development practices.
-- The twelve-factor methodology can be applied to apps written in any programming language, and which use any combination of backing services (database, queue, memory cache, etc).
-****
- 
-To deploy a new revision of the greeter service, we will add an environment variable to the existing service as shown below:
-
-[#basics-service-rev2]
-=== Service revision 2
-
-:service-file: service-env.yaml
-
-.link:{github-repo}/{basics-repo}/{service-file}[{service-file}]
-[source,yaml,subs="+macros,attributes+"]
-----
-include::serving:example${basics-repo}/{service-file}[]
-----
-
-Adding an environment variable that will be used as the message prefix
-
-Let us deploy the new revision using the command:
-
-include::serving:partial$deploy-knative-resources.adoc[tags=tab-1;env;tab-2]
-
-[tabs]
-====
-kn::
-+
---
-[.console-output]
-[source,subs="+macros,+attributes"]
-----
-Updating Service 'greeter' in namespace 'knativetutorial':
-
-  0.026s The Configuration is still working to reflect the latest desired specification.
- 13.509s Traffic is not yet migrated to the latest revision.
- 13.554s Ingress has not yet been reconciled.
- 13.618s unsuccessfully observed a new generation
- 13.781s Ready to serve.
-
-Service 'greeter' updated to latest revision 'greeter-njxyx-2' is available at URL:
-http://greeter.{tutorial-namespace}.{minikube-nip-io}
-----
---
-{kubernetes-cli}::
-+
---
-After successful deployment of the service we should see a Kubernetes deployment called `greeter-v2-deployment`.
-
-Now if you list revisions, you will see two of them, named similar to `greeter-v1` and `greeter-v2`.
---
-====
-
-[#rev2-basics-show-knative-revisions]
-=== revisions
-:doc-sec: rev2
-include::serving:partial$knative-objects.adoc[tag=knative-revisions]
-
-[.console-output]
-[source,bash]
-----
-NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
-greeter-njxyx-2   greeter   100%             2            3m50s   3 OK / 4     True
-greeter-sxnzq-1   greeter                    1            37m     3 OK / 4     True
-----
-
-<<basics-invoke-service,Invoking Service>> will now show an output like:
-[source,bash,subs="+macros,+attributes"]
-[.console-output]
-----
-Namaste  greeter => '6fee83923a9f' : 1**
-----
-Where __Namaste__ is the value we configured via environment variable in the Knative service resource file.
 
 [#basics-cleanup]
 == Cleanup
@@ -253,7 +150,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service -n {tutorial-namespace} delete greeter
+kn service delete greeter
 ----
 --
 {kubernetes-cli}::
@@ -262,7 +159,7 @@ kn service -n {tutorial-namespace} delete greeter
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete services.serving.knative.dev greeter
+kubectl delete services.serving.knative.dev greeter
 ----
 --
 ====

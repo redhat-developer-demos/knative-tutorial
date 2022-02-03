@@ -10,9 +10,9 @@ include::knative-tutorial:ROOT:partial$prereq-cli.adoc[]
 endif::[]
 
 [#install-camel-k]
-== Install Camel-k
+== Install Camel K
 
-Download the latest camel-k release from https://github.com/apache/camel-k/releases/latest[here]. Extract the content and add the binary `kamel` to the PATH.
+Download the latest Apache Camel K release from https://github.com/apache/camel-k/releases/latest[here]. Extract the content and add the binary `kamel` to the PATH.
 
 [IMPORTANT]
 ====

@@ -21,7 +21,7 @@ At the end of this chapter you will be able to :
 [#kn-install]
 == Install
 
-Download the https://github.com/knative/client/releases/tag/{kn-client-version}[{kn-client-version}] Knative Client and add it to your `PATH`.
+Download the https://github.com/knative/client/releases/tag/{kn-client-version}[{kn-client-version}^] Knative Client and add it to your `PATH`.
 
 Verify installation by running the command:
 
@@ -38,14 +38,14 @@ The above command will return a response like
 [.console-output]
 ----
 Version:      {kn-client-version}
-Build Date:   2020-08-26 11:08:52
-Git Revision: 8fcd25c3
+Build Date:   2021-12-14T12:31:50Z
+Git Revision: 530841f1
 Supported APIs:
 * Serving
-  - serving.knative.dev/v1 (knative-serving {kn-client-version})
+  - serving.knative.dev/v1 (knative-serving )
 * Eventing
-  - sources.knative.dev/v1alpha2 (knative-eventing {kn-client-version})
-  - eventing.knative.dev/v1beta1 (knative-eventing {kn-client-version})
+  - sources.knative.dev/v1 (knative-eventing )
+  - eventing.knative.dev/v1 (knative-eventing )
 ----
 
 [#kn-ksvc]
@@ -134,8 +134,7 @@ In previous chapter we deployed a new revision of Knative service by adding an e
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service update greeter --namespace {tutorial-namespace} \
-  --env "MESSAGE_PREFIX=Namaste"
+kn service update greeter --env "MESSAGE_PREFIX=Namaste"
 ----
 
 [.console-output]
@@ -169,7 +168,7 @@ Sometime you wish you get the YAML of the Knative service to build a new service
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service describe --namespace {tutorial-namespace} greeter 
+kn service describe greeter 
 ----
 
 The describe should show you a short summary of your service : 
@@ -200,7 +199,7 @@ To list all the revisions as part of the `describe` command use:
 [.console-input]
 [source,subs="+macros,attributes+"]
 ----
-kn service describe --namespace {tutorial-namespace} greeter -v
+kn service describe greeter -v
 ----
 [.console-output]
 [source,text,subs="+quotes,+macros,attributes+"]
@@ -232,9 +231,9 @@ Conditions:
 To get the Knative service url use `describe` with `-o url` option:
 
 [.console-input]
-[source,bash]
+[source,bash,subs="attributes+"]
 ----
-kn service describe --namespace {tutorial-namespace}  greeter -o url
+kn service describe greeter -o url
 ----
 
 [.console-output]
@@ -256,16 +255,15 @@ You can list the available revisions of a Knative service using:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision list --namespace {tutorial-namespace}
+kn revision list
 ----
 
 [.console-output]
 [source,bash]
 ----
-NAME              SERVICE   TRAFFIC   TAGS   GENERATION   AGE   CONDITIONS   READY   REASON
-greeter-tjtpm-2   greeter   100%             2            98s   4 OK / 4     True    
-greeter-twpgf-1   greeter                    1            11h   3 OK / 4     True    
-
+NAME            SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
+greeter-00002   greeter   100%             2            3m37s   3 OK / 4     True    
+greeter-00001   greeter                    1            16m     3 OK / 4     True
 ----
 
 [#kn-revisions-desc]
@@ -277,25 +275,25 @@ To get the details about a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision describe --namespace {tutorial-namespace} greeter-twpgf-1
+kn revision describe greeter-00001
 ----
 
 [.console-output]
 [source,bash]
 ----
-Name:       greeter-twpgf-1
+Name:       greeter-00001
 Namespace:  knativetutorial
-Age:        10m
+Age:        17m
 Image:      quay.io/rhdevelopers/knative-tutorial-greeter:quarkus (pinned to 767e2f)
+Replicas:   0/0
 Service:    greeter
 
 Conditions:  
   OK TYPE                  AGE REASON
-  ++ Ready                  9m 
-  ++ ContainerHealthy       9m 
-  ++ ResourcesAvailable     9m 
-   I Active                 8m NoTraffic
-
+  ++ Ready                 17m 
+  ++ ContainerHealthy      17m 
+  ++ ResourcesAvailable    17m 
+   I Active                16m NoTraffic
 ----
 
 [#kn-revisions-delete]
@@ -306,13 +304,13 @@ To delete a specific revision you can use the command:
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn revision delete --namespace {tutorial-namespace} greeter-twpgf-1
+kn revision delete greeter-00001
 ----
 
 [.console-output]
 [source,bash]
 ----
-Revision 'greeter-twpgf-1' successfully deleted in namespace 'knativetutorial'.
+Revision 'greeter-00001' successfully deleted in namespace 'knativetutorial'.
 ----
 
 [#kn-routes]
@@ -344,7 +342,7 @@ You can also use `kn` to delete the service that were created, to delete the ser
 [.console-input]
 [source,bash,subs="+macros,attributes+"]
 ----
-kn service delete --namespace {tutorial-namespace} greeter
+kn service delete greeter
 ----
 
 [source,bash]

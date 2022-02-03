@@ -2,16 +2,13 @@
 :github-repo: https://github.com/redhat-developer-demos/knative-tutorial/blob/{branch}
 :advanced-module-github-repo-uri: https://github.com/redhat-developer-demos/knative-tutorial-advanced
 :advanced-github-repo-uri: https://github.com/redhat-developer-demos/knative-tutorial-advanced
-:advanced-github-repo: {advanced-module-github-repo-uri}/blob/{branch}
-:kamel-version: 1.2.0
+:advanced-github-re17po: {advanced-module-github-repo-uri}/blob/{branch}
+:kamel-version: 1.8.0
 :experimental:
 :maven-version: 3.6.3+
-:camel-source-version: 
-:camel-source-version: v0.17.7
-:knative-eventing-version: v0.17.0
-:kafka-source-version: v0.17.7
-:strimzi-version: 0.20.0
+:strimzi-version: 0.26.1
 :camelk-repo: advanced/camel-k
 :eventing-repo: eventing
 :observability-repo: advanced/observability
 :minikube-nip-io: 192.168.64.13.nip.io 
+:knative-kafka-repo: https://github.com/knative-sandbox/eventing-kafka

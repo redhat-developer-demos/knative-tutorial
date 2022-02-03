@@ -45,7 +45,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn channel list -n {tutorial-namespace}
+kn channel list
 ----
 --
 {kubernetes-cli}::
@@ -54,8 +54,7 @@ kn channel list -n {tutorial-namespace}
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get \
-  channels.messaging.knative.dev 
+kubectl get channels.messaging.knative.dev 
 ----
 --
 ====
@@ -112,7 +111,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping -n {tutorial-namespace} list
+kn source ping list
 ----
 
 Running  the above command should return the following result:
@@ -131,7 +130,7 @@ kubectl::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get pingsource.sources.knative.dev 
+kubectl get pingsource.sources.knative.dev 
 ----
 
 Running  the above command should return the following result:
@@ -270,7 +269,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn subscription -n {tutorial-namespace} list
+kn subscription list
 ----
 
 Running  the above command should return the following result:
@@ -289,8 +288,7 @@ eventinghellob-sub   Channel:eventinghello-ch   ksvc:eventinghellob             
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} \
-   get subscription.messaging.knative.dev 
+kubectl get subscription.messaging.knative.dev 
 ----
 
 Running  the above command should return the following result:
@@ -349,12 +347,12 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service delete -n {tutorial-namespace} eventinghelloa
-kn subscription delete eventinghelloa-sub --namespace {tutorial-namespace}
-kn service delete -n {tutorial-namespace}  eventinghellob
-kn subscription delete eventinghellob-sub --namespace {tutorial-namespace}
-kn source ping delete -n {tutorial-namespace} event-greeter-ping-source
-kn channel delete -n {tutorial-namespace} eventinghello-ch
+kn service delete eventinghelloa
+kn subscription delete eventinghelloa-sub
+kn service delete eventinghellob
+kn subscription delete eventinghellob-sub 
+kn source ping delete event-greeter-ping-source
+kn channel delete eventinghello-ch
 ----
 --
 {kubernetes-cli}::
@@ -363,12 +361,12 @@ kn channel delete -n {tutorial-namespace} eventinghello-ch
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete -f eventing-helloa-sink.yaml
-kubectl -n {tutorial-namespace} delete -f eventing-helloa-sub.yaml
-kubectl -n {tutorial-namespace} delete -f eventing-hellob-sink.yaml
-kubectl -n {tutorial-namespace} delete -f eventing-hellob-sub.yaml
-kubectl -n {tutorial-namespace} delete -f event-source.yaml
-kubectl -n knativetutorial delete -f channel.yaml
+kubectl delete -f eventing-helloa-sink.yaml
+kubectl delete -f eventing-helloa-sub.yaml
+kubectl delete -f eventing-hellob-sink.yaml
+kubectl delete -f eventing-hellob-sub.yaml
+kubectl delete -f event-source.yaml
+kubectl delete -f channel.yaml
 ----
 --
 ====

@@ -1,8 +1,31 @@
 = Setup
 include::_attributes.adoc[]
 
+[#download-tutorial-sources]
+== Tutorial Sources
+Before we start setting up the environment, let's clone the tutorial sources and set the `TUTORIAL_HOME` environment variable to point to the root directory of the tutorial:
 
-== Install Locally
+[.console-input]
+[source,bash,subs="attributes+,+macros"]
+----
+git clone -b {branch} https://github.com/redhat-developer-demos/knative-tutorial
+export TUTORIAL_HOME="$(pwd)/knative-tutorial"
+----
+
+ifndef::workshop[]
+[IMPORTANT,subs="attributes+,+macros"]
+====
+
+This tutorial was developed and tested with:
+
+- Knative `{knative-version}`
+- Minikube `{minikube-version}`
+- OpenShift `{openshift-version}`
+====
+endif::[]
+
+[#tools]
+== Tutorial Tools
 
 The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
 
@@ -41,9 +64,9 @@ The following CLI tools are required for running the exercises in this tutorial.
 | https://httpie.org/doc#windows-etc
 
 | https://github.com/rakyll/hey[hey]
-| https://storage.googleapis.com/hey-release/hey_darwin_amd64[Download]
-| https://storage.googleapis.com/jblabs/dist/hey_linux_v0.1.2[Download]
-| https://storage.googleapis.com/jblabs/dist/hey_win_v0.1.2.exe[Download]
+| `brew install hey`
+| https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64[Download]
+| https://hey-release.s3.us-east-2.amazonaws.com/hey_windows_amd64[Download]
 
 | watch
 | `brew install watch`

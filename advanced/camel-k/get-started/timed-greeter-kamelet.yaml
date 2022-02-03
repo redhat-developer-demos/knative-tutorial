@@ -1,0 +1,45 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: Kamelet
+metadata:
+  name: timed-greeter
+spec:
+  definition:
+    title: Timed Greeter Source
+    description: Produces periodic events with a custom payload.
+    required:
+      - message
+    type: object
+    properties:
+      period:
+        title: Period
+        description: The interval between two events in milliseconds
+        type: integer
+        default: 1000
+      message:
+        title: Message
+        description: The message to generate
+        type: string
+        example: hello world
+      contentType:
+        title: Content Type
+        description: The content type of the message being generated
+        type: string
+        default: text/plain
+  dependencies:
+    - "camel:core"
+    - "camel:timer"
+    - "camel:kamelet"
+  template:
+    from:
+      uri: timer:tick
+      parameters:
+        period: 10000
+      steps:
+        - set-body:
+            constant: "{{message}}"
+        - set-header:
+            name: "Content-Type"
+            constant: "{{contentType}}"
+        - transform:
+            simple: "${body.toUpperCase()}"
+        - to: "kamelet:sink"

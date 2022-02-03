@@ -38,16 +38,16 @@ a|
 ifndef::workshop[]
 a|
 [.tile]
-.xref:camelk:index.adoc[Apache Camel-K]
+.xref:camelk:index.adoc[Apache Camel K]
 * xref:camelk:setup.adoc[Setup]
-* xref:camelk:camel-k-basics.adoc#deploy-camel-k-kn-integration[Camel-K with Knative Serving]
-* xref:camelk:camel-k-eventing.adoc[Camel-K with Knative Eventing]
+* xref:camelk:camel-k-basics.adoc#deploy-camel-k-kn-integration[Camel K with Knative Serving]
+* xref:camelk:camel-k-eventing.adoc[Camel K with Knative Eventing]
 *  xref:camelk:camel-k-eventing.adoc#camel-k-es-sink[CamelSource to Sink]
 a|
 [.tile]
 .xref:advanced:index.adoc[Advanced]
 * xref:advanced:deploy-apache-kafka.adoc[Deploy Apache Kafka]
 * xref:advanced:eventing-with-kafka.adoc[Knative Eventing with Apache Kafka]
-*  xref:advanced:camel-k-cbr.adoc[Content Based Routing with Camel-K]
+*  xref:advanced:camel-k-cbr.adoc[Content Based Routing with Camel K]
 endif::[]
 |===

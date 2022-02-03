@@ -230,7 +230,7 @@ curl -v "http://eventingaloha.{tutorial-namespace}.svc.cluster.local" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \
--H "Ce-Type: aloha" \
+-H "Ce-Type: greeting" \
 -H "Ce-Source: mycurl" \
 -H "Content-Type: application/json" \
 -d '{"key":"from a curl"}'
@@ -264,7 +264,7 @@ curl -v "http://eventingbonjour.{tutorial-namespace}.svc.cluster.local" \
 -X POST \
 -H "Ce-Id: say-hello" \
 -H "Ce-Specversion: 1.0" \
--H "Ce-Type: bonjour" \
+-H "Ce-Type: greeting" \
 -H "Ce-Source: mycurl" \
 -H "Content-Type: application/json" \
 -d '{"key":"from a curl"}'
@@ -344,12 +344,12 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn service delete eventingbonjour -n {tutorial-namespace}
-kn service delete eventingaloha -n {tutorial-namespace}
-kn trigger delete helloaloha -n {tutorial-namespace}
-kn trigger delete hellobonjour -n {tutorial-namespace}
-kubectl -n {tutorial-namespace} delete pod curler
-kn broker delete default -n {tutorial-namespace}
+kn service delete eventingbonjour 
+kn service delete eventingaloha 
+kn trigger delete helloaloha
+kn trigger delete hellobonjour 
+kubectl delete pod curler
+kn broker delete default 
 ----
 --
 {kubernetes-cli}::
@@ -358,12 +358,12 @@ kn broker delete default -n {tutorial-namespace}
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete -f eventing-aloha-sink.yaml
-kubectl -n {tutorial-namespace} delete -f eventing-bonjour-sink.yaml
-kubectl -n {tutorial-namespace} delete -f trigger-helloaloha.yaml
-kubectl -n {tutorial-namespace} delete -f trigger-hellobonjour.yaml
-kubectl -n {tutorial-namespace} delete -f curler.yaml
-kubectl -n knativetutorial delete -f default-broker.yaml
+kubectl delete -f eventing-aloha-sink.yaml
+kubectl delete -f eventing-bonjour-sink.yaml
+kubectl delete -f trigger-helloaloha.yaml
+kubectl delete -f trigger-hellobonjour.yaml
+kubectl delete -f curler.yaml
+kubectl delete -f default-broker.yaml
 ----
 --
 ====

@@ -1,10 +1,12 @@
 - from:
-    uri: "knative:endpoint/fruits-producer"
+    uri: timer:tick
+    parameters:
+      period: 5000
     steps:
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "http:fruityvice-proxy:8080/api/fruit/all?bridgeEndpoint=true"
+      - to: "https://www.fruityvice.com/api/fruit/all"
       - split:
           jsonpath: "$.[*]"
       - marshal:

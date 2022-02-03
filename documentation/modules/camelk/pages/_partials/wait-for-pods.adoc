@@ -13,22 +13,20 @@ You can use kbd:[CTRL + c ] to terminate the watch
 kubectl::
 +
 --
-[#camelk-wait-using-kubectl]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 kubectl -n {kube-ns} get pods -w 
 ----
-copyToClipboard::camelk-wait-using-kubectl[]
 --
 oc::
 +
 --
-[#camelk-wait-using-oc]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 oc -n  {kube-ns} get pods -w 
 ----
-copyToClipboard::camelk-wait-using-oc[]
 --
 ====
 

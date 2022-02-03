@@ -1,10 +1,10 @@
-apiVersion: sources.knative.dev/v1beta1
+apiVersion: sources.knative.dev/v1
 kind: PingSource
 metadata:
   name: event-greeter-ping-source
 spec:
   schedule: "*/2 * * * *"
-  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:
     ref:
       apiVersion: messaging.knative.dev/v1

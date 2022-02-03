@@ -10,8 +10,7 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn broker create default \
-  --namespace {tutorial-namespace}
+kn broker create default 
 ----
 #end::broker[]
 
@@ -20,7 +19,6 @@ kn broker create default \
 [source,bash,subs="+macros,+attributes"]
 ----
 kn service create eventinghello \
-  --namespace {tutorial-namespace} \
   --concurrency-target=1 \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2
 ----
@@ -31,7 +29,6 @@ kn service create eventinghello \
 [source,bash,subs="+macros,+attributes"]
 ----
 kn service create {sink-service-name} \
-  --namespace {tutorial-namespace} \
   --concurrency-target=1 \
   --revision-name={revision-name} \
   --image=quay.io/rhdevelopers/eventinghello:0.0.2
@@ -43,8 +40,8 @@ kn service create {sink-service-name} \
 [source,bash,subs="+macros,+attributes"]
 ----
 kn source ping create eventinghello-ping-source \
-  --namespace {tutorial-namespace} \
   --schedule "*/2 * * * *" \
+  --data pass:['{"message": "Thanks for doing Knative Tutorial"}'] \
   --sink ksvc:eventinghello
 ----
 #end::eventing-hello-source[]
@@ -53,8 +50,7 @@ kn source ping create eventinghello-ping-source \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn channel create {channel-name} \
-  --namespace {tutorial-namespace}
+kn channel create {channel-name}
 ----
 #end::channel[]
 
@@ -62,9 +58,7 @@ kn channel create {channel-name} \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping create \
-  event-greeter-ping-source \
-  --namespace {tutorial-namespace} \
+kn source ping create event-greeter-ping-source \
   --schedule "*/2 * * * *" \
   --sink channel:eventinghello-ch
 ----
@@ -73,9 +67,7 @@ kn source ping create \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn subscription create \
-  eventinghelloa-sub \
-  --namespace {tutorial-namespace} \
+kn subscription create eventinghelloa-sub \
   --channel eventinghello-ch \
   --sink eventinghelloa
 ----
@@ -84,9 +76,7 @@ kn subscription create \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn subscription create \
-  eventinghellob-sub \
-  --namespace {tutorial-namespace} \
+kn subscription create eventinghellob-sub \
   --channel eventinghello-ch \
   --sink eventinghellob
 ----
@@ -96,7 +86,6 @@ kn subscription create \
 [source,bash,subs="+macros,+attributes"]
 ----
 kn trigger create {trigger-name} \
-  --namespace {tutorial-namespace} \
   --broker=default \
   --sink=ksvc:{trigger-sub-name} \
   --filter=type=greeting
@@ -110,7 +99,7 @@ kn trigger create {trigger-name} \
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-{kubernetes-cli} apply -n {tutorial-namespace} -f link:{github-repo}/{eventing-repo}/knative/{service-file}[{service-file}]
+{kubernetes-cli} apply -f link:{github-repo}/{eventing-repo}/{service-file}[pass:[${TUTORIAL_HOME}]/{eventing-repo}/{service-file}]
 ----
 --
 ====

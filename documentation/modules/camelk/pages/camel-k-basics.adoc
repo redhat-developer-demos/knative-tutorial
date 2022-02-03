@@ -20,7 +20,7 @@ cd $TUTORIAL_HOME/{camelk-repo}
 ----
 
 [#deploy-camel-k-integration]
-== Deploy Camel-K integration
+== Deploy Camel K integration
 
 Camel-K helps you in writing the Apache Camel integrations using Java, JS, XML and as YAML. 
 
@@ -106,7 +106,7 @@ You can use Ctrl+C to stop the running Camel K integration and it automatically 
 The `dev` mode allows live reload of code. Update the `timed-greeter.yaml` body text to be "Hi Camel K rocks!" and observe the automatic reloading of the context and the logs printing the new message.
 
 [#deploy-camel-k-kn-integration]
-== Deploy Camel-K Knative Integration
+== Deploy Camel K Knative Integration
 
 Any Camel-K integration can be converted into a serverless service using Knative. For an integration to be deployed as a Knative Service you need to use the Camel-K\'s `knative` component.
 
@@ -165,7 +165,7 @@ kamel run --wait get-started/echoer.yaml
 
 [NOTE]
 ====
-You can use `stern camel-k` to monitor the progress of the builder pod as well as `watch kubectl kamel get` and monitor the *PHASE* column.  In addition, `watch kubectl get ksvc` looking at the *READY* column to become True.
+You can use `stern Camel K` to monitor the progress of the builder pod as well as `watch kubectl kamel get` and monitor the *PHASE* column.  In addition, `watch kubectl get ksvc` looking at the *READY* column to become True.
 ====
 
 Since its the production mode and it takes some time for the integration to come up, you need to watch the integration\'s logs using the command `kamel log <integration name>` i.e. `kamel log echoer` and you can get the name of the integration using the command `kamel get`.
@@ -186,14 +186,14 @@ The command above shows the following output:
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                   SHORTNAMES   APIGROUP           NAMESPACED   KIND
-builds                 ikb          camel.apache.org   true         Build
-camelcatalogs          cc           camel.apache.org   true         CamelCatalog
-integrationkits        ik           camel.apache.org   true         IntegrationKit
-integrationplatforms   ip           camel.apache.org   true         IntegrationPlatform
-integrations           it           camel.apache.org   true         Integration
-kameletbindings        klb          camel.apache.org   true         KameletBinding
-kamelets               kl           camel.apache.org   true         Kamelet
+NAME                   SHORTNAMES   APIVERSION                  NAMESPACED   KIND
+builds                 ikb          camel.apache.org/v1         true         Build
+camelcatalogs          cc           camel.apache.org/v1         true         CamelCatalog
+integrationkits        ik           camel.apache.org/v1         true         IntegrationKit
+integrationplatforms   ip           camel.apache.org/v1         true         IntegrationPlatform
+integrations           it           camel.apache.org/v1         true         Integration
+kameletbindings        klb          camel.apache.org/v1alpha1   true         KameletBinding
+kamelets               kl           camel.apache.org/v1alpha1   true         Kamelet
 ----
 
 [#camel-k-list-int]

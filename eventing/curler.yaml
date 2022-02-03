@@ -7,5 +7,5 @@ metadata:
 spec:
   containers:
     - name: curler
-      image: fedora:29 
+      image: fedora:34
       tty: true

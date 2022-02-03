@@ -1,12 +1,12 @@
 [[camel-k-eventing]]
-= Camel-K Eventing
+= Camel K Eventing
 include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
 
-- How to use Knative Eventing Channels with Camel-K
-- Using Knative CamelSource
-- Connect Camel-K source to Sink
+- How to use Knative Eventing Channels with Apache Camel K
+- Using Knative Kamelet
+- Connect Apache Camel K source to Sink
 
 Navigate to the tutorial chapter's folder {camelk-repo}:
 
@@ -17,70 +17,64 @@ Navigate to the tutorial chapter's folder {camelk-repo}:
 cd $TUTORIAL_HOME/{camelk-repo}
 ----
 
-[#deploy-camel-k-source]
-== Deploy Knative Eventing CamelSource
+[#install-camel-k-plugin]
+== Install the kn kamelet source plugin
 
-The `CamelSource` allows you use a Camel-K integration as part of the Knative Eventing architecture. Simply speaking, you can make the Camel-K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and  send the Camel exchanges (OUT) through a Knative Event Sink.
+You can use the Camel K integration as part of the Knative Eventing architecture via a `Kamelet`. 
+Simply speaking, you can make the Camel K integration act as a https://knative.dev/docs/eventing/sources/[Knative Event Source] and send the Camel exchanges (OUT) through a Knative Event Sink.
+To start working with Kamelets you will need to add the kamelet source plugin to `kn` CLI.
 
-To deploy CamelSource run the following command:
-
-[.console-input]
-[#deploy-camelsource]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl apply \
-  -f "https://github.com/knative/eventing-contrib/releases/download/{camel-source-version}/camel.yaml"
-----
-
-Once you deploy, thee following new pod showing up the `knative-sources` namespace, wait for the `camel-controller-manager-0` to be running:
+As you probably already installed the `kn` CLI tooling, you can simply load the https://github.com/knative-sandbox/kn-plugin-source-kamelet/releases[Kamelet source plugin binaries] in order to add the commands for managing Kamelets as event sources.
+To verify your installation, please run the following command:
 
 [.console-input]
+[#list-kn-plugins]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch 'kubectl -n knative-sources get pods'
+kn plugin list
 ----
+
+You should see an output similar to:
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME                                        READY   STATUS    RESTARTS   AGE
-*camel-controller-manager-0                  1/1     Running   0          88s*
+- kn-quickstart : /usr/local/bin/kn-quickstart
+- kn-source-kamelet : /usr/local/bin/kn-source-kamelet
 ----
 
-Plus, CamelSource is now part of the API along with other Knative Eventing Sources that you might have deployed:
+By default, the `kn` CLI tool has a set of different event sources and its respective commands to manage those sources.
+You can list all the available Kamelets with the following command:
 
 [.console-input]
-[#camel-k-camelsource-api]
+[#list-kamelets]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl api-resources --api-group=sources.knative.dev
-----
-
-The command above should list: 
-
-[.console-output]
-[source,bash,subs="+quotes,+attributes,+macros"]
-----
-NAME               SHORTNAMES   APIGROUP              NAMESPACED   KIND
-apiserversources                sources.knative.dev   true         ApiServerSource
-#camelsources                    sources.knative.dev   true         CamelSource#
-containersources                sources.knative.dev   true         ContainerSource
-pingsources                     sources.knative.dev   true         PingSource
-sinkbindings                    sources.knative.dev   true         SinkBinding    SinkBinding
+kn source kamelet list -n knativetutorial
 ----
 
 [#logging-ce-messages]
 == View CloudEvents Messages
 
-In order for you to view the events drained from the CamelSource `timed-greeter`, you need to deploy a utility service called `event-display`. Run the following command to deploy the service:
+In order for you to view the events drained from the Kamelet `timed-greeter`, you need to deploy a utility service called `event-display`. Run the following command to deploy the service:
 
 [.console-input]
 [#deploy-ce-event-display]
 [source,bash,subs="+quotes,+attributes,+macros"]
-----
-kubectl apply \
-  -f https://github.com/knative/eventing-contrib/releases/download/{camel-source-version}/event-display.yaml
-----
+-----
+cat <<EOF | kubectl create -n {tutorial-namespace} -f -
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: event-display
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/knative-releases/knative.dev/eventing-contrib/cmd/event_display
+EOF
+-----
 
 A successful event display should show the following pod in the `{tutorial-namespace}`:
 
@@ -106,8 +100,8 @@ kn service -n {tutorial-namespace} ls
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME            URL                                                LATEST                AGE   CONDITIONS   READY   REASON
-event-display   http://event-display.knativetutorial.example.com   event-display-7jvmm   85s   3 OK / 3     True
+NAME            URL                                                          LATEST                AGE   CONDITIONS   READY   REASON
+event-display   http://event-display.knativetutorial.192.168.59.101.nip.io   event-display-00001   24s   3 OK / 3     True
 ----
 
 --
@@ -131,73 +125,89 @@ event-display   http://event-display.knativetutorial.example.com   event-display
 
 
 [[camel-k-es-sink]]
-== CamelSource to a Knative Eventing Sink
+== Custom Kamlet as source for a Knative Eventing Sink
 
 Knative Eventing semantics allows you to link the Event Source to Event Sink using the **sink** block of the Knative Eventing source specification.
 
-As part of this exercise we will deploy the same `timed-greeter` integration that you deployed <<deploy-camel-k-integration,earlier>> but now as a CamelSource that was deployed <<deploy-camel-k-source, in previous section>>. The event source (CamelSource) is configured to drain the events to the sink `event-display`. 
+As part of this exercise we will deploy the same `timed-greeter` integration that you deployed <<deploy-camel-k-integration,earlier>> but now as a Kamelet. 
 
-The following listing provides the details of CamelSource configuration:
+The following listing provides the details of Kamelet configuration:
 
-.timed-greeter CamelSource
+.timed-greeter Kamelet
 [source,yaml]
 ----
 apiVersion: sources.knative.dev/v1alpha1 #<1>
-kind: CamelSource
+kind: Kamelet
 metadata:
   name: timed-greeter
 spec:
-  integration: #<2>
-    dependencies:
-      - camel:log
-  source: #<3>
-    flow:
-      from:
-        uri: "timer:tick"
-        parameters:
-          # time in milliseconds (10 s)
-          period: 10000
-        steps:
-          - set-body:
-              constant: "Welcome to Apache Camel-K"
-          - set-header:
-              name: ContentType
-              simple: text/plain
-          - transform:
-              simple: "${body.toUpperCase()}"
-          - log:
-              message: "${body}"
-  sink: #<4>
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: event-display
-
+  definition:
+    title: Timed Greeter Source
+    description: Produces periodic events with a custom payload.
+    required:
+      - message
+    type: object
+    properties:
+      period:
+        title: Period
+        description: The interval between two events in milliseconds
+        type: integer
+        default: 1000
+      message:
+        title: Message
+        description: The message to generate
+        type: string
+        example: hello world
+      contentType:
+        title: Content Type
+        description: The content type of the message being generated
+        type: string
+        default: text/plain
+  dependencies:
+    - "camel:core"#<2>
+    - "camel:timer"
+    - "camel:kamelet"
+  template:
+    from: #<3>
+      uri: timer:tick
+      parameters:
+        period: 10000
+      steps:
+        - set-body:
+            constant: "{{message}}"
+        - set-header:
+            name: "Content-Type"
+            constant: "{{contentType}}"
+        - transform:
+            simple: "${body.toUpperCase()}"
+        - to: "kamelet:sink"#<4>
 ----
-<1> The CamelSource is provided by the API `sources.knative.dev`, it is now available as a result of deploying the CamelSource event source.
-<2> The CamelSource spec has two main sections: `integration` and `source`. The `integration` block is used to configure the Camel-K integration specific properties such as dependencies, traits, etc. In this example we add the required dependencies such as `camel:log`, it is the dependency that you earlier passed via `kamel` CLI.
-<3> The `source` block is used to define the Camel-K integration definition. The `flow` attribute of the `source` block allows you define the Camel route.
-<4> The event sink for messages from the Camel event source. The sink could be either a Knative Service, Knative Event Channel or Knative Event Broker. In this case it is configured to be the `event-display` Knative Service.
+<1> The Kamelet is provided by the API `sources.knative.dev`.
+<2> The Kamelet spec has three main sections: `definition`, `dependencies` and `template`. 
+The `dependencies` block is used to configure the Camel K integration specific properties such as dependencies, traits, etc. 
+In this example we add the required dependencies such as `camel:core`, it is the dependency that you earlier passed via `kamel` CLI.
+<3> The `from` attribute allows you define the Camel route.
+<4> The event sink for messages from the Camel event source. A Source Kamelet sends data to a `kamelet:sink`, that will be replaced at runtime by a different target.
 
-To deploy the CamelSource run the following command:
+To deploy the Kamelet run the following command:
 
 [.console-input]
 [#deploy-greeter-camelsource]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl apply -n {tutorial-namespace} -f get-started/timed-greeter-source.yaml
+kubectl apply -n {tutorial-namespace} -f get-started/timed-greeter-kamelet.yaml
 ----
 
-A successful deployment will show the CamelSource `timed-greeter` in ready state along with its pods in the {tutorial-namespace} namespace. 
+A successful deployment will show the Kamelet `timed-greeter` in ready state along with its pods in the {tutorial-namespace} namespace. 
 
 [.console-input]
 [#camel-k-watch-camelsources]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-watch kubectl -n {tutorial-namespace} get camelsources
+kn source kamelet list  -n {tutorial-namespace}
 ----
 
-When the camel source is successfully running you will see it in "READY" state `True`:
+When the Kamelet is successfully running you will see it in "READY" state `True`:
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
@@ -206,7 +216,68 @@ NAME            READY   AGE
 timed-greeter   True    114s
 ----
 
-Once the `timed-greeter` is ready, you will notice Knative sink `event-display` scale up to receive the events from `timed-greeter`.
+The event source is configured to drain the events to `kamelet:sink`.
+Now we just need to bind the Kamelet to the service `event-display` and we can do that by using a `KameletBinding`:
+
+.timed-greeter KameletBinding
+[source,yaml]
+----
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: timed-greeter-binding
+spec:
+  source:
+    ref: #<1>
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: timed-greeter
+    properties:
+      period: 5000
+      message: Welcome to Apache Camel K
+  sink:
+    uri: <INPUT_YOUR_EVENT_DISPLAY_URL>#<2>
+----
+<1> Kubernetes reference to the previously created Kamelet.
+<2> Sink the input to the URI of `event-display`.
+
+To find out the URI of `event-display` please run the following command:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kn service describe event-display -o url -n {tutorial-namespace}
+----
+
+Copy and paste somewhere the value of the URL as you will use it to customize the KameletBinding definition:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kubectl create -f advanced/camel-k/get-started/timed-greeter-binding.yaml --edit -o yaml -n {tutorial-namespace}
+----
+
+The previous command let's you edit the definition of the KameletBinding with your URL and once you save it,
+Kubernetes will create an object based on it.
+
+You can validate the state of your KameletBinding using:
+
+[.console-input]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+kn source kamelet binding list  -n {tutorial-namespace}
+----
+
+You should see an output stating it reached `Ready` state:
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+NAME                          PHASE   AGE    CONDITIONS   READY   REASON
+timed-greeter-binding         Ready   45m    1 OK / 1     True
+----
+
+Once the `timed-greeter` and  `timed-greeter-binding` are ready, you will notice Knative sink `event-display` scale up to receive the events from `timed-greeter`.
 
 .CamelSource `timed-greeter` pod and event-display pod
 [.console-output]
@@ -233,16 +304,17 @@ The `stern` command above should show the following output:
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-event-... user-container   id: ID-timed-greeter-m4chq-7cbf4ddc66-kxpqd-1577072133461-0-19
-event-... user-container   time: 2019-12-23T03:37:03.432Z
-event-... user-container Data,
-event-... user-container   WELCOME TO APACHE CAMEL K
 event-... user-container ☁️  cloudevents.Event
 event-... user-container Validation: valid
 event-... user-container Context Attributes,
-event-... user-container   specversion: 0.3
+event-... user-container   specversion: 1.0
 event-... user-container   type: org.apache.camel.event
-event-... user-container   source: camel-source:knativetutorial/timed-greeter
+event-... user-container   source: source
+event-... user-container   id: 3304E164DD1D7E1-0000000000000003
+event-... user-container   time: 2022-01-31T17:40:01.752Z
+event-... user-container   datacontenttype: text/plain
+event-... user-container Data,
+event-... user-container   WELCOME TO APACHE CAMEL K
 ----
 
 [#cleanup]
@@ -253,7 +325,8 @@ event-... user-container   source: camel-source:knativetutorial/timed-greeter
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 $TUTORIAL_HOME/bin/clean-completed.sh
-kubectl -n {tutorial-namespace} delete camelsource timed-greeter
+kubectl delete kameletbinding.camel.apache.org/timed-greeter-binding -n {tutorial-namespace}
+kubectl delete kamelet.camel.apache.org/timed-greeter -n {tutorial-namespace}
 ----
 
 After few seconds you will see the `event-display` Knative Service scaling down to zero since it no longer receives events via the event source.

@@ -24,11 +24,11 @@ kubectl api-resources --api-group='sources.knative.dev'
 [.console-output]
 [source,bash]
 ----
-NAME              APIGROUP                      NAMESPACED   KIND
-apiserversources  sources.knative.dev           true         ApiServerSource
-containersources  sources.knative.dev           true         ContainerSource
-pingsources       sources.knative.dev           true         PingSource
-sinkbindings      sources.knative.dev           true         SinkBinding
+NAME               SHORTNAMES   APIVERSION               NAMESPACED   KIND
+apiserversources                sources.knative.dev/v1   true         ApiServerSource
+containersources                sources.knative.dev/v1   true         ContainerSource
+pingsources                     sources.knative.dev/v1   true         PingSource
+sinkbindings                    sources.knative.dev/v1   true         SinkBinding
 ----
 
 Let's see how a simple source, the *PingSource* looks like : 
@@ -36,13 +36,13 @@ Let's see how a simple source, the *PingSource* looks like :
 .link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1beta1
+apiVersion: sources.knative.dev/v1
 kind: PingSource #<1>
 metadata:
   name: eventinghello-ping-source
 spec: #<2>
   schedule: "*/2 * * * *"
-  jsonData: '{"key": "every 2 mins"}'
+  data: '{"key": "every 2 mins"}'
   sink:
     ref:
       apiVersion: serving.knative.dev/v1
@@ -61,13 +61,13 @@ spec: #<2>
 .link:{github-repo}/{eventing-repo}/eventinghello-source.yaml[eventinghello-source.yaml]
 [source,yaml,subs="attributes+,+macros"]
 ----
-apiVersion: sources.knative.dev/v1beta1
+apiVersion: sources.knative.dev/v1
 kind: PingSource
 metadata:
   name: eventinghello-ping-source
 spec:
   schedule: "*/2 * * * *"
-  jsonData: '{"message": "Thanks for doing Knative Tutorial"}'
+  data: '{"message": "Thanks for doing Knative Tutorial"}'
   sink:  #<1>
     ref:
       apiVersion: serving.knative.dev/v1 #<2>
@@ -125,8 +125,18 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping list -n {tutorial-namespace}
+kn source ping list
 ----
+
+Running  the above command should return the following result:
+
+[.console-output]
+[source,bash]
+----
+NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
+eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   9s    3 OK / 3     True 
+----
+
 --
 {kubernetes-cli}::
 +
@@ -134,32 +144,14 @@ kn source ping list -n {tutorial-namespace}
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} get \
-  pingsources.sources.knative.dev \
+kubectl get pingsources.sources.knative.dev \
   eventinghello-ping-source
 ----
---
-====
 
 Running  the above command should return the following result:
 
-[tabs]
-====
-kn::
-+
---
 [.console-output]
-[source,bash]
-----
-NAME                        SCHEDULE      SINK                 AGE   CONDITIONS   READY   REASON
-eventinghello-ping-source   */2 * * * *   ksvc:eventinghello   99s   4 OK / 4     True
-----
---
-{kubernetes-cli}::
-+
---
-[.console-output]
-[source,bash]
+[source,bash,subs="+macros,+attributes"]
 ----
 NAME                        SINK                                                     AGE   READY   REASON
 eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.local   47s   True
@@ -167,18 +159,30 @@ eventinghello-ping-source   http://eventinghello.knativetutorial.svc.cluster.loc
 --
 ====
 
+If you haven't already, you can xref:{eventing-repo}#eventing-watch-logs[watch logs] to see the ping job source sending an event every 2 minutes:
 
-You can xref:{eventing-repo}#eventing-watch-logs[watch logs] to see the ping job source sending an event every 2 minutes.
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+stern eventinghello -c user-container -n {tutorial-namespace} 
+----
 
-[#eventing-see-what-you-have-deployed]
-== See what you have deployed
+[.console-output]
+[source,bash,subs="quotes"]
+----
+...
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,427 INFO  [eventing-hello] (executor-thread-1) ce-id=4b59c201-56a3-4189-b042-4246d3f33504
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-source=/apis/v1/namespaces/user2-knativetutorial/pingsources/eventinghello-ping-source
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-specversion=1.0
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,501 INFO  [eventing-hello] (executor-thread-1) ce-time=2021-01-28T08:14:00.000224506Z
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) ce-type=dev.knative.sources.ping
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-type=application/json
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) content-length=47
+#eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container 2021-01-28 08:14:05,502 INFO  [eventing-hello] (executor-thread-1) POST:{"message":"Thanks for doing Knative Tutorial"}#
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container I> No access restrictor found, access to any MBean is allowed
+eventinghello-00001-deployment-c8f4f6758-qrjm6 user-container Jolokia: Agent started with URL https://10.129.4.97:8778/jolokia/
+----
 
-=== sources
-include::eventing:partial$knative-objects.adoc[tag=knative-event-ping-sources]
-
-=== services
-:svc-name: eventinghello
-include::eventing:partial$knative-objects.adoc[tag=knative-event-services]
 
 [#eventing-cleanup]
 == Cleanup
@@ -191,8 +195,8 @@ kn::
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kn source ping delete -n {tutorial-namespace} eventinghello-ping-source 
-kn service delete -n {tutorial-namespace} eventinghello
+kn source ping delete eventinghello-ping-source 
+kn service delete eventinghello
 ----
 --
 {kubernetes-cli}::
@@ -201,8 +205,8 @@ kn service delete -n {tutorial-namespace} eventinghello
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-kubectl -n {tutorial-namespace} delete -f eventinghello-source.yaml
-kubectl -n {tutorial-namespace} delete -f eventing-hello-sink.yaml
+{kubernetes-cli} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventinghello-source.yaml
+{kubernetes-cli} delete -f pass:[${TUTORIAL_HOME}]/eventing/eventing-hello-sink.yaml
 ----
 --
 ====
