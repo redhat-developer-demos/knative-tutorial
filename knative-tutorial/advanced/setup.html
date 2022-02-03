@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Knative Tutorial</title>
+    <link rel="canonical" href="https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/advanced/setup.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-developer-demos.github.io/knative-tutorial">Knative Tutorial</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="knative-tutorial" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../setup/setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#download-tutorial-sources">Tutorial Sources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../setup/setup.html#tools">Tutorial Tools</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../setup/kubernetes-cluster.html#kubernetes-cluster">Choose your Kubernetes Cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../setup/minikube.html">Minikube</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#start-minikube">Configure and Start Minikube</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#minikube-deploy-registry">Deploy Registry</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-knative-serving">Install Knative Serving</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-kourier-ingress-gateway">Install Kourier Ingress Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-ingress-controller">Install Ingress Controller</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#install-knative-eventing">Install Knative Eventing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../setup/minikube.html#create-tutorial-namespace">Create Tutorial Namespace</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../setup/openshift.html">OpenShift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/index.html">Knative Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html">Knative Client</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/knative-client.html#kn-install">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html#kn-ksvc">Knative Service Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-create-ksvc">Create Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-list-services">List Knative Services</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-update-ksvc">Update Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-desc-ksvc">Describe Knative Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-delete-ksvc">Delete Knative Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisons">Knative Revision Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisions-list">Knative Revision List</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisions-desc">Knative Revision Describe</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-revisions-delete">Knative Revision Delete</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/knative-client.html#kn-routes">Knative Route Commands</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/knative-client.html#kn-route-list">Knative Revision List</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/basic-fundas.html">Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-build-containers">Build Containers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#deploying-new-revision">Deploy a New Revision of a Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/basic-fundas.html#basics-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/traffic-distribution.html">Revisions and Traffic Distribution</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploy-colors-service">Deploy Colors Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#deploying-new-revision">Deploy New Revision</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#tag-service-revisions">Tagging Revisions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#blue-green">Blue-Green Deployment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/traffic-distribution.html#canary-release">Canary Release</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html">Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/scaling.html#scaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/scaling.html#scaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html#scaling-scale-to-zero">Scale to Zero</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-observer-scale-to-zero">Observing Default Scale Down</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-observer-scale-to-zero-1m">Change Scale-to-Zero Time</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-reset-to-defaults">Reset to Defaults</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html#scaling-auto-scaling">Auto Scaling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-autoscaling-deploy-service">Deploy Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-autoscaling-invoke-service">Invoke Service</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-load-service">Load Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../serving/scaling.html#scaling-min-scale">Minimum Scale</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../serving/scaling.html#scaling-deploy-service-minscale">Deploy Service</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../serving/scaling.html#scaling-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/index.html">Knative Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-prerequisite">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../eventing/eventing.html#eventing-watch-logs">Watching Logs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html">Source to Sink</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-sink-service">Sink Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-verify-event-source">Verify</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-src-to-sink.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html">Channel and Subscribers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-channel">Channel</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-create-event-channel">Create Event Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-verify-event-channel">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-source">Event Source</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-create-event-source">Create Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-verify-event-source">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-subscriber">Event Subscriber</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-create-subscriber">Create Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-verify-subscriber">Verify</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-see-what-you-have-deployed">See What You Have Deployed</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/channel-and-subscribers.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html">Brokers and Triggers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#events-triggers-brokers">Events, Triggers and Brokers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#broker">Broker</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-service">Service</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-event-source">Event Source</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-trigger">Trigger</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-trigger-verification">Verification</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../eventing/eventing-trigger-broker.html#eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/index.html">Apache Camel K</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/setup.html">Setup</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/setup.html#install-camel-k">Install Apache Camel K </a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/camel-k-basics.html">Camel K with Knative Serving</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-integration">Deploy Camel K integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-basics.html#deploy-camel-k-kn-integration">Deploy Camel K Knative Integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-basics.html#camelk-gs-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../camelk/camel-k-eventing.html">Camel K with Knative Eventing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#deploy-camel-k-source">Install the kn kamelet source plugin</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#logging-ce-messages">View CloudEvents Messages</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#camel-k-es-sink">Kamlet as source for a Knative Eventing Sink</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../camelk/camel-k-eventing.html#camelk-eventing-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Advanced</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Knative Eventing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="deploy-apache-kafka.html">Deploy Apache Kafka</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#create-kafka-topic">Create Topic</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#kafka-producer">Run Producer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploy-apache-kafka.html#kafka-consumer">Run Consumer</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="eventing-with-kafka.html">Knative Eventing with Apache Kafka</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-kafka-source">Deploy KafkaSource</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-adv-default-knative-channel">Kafka Knative Channel</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-kafka-source-to-sink">Kafka Source to Sink</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-eventing-kafka-auto-scaling">Auto Scaling with Kafka</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="eventing-with-kafka.html#kn-kafka-src-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">EIP with Apache Camel K</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="camel-k-cbr.html">Content Based Routing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#cbr-app-overview">Application Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#label-namespace-for-default-broker">Create Broker</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-data-producer">Deploy Data Producer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-data-processor">Deploy Data Processor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-event-subscriber">Deploy Event Subscriber</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#camel-k-cbr-event-filter">Apply Knative Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#verify-e2e">Verify End to End</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="camel-k-cbr.html#kamel-cbr-cleanup">Cleanup</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-developer-demos/knative-tutorial/edit/master/documentation/modules/advanced/pages/setup.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="camelk-setup"><a class="anchor" href="#camelk-setup"></a>Setup</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="camelk-prerequisite"><a class="anchor" href="#camelk-prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following checks ensure that each chapter exercises are done with the right environment settings.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_minikube"></a>Minikube</p>
+</li>
+<li>
+<p><a id="tabset1_minishift"></a>Minishift</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_minikube">
+<div class="ulist">
+<ul>
+<li>
+<p>Set your local docker to use minikube docker daemon</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minikube docker-env)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Kubernetes should be <code>v1.23.0</code></p>
+</li>
+</ul>
+</div>
+<div id="kubectl-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::kubectl-version[]</p>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_minishift">
+<div class="ulist">
+<ul>
+<li>
+<p>Set your local docker to use minishift docker daemon</p>
+</li>
+</ul>
+</div>
+<div id="minishift-set-env" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift docker-env)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::minishift-set-env[]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift CLI should be v3.11.0+</p>
+</li>
+</ul>
+</div>
+<div id="oc-version" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">eval $(minishift oc-env)
+oc version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::oc-version[]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure to be on <code>knativetutorial</code> OpenShift project</p>
+</li>
+</ul>
+</div>
+<div id="right-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::right-openshift-project[]</p>
+</div>
+<div class="paragraph">
+<p>If you are not on <code>knativetutorial</code> project, then run following command to change to <code>knativetutorial</code> project:</p>
+</div>
+<div id="change-to-openshift-project" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project knativetutorial</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::change-to-openshift-project[]</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-camel-k"><a class="anchor" href="#install-camel-k"></a>Install Camel K</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Download the latest Apache Camel K release from <a href="https://github.com/apache/camel-k/releases/latest">here</a>. Extract the content and add the binary <code>kamel</code> to the PATH.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As of building this tutorial the latest <strong>kamel</strong> version was <code>1.8.0</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset2_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_kubectl">
+<div id="camel-k-k8s-install" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install --wait</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::camel-k-k8s-install[]</p>
+</div>
+<div class="paragraph">
+<p>As with other installations in this tutorial, this process will take a few minutes for the Camel-K pods to be up and running.  You can monitor the progress of the installation by watching the pods in namespace <code>knativetutorial</code>.</p>
+</div>
+<div id="camel-k-watch-pods" class="listingblock">
+<div class="title">Camel K Pods</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">watch kubectl -n knativetutorial get pods</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::camel-k-watch-pods[]</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Camel-k install will take some time, please wait for the successful installation before proceeding to the further sections of this tutorial.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A successful camel-K setup will have the following pods running/completed in <code>knativetutorial</code> namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                READY   STATUS      RESTARTS   AGE
+camel-k-operator-84d7896b68-9mfdv   1/1     Running     0          2m7s</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_oc">
+<div class="paragraph">
+<p>Camel-K is installed using its <a href="https://operatorhub.io/operator/camel-k">operator</a>.Use the Operator Hub in OpenShift webconsole to install the Camel-K operator.</p>
+</div>
+<div class="paragraph">
+<p>Once the operator is deployed successfully, run the following command to setup <code>Camel-K</code> in the namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kamel install --cluster-setup --skip-operator-setup</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In OpenShift, the <code>kamel install</code> command will not install Camel-K operator in each namespace, rather its done one time at cluster level when installing the Operator.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure-maven-repo"><a class="anchor" href="#configure-maven-repo"></a>Configure Camel-k to build faster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Camel-K uses <a href="https://maven.apache.org">Apache Maven</a> to build the integration kits and its related containers. The Apache Maven settings for Camel K are stored in a ConfigMap <code>camel-k-maven-settings</code> in the knativetutorial namespace. One of the ways to make the build faster is by using a maven repository manager such as <a href="https://www.sonatype.com/nexus-repository-oss">Sonatype Nexus</a>, the repository manager helps in caching the maven artifacts from remote repositories and serves them from local the subsequent times they are asked to be downloaded.</p>
+</div>
+<div class="paragraph">
+<p>Edit the ConfigMap using the command:</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_kubectl"></a>kubectl</p>
+</li>
+<li>
+<p><a id="tabset3_oc"></a>oc</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_kubectl">
+<div id="camel-k-maven-config" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl edit -n knativetutorial cm camel-k-maven-settings</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::camel-k-maven-config[]</p>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_oc">
+<div id="oc-camel-k-maven-config" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc edit  -n knativetutorial cm camel-k-maven-settings</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>copyToClipboard::oc-camel-k-maven-config[]</p>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The command above by default opens the ConfigMap YAML in vi. We can use the environment variable <code>KUBE_EDITOR</code>, to allow us to edit the YAML with the editor of our choice. For example setting <code>export KUBE_EDITOR=code -w</code>, will make the <code>kubectl edit</code> commands to open the Kubernetes resource YAML in <a href="https://code.visualstudio.com/">vscode</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following listing shows the Camel-K maven settings configured to use a Sonatype Nexus repository as its mirror:</p>
+</div>
+<div class="listingblock">
+<div class="title">Using Sonatype Nexus mirror</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+data:
+  settings.xml: |-
+    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+https://maven.apache.org/xsd/settings-1.0.0.xsd"&gt;
+      &lt;localRepository&gt;&lt;/localRepository&gt;
+      &lt;mirrors&gt;
+        &lt;mirror&gt;
+          &lt;id&gt;central&lt;/id&gt;
+          &lt;name&gt;central&lt;/name&gt;
+          &lt;url&gt;http://nexus:8081/nexus/content/groups/public&lt;/url&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+          &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+        &lt;/mirror&gt;
+      &lt;/mirrors&gt;
+      ...
+    &lt;/settings&gt;
+kind: ConfigMap
+metadata:
+  labels:
+    app: camel-k
+  name: camel-k-maven-settings
+  namespace: knativetutorial</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This repository address needs to be updated as per your cluster setting. In example above the installed the Sonatype Nexus in the knativetutorial.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you don&#8217;t have a Sonatype nexus repository, you can deploy one into the cluster using the deployment <code>$TUTORIAL_HOME/install/utils/nexus/app.yaml</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
