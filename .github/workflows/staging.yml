@@ -19,7 +19,9 @@ jobs:
          antora_playbook: staging.yaml
          # ACCESS_TOKEN: # optional
          GITHUB_TOKEN: "${{ github.token}}"
-         FOLDER: "${{ env.SITE_DIR }}"      
+         FOLDER: "${{ env.SITE_DIR }}"
+         BRANCH: 'gh-pages'
+         COMMIT_MESSAGE: "[CI] Publish Documentation for ${{ github.sha }}"
       #       - name: "List folder"
 #         run: |
 #            ls -ltr $GITHUB_WORKSPACE/
