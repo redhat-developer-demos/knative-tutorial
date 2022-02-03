@@ -3,6 +3,7 @@ kind: Trigger
 metadata:
   name: helloaloha
 spec:
+  broker: default
   filter:
     attributes:
       type: aloha
