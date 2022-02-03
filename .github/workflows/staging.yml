@@ -14,9 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: "Generate site using antora site action"
-        uses: kameshsampath/antora-site-action@master
+        uses: JamesIves/github-pages-deploy-action@3.2.1
         with:
          antora_playbook: staging.yaml
+         # ACCESS_TOKEN: # optional
+         GITHUB_TOKEN: "${{ github.token}}"
 #       - name: "List folder"
 #         run: |
 #            ls -ltr $GITHUB_WORKSPACE/
