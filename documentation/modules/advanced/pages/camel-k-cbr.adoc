@@ -362,7 +362,7 @@ fruits-processor-to-knative    True             2m22s
 [[camel-k-cbr-event-subscriber]]
 == Deploy Event Subscriber
 
-Let us now deploy a https://en.wikipedia.org/wiki/Reactive_programming[Reactive] Web application called fruit-events-display`. It is a https://quarkus.io[Quarkus] Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.
+Let us now deploy a https://en.wikipedia.org/wiki/Reactive_programming[Reactive] Web application called `fruit-events-display`. It is a https://quarkus.io[Quarkus] Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.
 
 You can deploy the `fruit-events-display` application using the command:
 
