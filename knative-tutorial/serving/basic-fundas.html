@@ -779,7 +779,7 @@ The actual deployment name may vary in your setup
 <div class="tab-pane" aria-labelledby="tabset3_openshift">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`kubectl get rt greeter -o jsonpath={.status.url} &amp;&amp; \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export SVC_URL=`kubectl get rt greeter -o jsonpath={.status.url}` &amp;&amp; \
 http $SVC_URL</code></pre>
 </div>
 </div>
