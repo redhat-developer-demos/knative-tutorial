@@ -136,7 +136,7 @@ The following listing provides the details of Kamelet configuration:
 .timed-greeter Kamelet
 [source,yaml]
 ----
-apiVersion: sources.knative.dev/v1alpha1 #<1>
+apiVersion: camel.apache.org/v1alpha1 #<1>
 kind: Kamelet
 metadata:
   name: timed-greeter
