@@ -272,7 +272,14 @@ timed-greeter   True
 ----
 
 The event source is configured to drain the events to `kamelet:sink`.
-Now we just need to bind the Kamelet to the service `event-display` and we can do that by using a `KameletBinding`:
+Now we just need to bind the Kamelet to the service `event-display` and we can do that by using a `KameletBinding`.
+
+Use Kamelets when you want to connect two or more components (external applications or services). Each Kamelet is basically a route template with configuration properties. You need to know which component you want to get data from (a source) and which component you want to send data to (a sink). You connect the source and sink components by adding Kamelets in a Kamelet Binding as illustrated in Figure below:
+
+.Kamelet Binding source to sink
+image::kamelet-binding-simple.png[]
+
+The `KamelBinding` resource definition used to connect the `timed-greeter` source wuth the `event-display` service looks like:
 
 .timed-greeter KameletBinding
 [source,yaml]
