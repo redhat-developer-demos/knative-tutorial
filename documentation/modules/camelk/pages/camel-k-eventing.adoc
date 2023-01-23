@@ -259,7 +259,7 @@ A successful deployment will show the Kamelet `timed-greeter` in ready state alo
 [#camel-k-watch-camelsources]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kn source kamelet list  -n {tutorial-namespace}
+kubectl get kamelet timed-greeter -n {tutorial-namespace}
 ----
 
 When the Kamelet is successfully running you will see it in "READY" state `True`:
@@ -267,8 +267,8 @@ When the Kamelet is successfully running you will see it in "READY" state `True`
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME            READY   AGE
-timed-greeter   True    114s
+NAME            READY
+timed-greeter   True 
 ----
 
 The event source is configured to drain the events to `kamelet:sink`.
@@ -309,7 +309,7 @@ Copy and paste somewhere the value of the URL as you will use it to customize th
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl create -f advanced/camel-k/get-started/timed-greeter-binding.yaml --edit -o yaml -n {tutorial-namespace}
+kubectl create -f get-started/timed-greeter-binding.yaml --edit -o yaml -n {tutorial-namespace}
 ----
 
 The previous command let's you edit the definition of the KameletBinding with your URL and once you save it,
