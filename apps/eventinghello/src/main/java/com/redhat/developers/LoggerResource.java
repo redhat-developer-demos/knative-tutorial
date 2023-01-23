@@ -52,7 +52,7 @@ public class LoggerResource {
 
         LOGGER.info("POST:" + cloudEventJSON);
 
-        return Response.status(Status.OK)//.entity("{\"hello\":\"world\"}")
+        return Response.status(Status.OK)
                 .build();
     }
 
