@@ -91,7 +91,7 @@ Knative Camel-K integration called `fruits-producer` which will use a public htt
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "https://www.fruityvice.com/api/fruit/all"#<1>
+      - to: "https://fruityvice.com/api/fruit/all"#<1>
       - split:
           jsonpath: "$.[*]"#<2>
       - marshal:
@@ -281,7 +281,7 @@ Let's deploy the Kamelet using the following command:
 [#kamel-deploy-data-processor]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl apply -n {tutorial-namespace} -f eip/fruits-processor-kamelet.yaml
+kubectl apply -n {tutorial-namespace} -f eip/fruit-processor-kamelet.yaml
 ----
 
 The last step is to send the processed data to the Knative Eventing Broker named `default`.
@@ -332,7 +332,7 @@ include::advanced:partial$adv-kubectl-queries.adoc[tags="kgpow"]
 ----
 NAME                                               READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz                  1/1     Running   4h17m
-*fruits-processor-to-knative-595945f8d7-wc9qz      1/1     Running   4h42m*
+*fruit-processor-to-knative-595945f8d7-wc9qz      1/1     Running   4h42m*
 ----
 
 [NOTE]
