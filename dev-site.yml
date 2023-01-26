@@ -4,7 +4,7 @@ runtime:
 site:
   title: Knative Tutorial
   url: https://redhat-developer-demos.github.io/knative-tutorial
-  start_page: index.adoc
+  start_page: knative-tutorial::index.adoc
 
 content:
   sources:

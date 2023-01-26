@@ -216,13 +216,13 @@ spec:
         description: Comma separated list of Kafka Broker URLs
         type: string
   dependencies:
-    - "github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT"
+    - "mvn:org.apache.camel.kamelets:camel-kamelets-utils:0.10.0"
     - "camel:kafka"
     - "camel:kamelet"
     - "camel:jackson"
     - "camel:core"
     - "camel:log"
-  flow:
+  template:
     from:
       uri: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"#<1>
       steps:
