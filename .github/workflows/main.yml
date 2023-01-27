@@ -6,7 +6,7 @@ on:
       - '**'
       - '!.github/workflows/**'
       - '.github/workflows/main.yml'
-      - '.github/workflows/site.yml'
+      - '.github/workflows/site.yaml'
 env:
   SITE_DIR: "gh-pages"
 
@@ -20,7 +20,7 @@ jobs:
       - name: "Generate site using antora site action"
         uses: kameshsampath/antora-site-action@v0.2.4
         with:
-          antora_playbook: site.yml
+          antora_playbook: site.yaml
       - name: Deploy Site
         id: deploy_site
         uses: peaceiris/actions-gh-pages@v3
