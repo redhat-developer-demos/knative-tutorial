@@ -561,8 +561,66 @@ Simply speaking, you can make the Camel K integration act as a <a href="https://
 To start working with Kamelets you will need to add the kamelet source plugin to <code>kn</code> CLI.</p>
 </div>
 <div class="paragraph">
-<p>As you probably already installed the <code>kn</code> CLI tooling, you can simply load the <a href="https://github.com/knative-sandbox/kn-plugin-source-kamelet/releases">Kamelet source plugin binaries</a> in order to add the commands for managing Kamelets as event sources.
-To verify your installation, please run the following command:</p>
+<p>As you probably already installed the <code>kn</code> CLI tooling, you can simply load the <a href="https://github.com/knative-sandbox/kn-plugin-source-kamelet/releases">Kamelet source plugin binaries</a> in order to add the commands for managing Kamelets as event sources.</p>
+</div>
+<div class="paragraph">
+<p>Once you have the binary available on your machine you can hook this into your local kn tooling quite easily. The kn-client project provides a clever plugin architecture for adding commands. The respective plugin configuration is located in your home directory under <code>~/.config/kn/plugins</code>.</p>
+</div>
+<div class="paragraph">
+<p>Save the <code>kn-source-kamelet</code> binary into this configuration folder or add a symbolic link pointing to the plugin binary there. You can add the symbolic link as follows:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir ~/.config/kn/plugins
+cd ~/.config/kn/plugins
+ln -s /the/path/to/my/kn-source-kamelet kn-source-kamelet</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add executable permission to the <code>kn-source-kamelet</code> binary</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">chmod +x ~/.config/kn/plugins/kn-source-kamelet</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can then verify the plugin setup by displaying the kn help page once more:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source -h</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Manage event sources
+
+Usage:
+  kn source SOURCE|COMMAND [options]
+
+Aliases:
+  source, sources
+
+Available Commands:
+  apiserver   Manage Kubernetes api-server sources
+  binding     Manage sink bindings
+  container   Manage container sources
+  list        List event sources
+  list-types  List event source types
+  ping        Manage ping sources
+
+Plugins:
+  kamelet      ~/.config/kn/plugins/kn-source-kamelet</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <code>"kn &lt;command&gt; --help</code> for more information about a given command.
+Use <code>kn options</code> for a list of global command-line options (applies to all commands).
+You should see a new plugins section with the Kamelet source plugin listed. This means that you are now ready to use the plugin commands directly with the kn CLI.</p>
+</div>
+<div class="paragraph">
+<p>To verify your installation, please run the following command:</p>
 </div>
 <div id="list-kn-plugins" class="listingblock console-input">
 <div class="content">
@@ -574,8 +632,7 @@ To verify your installation, please run the following command:</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">- kn-quickstart : /usr/local/bin/kn-quickstart
-- kn-source-kamelet : /usr/local/bin/kn-source-kamelet</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">- kn-source-kamelet : /Users/rsoares/.config/kn/plugins/kn-source-kamelet</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -679,7 +736,7 @@ event-display   http://event-display.knativetutorial.example.com   event-display
 <div class="listingblock">
 <div class="title">timed-greeter Kamelet</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: sources.knative.dev/v1alpha1 <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1 <i class="conum" data-value="1"></i><b>(1)</b>
 kind: Kamelet
 metadata:
   name: timed-greeter
@@ -761,7 +818,7 @@ In this example we add the required dependencies such as <code>camel:core</code>
 </div>
 <div id="camel-k-watch-camelsources" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kn source kamelet list  -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get kamelet timed-greeter -n knativetutorial</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -769,13 +826,25 @@ In this example we add the required dependencies such as <code>camel:core</code>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            READY   AGE
-timed-greeter   True    114s</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            READY
+timed-greeter   True</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The event source is configured to drain the events to <code>kamelet:sink</code>.
-Now we just need to bind the Kamelet to the service <code>event-display</code> and we can do that by using a <code>KameletBinding</code>:</p>
+Now we just need to bind the Kamelet to the service <code>event-display</code> and we can do that by using a <code>KameletBinding</code>.</p>
+</div>
+<div class="paragraph">
+<p>Use Kamelets when you want to connect two or more components (external applications or services). Each Kamelet is basically a route template with configuration properties. You need to know which component you want to get data from (a source) and which component you want to send data to (a sink). You connect the source and sink components by adding Kamelets in a Kamelet Binding as illustrated in Figure below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/kamelet-binding-simple.png" alt="kamelet binding simple">
+</div>
+<div class="title">Figure 1. Kamelet Binding source to sink</div>
+</div>
+<div class="paragraph">
+<p>The <code>KamelBinding</code> resource definition used to connect the <code>timed-greeter</code> source wuth the <code>event-display</code> service looks like:</p>
 </div>
 <div class="listingblock">
 <div class="title">timed-greeter KameletBinding</div>
@@ -822,7 +891,7 @@ spec:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -f advanced/camel-k/get-started/timed-greeter-binding.yaml --edit -o yaml -n knativetutorial</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -f get-started/timed-greeter-binding.yaml --edit -o yaml -n knativetutorial</code></pre>
 </div>
 </div>
 <div class="paragraph">

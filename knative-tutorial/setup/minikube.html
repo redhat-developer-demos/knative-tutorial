@@ -542,7 +542,7 @@
 <div class="listingblock console-output">
 <div class="title">Minikube starting</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">😄  [knativetutorial] minikube v1.25.1 on Darwin 11.1
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">😄  [knativetutorial] minikube v1.28.0 on Darwin 11.1
 ✨  Using the hyperkit driver based on user configuration
 👍  Starting control plane node knativetutorial in cluster knativetutorial
 🔥  Creating hyperkit VM (CPUs=6, Memory=8192MB, Disk=51200MB) ...
@@ -582,8 +582,8 @@
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
-  --filename https://github.com/knative/serving/releases/download/knative-v1.1.0/serving-crds.yaml \
-  --filename https://github.com/knative/eventing/releases/download/knative-v1.1.0/eventing-crds.yaml</code></pre>
+  --filename https://github.com/knative/serving/releases/download/knative-v1.8.3/serving-crds.yaml \
+  --filename https://github.com/knative/eventing/releases/download/knative-v1.8.5/eventing-crds.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -676,7 +676,7 @@ sinkbindings                    sources.knative.dev/v1   true         SinkBindin
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-  https://github.com/knative/serving/releases/download/knative-v1.1.0/serving-core.yaml</code></pre>
+  https://github.com/knative/serving/releases/download/knative-v1.8.3/serving-core.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -717,7 +717,7 @@ webhook-6d5c77f989-lf2sm                 1/1     Running   0          23s</code>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-    <a href="https://github.com/knative/net-kourier/releases/download/knative-v1.1.0/kourier.yaml" class="bare">https://github.com/knative/net-kourier/releases/download/knative-v1.1.0/kourier.yaml</a></code></pre>
+    <a href="https://github.com/knative/net-kourier/releases/download/knative-v1.8.1/kourier.yaml" class="bare">https://github.com/knative/net-kourier/releases/download/knative-v1.8.1/kourier.yaml</a></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -849,11 +849,11 @@ kubectl patch configmap/config-domain \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply \
   --filename \
-  https://github.com/knative/eventing/releases/download/knative-v1.1.0/eventing-core.yaml \
+  https://github.com/knative/eventing/releases/download/knative-v1.8.5/eventing-core.yaml \
   --filename \
-  https://github.com/knative/eventing/releases/download/knative-v1.1.0/in-memory-channel.yaml \
+  https://github.com/knative/eventing/releases/download/knative-v1.8.5/in-memory-channel.yaml \
   --filename \
-  https://github.com/knative/eventing/releases/download/knative-v1.1.0/mt-channel-broker.yaml</code></pre>
+  https://github.com/knative/eventing/releases/download/knative-v1.8.5/mt-channel-broker.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">

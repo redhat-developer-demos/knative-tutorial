@@ -991,7 +991,7 @@ blue-green-canary-00001   blue-green-canary   <mark>100%</mark>      <mark>blue<
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n knativetutorial get ksvc blue-green-canary -oyaml \
- | yq r - 'status.traffic[*].url'</code></pre>
+ | yq r - 'status.traffic[].url'</code></pre>
 </div>
 </div>
 <div class="paragraph">

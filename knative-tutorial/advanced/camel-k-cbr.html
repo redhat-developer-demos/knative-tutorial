@@ -723,7 +723,7 @@ default   http://broker-ingress.knative-eventing.svc.cluster.local/knativetutori
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "https://www.fruityvice.com/api/fruit/all"<i class="conum" data-value="1"></i><b>(1)</b>
+      - to: "https://fruityvice.com/api/fruit/all"<i class="conum" data-value="1"></i><b>(1)</b>
       - split:
           jsonpath: "$.[*]"<i class="conum" data-value="2"></i><b>(2)</b>
       - marshal:
@@ -892,13 +892,13 @@ spec:
         description: Comma separated list of Kafka Broker URLs
         type: string
   dependencies:
-    - "github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT"
+    - "mvn:org.apache.camel.kamelets:camel-kamelets-utils:0.10.0"
     - "camel:kafka"
     - "camel:kamelet"
     - "camel:jackson"
     - "camel:core"
     - "camel:log"
-  flow:
+  template:
     from:
       uri: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"<i class="conum" data-value="1"></i><b>(1)</b>
       steps:
@@ -971,7 +971,7 @@ spec:
 </div>
 <div id="kamel-deploy-data-processor" class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f eip/fruits-processor-kamelet.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -n knativetutorial -f eip/fruit-processor-kamelet.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1034,7 +1034,7 @@ spec:
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                                               READY   STATUS    AGE
 camel-k-operator-5d74595cdf-4v9qz                  1/1     Running   4h17m
-<strong>fruits-processor-to-knative-595945f8d7-wc9qz      1/1     Running   4h42m</strong></code></pre>
+<strong>fruit-processor-to-knative-595945f8d7-wc9qz      1/1     Running   4h42m</strong></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
