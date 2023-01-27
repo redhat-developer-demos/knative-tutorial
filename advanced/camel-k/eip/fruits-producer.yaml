@@ -6,7 +6,7 @@
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "https://www.fruityvice.com/api/fruit/all"
+      - to: "https://fruityvice.com/api/fruit/all"
       - split:
           jsonpath: "$.[*]"
       - marshal:

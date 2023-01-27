@@ -2,6 +2,7 @@ package com.redhat.developers;
 
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -51,7 +52,7 @@ public class LoggerResource {
 
         LOGGER.info("POST:" + cloudEventJSON);
 
-        return Response.status(Status.OK).entity("{\"hello\":\"world\"}")
+        return Response.status(Status.OK)
                 .build();
     }
 

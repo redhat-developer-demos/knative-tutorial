@@ -6,7 +6,7 @@
 :kamel-version: 1.8.0
 :experimental:
 :maven-version: 3.6.3+
-:strimzi-version: 0.26.1
+:strimzi-version: 0.32.0
 :camelk-repo: advanced/camel-k
 :eventing-repo: eventing
 :observability-repo: advanced/observability

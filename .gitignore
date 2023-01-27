@@ -47,3 +47,6 @@ staging-gh-pages
 yarn.lock
 
 .DS_Store
+
+#camel-jbang
+**/.camel-jbang

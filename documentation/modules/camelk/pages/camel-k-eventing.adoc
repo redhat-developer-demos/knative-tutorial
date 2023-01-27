@@ -25,6 +25,62 @@ Simply speaking, you can make the Camel K integration act as a https://knative.d
 To start working with Kamelets you will need to add the kamelet source plugin to `kn` CLI.
 
 As you probably already installed the `kn` CLI tooling, you can simply load the https://github.com/knative-sandbox/kn-plugin-source-kamelet/releases[Kamelet source plugin binaries] in order to add the commands for managing Kamelets as event sources.
+
+Once you have the binary available on your machine you can hook this into your local kn tooling quite easily. The kn-client project provides a clever plugin architecture for adding commands. The respective plugin configuration is located in your home directory under `~/.config/kn/plugins`.
+
+Save the `kn-source-kamelet` binary into this configuration folder or add a symbolic link pointing to the plugin binary there. You can add the symbolic link as follows:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+mkdir ~/.config/kn/plugins 
+cd ~/.config/kn/plugins
+ln -s /the/path/to/my/kn-source-kamelet kn-source-kamelet
+----
+
+Add executable permission to the `kn-source-kamelet` binary
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+chmod +x ~/.config/kn/plugins/kn-source-kamelet
+----
+
+You can then verify the plugin setup by displaying the kn help page once more:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn source -h
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+Manage event sources
+
+Usage:
+  kn source SOURCE|COMMAND [options]
+
+Aliases:
+  source, sources
+
+Available Commands:
+  apiserver   Manage Kubernetes api-server sources
+  binding     Manage sink bindings
+  container   Manage container sources
+  list        List event sources
+  list-types  List event source types
+  ping        Manage ping sources
+
+Plugins:
+  kamelet      ~/.config/kn/plugins/kn-source-kamelet
+----
+
+Use `"kn <command> --help` for more information about a given command.
+Use `kn options` for a list of global command-line options (applies to all commands).
+You should see a new plugins section with the Kamelet source plugin listed. This means that you are now ready to use the plugin commands directly with the kn CLI.
+
 To verify your installation, please run the following command:
 
 [.console-input]
@@ -39,8 +95,7 @@ You should see an output similar to:
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-- kn-quickstart : /usr/local/bin/kn-quickstart
-- kn-source-kamelet : /usr/local/bin/kn-source-kamelet
+- kn-source-kamelet : /Users/rsoares/.config/kn/plugins/kn-source-kamelet
 ----
 
 By default, the `kn` CLI tool has a set of different event sources and its respective commands to manage those sources.
@@ -136,7 +191,7 @@ The following listing provides the details of Kamelet configuration:
 .timed-greeter Kamelet
 [source,yaml]
 ----
-apiVersion: sources.knative.dev/v1alpha1 #<1>
+apiVersion: camel.apache.org/v1alpha1 #<1>
 kind: Kamelet
 metadata:
   name: timed-greeter
@@ -204,7 +259,7 @@ A successful deployment will show the Kamelet `timed-greeter` in ready state alo
 [#camel-k-watch-camelsources]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kn source kamelet list  -n {tutorial-namespace}
+kubectl get kamelet timed-greeter -n {tutorial-namespace}
 ----
 
 When the Kamelet is successfully running you will see it in "READY" state `True`:
@@ -212,12 +267,19 @@ When the Kamelet is successfully running you will see it in "READY" state `True`
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-NAME            READY   AGE
-timed-greeter   True    114s
+NAME            READY
+timed-greeter   True 
 ----
 
 The event source is configured to drain the events to `kamelet:sink`.
-Now we just need to bind the Kamelet to the service `event-display` and we can do that by using a `KameletBinding`:
+Now we just need to bind the Kamelet to the service `event-display` and we can do that by using a `KameletBinding`.
+
+Use Kamelets when you want to connect two or more components (external applications or services). Each Kamelet is basically a route template with configuration properties. You need to know which component you want to get data from (a source) and which component you want to send data to (a sink). You connect the source and sink components by adding Kamelets in a Kamelet Binding as illustrated in Figure below:
+
+.Kamelet Binding source to sink
+image::kamelet-binding-simple.png[]
+
+The `KamelBinding` resource definition used to connect the `timed-greeter` source wuth the `event-display` service looks like:
 
 .timed-greeter KameletBinding
 [source,yaml]
@@ -254,7 +316,7 @@ Copy and paste somewhere the value of the URL as you will use it to customize th
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
-kubectl create -f advanced/camel-k/get-started/timed-greeter-binding.yaml --edit -o yaml -n {tutorial-namespace}
+kubectl create -f get-started/timed-greeter-binding.yaml --edit -o yaml -n {tutorial-namespace}
 ----
 
 The previous command let's you edit the definition of the KameletBinding with your URL and once you save it,

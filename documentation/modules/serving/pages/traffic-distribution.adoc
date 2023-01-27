@@ -311,7 +311,7 @@ Let us list the available sub-routes:
 [source,bash,subs="+macros,+attributes"]
 ----
 {kubernetes-cli} -n {tutorial-namespace} get ksvc blue-green-canary -oyaml \
- | yq r - 'status.traffic[*].url'
+ | yq r - 'status.traffic[].url'
 ----
 
 The above command should return you three sub-routes for the main `greeter` route:
