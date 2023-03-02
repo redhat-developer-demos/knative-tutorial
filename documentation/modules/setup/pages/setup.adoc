@@ -29,9 +29,11 @@ endif::[]
 
 The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.
 
+TIP: You can also use https://podman-desktop.io/[Podman] instead of Docker. The advantage of Podman is that it is 100% Free Open Source and does not need to run with elevated privileges. Just use 'podman' instead of 'docker' throughout the tutorial's instructions, or `alias docker=podman`.
+
 [cols="4*^,4*.",options="header,+attributes"]
 |===
-|**Tool**|**macOS**|**Fedora**|**windows**
+|**Tool**|**macOS**|**Linux**|**windows**
 
 | Git
 | https://git-scm.com/download/mac[Download]
@@ -40,7 +42,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 | `Docker`
 | https://docs.docker.com/docker-for-mac/install[Docker for Mac]
-| `dnf install docker`
+| https://docs.docker.com/desktop/install/linux-install/[Docker for Linux]
 | https://docs.docker.com/docker-for-windows/install[Docker for Windows]
 
 | `kubectl {kubernetes-version}`
@@ -50,17 +52,17 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 | https://github.com/wercker/stern[stern]
 | `brew install stern`
-| https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64[Download]
-| https://github.com/wercker/stern/releases/download/1.11.0/stern_windows_amd64.exe[Download]
+| https://github.com/stern/stern/releases/download/v1.22.0/stern_1.22.0_linux_amd64.tar.gz[Download]
+| https://github.com/stern/stern/releases/download/v1.22.0/stern_1.22.0_windows_amd64.tar.gz[Download]
 
 | https://github.com/mikefarah/yq[yq v2.4.1]
-| https://github.com/mikefarah/yq/releases/download/2.4.1/yq_darwin_amd64[Download]
-| https://github.com/mikefarah/yq/releases/download/2.4.1/yq_linux_amd64[Download]
-| https://github.com/mikefarah/yq/releases/download/2.4.1/yq_windows_amd64.exe[Download]
+| https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_darwin_amd64[Download]
+| https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_linux_amd64[Download]
+| https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_windows_amd64.exe[Download]
 
 | https://httpie.org/[httpie]
 | `brew install httpie`
-| `dnf install httpie`
+| https://httpie.io/docs/cli/linux[httpie for Linux]
 | https://httpie.org/doc#windows-etc
 
 | https://github.com/rakyll/hey[hey]
@@ -70,7 +72,7 @@ The following CLI tools are required for running the exercises in this tutorial.
 
 | watch
 | `brew install watch`
-| `dnf install procps-ng`
+| `dnf/apt-get/.. install procps-ng`
 |
 
 | kubectx and kubens
