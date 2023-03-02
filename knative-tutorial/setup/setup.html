@@ -570,6 +570,18 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 <div class="paragraph">
 <p>The following CLI tools are required for running the exercises in this tutorial. Please have them installed and configured before you get started with any of the tutorial chapters.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can also use <a href="https://podman-desktop.io/">Podman</a> instead of Docker. The advantage of Podman is that it is 100% Free Open Source and does not need to run with elevated privileges. Just use 'podman' instead of 'docker' throughout the tutorial&#8217;s instructions, or <code>alias docker=podman</code>.
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -581,7 +593,7 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 <tr>
 <th class="tableblock halign-center valign-top"><strong>Tool</strong></th>
 <th class="tableblock halign-center valign-top"><strong>macOS</strong></th>
-<th class="tableblock halign-center valign-top"><strong>Fedora</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Linux</strong></th>
 <th class="tableblock halign-center valign-top"><strong>windows</strong></th>
 </tr>
 </thead>
@@ -595,7 +607,7 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>Docker</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-mac/install">Docker for Mac</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install docker</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/desktop/install/linux-install/">Docker for Linux</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://docs.docker.com/docker-for-windows/install">Docker for Windows</a></p></td>
 </tr>
 <tr>
@@ -607,19 +619,19 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern">stern</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install stern</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64">Download</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/wercker/stern/releases/download/1.11.0/stern_windows_amd64.exe">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/stern/stern/releases/download/v1.22.0/stern_1.22.0_linux_amd64.tar.gz">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/stern/stern/releases/download/v1.22.0/stern_1.22.0_windows_amd64.tar.gz">Download</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq">yq v2.4.1</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_darwin_amd64">Download</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_linux_amd64">Download</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/2.4.1/yq_windows_amd64.exe">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_darwin_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_linux_amd64">Download</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_windows_amd64.exe">Download</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/">httpie</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install httpie</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install httpie</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.io/docs/cli/linux">httpie for Linux</a></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://httpie.org/doc#windows-etc" class="bare">https://httpie.org/doc#windows-etc</a></p></td>
 </tr>
 <tr>
@@ -631,7 +643,7 @@ export TUTORIAL_HOME="$(pwd)/knative-tutorial"</code></pre>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">watch</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>brew install watch</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf install procps-ng</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dnf/apt-get/.. install procps-ng</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
