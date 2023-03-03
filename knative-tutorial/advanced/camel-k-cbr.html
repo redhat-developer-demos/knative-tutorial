@@ -532,10 +532,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>How to run integrate Apache Kafka and Camel-K</p>
+<p>How to integrate Apache Kafka and Camel-K</p>
 </li>
 <li>
-<p>Apply Content Based Routing (CBR) Enterprise Integration Pattern(EIP)</p>
+<p>Apply the Content Based Routing (CBR) Enterprise Integration Pattern(EIP)</p>
 </li>
 </ul>
 </div>
@@ -546,7 +546,7 @@
 <div class="content">
 <div class="title">Content Based Router</div>
 <div class="paragraph">
-<p>The Content Based Router examines the message content and routes the message to a different channel based on the data contained in the message. The routing can be based on a number of criteria such as existence of fields, specific field values etc. When implementing a Content Based Router, special caution should be taken to make the routing function easy to maintain as the router can become a point of frequent maintenance. In more sophisticated integration scenarios, the Content Based Router can take on the form of a configurable rules engine that computes the destination channel based on a set of configurable rules. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<p>The Content Based Router examines the message content and routes messages to a different channel based on the data contained in the message. The routing can be based on a number of criteria such as existence of fields, specific field values etc. When implementing a Content Based Router, special caution should be taken to make the routing function easy to maintain as the router can become a point of frequent maintenance. In more sophisticated integration scenarios, the Content Based Router can take on the form of a configurable rules engine that computes the destination channel based on a set of configurable rules. <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </div>
 </div>
 </div>
@@ -570,21 +570,21 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Data Producer</strong>: The Camel-K integration application, that will produce data simulating the streaming data by sending the data to <a href="https://kafka.apache.org">Apache Kafka</a></p>
+<p><strong>Data Producer</strong>: A Camel-K integration application which will produce data simulating the streaming data by sending the data to <a href="https://kafka.apache.org">Apache Kafka</a></p>
 </li>
 <li>
-<p><strong>Data Processor</strong>: The Camel-K integration application, that will process the streaming data from Kafka and send the default Knative Eventing Broker</p>
+<p><strong>Data Processor</strong>: A Camel-K integration application which will process the streaming data from Kafka and send the default Knative Eventing Broker</p>
 </li>
 <li>
-<p><strong>Event Subscriber(Fruits UI)</strong>: The <a href="https://quarkus.io">Quarkus</a> Java application, that will display the processed data from the Data Processor</p>
+<p><strong>Event Subscriber(Fruits UI)</strong>: A <a href="https://quarkus.io">Quarkus</a> Java application, that will display the processed data from the Data Processor</p>
 </li>
 <li>
-<p><strong>Event Trigger</strong>: This is <a href="#knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc" class="page unresolved">Knative Event Trigger</a> that apply a filter on the processed data, to send to the Event Subscriber</p>
+<p><strong>Event Trigger</strong>: A <a href="#knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc" class="page unresolved">Knative Event Trigger</a> that applies a filter on the processed data to send to the Event Subscriber</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The upcoming samples will deploy these individual components and finally we test the integration by wiring them all together.</p>
+<p>The upcoming samples will deploy these individual components and after that we will test the integration by wiring them all together.</p>
 </div>
 <div class="paragraph">
 <p>Just make sure:</p>
@@ -592,7 +592,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Review <a href="#eventing/eventing.adoc" class="page unresolved">Knative Eventing</a> module to refresh the concepts</p>
+<p>To review the <a href="#eventing/eventing.adoc" class="page unresolved">Knative Eventing</a> module to refresh the concepts</p>
 </li>
 <li>
 <p>Apache Kafka <a href="deploy-apache-kafka.html" class="page">my-cluster</a> is running</p>
@@ -710,7 +710,7 @@ default   http://broker-ingress.knative-eventing.svc.cluster.local/knativetutori
 <h2 id="camel-k-cbr-data-producer"><a class="anchor" href="#camel-k-cbr-data-producer"></a>Deploy Data Producer</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Knative Camel-K integration called <code>fruits-producer</code> which will use a public <a href="http://fruityvice.com">fruits API</a> to retrieve the information about fruits and stream the data to Apache Kafka. The <code>fruits-producer</code> service retrieves the data from the fruits API, splits it using the <a href="https://camel.apache.org/manual/latest/split-eip.html">Split EIP</a> and then sends the data to a Kafka topic called <code>fruits</code>.</p>
+<p>This is a Knative Camel-K integration called <code>fruits-producer</code> which will use a public <a href="http://fruityvice.com">fruits API</a> to retrieve the information about fruits and stream the data to Apache Kafka. The <code>fruits-producer</code> service retrieves the data from the fruits API, splits it using the <a href="https://camel.apache.org/manual/latest/split-eip.html">Split EIP</a> and then sends the data to a Kafka topic called <code>fruits</code>.</p>
 </div>
 <div class="listingblock">
 <div class="title">Fruits producer</div>
@@ -718,19 +718,19 @@ default   http://broker-ingress.knative-eventing.svc.cluster.local/knativetutori
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- from:
     uri: timer:tick
     parameters:
-      period: 5000
+      period: 5000<i class="conum" data-value="1"></i><b>(1)</b>
     steps:
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "https://fruityvice.com/api/fruit/all"<i class="conum" data-value="1"></i><b>(1)</b>
+      - to: "https://fruityvice.com/api/fruit/all"<i class="conum" data-value="2"></i><b>(2)</b>
       - split:
-          jsonpath: "$.[*]"<i class="conum" data-value="2"></i><b>(2)</b>
+          jsonpath: "$.[*]"<i class="conum" data-value="3"></i><b>(3)</b>
       - marshal:
           json: {}
       - log:
           message: "${body}"
-      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"<i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"<i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -745,6 +745,10 @@ default   http://broker-ingress.knative-eventing.svc.cluster.local/knativetutori
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Split the message</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>Send the processed data i.e. the individual fruit record as JSON to Apache Kafka Topic</td>
 </tr>
 </table>
@@ -1077,7 +1081,7 @@ fruits-processor-to-knative    True             2m22s</code></pre>
 <h2 id="camel-k-cbr-event-subscriber"><a class="anchor" href="#camel-k-cbr-event-subscriber"></a>Deploy Event Subscriber</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Let us now deploy a <a href="https://en.wikipedia.org/wiki/Reactive_programming">Reactive</a> Web application called <code>fruit-events-display</code>. It is a <a href="https://quarkus.io">Quarkus</a> Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.</p>
+<p>Now deploy a <a href="https://en.wikipedia.org/wiki/Reactive_programming">Reactive</a> Web application called <code>fruit-events-display</code>. It is a <a href="https://quarkus.io">Quarkus</a> Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.</p>
 </div>
 <div class="paragraph">
 <p>You can deploy the <code>fruit-events-display</code> application using the command:</p>
@@ -1162,7 +1166,7 @@ fruits-processor-h45f7-6fdfd74cf9-nmfkn    1/1     Running   4m12s</code></pre>
 <h2 id="camel-k-cbr-event-filter"><a class="anchor" href="#camel-k-cbr-event-filter"></a>Apply Knative Filter</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As a last step let us now deploy a Knative Event Trigger called <code>fruits-trigger</code>. The trigger consumes the events from the Knative Event Broker named <code>default</code>, when the fruit event is received it will dispatch the events to the subscriber&#8201;&#8212;&#8201;that is <code>fruit-events-display</code> service --.</p>
+<p>As a last step we need to deploy a Knative Event Trigger called <code>fruits-trigger</code>. The trigger consumes the events from the Knative Event Broker named <code>default</code>, when the fruit event is received it will dispatch the events to the subscriber which is the <code>fruit-events-display</code> service.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1215,7 +1219,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>As the trigger will dispatch its filtered event to <code>fruit-events-display</code> , the subscriber URI of the Trigger will be that of <code>fruit-events-display</code> service.</p>
+<p>As the trigger will dispatch its filtered event to <code>fruit-events-display</code> , the subscriber URI of the Trigger will the <code>fruit-events-display</code> service.</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
@@ -1229,7 +1233,7 @@ sugary-fruits  True  default   <a href="http://fruits-events-display.knativetuto
 <h2 id="verify-e2e"><a class="anchor" href="#verify-e2e"></a>Verify end to end</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now that we have all the components for the <a href="#cbr-app-overview">Application Overview</a>, let us verify the end to end flow:</p>
+<p>Now that we have all the components for the <a href="#cbr-app-overview">Application Overview</a>, let&#8217;s verify the end to end flow:</p>
 </div>
 <div class="paragraph">
 <p>To verify the data flow and processing call the <code>fruits-producer</code> service using the script <code>$TUTORIAL_HOME/bin/call.sh</code> with parameters <code>fruits-producer</code> and ''.</p>
