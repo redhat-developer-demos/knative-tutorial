@@ -4,15 +4,15 @@ include::_attributes.adoc[]
 
 At the end of this chapter you will be able to:
 
-- How to run integrate Apache Kafka and Camel-K
-- Apply Content Based Routing (CBR) Enterprise Integration Pattern(EIP)
+- How to integrate Apache Kafka and Camel-K
+- Apply the Content Based Routing (CBR) Enterprise Integration Pattern(EIP)
 
 Apache Camel supports numerous Enterprise Integration Patterns (EIPs) out-of-the-box, you can find the complete list of patterns on the Apache Camel https://camel.apache.org/manual/latest/enterprise-integration-patterns.html[website].
 
 [sidebar]
 .Content Based Router
 ****
-The Content Based Router examines the message content and routes the message to a different channel based on the data contained in the message. The routing can be based on a number of criteria such as existence of fields, specific field values etc. When implementing a Content Based Router, special caution should be taken to make the routing function easy to maintain as the router can become a point of frequent maintenance. In more sophisticated integration scenarios, the Content Based Router can take on the form of a configurable rules engine that computes the destination channel based on a set of configurable rules. footnote:[https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html]
+The Content Based Router examines the message content and routes messages to a different channel based on the data contained in the message. The routing can be based on a number of criteria such as existence of fields, specific field values etc. When implementing a Content Based Router, special caution should be taken to make the routing function easy to maintain as the router can become a point of frequent maintenance. In more sophisticated integration scenarios, the Content Based Router can take on the form of a configurable rules engine that computes the destination channel based on a set of configurable rules. footnote:[https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html]
 ****
 
 [[cbr-app-overview]]
@@ -25,16 +25,16 @@ image::cbr_app_overview.png[align="center"]
 
 The application has following components,
 
-- *Data Producer*: The Camel-K integration application, that will produce data simulating the streaming data by sending the data to https://kafka.apache.org[Apache Kafka]
-- *Data Processor*: The Camel-K integration application, that will process the streaming data from Kafka and send the default Knative Eventing Broker
-- *Event Subscriber(Fruits UI)*: The https://quarkus.io[Quarkus] Java application, that will display the processed data from the Data Processor
-- *Event Trigger*: This is xref:knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc[Knative Event Trigger] that apply a filter on the processed data, to send to the Event Subscriber
+- *Data Producer*: A Camel-K integration application which will produce data simulating the streaming data by sending the data to https://kafka.apache.org[Apache Kafka]
+- *Data Processor*: A Camel-K integration application which will process the streaming data from Kafka and send the default Knative Eventing Broker
+- *Event Subscriber(Fruits UI)*: A https://quarkus.io[Quarkus] Java application, that will display the processed data from the Data Processor
+- *Event Trigger*: A xref:knative-tutorial-eventing:ROOT:eventing-trigger-broker.adoc[Knative Event Trigger] that applies a filter on the processed data to send to the Event Subscriber
 
-The upcoming samples will deploy these individual components and finally we test the integration by wiring them all together.
+The upcoming samples will deploy these individual components and after that we will test the integration by wiring them all together.
 
 Just make sure:
 
-* Review xref:eventing/eventing.adoc[Knative Eventing] module to refresh the concepts
+* To review the xref:eventing/eventing.adoc[Knative Eventing] module to refresh the concepts
 * Apache Kafka xref:deploy-apache-kafka.adoc[my-cluster] is running
 
 :service-file: default-broker.yaml
@@ -78,7 +78,7 @@ cd $TUTORIAL_HOME/{camelk-repo}
 [#camel-k-cbr-data-producer]
 == Deploy Data Producer
 
-Knative Camel-K integration called `fruits-producer` which will use a public http://fruityvice.com[fruits API] to retrieve the information about fruits and stream the data to Apache Kafka. The `fruits-producer` service retrieves the data from the fruits API, splits it using the https://camel.apache.org/manual/latest/split-eip.html[Split EIP] and then sends the data to a Kafka topic called `fruits`.
+This is a Knative Camel-K integration called `fruits-producer` which will use a public http://fruityvice.com[fruits API] to retrieve the information about fruits and stream the data to Apache Kafka. The `fruits-producer` service retrieves the data from the fruits API, splits it using the https://camel.apache.org/manual/latest/split-eip.html[Split EIP] and then sends the data to a Kafka topic called `fruits`.
 
 .Fruits producer
 [source,yaml]
@@ -86,25 +86,26 @@ Knative Camel-K integration called `fruits-producer` which will use a public htt
 - from:
     uri: timer:tick
     parameters:
-      period: 5000
+      period: 5000#<1>
     steps:
       - set-header:
           name: CamelHttpMethod
           constant: GET
-      - to: "https://fruityvice.com/api/fruit/all"#<1>
+      - to: "https://fruityvice.com/api/fruit/all"#<2>
       - split:
-          jsonpath: "$.[*]"#<2>
+          jsonpath: "$.[*]"#<3>
       - marshal:
           json: {}
       - log:
           message: "${body}"
-      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"#<3>
+      - to: "kafka:fruits?brokers=my-cluster-kafka-bootstrap.kafka:9092"#<4>
 
 ----
 
 <1> Poll every 5 seconds from the REST API http://fruityvice.com.
 <2> Call the external REST API http://fruityvice.com to get the list of fruits to simulate the data streaming
-<3> Send the processed data i.e. the individual fruit record as JSON to Apache Kafka Topic
+<3> Split the message
+<4> Send the processed data i.e. the individual fruit record as JSON to Apache Kafka Topic
 
 Run the following command to deploy the `fruit-producer` integration:
 
@@ -362,7 +363,7 @@ fruits-processor-to-knative    True             2m22s
 [[camel-k-cbr-event-subscriber]]
 == Deploy Event Subscriber
 
-Let us now deploy a https://en.wikipedia.org/wiki/Reactive_programming[Reactive] Web application called `fruit-events-display`. It is a https://quarkus.io[Quarkus] Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.
+Now deploy a https://en.wikipedia.org/wiki/Reactive_programming[Reactive] Web application called `fruit-events-display`. It is a https://quarkus.io[Quarkus] Java application, that will update UI(reactively) as and when it receives the processed data from the Knative Eventing backend.
 
 You can deploy the `fruit-events-display` application using the command:
 
@@ -434,7 +435,7 @@ image::cbr_app_ui_empty.png[align="center"]
 [[camel-k-cbr-event-filter]]
 == Apply Knative Filter
 
-As a last step let us now deploy a Knative Event Trigger called `fruits-trigger`. The trigger consumes the events from the Knative Event Broker named `default`, when the fruit event is received it will dispatch the events to the subscriber -- that is `fruit-events-display` service --.
+As a last step we need to deploy a Knative Event Trigger called `fruits-trigger`. The trigger consumes the events from the Knative Event Broker named `default`, when the fruit event is received it will dispatch the events to the subscriber which is the `fruit-events-display` service.
 
 [source,yaml]
 ----
@@ -476,7 +477,7 @@ Let us check the status of the Trigger using the command `kubectl -n {tutorial-n
 kubectl -n {tutorial-namespace} get triggers
 ----
 
-As the trigger will dispatch its filtered event to `fruit-events-display` , the subscriber URI of the Trigger will be that of `fruit-events-display` service.
+As the trigger will dispatch its filtered event to `fruit-events-display` , the subscriber URI of the Trigger will the `fruit-events-display` service.
 
 [.console-output]
 [source,bash,subs="+quotes,+attributes,+macros"]
@@ -488,7 +489,7 @@ sugary-fruits  True  default   http://fruits-events-display.knativetutorial.svc.
 [[verify-e2e]]
 == Verify end to end
 
-Now that we have all the components for the <<cbr-app-overview>>, let us verify the end to end flow:
+Now that we have all the components for the <<cbr-app-overview>>, let's verify the end to end flow:
 
 To verify the data flow and processing call the `fruits-producer` service using the script `$TUTORIAL_HOME/bin/call.sh` with parameters `fruits-producer` and ''.
 
