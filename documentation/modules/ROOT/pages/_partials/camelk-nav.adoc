@@ -7,5 +7,5 @@
 * xref:camelk:camel-k-eventing.adoc[Camel K with Knative Eventing]
 ** xref:camelk:camel-k-eventing.adoc#deploy-camel-k-source[Install the kn kamelet source plugin]
 ** xref:camelk:camel-k-eventing.adoc#logging-ce-messages[View CloudEvents Messages]
-** xref:camelk:camel-k-eventing.adoc#camel-k-es-sink[Kamlet as source for a Knative Eventing Sink]
+** xref:camelk:camel-k-eventing.adoc#camel-k-es-sink[Kamelet as source for a Knative Eventing Sink]
 ** xref:camelk:camel-k-eventing.adoc#camelk-eventing-cleanup[Cleanup]

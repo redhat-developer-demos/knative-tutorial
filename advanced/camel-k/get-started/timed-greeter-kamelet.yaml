@@ -42,4 +42,6 @@ spec:
             constant: "{{contentType}}"
         - transform:
             simple: "${body.toUpperCase()}"
+        - log:
+            message: "Sending Body: ${body}"
         - to: "kamelet:sink"

@@ -180,7 +180,7 @@ event-display   http://event-display.knativetutorial.example.com   event-display
 
 
 [[camel-k-es-sink]]
-== Custom Kamlet as source for a Knative Eventing Sink
+== Custom Kamelet as source for a Knative Eventing Sink
 
 Knative Eventing semantics allows you to link the Event Source to Event Sink using the **sink** block of the Knative Eventing source specification.
 
@@ -311,16 +311,13 @@ To find out the URI of `event-display` please run the following command:
 kn service describe event-display -o url -n {tutorial-namespace}
 ----
 
-Copy and paste somewhere the value of the URL as you will use it to customize the KameletBinding definition:
+Copy the url that the previous command returned and run the following command.  It will open an editor in which you can change the definition of the KameletBinding. *Replace the sink uri with the value you just copied and save the file*.  Once you do that, Kubernetes will create an object based on the saved definition.
 
 [.console-input]
 [source,bash,subs="+quotes,+attributes,+macros"]
 ----
 kubectl create -f get-started/timed-greeter-binding.yaml --edit -o yaml -n {tutorial-namespace}
 ----
-
-The previous command let's you edit the definition of the KameletBinding with your URL and once you save it,
-Kubernetes will create an object based on it.
 
 You can validate the state of your KameletBinding using:
 

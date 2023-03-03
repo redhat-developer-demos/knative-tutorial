@@ -18,7 +18,8 @@ else
 fi
 
 # HOST_HEADER="Host:$KSVC_NAME.$CURR_NS.example.com"
-KSVC_HOST="$KSVC_NAME.$CURR_NS.$(minikube -p knativetutorial ip).nip.io"
+#KSVC_HOST="$KSVC_NAME.$CURR_NS.$(minikube -p knativetutorial ip).nip.io"
+KSVC_HOST="$(kubectl get ksvc $KSVC_NAME -o jsonpath='{.status.url}')"
 
 if [ $# -le 1 ]
 then
