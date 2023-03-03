@@ -409,7 +409,7 @@
     <a class="nav-link" href="#logging-ce-messages">View CloudEvents Messages</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#camel-k-es-sink">Kamlet as source for a Knative Eventing Sink</a>
+    <a class="nav-link" href="#camel-k-es-sink">Kamelet as source for a Knative Eventing Sink</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#camelk-eventing-cleanup">Cleanup</a>
@@ -722,7 +722,7 @@ event-display   http://event-display.knativetutorial.example.com   event-display
 </div>
 </div>
 <div class="sect1">
-<h2 id="camel-k-es-sink"><a class="anchor" href="#camel-k-es-sink"></a>Custom Kamlet as source for a Knative Eventing Sink</h2>
+<h2 id="camel-k-es-sink"><a class="anchor" href="#camel-k-es-sink"></a>Custom Kamelet as source for a Knative Eventing Sink</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Knative Eventing semantics allows you to link the Event Source to Event Sink using the <strong>sink</strong> block of the Knative Eventing source specification.</p>
@@ -887,16 +887,12 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Copy and paste somewhere the value of the URL as you will use it to customize the KameletBinding definition:</p>
+<p>Copy the url that the previous command returned and run the following command.  It will open an editor in which you can change the definition of the KameletBinding. <strong>Replace the sink uri with the value you just copied and save the file</strong>.  Once you do that, Kubernetes will create an object based on the saved definition.</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl create -f get-started/timed-greeter-binding.yaml --edit -o yaml -n knativetutorial</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The previous command let&#8217;s you edit the definition of the KameletBinding with your URL and once you save it,
-Kubernetes will create an object based on it.</p>
 </div>
 <div class="paragraph">
 <p>You can validate the state of your KameletBinding using:</p>
