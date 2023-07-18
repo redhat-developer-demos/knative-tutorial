@@ -186,6 +186,8 @@ First start streaming the logs for the event consumers:
 stern eventing -c user-container
 ----
 
+(NB: the argument of the command `stern` is an expression, so it matches both services `eventingaloha` and `eventingbonjour`.)
+
 Using the https://github.com/knative-sandbox/kn-plugin-event[kn-event plugin] of the Knative CLI, we will now send a CloudEvent to the broker of type `aloha`:
 
 [.console-input]
@@ -240,7 +242,7 @@ NAME                                         READY STATUS  AGE
 eventingbonjour-1-deployment-fc7858b5b-s9prj 2/2   Running 5s
 -----
 
-In the previous examples you sent to the broker a payload configured with `Ce-Type: aloha` or `Ce-Type: bonjour`.
+In the previous examples you sent to the broker a payload configured with CloudEvent types `aloha` and `bonjour`, respectively.
 Each trigger filtered the incoming message and sent it to the configured Sink Service in case of a match.
 
 You can experiment by using different type filters in the Subscription to see how the different subscribed services respond.
@@ -261,7 +263,6 @@ kn service delete eventingbonjour
 kn service delete eventingaloha 
 kn trigger delete helloaloha
 kn trigger delete hellobonjour 
-kubectl delete pod curler
 kn broker delete default 
 ----
 --
@@ -275,7 +276,6 @@ kubectl delete -f eventing-aloha-sink.yaml
 kubectl delete -f eventing-bonjour-sink.yaml
 kubectl delete -f trigger-helloaloha.yaml
 kubectl delete -f trigger-hellobonjour.yaml
-kubectl delete -f curler.yaml
 kubectl delete -f default-broker.yaml
 ----
 --
