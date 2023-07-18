@@ -186,56 +186,13 @@ First start streaming the logs for the event consumers:
 stern eventing -c user-container
 ----
 
-Then create a pod for using the `curl` command:
-
-[source,yaml]
-----
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    run: curler
-  name: curler
-spec:
-  containers:
-  - name: curler
-    image: fedora:29 # <1>
-    tty: true
-----
-
-<1> You can use any image that includes a curl command.
-
-Wait for the `curler` pod to be running and then exec into the `curler` pod:
-
-[#trigger-verify-curler]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
------
-kubectl -n {tutorial-namespace} apply -f curler.yaml
------
-
-Exec into the `curler` pod:
-
-[trigger-verify-exec-curler]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl -n {tutorial-namespace} exec -it curler -- /bin/bash
-----
-
-Using the `curler` pod's shell, curl the broker URI for eventingaloha:
+Using the https://github.com/knative-sandbox/kn-plugin-event[kn-event plugin] of the Knative CLI, we will now send a CloudEvent to the broker of type `aloha`:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
--X POST \
--H "Ce-Id: say-hello" \
--H "Ce-Specversion: 1.0" \
--H "Ce-Type: aloha" \
--H "Ce-Source: mycurl" \
--H "Content-Type: application/json" \
--d '{"key":"from a curl"}'
+kn event send -t aloha -f origin="from kn-event" \
+  --to Broker:eventing.knative.dev/v1:default
 ----
 
 You will then see `eventingaloha` will scale-up to respond to that event:
@@ -253,23 +210,16 @@ The command above should show the following output:
 [source,bash]
 -----
 NAME                                        READY STATUS  AGE
-curler                                      1/1   Running 59s
 eventingaloha-1-deployment-6cdc888d9d-9xnnn 2/2   Running 30s
 -----
 
-Next, curl the broker URI for `eventingbonjour`:
+Next, send another event, this time of type `bonjour`:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
--X POST \
--H "Ce-Id: say-hello" \
--H "Ce-Specversion: 1.0" \
--H "Ce-Type: bonjour" \
--H "Ce-Source: mycurl" \
--H "Content-Type: application/json" \
--d '{"key":"from a curl"}'
+kn event send -t bonjour -f origin="from kn-event" \
+  --to Broker:eventing.knative.dev/v1:default
 ----
 
 And you will see the `eventingbonjour` pod scale up:
@@ -287,7 +237,6 @@ The command above should show the following output:
 [source,bash]
 -----
 NAME                                         READY STATUS  AGE
-curler                                       1/1   Running 82s
 eventingbonjour-1-deployment-fc7858b5b-s9prj 2/2   Running 5s
 -----
 
