@@ -61,6 +61,7 @@ kn channel create {channel-name}
 kn source ping create event-greeter-ping-source \
   --schedule "*/2 * * * *" \
   --sink channel:eventinghello-ch
+  --data '{"message": "Thanks for doing Knative Tutorial"}'
 ----
 #end::ev-ping-channel[]
 #tag::sub-helloa-sink[]
