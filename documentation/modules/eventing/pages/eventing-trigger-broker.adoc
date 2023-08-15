@@ -262,7 +262,7 @@ stern eventing -c user-container
 
 (NB: the argument of the command `stern` is an expression, so it matches both services `eventingaloha` and `eventingbonjour`.)
 
-We will now send a CloudEvent to the broker of type `aloha`:
+We will now send a CloudEvent of type `aloha` to the broker:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
