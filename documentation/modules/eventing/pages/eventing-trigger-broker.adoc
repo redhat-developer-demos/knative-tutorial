@@ -26,6 +26,78 @@ Verify the created resources:
 
 include::eventing:partial$knative-objects.adoc[tags=knative-eventing-broker]
 
+
+[#install-kn-event-plugin]
+== Install the kn event plugin
+
+In the following we will use the https://github.com/knative-sandbox/kn-plugin-event[kn-event plugin] of the Knative CLI
+to send CloudEvents to our broker.
+
+[tabs]
+====
+Manual::
++
+--
+In order to make the `event` command available to `kn`, download the https://github.com/knative-sandbox/kn-plugin-event/releases[event plugin binary], and move it to `~/.config/kn/plugins/` or create a symlink to that location, and make sure it has executable permissions. On Linux you would do something like this:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+mv /path/to/kn-event-linux-amd64 ~/.config/kn/plugins/kn-event
+chmod +x ~/.config/kn/plugins/kn-event
+----
+
+--
+Homebrew::
++
+--
+To install the plugin with Homebrew, just run this command:
+[.console-output]
+[source,bash]
+----
+brew install knative-sandbox/kn-plugins/event
+----
+--
+====
+
+You can then verify the plugin setup by displaying its help page:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+kn event -h
+----
+
+[.console-output]
+[source,bash,subs="+quotes,+attributes,+macros"]
+----
+Manage CloudEvents from command line. Perform, easily, tasks like sending,
+building, and parsing, all from command line.
+
+Usage:
+  event [command]
+
+Aliases:
+  event, kn event
+
+Available Commands:
+  build       Builds a CloudEvent and print it to stdout
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  send        Builds and sends a CloudEvent to recipient
+  version     Prints the kn event plugin version
+
+Flags:
+      --cluster string      name of the kubeconfig cluster to use
+      --context string      name of the kubeconfig context to use
+  -h, --help                help for event
+      --kubeconfig string   kubectl configuration file (default: ~/.kube/config)
+  -o, --output output       Output format. One of: human|json|yaml. (default human)
+  -v, --verbose             verbose output
+
+Use "event [command] --help" for more information about a command.
+----
+
 [#eventing-service]
 == Service 
 
@@ -178,6 +250,8 @@ You should notice that the subscriberURIs are Kubernetes services with the suffi
 
 Now that you have setup the Broker and Triggers you need to send in some test messages to see the behavior.
 
+[#send-events]
+=== Send events to the Broker
 First start streaming the logs for the event consumers:
 
 [.console-input]
@@ -186,56 +260,15 @@ First start streaming the logs for the event consumers:
 stern eventing -c user-container
 ----
 
-Then create a pod for using the `curl` command:
+(NB: the argument of the command `stern` is an expression, so it matches both services `eventingaloha` and `eventingbonjour`.)
 
-[source,yaml]
-----
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    run: curler
-  name: curler
-spec:
-  containers:
-  - name: curler
-    image: fedora:29 # <1>
-    tty: true
-----
-
-<1> You can use any image that includes a curl command.
-
-Wait for the `curler` pod to be running and then exec into the `curler` pod:
-
-[#trigger-verify-curler]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
------
-kubectl -n {tutorial-namespace} apply -f curler.yaml
------
-
-Exec into the `curler` pod:
-
-[trigger-verify-exec-curler]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
-----
-kubectl -n {tutorial-namespace} exec -it curler -- /bin/bash
-----
-
-Using the `curler` pod's shell, curl the broker URI for eventingaloha:
+We will now send a CloudEvent of type `aloha` to the broker:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
--X POST \
--H "Ce-Id: say-hello" \
--H "Ce-Specversion: 1.0" \
--H "Ce-Type: aloha" \
--H "Ce-Source: mycurl" \
--H "Content-Type: application/json" \
--d '{"key":"from a curl"}'
+kn event send -t aloha -f origin="from kn-event" \
+  --to Broker:eventing.knative.dev/v1:default
 ----
 
 You will then see `eventingaloha` will scale-up to respond to that event:
@@ -253,23 +286,16 @@ The command above should show the following output:
 [source,bash]
 -----
 NAME                                        READY STATUS  AGE
-curler                                      1/1   Running 59s
 eventingaloha-1-deployment-6cdc888d9d-9xnnn 2/2   Running 30s
 -----
 
-Next, curl the broker URI for `eventingbonjour`:
+Next, send another event, this time of type `bonjour`:
 
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -v "http://broker-ingress.knative-eventing.svc.cluster.local/{tutorial-namespace}/default" \
--X POST \
--H "Ce-Id: say-hello" \
--H "Ce-Specversion: 1.0" \
--H "Ce-Type: bonjour" \
--H "Ce-Source: mycurl" \
--H "Content-Type: application/json" \
--d '{"key":"from a curl"}'
+kn event send -t bonjour -f origin="from kn-event" \
+  --to Broker:eventing.knative.dev/v1:default
 ----
 
 And you will see the `eventingbonjour` pod scale up:
@@ -287,11 +313,10 @@ The command above should show the following output:
 [source,bash]
 -----
 NAME                                         READY STATUS  AGE
-curler                                       1/1   Running 82s
 eventingbonjour-1-deployment-fc7858b5b-s9prj 2/2   Running 5s
 -----
 
-In the previous examples you sent to the broker a payload configured with `Ce-Type: aloha` or `Ce-Type: bonjour`.
+In the previous examples you sent to the broker a payload configured with CloudEvent types `aloha` and `bonjour`, respectively.
 Each trigger filtered the incoming message and sent it to the configured Sink Service in case of a match.
 
 You can experiment by using different type filters in the Subscription to see how the different subscribed services respond.
@@ -312,7 +337,6 @@ kn service delete eventingbonjour
 kn service delete eventingaloha 
 kn trigger delete helloaloha
 kn trigger delete hellobonjour 
-kubectl delete pod curler
 kn broker delete default 
 ----
 --
@@ -326,7 +350,6 @@ kubectl delete -f eventing-aloha-sink.yaml
 kubectl delete -f eventing-bonjour-sink.yaml
 kubectl delete -f trigger-helloaloha.yaml
 kubectl delete -f trigger-hellobonjour.yaml
-kubectl delete -f curler.yaml
 kubectl delete -f default-broker.yaml
 ----
 --
